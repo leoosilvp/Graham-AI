@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { sendMessageToAI } from "../services/api";
+import { sendMessageToAI } from "../services/sendMessage.js";
 import '../css/chat.css';
 
 function Chat() {
