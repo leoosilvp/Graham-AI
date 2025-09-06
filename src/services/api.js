@@ -8,9 +8,9 @@ export async function sendMessageToAI(message) {
   });
 
   if (!response.ok) {
-    throw new Error("Erro na comunicação com o backend");
+    const errorData = await response.json();
+    throw new Error(errorData.error || "Erro na comunicação com o backend");
   }
 
   return response.json();
 }
-

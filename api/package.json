@@ -1,9 +1,9 @@
 {
-  "name": "backend",
-  "version": "0.0.1",
+  "name": "api",
+  "version": "0.0.5",
   "description": "",
   "type": "module",
-  "main": "server.js",
+  "main": "chat.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
