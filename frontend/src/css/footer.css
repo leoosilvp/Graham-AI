@@ -1,0 +1,29 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+    gap: 0;
+    padding: 0;
+}
+
+:root{
+    --primary-color: #1e1e1e;
+    --secundary-color: #f5f5f5;
+    --color-line: #282828;
+    --transition: all 0.4s ease;
+}
+
+footer{
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    width: 100%;
+    padding: 7px;
+    justify-content: end;
+}
+
+footer h1{
+    display: flex;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #bebebe;
+}

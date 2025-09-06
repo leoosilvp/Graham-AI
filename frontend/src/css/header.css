@@ -1,0 +1,44 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+    gap: 0;
+    padding: 0;
+}
+
+:root{
+    --primary-color: #1e1e1e;
+    --secundary-color: #f5f5f5;
+    --color-line: #282828;
+}
+
+header{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+    box-shadow: 0px 1px 0px 0px var(--color-line);
+    z-index: 10;
+}
+
+header h1{
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #f5f5f559;
+}
+
+header img {
+    display: flex;
+    width: 20px;
+}
+
+header button{
+    display: flex;
+    height: 100%;
+    font-size: 1rem;
+    color: #dedede;
+    background: none;
+    border: none;
+    cursor: pointer;
+}

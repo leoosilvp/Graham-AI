@@ -1,0 +1,31 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+    gap: 0;
+    padding: 0;
+}
+
+:root{
+    --primary-color: #1e1e1e;
+    --secundary-color: #f5f5f5;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(-45deg, #101010, #181818, #101010);
+    color: var(--secundary-color);
+}
+
+.logo{
+    display: flex;
+    width: 30px;
+}
+
+.content{
+    display: flex;
+}
