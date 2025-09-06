@@ -12,7 +12,7 @@ function Chat() {
 
   useEffect(() => {
     if (chatBoxRef.current) {
-      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight *20;
+      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
     }
   }, [messages]);
 
@@ -53,7 +53,7 @@ function Chat() {
         <section className="chat-box" ref={chatBoxRef}>
           {messages.map((msg, i) => (
             <p key={i} className={msg.role}>
-              <strong>{msg.role === "user" ? "Você:" : "Indiano:"}</strong> <h2>{msg.content}</h2>
+              <strong>{msg.role === "user" ? "Você:" : "Indiano:"}</strong> <span>{msg.content}</span>
             </p>
           ))}
         </section>
