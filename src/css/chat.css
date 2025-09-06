@@ -35,7 +35,7 @@
     font-size: 2rem;
 }
 
-.presentation span {
+.presentation h2 {
     display: flex;
     color: #b1b1b1;
     font-size: 1.4rem;
@@ -160,7 +160,7 @@
     gap: 10px;
 }
 
-.chat-box h2 {
+.chat-box span {
     display: flex;
     align-items: center;
     justify-content: center;
