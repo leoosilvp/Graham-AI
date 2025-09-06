@@ -13,13 +13,13 @@ function Aside(){
             <aside ref={boxRef}>
                 <a href="#"><img className='logo' src={logo} alt="logo" /></a>
                 <article className='search-chat'>
-                    <label htmlFor="search-chat"><i class="fa-solid fa-magnifying-glass"></i>Procurar chats</label>
+                    <label htmlFor="search-chat"><i className="fa-solid fa-magnifying-glass"></i>Procurar chats</label>
                     <input id='search-chat' type="text" placeholder='Buscar conversas..'/>
                 </article>
 
                 <article className='new-chat'>
-                    <h2><i class="fa-regular fa-pen-to-square"></i>Novo chat</h2>
-                    <button>New chat!<i class="fa-solid fa-comments"></i></button>
+                    <h2><i className="fa-regular fa-pen-to-square"></i>Novo chat</h2>
+                    <button>New chat!<i className="fa-solid fa-comments"></i></button>
                 </article>
 
                 <section className='ctn-chats'>
@@ -27,10 +27,10 @@ function Aside(){
                     <section className='chats'>
                         <article className='card-chat'>
                             <section className='title-card'>
-                                <i class="fa-solid fa-comments"></i>
+                                <i className="fa-solid fa-comments"></i>
                                 <h1>Chat atual!</h1>
                             </section>
-                            <button><i class="fa-solid fa-ellipsis"></i></button>
+                            <button><i className="fa-solid fa-ellipsis"></i></button>
                         </article>
 
                     </section>
@@ -41,13 +41,13 @@ function Aside(){
                         <img src="https://avatars.githubusercontent.com/u/182553526?v=4" alt="img-profile" />
                         <div className="info-profile">
                             <h1>Leonardo Silva</h1>
-                            <p>GPT-5 nano</p>
+                            <p>GPT-5</p>
                         </div>
                     </div>
-                    <button><i class="fa-solid fa-ellipsis"></i></button>
+                    <button><i className="fa-solid fa-ellipsis"></i></button>
                 </section>
             </aside>
-            <button className='.btn-aside' onClick={handleMove}><i class="fa-regular fa-window-maximize fa-rotate-90"></i></button>
+            <button className='.btn-aside' onClick={handleMove}><i className="fa-regular fa-window-maximize fa-rotate-90"></i></button>
         </div>
     )
 }
