@@ -29,3 +29,8 @@ body{
 .content{
     display: flex;
 }
+
+@keyframes show-in{
+    from{opacity: 0%;}
+    to{opacity: 100%;}
+}
