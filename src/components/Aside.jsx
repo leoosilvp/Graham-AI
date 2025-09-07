@@ -1,7 +1,10 @@
 import React, { useRef, useState } from "react";
 import logo from '../assets/img/icon-light.svg'
 import MoveElement from "./MoveElement";
+import NewChat from "./NewChat";
+import CardsChat from "./CardsChat";
 import '../css/aside.css'
+import Search from "./Search";
 
 function Aside(){
     const boxRef = useRef(true);
@@ -12,29 +15,12 @@ function Aside(){
         <div className="hero-aside">
             <aside ref={boxRef}>
                 <a href="#"><img className='logo' src={logo} alt="logo" /></a>
-                <article className='search-chat'>
-                    <label htmlFor="search-chat"><i className="fa-solid fa-magnifying-glass"></i>Procurar chats</label>
-                    <input id='search-chat' type="text" placeholder='Buscar conversas..'/>
-                </article>
+                
+                <Search />
 
-                <article className='new-chat'>
-                    <h2><i className="fa-regular fa-pen-to-square"></i>Novo chat</h2>
-                    <button>New chat!<i className="fa-solid fa-comments"></i></button>
-                </article>
+                <NewChat />
 
-                <section className='ctn-chats'>
-                    <h1>Your chats</h1>
-                    <section className='chats'>
-                        <article className='card-chat'>
-                            <section className='title-card'>
-                                <i className="fa-solid fa-comments"></i>
-                                <h1>Chat atual!</h1>
-                            </section>
-                            <button><i className="fa-solid fa-ellipsis"></i></button>
-                        </article>
-
-                    </section>
-                </section>
+                <CardsChat />
 
                 <section className='ctn-profile'>
                     <div className="profile">

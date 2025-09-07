@@ -1,9 +1,9 @@
 import '../css/footer.css'
 
-function Footer(){
-    return(
+function Footer() {
+    return (
         <footer>
-            <h1>Chat GPT-5 | V.0.0.8</h1>
+            <h1>Chat GPT-5 | V.0.1.1</h1>
         </footer>
     )
 }
