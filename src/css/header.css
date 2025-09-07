@@ -33,7 +33,8 @@ header img {
     width: 20px;
 }
 
-header button{
+header a{
+    text-decoration: none;
     display: flex;
     height: 100%;
     font-size: 1rem;
@@ -41,4 +42,9 @@ header button{
     background: none;
     border: none;
     cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+header a:hover{
+    color: #818181;
 }

@@ -6,7 +6,7 @@ function Header() {
         <header>
             <h1>Anonymous AI</h1>
             <a href="#"><img src={logo} alt="logo" /></a>
-            <button><i className="fa-regular fa-bell"></i></button>
+            <a href="https://anonymous-ai-page.vercel.app/"><i className="fa-solid fa-book-open"></i></a>
         </header>
     )
 }
