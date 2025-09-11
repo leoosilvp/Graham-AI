@@ -112,7 +112,7 @@ function Chat() {
         <section className="chat-box" ref={chatBoxRef}>
           {messages.map((msg, i) => (
             <p key={i} className={msg.role}>
-              <strong>{msg.role === "user" ? "Você:" : "Indiano:"}</strong> <span>{msg.content}</span>
+              <strong>{msg.role === "user" ? "Você:" : "Graham:"}</strong> <span>{msg.content}</span>
             </p>
           ))}
         </section>
