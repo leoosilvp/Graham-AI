@@ -270,15 +270,17 @@ aside::-webkit-scrollbar-thumb {
     display: flex;
     align-items: center;
     height: fit-content;
-    padding: 3px;
+    padding: 6px 2px;
     background: transparent;
     border: none;
     border-radius: 4px;
     font-size: 1rem;
-    color: var(--secundary-color);
+    color: #ffffffaf;
     cursor: pointer;
 }
 
 .ctn-profile button:hover {
+    font-weight: 600;
+    color: #ff000096;
     background: #353535;
 }

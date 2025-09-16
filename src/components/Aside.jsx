@@ -23,6 +23,16 @@ function Aside() {
         }
     }, []);
 
+    const handleLogout = () => {
+        localStorage.removeItem("grahamUser");
+        window.location.reload();
+        setUser({
+            avatar: "https://img.freepik.com/vetores-premium/icone-de-perfil-de-avatar-padrao-imagem-de-usuario-de-midia-social-icone-de-avatar-cinza-silhueta-de-perfil-em-branco-ilustracao-vetorial_561158-3407.jpg",
+            name: "User",
+            login: ""
+        });
+    };
+
     return (
         <div className="hero-aside">
             <aside ref={boxRef}>
@@ -42,7 +52,9 @@ function Aside() {
                             <p>GPT - 5</p>
                         </div>
                     </div>
-                    <button><i className="fa-solid fa-ellipsis"></i></button>
+                    <button onClick={handleLogout}>
+                        <i className="fa-regular fa-trash-can"></i>
+                    </button>
                 </section>
             </aside>
             <button className='.btn-aside' onClick={handleMove}>
