@@ -21,7 +21,7 @@ export default async function handler(req, res) {
         Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "deepseek/deepseek-chat:free",
+        model: "deepseek/deepseek-chat-v3.1:free",
         messages: [{ role: "user", content: message }],
       }),
     });
