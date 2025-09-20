@@ -169,6 +169,7 @@
 
 .chat-box p.user {
     display: flex;
+    flex-direction: column;
     max-width: 55%;
     align-self: flex-end;
     position: relative;
@@ -183,6 +184,7 @@
 
 .chat-box p.assistant {
     display: flex;
+    flex-direction: column;
     align-self: flex-start;
     width: 100%;
     padding: 0 20px;
