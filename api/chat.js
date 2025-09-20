@@ -10,15 +10,15 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Mensagem não fornecida." });
     }
 
-    if (!process.env.OPENAI_API_KEY) {
-      return res.status(500).json({ error: "Chave da OpenAI não configurada." });
+    if (!process.env.OPENROUTER_API_KEY) {
+      return res.status(500).json({ error: "Chave da OpenRouter não configurada." });
     }
 
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+        Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
       },
       body: JSON.stringify({
         model: "deepseek/deepseek-chat-v3.1:free",
@@ -29,15 +29,15 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("Erro na API da OpenAI:", data);
+      console.error("Erro na API da OpenRouter:", data);
       return res.status(500).json({
-        error: data.error?.message || "Erro na comunicação com a OpenAI",
+        error: data.error?.message || "Erro na comunicação com a OpenRouter",
       });
     }
 
     if (!data.choices || !data.choices[0] || !data.choices[0].message) {
-      console.error("Resposta inesperada da OpenAI:", data);
-      return res.status(500).json({ error: "Resposta inesperada da OpenAI" });
+      console.error("Resposta inesperada da OpenRouter:", data);
+      return res.status(500).json({ error: "Resposta inesperada da OpenRouter" });
     }
 
     return res.status(200).json({ reply: data.choices[0].message.content });
