@@ -102,12 +102,19 @@ function Chat() {
       saveChat(idToUse, updatedMsgs);
       setInput("");
 
+      // Adiciona mensagem de "pensando"
+      const thinkingMsg = { role: "assistant", content: "Graham está pensando", ts: Date.now(), thinking: true };
+      setMessages(prev => [...updatedMsgs, thinkingMsg]);
+
+      // Chama API
       const data = await sendMessageToAI(text);
       const assistantMsg = { role: "assistant", content: data.reply ?? "Resposta vazia", ts: Date.now() };
 
+      // Substitui a mensagem "pensando" pela resposta real
       const finalMsgs = [...updatedMsgs, assistantMsg];
       setMessages(finalMsgs);
       saveChat(idToUse, finalMsgs);
+
     } catch (err) {
       const errMsg = { role: "assistant", content: "❌ Erro ao se comunicar com a IA.", ts: Date.now() };
       const afterError = [...updatedMsgs, errMsg];
@@ -129,7 +136,7 @@ function Chat() {
       ) : (
         <section className="chat-box" ref={chatBoxRef}>
           {messages.map((msg, i) => (
-            <p key={i} className={`message ${msg.role}`}>
+            <p key={i} className={`message ${msg.role} ${msg.thinking ? "thinking" : ""}`}>
               <strong>{msg.role === "user" ? "Você:" : "Graham:"}</strong>{" "}
               <span><ReactMarkdown>{msg.content}</ReactMarkdown></span>
             </p>

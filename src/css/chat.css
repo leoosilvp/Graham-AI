@@ -164,6 +164,7 @@
 
 .chat-box span {
     display: flex;
+    flex-direction: column;
     width: 100%;
 }
 
@@ -198,6 +199,26 @@
 
 .user strong{
     color: #707070;
+}
+
+.message.assistant.thinking span {
+  font-style: italic;
+  color: #888;
+  position: relative;
+}
+
+.message.assistant.thinking span::after {
+  content: "";
+  display: inline-block;
+  width: 1ch;
+  animation: dots 1.5s steps(3, end) infinite;
+}
+
+@keyframes dots {
+  0%   { content: ""; }
+  33%  { content: "."; }
+  66%  { content: ".."; }
+  100% { content: "..."; }
 }
 
 @keyframes fadeInUp {
