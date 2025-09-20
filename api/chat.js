@@ -14,14 +14,14 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: "Chave da OpenAI não configurada." });
     }
 
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "gpt-5",
+        model: "deepseek/deepseek-chat:free",
         messages: [{ role: "user", content: message }],
       }),
     });
