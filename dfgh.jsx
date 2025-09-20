@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import ReactMarkdown from "react-markdown";
 import { sendMessageToAI } from "../services/sendMessage.js";
 import '../css/chat.css';
 
@@ -9,10 +8,11 @@ function Chat() {
   const [started, setStarted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [chatId, setChatId] = useState(null);
-  const [username, setUsername] = useState("User");
+  const [username, setUsername] = useState("User"); // padrão User
 
   const chatBoxRef = useRef(null);
 
+  // Busca usuário do localStorage
   useEffect(() => {
     const storedUser = localStorage.getItem("grahamUser");
     if (storedUser) {
@@ -69,26 +69,6 @@ function Chat() {
     window.dispatchEvent(new CustomEvent("chatsUpdated"));
   };
 
-  const typeWriter = (text, callback, speed = 20) => {
-    let i = 0;
-    let cursorVisible = true;
-
-    const blink = setInterval(() => {
-      cursorVisible = !cursorVisible;
-      callback(text.slice(0, i) + (cursorVisible ? "|" : ""));
-    }, 500);
-
-    const interval = setInterval(() => {
-      i++;
-      callback(text.slice(0, i) + (cursorVisible ? "|" : ""));
-      if (i >= text.length) {
-        clearInterval(interval);
-        setTimeout(() => clearInterval(blink), 500);
-        callback(text);
-      }
-    }, speed);
-  };
-
   const handleSend = async () => {
     if (!input.trim() || loading) return;
 
@@ -121,19 +101,12 @@ function Chat() {
       saveChat(idToUse, updatedMsgs);
       setInput("");
 
-      let assistantMsg = { role: "assistant", content: "", ts: Date.now() };
-      setMessages(prev => [...updatedMsgs, assistantMsg]);
-
       const data = await sendMessageToAI(text);
-      const fullText = data.reply ?? "Resposta vazia";
+      const assistantMsg = { role: "assistant", content: data.reply ?? "Resposta vazia", ts: Date.now() };
 
-      typeWriter(fullText, (partial) => {
-        setMessages(prev => [...updatedMsgs, { ...assistantMsg, content: partial }]);
-        if (chatBoxRef.current) chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-      }, 15);
-
-      setTimeout(() => saveChat(idToUse, [...updatedMsgs, { ...assistantMsg, content: fullText }]), fullText.length * 15 + 50);
-
+      const finalMsgs = [...updatedMsgs, assistantMsg];
+      setMessages(finalMsgs);
+      saveChat(idToUse, finalMsgs);
     } catch (err) {
       const errMsg = { role: "assistant", content: "❌ Erro ao se comunicar com a IA.", ts: Date.now() };
       const afterError = [...updatedMsgs, errMsg];
@@ -155,9 +128,8 @@ function Chat() {
       ) : (
         <section className="chat-box" ref={chatBoxRef}>
           {messages.map((msg, i) => (
-            <p key={i} className={`message ${msg.role}`}>
-              <strong>{msg.role === "user" ? "Você:" : "Graham:"}</strong>{" "}
-              <span><ReactMarkdown>{msg.content}</ReactMarkdown></span>
+            <p key={i} className={msg.role}>
+              <strong>{msg.role === "user" ? "Você:" : "Graham:"}</strong> <span>{msg.content}</span>
             </p>
           ))}
         </section>
