@@ -165,6 +165,7 @@
 .chat-box span {
     display: flex;
     flex-direction: column;
+    gap: 15px;
     width: 100%;
 }
 
@@ -215,7 +216,6 @@
 }
 
 @keyframes dots {
-  0%   { content: ""; }
   33%  { content: "."; }
   66%  { content: ".."; }
   100% { content: "..."; }
