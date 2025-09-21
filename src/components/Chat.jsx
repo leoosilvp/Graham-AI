@@ -92,8 +92,6 @@ function Chat() {
         localStorage.setItem("activeChatId", idToUse);
         window.dispatchEvent(new CustomEvent("chatsUpdated"));
         window.dispatchEvent(new CustomEvent("openChat", { detail: { id: idToUse } }));
-
-        window.location.reload();
       } else {
         isFirstMessage = messages.length === 0;
         updatedMsgs = [...messages, userMsg];
@@ -120,6 +118,7 @@ function Chat() {
       saveChat(idToUse, afterError);
     } finally {
       setLoading(false);
+      if (isFirstMessage) window.location.reload();
     }
   };
 
