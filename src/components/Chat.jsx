@@ -101,17 +101,18 @@ function Chat() {
       saveChat(idToUse, updatedMsgs);
       setInput("");
 
-      setMessages(prev => [...prev, { role: "assistant", content: "", typing: true }]);
-      const typingIndex = updatedMsgs.length;
+      const tempMsg = { role: "assistant", content: "", typing: true, ts: Date.now() };
+      setMessages(prev => [...prev, tempMsg]);
+      const tempIndex = updatedMsgs.length;
 
       const data = await sendMessageToAI(text);
-      const fullText = formataCodigoEmMarkdown(data.reply ?? "Resposta vazia");
+      const fullText = data.reply ?? "Resposta vazia";
 
       await new Promise((resolve) => {
         let i = 0;
         const interval = setInterval(() => {
           i++;
-          setMessages(prev => prev.map((m, idx) => idx === typingIndex ? { ...m, content: fullText.slice(0, i) } : m));
+          setMessages(prev => prev.map((m, idx) => idx === tempIndex ? { ...m, content: fullText.slice(0, i) } : m));
           if (i >= fullText.length) {
             clearInterval(interval);
             resolve();
@@ -119,14 +120,13 @@ function Chat() {
         }, 20);
       });
 
-      setMessages(prev => prev.map((m, idx) => idx === typingIndex ? { ...m, typing: false } : m));
-      saveChat(idToUse, [...updatedMsgs, { role: "assistant", content: fullText, typing: false }]);
+      setMessages(prev => prev.map((m, idx) => idx === tempIndex ? { ...m, typing: false } : m));
+      saveChat(idToUse, [...updatedMsgs, { ...tempMsg, content: fullText, typing: false }]);
 
     } catch (err) {
       const errMsg = { role: "assistant", content: "❌ Erro ao se comunicar com a IA.", ts: Date.now() };
-      const afterError = [...updatedMsgs, errMsg];
-      setMessages(afterError);
-      saveChat(idToUse, afterError);
+      setMessages(prev => [...updatedMsgs, errMsg]);
+      saveChat(idToUse, [...updatedMsgs, errMsg]);
     } finally {
       setLoading(false);
       if (isFirstMessage) window.location.reload();
@@ -164,7 +164,7 @@ function Chat() {
             autoCorrect="on"
             autoComplete="on"
             autoFocus
-            placeholder={loading ? "Aguardando resposta..." : "Como posso te ajudar?.." }
+            placeholder={loading ? "Aguardando resposta..." : "Como posso te ajudar?.."}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSend()}
             disabled={loading}
