@@ -7,6 +7,7 @@
 }
 
 .markdown p { margin: 0.5rem 0; }
+
 .markdown strong { font-weight: 600; color: #ffffff; }
 .markdown em { font-style: italic; color: #d1d5db; }
 
@@ -16,12 +17,12 @@
 }
 .markdown a:hover { color: #e5e7eb; }
 
-.markdown code {
+.markdown code:not(pre code) {
   background-color: #1e1e1e;
   color: #d1d5db;
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
-  font-family: 'Fira Code', 'Courier New', monospace;
+  font-family: 'Fira Code', monospace;
   font-size: 0.9em;
 }
 
@@ -31,10 +32,20 @@
   padding: 1rem;
   border-radius: 8px;
   overflow-x: auto;
-  font-family: 'Fira Code', 'Courier New', monospace;
+  overflow-y: hidden;
+  font-family: 'Fira Code', monospace;
   font-size: 0.9em;
   margin: 0.8rem 0;
   box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+  width: 100%;
+  word-wrap: break-word;
+}
+
+.markdown pre code {
+  display: block;
+  white-space: pre;
+  word-wrap: normal;
+  color: inherit;
 }
 
 .markdown pre code .keyword { color: #f472b6; font-weight: 500; }
@@ -79,7 +90,5 @@
 .markdown img { max-width: 100%; border-radius: 8px; margin: 0.5rem 0; }
 
 .markdown hr { border: 0; height: 1px; background: #374151; margin: 1rem 0; }
-
-.markdown pre code { display: block; white-space: pre; word-wrap: normal; }
 
 .message.assistant .markdown { color: #e5e7eb; }
