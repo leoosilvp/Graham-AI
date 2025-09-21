@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react"; 
 import ReactMarkdown from "react-markdown";
 import { sendMessageToAI } from "../services/sendMessage.js";
 import '../css/chat.css';
@@ -101,32 +101,26 @@ function Chat() {
       saveChat(idToUse, updatedMsgs);
       setInput("");
 
-      const typingMsg = { role: "assistant", content: "", ts: Date.now(), typing: true };
-      setMessages(prev => [...updatedMsgs, typingMsg]);
+      setMessages(prev => [...prev, { role: "assistant", content: "", typing: true }]);
+      const typingIndex = updatedMsgs.length;
 
       const data = await sendMessageToAI(text);
       const fullText = formataCodigoEmMarkdown(data.reply ?? "Resposta vazia");
 
-      const typeMessage = async (msgId, content) => {
-        let index = 0;
-        const interval = 20;
-        return new Promise((resolve) => {
-          const timer = setInterval(() => {
-            index++;
-            setMessages(prev => prev.map(m => m.ts === msgId ? { ...m, content: content.slice(0, index) } : m));
+      await new Promise((resolve) => {
+        let i = 0;
+        const interval = setInterval(() => {
+          i++;
+          setMessages(prev => prev.map((m, idx) => idx === typingIndex ? { ...m, content: fullText.slice(0, i) } : m));
+          if (i >= fullText.length) {
+            clearInterval(interval);
+            resolve();
+          }
+        }, 20);
+      });
 
-            if (index >= content.length) {
-              clearInterval(timer);
-              resolve();
-            }
-          }, interval);
-        });
-      };
-
-      await typeMessage(typingMsg.ts, fullText);
-
-      setMessages(prev => prev.map(m => m.ts === typingMsg.ts ? { ...m, typing: false } : m));
-      saveChat(idToUse, [...updatedMsgs, { ...typingMsg, content: fullText, typing: false }]);
+      setMessages(prev => prev.map((m, idx) => idx === typingIndex ? { ...m, typing: false } : m));
+      saveChat(idToUse, [...updatedMsgs, { role: "assistant", content: fullText, typing: false }]);
 
     } catch (err) {
       const errMsg = { role: "assistant", content: "❌ Erro ao se comunicar com a IA.", ts: Date.now() };
@@ -170,7 +164,7 @@ function Chat() {
             autoCorrect="on"
             autoComplete="on"
             autoFocus
-            placeholder={loading ? "Aguardando resposta..." : "Como posso te ajudar?.."}
+            placeholder={loading ? "Aguardando resposta..." : "Como posso te ajudar?.." }
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSend()}
             disabled={loading}
