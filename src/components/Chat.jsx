@@ -93,11 +93,7 @@ function Chat() {
         window.dispatchEvent(new CustomEvent("chatsUpdated"));
         window.dispatchEvent(new CustomEvent("openChat", { detail: { id: idToUse } }));
 
-        saveChat(idToUse, updatedMsgs);
-        setInput("");
-
         window.location.reload();
-        return;
       } else {
         isFirstMessage = messages.length === 0;
         updatedMsgs = [...messages, userMsg];
@@ -126,7 +122,6 @@ function Chat() {
       setLoading(false);
     }
   };
-
 
   return (
     <div className="hero-chat">
