@@ -134,7 +134,7 @@ function Chat() {
           {messages.map((msg, i) => (
             <p key={i} className={`message ${msg.role} ${msg.thinking ? "thinking" : ""}`}>
               <strong>{msg.role === "user" ? "Você:" : "Graham:"}</strong>{" "}
-              <span><ReactMarkdown>{msg.content}</ReactMarkdown></span>
+              <span><ReactMarkdown className="markdown">{msg.content}</ReactMarkdown></span>
             </p>
           ))}
         </section>
