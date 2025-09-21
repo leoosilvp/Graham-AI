@@ -5,7 +5,6 @@
 
 access: [graham.ai](https://graham-ai-kappa.vercel.app/)
 
-<br>
 
 # 📑 About
 
@@ -13,7 +12,6 @@ GrahamAI é uma plataforma de conversação baseada em Inteligência Artificial,
 
 A interface permite que usuários interajam com a IA via chat, guardando histórico de conversas, permitindo que ela interprete Markdown (para fórmulas, explicações formatadas), e apresente respostas com clareza. O projeto está hospedado em Vercel e tem como base um backend que se conecta a um motor de IA (via OpenRouter ou serviço equivalente) para gerar respostas.
 
-<br>
 
 # 📈 Purpose & Vision
 
@@ -26,7 +24,6 @@ A interface permite que usuários interajam com a IA via chat, guardando histór
   - Potencialmente integrar bibliotecas específicas de computação simbólica (Sympy, Mathematica, etc.) ou motores matemáticos dedicados.  
   - Tornar-se uma API especializada para uso em plataformas educacionais ou de engenharia que necessitem de um “assistente matemático”.
 
-<br>
 
 # ⚒️ Technical Architecture
 
@@ -38,7 +35,6 @@ A interface permite que usuários interajam com a IA via chat, guardando histór
 | Armazenamento de estado/histórico | LocalStorage para chats salvos, identificadores de chat, usuário |
 | Chave de API & Configurações | Variáveis de ambiente (`OPENROUTER_API_KEY`) |
 
-<br>
 
 # 📋 Future Roadmap
 
@@ -51,7 +47,6 @@ A interface permite que usuários interajam com a IA via chat, guardando histór
 - 🛡️ Segurança: limites de uso, sanitização de entrada, controle de custos da IA  
 - 📱 Melhorias na interface: tema claro/escuro, responsividade, acessibilidade
 
-<br>
 
 # 🧑‍💻 Contribution
 
@@ -63,7 +58,6 @@ Interessado em contribuir? Aqui estão algumas orientações:
 - Inclua testes ou exemplos se for funcionalidade que possa ser testada.  
 - Faça *pull request* com descrição clara das mudanças.
 
-<br>
 
 # 📜 License
 
@@ -78,13 +72,11 @@ A **Apache License 2.0** é uma das licenças mais usadas em projetos de grande 
 - ✅ **Proteção de patentes**: se alguém contribuir com código que seja coberto por patentes, ele concede automaticamente permissão de uso dessas patentes dentro do projeto.  
 - ✅ **Confiabilidade empresarial**: empresas podem adotar o Graham sem receio de restrições excessivas (diferente de licenças mais rígidas como a GPL).  
 
-<br>
 
 A Apache 2.0 assegura que o **Graham** permaneça um projeto **aberto, acessível e seguro para todos**, incentivando tanto a comunidade acadêmica quanto o setor empresarial a colaborar, melhorar e expandir suas capacidades.
 
 Para mais detalhes, leia o arquivo completo de licença: [LICENSE](./LICENSE).
 
-<br>
 
 # 👥 Credits & Contributors
 

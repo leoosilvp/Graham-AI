@@ -92,6 +92,12 @@ function Chat() {
         localStorage.setItem("activeChatId", idToUse);
         window.dispatchEvent(new CustomEvent("chatsUpdated"));
         window.dispatchEvent(new CustomEvent("openChat", { detail: { id: idToUse } }));
+
+        saveChat(idToUse, updatedMsgs);
+        setInput("");
+
+        window.location.reload();
+        return;
       } else {
         isFirstMessage = messages.length === 0;
         updatedMsgs = [...messages, userMsg];
@@ -118,9 +124,9 @@ function Chat() {
       saveChat(idToUse, afterError);
     } finally {
       setLoading(false);
-      if (isFirstMessage) window.location.reload();
     }
   };
+
 
   return (
     <div className="hero-chat">
@@ -149,7 +155,7 @@ function Chat() {
             autoCorrect="on"
             autoComplete="on"
             autoFocus
-            placeholder={loading ? "Aguardando resposta..." : "Como posso te ajudar?.." }
+            placeholder={loading ? "Aguardando resposta..." : "Como posso te ajudar?.."}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSend()}
             disabled={loading}
@@ -160,9 +166,9 @@ function Chat() {
 
       {!started && (
         <section className="links-file">
-          <i className="fa-regular fa-folder"> Escolher arquivo</i> 
-          <i className="fa-regular fa-image"> Escolher imagem</i> 
-          <i className="fa-regular fa-file-code"> Incorporar código</i> 
+          <i className="fa-regular fa-folder"> Escolher arquivo</i>
+          <i className="fa-regular fa-image"> Escolher imagem</i>
+          <i className="fa-regular fa-file-code"> Incorporar código</i>
         </section>
       )}
     </div>
