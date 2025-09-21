@@ -143,6 +143,7 @@
     margin-bottom: 75px;
     display: flex;
     flex-direction: column;
+    width: 860px;  
     max-width: 860px;  
     padding: 30px 30px 150px 30px;  
     gap: 20px;
