@@ -10,19 +10,17 @@
 .markdown strong { font-weight: 600; color: #ffffff; }
 .markdown em { font-style: italic; color: #d1d5db; }
 
-.markdown a {
-  color: #9ca3af;
-  text-decoration: underline;
-}
+.markdown a { color: #9ca3af; text-decoration: underline; }
 .markdown a:hover { color: #e5e7eb; }
 
-.markdown code {
+.markdown code:not(pre code) {
   background-color: #1e1e1e;
   color: #d1d5db;
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
-  font-family: 'Fira Code', 'Courier New', monospace;
+  font-family: 'Fira Code', monospace;
   font-size: 0.9em;
+  word-break: break-word;
 }
 
 .markdown pre {
@@ -30,33 +28,23 @@
   color: #d1d5db;
   padding: 1rem;
   border-radius: 8px;
-  overflow-x: auto;
-  font-family: 'Fira Code', 'Courier New', monospace;
+  font-family: 'Fira Code', monospace;
   font-size: 0.9em;
   margin: 0.8rem 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-x: hidden;
+  max-width: 100%;
   box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
 }
 
-.markdown pre code .keyword { color: #f472b6; font-weight: 500; }
-.markdown pre code .function { color: #60a5fa; }
-.markdown pre code .string { color: #facc15; }
-.markdown pre code .number { color: #34d399; }
-.markdown pre code .comment { color: #6b7280; font-style: italic; }
+.markdown pre code span.keyword { color: #f472b6; font-weight: 500; }
+.markdown pre code span.string { color: #facc15; }
+.markdown pre code span.number { color: #34d399; }
+.markdown pre code span.comment { color: #6b7280; font-style: italic; }
 
-.markdown pre code .py-keyword { color: #f472b6; font-weight: 500; }
-.markdown pre code .py-function { color: #60a5fa; }
-.markdown pre code .py-string { color: #facc15; }
-.markdown pre code .py-number { color: #34d399; }
-.markdown pre code .py-comment { color: #6b7280; font-style: italic; }
-
-.markdown pre code .md-heading { color: #f9fafb; font-weight: 700; }
-.markdown pre code .md-bold { color: #ffffff; font-weight: 600; }
-.markdown pre code .md-italic { color: #d1d5db; font-style: italic; }
-
-.markdown h1 { font-size: 1.8rem; margin: 1rem 0 0.5rem 0; color: #f9fafb; font-weight: 700; }
-.markdown h2 { font-size: 1.6rem; margin: 1rem 0 0.5rem 0; color: #f3f4f6; font-weight: 600; }
-.markdown h3 { font-size: 1.4rem; margin: 0.8rem 0 0.4rem 0; color: #e5e7eb; font-weight: 500; }
-.markdown h4 { font-size: 1.2rem; margin: 0.6rem 0 0.3rem 0; color: #d1d5db; font-weight: 500; }
+.markdown h1 { font-size: 1.8rem; color: #f9fafb; margin: 1rem 0 0.5rem 0; font-weight: 700; }
+.markdown h2 { font-size: 1.6rem; color: #f3f4f6; margin: 1rem 0 0.5rem 0; font-weight: 600; }
 
 .markdown ul, .markdown ol { margin: 0.5rem 0 0.5rem 1.5rem; padding: 0; }
 .markdown li { margin: 0.3rem 0; }
@@ -79,7 +67,3 @@
 .markdown img { max-width: 100%; border-radius: 8px; margin: 0.5rem 0; }
 
 .markdown hr { border: 0; height: 1px; background: #374151; margin: 1rem 0; }
-
-.markdown pre code { display: block; white-space: pre; word-wrap: normal; }
-
-.message.assistant .markdown { color: #e5e7eb; }
