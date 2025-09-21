@@ -13,7 +13,6 @@ function Chat() {
 
   const chatBoxRef = useRef(null);
 
-  // Busca usuário do localStorage
   useEffect(() => {
     const storedUser = localStorage.getItem("grahamUser");
     if (storedUser) {
@@ -102,15 +101,12 @@ function Chat() {
       saveChat(idToUse, updatedMsgs);
       setInput("");
 
-      // Adiciona mensagem de "pensando"
-      const thinkingMsg = { role: "assistant", content: "Graham está pensando", ts: Date.now(), thinking: true };
+      const thinkingMsg = { role: "assistant", content: "Humm, deixe-me pensar", ts: Date.now(), thinking: true };
       setMessages(prev => [...updatedMsgs, thinkingMsg]);
 
-      // Chama API
       const data = await sendMessageToAI(text);
       const assistantMsg = { role: "assistant", content: data.reply ?? "Resposta vazia", ts: Date.now() };
 
-      // Substitui a mensagem "pensando" pela resposta real
       const finalMsgs = [...updatedMsgs, assistantMsg];
       setMessages(finalMsgs);
       saveChat(idToUse, finalMsgs);
