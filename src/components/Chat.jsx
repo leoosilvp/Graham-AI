@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react"; 
+import { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import { sendMessageToAI } from "../services/sendMessage.js";
 import '../css/chat.css';
@@ -10,7 +10,6 @@ function Chat() {
   const [loading, setLoading] = useState(false);
   const [chatId, setChatId] = useState(null);
   const [username, setUsername] = useState("User");
-
   const chatBoxRef = useRef(null);
 
   useEffect(() => {
@@ -28,15 +27,6 @@ function Chat() {
   useEffect(() => {
     const lastId = localStorage.getItem("activeChatId");
     if (lastId) openChatById(lastId);
-  }, []);
-
-  useEffect(() => {
-    const onOpenChat = (e) => {
-      const id = e?.detail?.id;
-      if (id) openChatById(id);
-    };
-    window.addEventListener("openChat", onOpenChat);
-    return () => window.removeEventListener("openChat", onOpenChat);
   }, []);
 
   const openChatById = (id) => {
@@ -60,7 +50,6 @@ function Chat() {
     const idx = all.findIndex(c => c.id === id);
     const title = msgs.find(m => m.role === "user")?.content?.slice(0, 40) || `Chat ${new Date().toLocaleString()}`;
     const payload = { id, title, messages: msgs, updatedAt: Date.now() };
-
     if (idx === -1) all.push(payload);
     else all[idx] = { ...all[idx], messages: msgs, updatedAt: Date.now(), title };
 
@@ -72,64 +61,56 @@ function Chat() {
   const handleSend = async () => {
     if (!input.trim() || loading) return;
 
-    const text = input.trim();
-    const userMsg = { role: "user", content: text, ts: Date.now() };
+    const userText = input.trim();
+    const userMsg = { role: "user", content: userText, ts: Date.now() };
     setLoading(true);
+    setInput("");
 
     let idToUse = chatId;
     let updatedMsgs = [];
-    let isFirstMessage = false;
+
+    if (!idToUse) {
+      idToUse = Date.now().toString();
+      setChatId(idToUse);
+      updatedMsgs = [userMsg];
+      setStarted(true);
+      localStorage.setItem("activeChatId", idToUse);
+      window.dispatchEvent(new CustomEvent("chatsUpdated"));
+      window.dispatchEvent(new CustomEvent("openChat", { detail: { id: idToUse } }));
+    } else {
+      updatedMsgs = [...messages, userMsg];
+    }
+
+    setMessages(updatedMsgs);
+    saveChat(idToUse, updatedMsgs);
+
+    const aiMsg = { role: "assistant", content: "", typing: true, ts: Date.now() };
+    setMessages(prev => [...prev, aiMsg]);
+    const aiIndex = updatedMsgs.length;
 
     try {
-      if (!idToUse) {
-        idToUse = Date.now().toString();
-        setChatId(idToUse);
-        updatedMsgs = [userMsg];
-        setMessages(updatedMsgs);
-        setStarted(true);
-        isFirstMessage = true;
+      const data = await sendMessageToAI(userText);
+      const reply = data.reply || "Resposta vazia";
 
-        localStorage.setItem("activeChatId", idToUse);
-        window.dispatchEvent(new CustomEvent("chatsUpdated"));
-        window.dispatchEvent(new CustomEvent("openChat", { detail: { id: idToUse } }));
-      } else {
-        isFirstMessage = messages.length === 0;
-        updatedMsgs = [...messages, userMsg];
-        setMessages(updatedMsgs);
+      for (let i = 1; i <= reply.length; i++) {
+        await new Promise(r => setTimeout(r, 20));
+        setMessages(prev =>
+          prev.map((m, idx) => idx === aiIndex ? { ...m, content: reply.slice(0, i) } : m)
+        );
       }
 
-      saveChat(idToUse, updatedMsgs);
-      setInput("");
+      setMessages(prev =>
+        prev.map((m, idx) => idx === aiIndex ? { ...m, typing: false } : m)
+      );
 
-      const tempMsg = { role: "assistant", content: "", typing: true, ts: Date.now() };
-      setMessages(prev => [...prev, tempMsg]);
-      const tempIndex = updatedMsgs.length;
-
-      const data = await sendMessageToAI(text);
-      const fullText = data.reply ?? "Resposta vazia";
-
-      await new Promise((resolve) => {
-        let i = 0;
-        const interval = setInterval(() => {
-          i++;
-          setMessages(prev => prev.map((m, idx) => idx === tempIndex ? { ...m, content: fullText.slice(0, i) } : m));
-          if (i >= fullText.length) {
-            clearInterval(interval);
-            resolve();
-          }
-        }, 20);
-      });
-
-      setMessages(prev => prev.map((m, idx) => idx === tempIndex ? { ...m, typing: false } : m));
-      saveChat(idToUse, [...updatedMsgs, { ...tempMsg, content: fullText, typing: false }]);
+      saveChat(idToUse, [...updatedMsgs, { ...aiMsg, content: reply, typing: false }]);
 
     } catch (err) {
-      const errMsg = { role: "assistant", content: "❌ Erro ao se comunicar com a IA.", ts: Date.now() };
-      setMessages(prev => [...updatedMsgs, errMsg]);
-      saveChat(idToUse, [...updatedMsgs, errMsg]);
+      const errorMsg = { role: "assistant", content: "❌ Erro ao se comunicar com a IA.", ts: Date.now() };
+      setMessages(prev => [...updatedMsgs, errorMsg]);
+      saveChat(idToUse, [...updatedMsgs, errorMsg]);
     } finally {
       setLoading(false);
-      if (isFirstMessage) window.location.reload();
     }
   };
 
