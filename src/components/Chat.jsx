@@ -101,15 +101,32 @@ function Chat() {
       saveChat(idToUse, updatedMsgs);
       setInput("");
 
-      const thinkingMsg = { role: "assistant", content: "Humm, deixe-me pensar", ts: Date.now(), thinking: true };
-      setMessages(prev => [...updatedMsgs, thinkingMsg]);
+      const typingMsg = { role: "assistant", content: "", ts: Date.now(), typing: true };
+      setMessages(prev => [...updatedMsgs, typingMsg]);
 
       const data = await sendMessageToAI(text);
-      const assistantMsg = { role: "assistant", content: data.reply ?? "Resposta vazia", ts: Date.now() };
+      const fullText = formataCodigoEmMarkdown(data.reply ?? "Resposta vazia");
 
-      const finalMsgs = [...updatedMsgs, assistantMsg];
-      setMessages(finalMsgs);
-      saveChat(idToUse, finalMsgs);
+      const typeMessage = async (msgId, content) => {
+        let index = 0;
+        const interval = 20;
+        return new Promise((resolve) => {
+          const timer = setInterval(() => {
+            index++;
+            setMessages(prev => prev.map(m => m.ts === msgId ? { ...m, content: content.slice(0, index) } : m));
+
+            if (index >= content.length) {
+              clearInterval(timer);
+              resolve();
+            }
+          }, interval);
+        });
+      };
+
+      await typeMessage(typingMsg.ts, fullText);
+
+      setMessages(prev => prev.map(m => m.ts === typingMsg.ts ? { ...m, typing: false } : m));
+      saveChat(idToUse, [...updatedMsgs, { ...typingMsg, content: fullText, typing: false }]);
 
     } catch (err) {
       const errMsg = { role: "assistant", content: "❌ Erro ao se comunicar com a IA.", ts: Date.now() };
@@ -132,9 +149,13 @@ function Chat() {
       ) : (
         <section className="chat-box" ref={chatBoxRef}>
           {messages.map((msg, i) => (
-            <p key={i} className={`message ${msg.role} ${msg.thinking ? "thinking" : ""}`}>
+            <p key={i} className={`message ${msg.role} ${msg.typing ? "typing" : ""}`}>
               <strong>{msg.role === "user" ? "Você:" : "Graham:"}</strong>{" "}
-              <span><ReactMarkdown className="markdown">{msg.content}</ReactMarkdown></span>
+              <span>
+                <ReactMarkdown className="markdown">
+                  {msg.content}{msg.typing && <span className="cursor">|</span>}
+                </ReactMarkdown>
+              </span>
             </p>
           ))}
         </section>

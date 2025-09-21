@@ -215,6 +215,19 @@
   animation: dots 1.5s steps(3, end) infinite;
 }
 
+.cursor {
+  display: inline-block;
+  width: 1px;
+  background-color: #e5e7eb;
+  animation: blink 1s infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+}
+
 @keyframes dots {
   0%  { content: " "; }
   33%  { content: "."; }
