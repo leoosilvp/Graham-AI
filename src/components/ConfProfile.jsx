@@ -1,7 +1,7 @@
 import '../css/conf-profile.css'
 
 function ConfProfile() {
-    
+
     const handleLogout = () => {
         localStorage.removeItem("grahamUser");
         window.location.reload();
@@ -16,7 +16,7 @@ function ConfProfile() {
     <section className='ctn-conf-profile'>
         <article className='conf-profile'>
             <button onClick={handleLogout}><i className='fa-regular fa-trash-can'></i>Quit</button>
-            <button><i className='fa-regular fa-life-ring'></i>Settings</button>
+            <button onClick={() => window.location.href = 'https://graham-ai-page.vercel.app/'}><i className='fa-regular fa-life-ring'></i>Settings</button>
         </article>
     </section>
   )
