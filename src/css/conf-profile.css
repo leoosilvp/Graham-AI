@@ -1,0 +1,34 @@
+.conf-profile{
+    position: absolute;
+    bottom: 45px;
+    left: 210px;
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+    height: fit-content;
+    padding: 5px;
+    gap: 5px;
+    background: #0000002f;
+    backdrop-filter: blur(5px);
+    border-radius: 7px;
+    border: 1px solid var(--color-line);
+    box-shadow: 0px 0px 10px 2px #0000002b;
+}
+
+.conf-profile button{
+    background: #171717;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    padding: 3px 10px;
+    gap: 5px;
+}
+
+.conf-profile button:hover:first-child{
+    color: #d80000;
+}
+
+.conf-profile button:hover{
+    background: #242424;
+}

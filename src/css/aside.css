@@ -266,21 +266,19 @@ aside::-webkit-scrollbar-thumb {
     color: #bebebe;
 }
 
-.ctn-profile button {
+.ctn-profile i{
     display: flex;
     align-items: center;
-    height: fit-content;
-    padding: 6px 2px;
+    justify-content: center;
+    padding: 5px 15px;
     background: transparent;
-    border: none;
     border-radius: 4px;
     font-size: 1rem;
     color: #ffffffaf;
     cursor: pointer;
 }
 
-.ctn-profile button:hover {
+.ctn-profile i:hover {
     font-weight: 600;
-    color: #ff000096;
     background: #353535;
 }
