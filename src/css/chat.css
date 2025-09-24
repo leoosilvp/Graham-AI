@@ -169,7 +169,7 @@
     width: 100%;
 }
 
-.chat-box p.user {
+.chat-box div.user {
     display: flex;
     flex-direction: column;
     max-width: 55%;
@@ -184,7 +184,7 @@
     letter-spacing: 1.2px;
 }
 
-.chat-box p.assistant {
+.chat-box div.assistant {
     display: flex;
     flex-direction: column;
     align-self: flex-start;

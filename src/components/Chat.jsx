@@ -1,7 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
+import remarkMath from "remark-math";
+import remarkGfm from "remark-gfm";
 import { sendMessageToAI } from "../services/sendMessage.js";
 import '../css/chat.css';
+import '../css/markdown.css';
+
 
 function Chat() {
   const [input, setInput] = useState("");
@@ -73,7 +77,6 @@ function Chat() {
     if (!input.trim() || loading) return;
 
     const text = input.trim();
-    const userMsg = { role: "user", content: text, ts: Date.now() };
     setLoading(true);
 
     let idToUse = chatId;
@@ -81,35 +84,40 @@ function Chat() {
     let isFirstMessage = false;
 
     try {
+      // Cria novo chat se não houver
       if (!idToUse) {
         idToUse = Date.now().toString();
         setChatId(idToUse);
-        updatedMsgs = [userMsg];
+        updatedMsgs = [{ role: "user", content: text, ts: Date.now() }];
         setMessages(updatedMsgs);
         setStarted(true);
         isFirstMessage = true;
-
         localStorage.setItem("activeChatId", idToUse);
         window.dispatchEvent(new CustomEvent("chatsUpdated"));
         window.dispatchEvent(new CustomEvent("openChat", { detail: { id: idToUse } }));
       } else {
-        isFirstMessage = messages.length === 0;
-        updatedMsgs = [...messages, userMsg];
+        updatedMsgs = [...messages, { role: "user", content: text, ts: Date.now() }];
         setMessages(updatedMsgs);
       }
 
       saveChat(idToUse, updatedMsgs);
       setInput("");
 
-      const thinkingMsg = { role: "assistant", content: "Humm, deixe-me pensar", ts: Date.now(), thinking: true };
+      // Adiciona a bolha de "pensando"
+      const thinkingMsg = { role: "assistant", content: "Humm, deixe-me pensar...", ts: Date.now(), thinking: true };
       setMessages(prev => [...updatedMsgs, thinkingMsg]);
 
+      // Chamada da IA
       const data = await sendMessageToAI(text);
-      const assistantMsg = { role: "assistant", content: data.reply ?? "Resposta vazia", ts: Date.now() };
+      const reply = data.reply ?? "Desculpe, não consegui responder.";
 
-      const finalMsgs = [...updatedMsgs, assistantMsg];
-      setMessages(finalMsgs);
-      saveChat(idToUse, finalMsgs);
+      // Atualiza a mensagem de thinking
+      setMessages(prev => {
+        const newMsgs = [...prev];
+        newMsgs[newMsgs.length - 1] = { role: "assistant", content: reply, ts: Date.now() };
+        saveChat(idToUse, newMsgs);
+        return newMsgs;
+      });
 
     } catch (err) {
       const errMsg = { role: "assistant", content: "❌ Erro ao se comunicar com a IA.", ts: Date.now() };
@@ -118,7 +126,7 @@ function Chat() {
       saveChat(idToUse, afterError);
     } finally {
       setLoading(false);
-      if (isFirstMessage) window.location.reload();
+      if (isFirstMessage) window.scrollTo(0, document.body.scrollHeight);
     }
   };
 
@@ -132,10 +140,19 @@ function Chat() {
       ) : (
         <section className="chat-box" ref={chatBoxRef}>
           {messages.map((msg, i) => (
-            <p key={i} className={`message ${msg.role} ${msg.thinking ? "thinking" : ""}`}>
+            <div key={i} className={`message ${msg.role} ${msg.thinking ? "thinking" : ""}`}>
               <strong>{msg.role === "user" ? "Você:" : "Graham:"}</strong>{" "}
-              <span><ReactMarkdown className="markdown">{msg.content}</ReactMarkdown></span>
-            </p>
+              <span><ReactMarkdown
+                remarkPlugins={[remarkMath, remarkGfm]}
+                rehypePlugins={[]}
+                components={{
+                  p: ({ node, ...props }) => <p className="markdown" {...props} />
+                }}
+              >
+                {msg.content}
+              </ReactMarkdown>
+              </span>
+            </div>
           ))}
         </section>
       )}
