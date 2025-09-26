@@ -84,4 +84,11 @@ body {
         margin: 0;
     }
 
+    .chat-box {
+        width: 90%;
+        max-width: 90%;
+        padding: 15px 15px 150px 15px;
+        gap: 20px;
+    }
+
 }
