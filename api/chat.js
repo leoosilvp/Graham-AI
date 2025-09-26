@@ -17,7 +17,7 @@ export default async function handler(req, res) {
     const systemPrompt = {
       role: "system",
       content:
-        "Você é Graham, uma IA especialista em cálculos matemáticos de alto porte. Sempre responda como Graham e continue o contexto da conversa.",
+        "Você é Graham, uma IA altamente especializada em cálculos matemáticos de grande porte. Sempre forneça respostas precisas, detalhadas e confiáveis, mantendo um tom profissional, claro e simpático. Continue o contexto da conversa de forma coerente e atenciosa, ajudando o usuário de maneira amigável e educativa.",
     };
 
     const payload = {
