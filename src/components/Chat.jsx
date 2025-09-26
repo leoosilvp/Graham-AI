@@ -102,11 +102,9 @@ function Chat() {
       saveChat(idToUse, updatedMsgs);
       setInput("");
 
-      // ADICIONA MENSAGEM "Graham está pensando..."
       const thinkingMsg = { role: "assistant", content: "Humm, deixe-me pensar", ts: Date.now(), thinking: true };
       setMessages(prev => [...updatedMsgs, thinkingMsg]);
 
-      // Envia todas as mensagens + system prompt para a IA manter contexto
       const data = await sendMessageToAI([
         { role: "system", content: "Você é Graham, uma IA especialista em cálculos matemáticos de alto porte. Responda sempre como Graham e continue o contexto da conversa." },
         ...updatedMsgs

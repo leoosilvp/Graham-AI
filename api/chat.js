@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { messages } = req.body; // agora aceitamos um array de mensagens
+    const { messages } = req.body;
 
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
       return res.status(400).json({ error: "Mensagens não fornecidas." });
@@ -14,7 +14,6 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: "Chave da OpenRouter não configurada." });
     }
 
-    // Garante que sempre haverá o system prompt no início
     const systemPrompt = {
       role: "system",
       content:
