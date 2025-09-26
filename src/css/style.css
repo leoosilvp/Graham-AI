@@ -1,16 +1,16 @@
-*{
+* {
     margin: 0;
     box-sizing: border-box;
     gap: 0;
     padding: 0;
 }
 
-:root{
+:root {
     --primary-color: #1e1e1e;
     --secundary-color: #f5f5f5;
 }
 
-body{
+body {
     display: flex;
     flex-direction: column;
     font-family: Arial, Helvetica, sans-serif;
@@ -21,16 +21,68 @@ body{
     color: var(--secundary-color);
 }
 
-.logo{
+.logo {
     display: flex;
     width: 23px;
 }
 
-.content{
+.content {
     display: flex;
 }
 
-@keyframes show-in{
-    from{opacity: 0%;}
-    to{opacity: 100%;}
+@keyframes show-in {
+    from {
+        opacity: 0%;
+    }
+
+    to {
+        opacity: 100%;
+    }
+}
+
+@media (width < 720px) {
+    aside {
+        position: relative;
+        margin-left: -292px;
+        z-index: 2;
+        background: #101010;
+    }
+
+    .ctn-input {
+        width: 100%;
+        margin-top: 60px;
+    }
+
+    .input {
+        width: 90%;
+        max-width: 100%;
+    }
+
+    .input button {
+        width: 50px;
+        height: 40px;
+    }
+
+    .presentation {
+        width: 90%;
+    }
+
+    .presentation h1 {
+        text-align: center;
+    }
+
+    .presentation h2 {
+        text-align: center;
+    }
+
+    .links-file {
+        display: none;
+    }
+
+    .hero-chat {
+        position: absolute;
+        margin: 0;
+        z-index: -1;
+    }
+
 }
