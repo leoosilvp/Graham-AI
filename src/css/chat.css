@@ -55,7 +55,6 @@
 .ctn-input.bottom {
     position: fixed;
     bottom: 30px;
-    z-index: 1000;
 }
 
 .input {

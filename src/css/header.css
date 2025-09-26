@@ -19,7 +19,7 @@ header{
     width: 100%;
     padding: 10px;
     box-shadow: 0px 1px 0px 0px var(--color-line);
-    z-index: 10;
+    z-index: 1000;
 }
 
 header h1{

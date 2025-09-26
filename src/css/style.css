@@ -84,11 +84,15 @@ body {
         margin: 0;
     }
 
+    .hero-aside button {
+        background: #141414;
+    }
+
     .chat-box {
         width: 100%;
         max-width: 100%;
-        padding: 15px 15px 150px 15px;
-        gap: 20px;
+        padding: 10px 10px 160px 10px;
+        gap: 25px;
     }
 
 }
