@@ -4,15 +4,27 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { message } = req.body;
+    const { messages } = req.body; // agora aceitamos um array de mensagens
 
-    if (!message) {
-      return res.status(400).json({ error: "Mensagem não fornecida." });
+    if (!messages || !Array.isArray(messages) || messages.length === 0) {
+      return res.status(400).json({ error: "Mensagens não fornecidas." });
     }
 
     if (!process.env.OPENROUTER_API_KEY) {
       return res.status(500).json({ error: "Chave da OpenRouter não configurada." });
     }
+
+    // Garante que sempre haverá o system prompt no início
+    const systemPrompt = {
+      role: "system",
+      content:
+        "Você é Graham, uma IA especialista em cálculos matemáticos de alto porte. Sempre responda como Graham e continue o contexto da conversa.",
+    };
+
+    const payload = {
+      model: "deepseek/deepseek-chat-v3.1:free",
+      messages: [systemPrompt, ...messages],
+    };
 
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
@@ -20,10 +32,7 @@ export default async function handler(req, res) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
       },
-      body: JSON.stringify({
-        model: "deepseek/deepseek-chat-v3.1:free",
-        messages: [{ role: "user", content: message }],
-      }),
+      body: JSON.stringify(payload),
     });
 
     const data = await response.json();
@@ -41,7 +50,6 @@ export default async function handler(req, res) {
     }
 
     return res.status(200).json({ reply: data.choices[0].message.content });
-
   } catch (err) {
     console.error("Erro na função chat:", err);
     return res.status(500).json({ error: "Erro interno no servidor" });
