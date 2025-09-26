@@ -44,7 +44,7 @@ body {
     aside {
         position: relative;
         margin-left: -292px;
-        z-index: 2;
+        z-index: 30;
         background: #101010;
     }
 
@@ -59,7 +59,7 @@ body {
     }
 
     .input button {
-        width: 50px;
+        width: 55px;
         height: 40px;
     }
 
@@ -82,7 +82,6 @@ body {
     .hero-chat {
         position: absolute;
         margin: 0;
-        z-index: -1;
     }
 
 }
