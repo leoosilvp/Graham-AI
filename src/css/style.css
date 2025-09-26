@@ -85,8 +85,8 @@ body {
     }
 
     .chat-box {
-        width: 90%;
-        max-width: 90%;
+        width: 100%;
+        max-width: 100%;
         padding: 15px 15px 150px 15px;
         gap: 20px;
     }
