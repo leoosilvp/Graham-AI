@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react"; 
 import ReactMarkdown from "react-markdown";
 import { sendMessageToAI } from "../services/sendMessage.js";
 import '../css/chat.css';
@@ -102,13 +102,19 @@ function Chat() {
       saveChat(idToUse, updatedMsgs);
       setInput("");
 
+      // ADICIONA MENSAGEM "Graham está pensando..."
       const thinkingMsg = { role: "assistant", content: "Humm, deixe-me pensar", ts: Date.now(), thinking: true };
       setMessages(prev => [...updatedMsgs, thinkingMsg]);
 
-      const data = await sendMessageToAI(text);
-      const assistantMsg = { role: "assistant", content: data.reply ?? "Resposta vazia", ts: Date.now() };
+      // Envia todas as mensagens + system prompt para a IA manter contexto
+      const data = await sendMessageToAI([
+        { role: "system", content: "Você é Graham, uma IA especialista em cálculos matemáticos de alto porte. Responda sempre como Graham e continue o contexto da conversa." },
+        ...updatedMsgs
+      ]);
 
+      const assistantMsg = { role: "assistant", content: data.reply ?? "Resposta vazia", ts: Date.now() };
       const finalMsgs = [...updatedMsgs, assistantMsg];
+
       setMessages(finalMsgs);
       saveChat(idToUse, finalMsgs);
 
