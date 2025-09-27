@@ -5,21 +5,21 @@
 .message h5,
 .message h6 {
     color: #f9fafb;
-    margin: 1.2rem 0 0.5rem 0;
+    margin: 0.8rem 0 0.3rem 0;
     font-weight: 600;
-    line-height: 1.3;
+    line-height: 1.25;
 }
 
-.message h1 { font-size: 2.2rem; }
-.message h2 { font-size: 1.9rem; }
-.message h3 { font-size: 1.7rem; }
-.message h4 { font-size: 1.5rem; font-weight: 500; }
-.message h5 { font-size: 1.3rem; font-weight: 500; }
-.message h6 { font-size: 1.1rem; font-weight: 500; }
+.message h1 { font-size: 1.8rem; }
+.message h2 { font-size: 1.6rem; }
+.message h3 { font-size: 1.4rem; }
+.message h4 { font-size: 1.3rem; font-weight: 500; }
+.message h5 { font-size: 1.15rem; font-weight: 500; }
+.message h6 { font-size: 1rem; font-weight: 500; }
 
 .message p {
-    font-size: 0.95rem;
-    margin: 0.5rem 0;
+    font-size: 0.88rem;
+    margin: 0.3rem 0;
     color: #d7d7d7;
 }
 
@@ -43,20 +43,18 @@
 /* --- Listas --- */
 .message ul,
 .message ol {
-    padding-left: 1.5rem;
-    margin: 0.5rem 0;
+    padding-left: 1.2rem;
+    margin: 0.3rem 0;
 }
 
 .message li {
-    margin: 0.2rem 0;
-    padding: 0.3rem 0.5rem;
-    border-radius: 5px;
+    margin: 0.1rem 0;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
     transition: background 0.2s ease;
 }
 
-.message li:hover {
-    background-color: #ffffff08;
-}
+.message li:hover { background-color: #ffffff08; }
 
 .message ul li::marker,
 .message ol li::marker { color: #ffffff; font-weight: bold; }
@@ -69,10 +67,10 @@
 .message code:not(pre code) {
     background-color: #0000001e;
     color: #facc15;
-    padding: 0.25rem 0.5rem;
-    border-radius: 6px;
+    padding: 0.15rem 0.35rem;
+    border-radius: 4px;
     font-family: 'Fira Code', monospace;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     word-break: break-word;
 }
 
@@ -80,13 +78,13 @@
 .message pre {
     background-color: #00000042;
     color: #d1d5db;
-    padding: 1rem;
-    border-radius: 10px;
+    padding: 0.8rem;
+    border-radius: 8px;
     font-family: 'Fira Code', monospace;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     overflow-x: auto;
-    margin: 0.5rem 0;
-    box-shadow: inset 0 0 10px #0000001f;
+    margin: 0.3rem 0;
+    box-shadow: inset 0 0 8px #0000001f;
 }
 
 .message pre code span.keyword { color: #f472b6; font-weight: 500; }
@@ -99,52 +97,49 @@
 /* --- Citações --- */
 .message blockquote {
     border-left: 4px solid #3b82f6;
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 0.8rem;
     color: #9ca3af;
     font-style: italic;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     background-color: #0f0f0f3a;
-    margin: 0.5rem 0;
-    border-radius: 6px;
+    margin: 0.3rem 0;
+    border-radius: 5px;
 }
 
 /* --- Tabelas --- */
 .message table {
     border-collapse: collapse;
     width: 100%;
-    margin: 0.5rem 0;
+    margin: 0.3rem 0;
 }
 .message th,
 .message td {
     border: 1px solid #374151;
-    padding: 0.6rem 1rem;
+    padding: 0.4rem 0.6rem;
     text-align: left;
 }
 .message th { background-color: #131313a1; color: #e5e7eb; font-weight: 600; }
 .message td { background-color: #1b1b1b6c; color: #d1d5db; }
 
 /* --- Imagens --- */
-.message img { max-width: 100%; border-radius: 10px; margin: 0.5rem 0; }
+.message img { max-width: 100%; border-radius: 8px; margin: 0.3rem 0; }
 
 /* --- Linha Horizontal --- */
 .message hr {
     border: 0;
     height: 1px;
     background: #73737388;
-    margin: 1rem 0;
+    margin: 0.5rem 0;
 }
 
 /* --- Scroll suave e responsivo --- */
 .message pre::-webkit-scrollbar {
-    height: 8px; width: 8px;
+    height: 6px; width: 6px;
 }
 .message pre::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 4px; }
 .message pre::-webkit-scrollbar-track { background: #1a1a1a; }
 
-/* --- Hover e efeitos sutis para interação --- */
+/* --- Hover e efeitos sutis --- */
 .message p:hover,
 .message li:hover,
-.message code:hover {
-    background-color: #ffffff05;
-    transition: background 0.2s ease;
-}
+.message code:hover { background-color: #ffffff04; transition: background 0.2s ease; }
