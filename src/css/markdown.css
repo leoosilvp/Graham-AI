@@ -1,10 +1,12 @@
 /* Cabeçalhos */
-.message h1 { font-size: 1.6rem; color: #f9fafb; font-weight: 600; }
-.message h2 { font-size: 1.3rem; color: #f3f4f6; font-weight: 600; }
-.message h3 { font-size: 1rem; color: #e5e7eb; font-weight: 500; }
-.message h4 { font-size: 0.9rem; color: #d1d5db; font-weight: 500;  }
-.message h5 { font-size: 0.8rem; color: #cbd5e1; font-weight: 500; }
-.message h6 { font-size: 0.7rem; color: #a8a8a8; font-weight: 500; }
+.message h1 { font-size: 1.9rem; color: #f9fafb; font-weight: 600; }
+.message h2 { font-size: 1.5rem; color: #f3f4f6; font-weight: 600; }
+.message h3 { font-size: 1.1rem; color: #e5e7eb; font-weight: 600; }
+.message h4 { font-size: 0.9rem; color: #e5e7eb; font-weight: 600;  }
+.message h5 { font-size: 0.9rem; color: #e5e7eb; font-weight: 600; }
+.message h6 { font-size: 0.9rem; color: #e5e7eb; font-weight: 600; }
+
+.message p { font-size: 0.9rem; color: #a8a8a8; font-weight: 500; }
 
 /* Texto básico */
 .message strong { font-weight: 600; color: #ffffff; }
@@ -29,14 +31,13 @@
 .message a:hover { color: #60a5fa; }
 
 /* Listas */
-.message ul, .message ol { margin: 0.5rem 0 0.5rem 1.5rem; padding: 0; }
-.message li { margin: 0.3rem 0; padding: 5px 10px;}
+.message li { margin: 0.1rem 0; padding: 5px;}
 .message ul li::marker { color: #ffffff; font-weight: bold; }
 .message ol li::marker { color: #ffffff; font-weight: bold; }
 
 /* Inline code */
 .message code:not(pre code) {
-  background-color: #000000de;
+  background-color: #00000054;
   color: #facc15;
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
@@ -47,13 +48,13 @@
 
 /* Blocos de código */
 .message pre{
-  background: #000000de;
+  background: #00000082;
   color: #d1d5db;
   padding: 1rem;
   border-radius: 8px;
   font-family: 'Fira Code', monospace;
   font-size: 0.9em;
-  margin: 0.8rem 0;
+  margin: 0.2rem 0;
   white-space: pre-wrap;
   word-wrap: break-word;
   overflow-x: auto;
@@ -73,7 +74,7 @@
 /* Citações */
 .message blockquote {
   border-left: 4px solid #3b82f6;
-  padding-left: 1rem;
+  padding: 0.2rem 1rem;
   color: #9ca3af;
   font-style: italic;
   font-size: 0.8rem;
@@ -86,15 +87,15 @@
 .message table {
   border-collapse: collapse;
   width: 100%;
-  margin: 0.8rem 0;
+  margin: 0.3rem 0;
 }
 .message th, .message td {
   border: 1px solid #374151;
   padding: 0.6rem 0.8rem;
   text-align: left;
 }
-.message th { background-color: #131313f5; color: #e5e7eb; font-weight: 600; }
-.message td { background-color: #1b1b1bf5; color: #d1d5db; }
+.message th { background-color: #131313a1; color: #e5e7eb; font-weight: 600; }
+.message td { background-color: #1b1b1b6c; color: #d1d5db; }
 
 /* Imagens */
 .message img { max-width: 100%; border-radius: 8px; margin: 0.5rem 0; }
@@ -109,4 +110,4 @@
 .message li a em { color: #456391; text-decoration: underline; }
 
 /* Hover sutil para listas */
-.message li:hover { background-color: #ffffff08; border-radius: 4px; transition: background 0.2s ease; }
+.message li:hover { background-color: #ffffff04; border-radius: 4px; transition: background 0.2s ease; }
