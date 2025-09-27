@@ -1,51 +1,40 @@
-/* Base */
-.markdown {
-  font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
-  font-size: 15px;
-  line-height: 1.6;
-  color: #e5e7eb;
-  word-wrap: break-word;
-  background-color: transparent;
-  padding: 0.5rem;
-}
-
 /* Parágrafos */
-.markdown p {
+.message p {
   margin: 0.5rem 0;
 }
 
 /* Cabeçalhos */
-.markdown h1 { font-size: 2rem; color: #f9fafb; font-weight: 700; margin: 1rem 0 0.5rem; }
-.markdown h2 { font-size: 1.8rem; color: #f3f4f6; font-weight: 600; margin: 1rem 0 0.5rem; }
-.markdown h3 { font-size: 1.6rem; color: #e5e7eb; font-weight: 600; margin: 0.8rem 0; }
-.markdown h4 { font-size: 1.4rem; color: #d1d5db; font-weight: 600; margin: 0.6rem 0; }
-.markdown h5 { font-size: 1.2rem; color: #cbd5e1; font-weight: 500; margin: 0.5rem 0; }
-.markdown h6 { font-size: 1rem; color: #9ca3af; font-weight: 500; margin: 0.5rem 0; }
+.message h1 { font-size: 2rem; color: #f9fafb; font-weight: 700; margin: 1rem 0 0.5rem; }
+.message h2 { font-size: 1.8rem; color: #f3f4f6; font-weight: 600; margin: 1rem 0 0.5rem; }
+.message h3 { font-size: 1.6rem; color: #e5e7eb; font-weight: 600; margin: 0.8rem 0; }
+.message h4 { font-size: 1.4rem; color: #d1d5db; font-weight: 600; margin: 0.6rem 0; }
+.message h5 { font-size: 1.2rem; color: #cbd5e1; font-weight: 500; margin: 0.5rem 0; }
+.message h6 { font-size: 1rem; color: #9ca3af; font-weight: 500; margin: 0.5rem 0; }
 
 /* Texto básico */
-.markdown strong { font-weight: 600; color: #ffffff; }
-.markdown p strong { font-weight: 600; color: #ffffff; }
-.markdown em { font-style: italic; color: #d1d5db; }
-.markdown strong em,
-.markdown em strong { font-weight: 600; font-style: italic; color: #f3f4f6; }
-.markdown del, .markdown s { text-decoration: line-through; color: #9ca3af; }
+.message strong { font-weight: 600; color: #ffffff; }
+.message p strong { font-weight: 600; color: #ffffff; }
+.message em { font-style: italic; color: #d1d5db; }
+.message strong em,
+.message em strong { font-weight: 600; font-style: italic; color: #f3f4f6; }
+.message del, .message s { text-decoration: line-through; color: #9ca3af; }
 
 /* Links */
-.markdown a {
+.message a {
   color: #395d97;
   text-decoration: underline;
   transition: color 0.2s ease;
 }
-.markdown a:hover { color: #60a5fa; }
+.message a:hover { color: #60a5fa; }
 
 /* Listas */
-.markdown ul, .markdown ol { margin: 0.5rem 0 0.5rem 1.5rem; padding: 0; }
-.markdown li { margin: 0.3rem 0; }
-.markdown ul li::marker { color: #60a5fa; font-weight: bold; }
-.markdown ol li::marker { color: #f472b6; font-weight: bold; }
+.message ul, .message ol { margin: 0.5rem 0 0.5rem 1.5rem; padding: 0; }
+.message li { margin: 0.3rem 0; }
+.message ul li::marker { color: #60a5fa; font-weight: bold; }
+.message ol li::marker { color: #f472b6; font-weight: bold; }
 
 /* Inline code */
-.markdown code:not(pre code) {
+.message code:not(pre code) {
   background-color: #131313f5;
   color: #facc15;
   padding: 0.2rem 0.4rem;
@@ -56,7 +45,7 @@
 }
 
 /* Blocos de código */
-.markdown pre code{
+.message pre code{
   background: #131313f5;
   color: #d1d5db;
   padding: 1rem;
@@ -72,15 +61,15 @@
 }
 
 /* Syntax Highlight (opcional, funciona com rehype-highlight) */
-.markdown pre code span.keyword { color: #f472b6; font-weight: 500; }
-.markdown pre code span.string { color: #facc15; }
-.markdown pre code span.number { color: #34d399; }
-.markdown pre code span.comment { color: #6b7280; font-style: italic; }
-.markdown pre code span.function { color: #60a5fa; }
-.markdown pre code span.variable { color: #f97316; }
+.message pre code span.keyword { color: #f472b6; font-weight: 500; }
+.message pre code span.string { color: #facc15; }
+.message pre code span.number { color: #34d399; }
+.message pre code span.comment { color: #6b7280; font-style: italic; }
+.message pre code span.function { color: #60a5fa; }
+.message pre code span.variable { color: #f97316; }
 
 /* Citações */
-.markdown blockquote {
+.message blockquote {
   border-left: 4px solid #3b82f6;
   padding-left: 1rem;
   color: #9ca3af;
@@ -91,30 +80,30 @@
 }
 
 /* Tabelas */
-.markdown table {
+.message table {
   border-collapse: collapse;
   width: 100%;
   margin: 0.8rem 0;
 }
-.markdown th, .markdown td {
+.message th, .message td {
   border: 1px solid #374151;
   padding: 0.6rem 0.8rem;
   text-align: left;
 }
-.markdown th { background-color: #131313f5; color: #e5e7eb; font-weight: 600; }
-.markdown td { background-color: #1b1b1bf5; color: #d1d5db; }
+.message th { background-color: #131313f5; color: #e5e7eb; font-weight: 600; }
+.message td { background-color: #1b1b1bf5; color: #d1d5db; }
 
 /* Imagens */
-.markdown img { max-width: 100%; border-radius: 8px; margin: 0.5rem 0; }
+.message img { max-width: 100%; border-radius: 8px; margin: 0.5rem 0; }
 
 /* Linha horizontal */
-.markdown hr { border: 0; height: 1px; background: #73737398; margin: 1rem 0; }
+.message hr { border: 0; height: 1px; background: #73737398; margin: 1rem 0; }
 
 /* Destaque em listas e links dentro de listas */
-.markdown li strong a,
-.markdown li em a,
-.markdown li a strong,
-.markdown li a em { color: #456391; text-decoration: underline; }
+.message li strong a,
+.message li em a,
+.message li a strong,
+.message li a em { color: #456391; text-decoration: underline; }
 
 /* Hover sutil para listas */
-.markdown li:hover { background-color: #ffffff08; border-radius: 4px; transition: background 0.2s ease; }
+.message li:hover { background-color: #ffffff08; border-radius: 4px; transition: background 0.2s ease; }
