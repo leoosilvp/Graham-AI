@@ -161,6 +161,14 @@
     animation: fadeInUp 0.3s ease;
 }
 
+.message strong:first-child{
+    color: #707070;
+}
+
+.message strong{
+    color: #fff;
+}
+
 .chat-box span {
     display: flex;
     flex-direction: column;
@@ -168,7 +176,7 @@
     width: 100%;
 }
 
-.chat-box p.user {
+.chat-box div.user {
     display: flex;
     flex-direction: column;
     max-width: 55%;
@@ -183,7 +191,7 @@
     letter-spacing: 1.2px;
 }
 
-.chat-box p.assistant {
+.chat-box div.assistant {
     display: flex;
     flex-direction: column;
     align-self: flex-start;
@@ -191,14 +199,6 @@
     padding: 0 20px;
     color: #dedede;
     letter-spacing: 1.2px;
-}
-
-.assistant strong:first-child{
-    color: #707070;
-}
-
-.user strong:first-child{
-    color: #707070;
 }
 
 .message.assistant.thinking span {
