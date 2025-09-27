@@ -24,6 +24,7 @@
 
 /* Texto básico */
 .markdown strong { font-weight: 600; color: #ffffff; }
+.markdown p strong { font-weight: 600; color: #ffffff; }
 .markdown em { font-style: italic; color: #d1d5db; }
 .markdown strong em,
 .markdown em strong { font-weight: 600; font-style: italic; color: #f3f4f6; }
