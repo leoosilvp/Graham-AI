@@ -4,7 +4,7 @@ import { sendMessageToAI } from "../services/sendMessage.js";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
-import '../css/highlight.css';
+import 'highlight.js/styles/github-dark.css';
 import '../css/markdown.css'
 
 function Chat() {
