@@ -86,6 +86,7 @@ body {
 
     .hero-aside button {
         background: #141414;
+        z-index: 10;
     }
 
     .chat-box {

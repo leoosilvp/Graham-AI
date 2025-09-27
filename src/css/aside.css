@@ -56,7 +56,6 @@ aside::-webkit-scrollbar-thumb {
     background: transparent;
     cursor: pointer;
     transition: var(--transition);
-    z-index: 10;
 }
 
 .hero-aside button:hover {
