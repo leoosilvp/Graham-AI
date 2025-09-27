@@ -1,3 +1,4 @@
+/* --- Cabeçalhos compactos --- */
 .message h1,
 .message h2,
 .message h3,
@@ -5,21 +6,21 @@
 .message h5,
 .message h6 {
     color: #f9fafb;
-    margin: 0.8rem 0 0.3rem 0;
+    margin: 0.5rem 0 0.2rem 0;
     font-weight: 600;
-    line-height: 1.25;
+    line-height: 1.2;
 }
 
-.message h1 { font-size: 1.8rem; }
-.message h2 { font-size: 1.6rem; }
-.message h3 { font-size: 1.4rem; }
-.message h4 { font-size: 1.3rem; font-weight: 500; }
-.message h5 { font-size: 1.15rem; font-weight: 500; }
-.message h6 { font-size: 1rem; font-weight: 500; }
+.message h1 { font-size: 1.6rem; }
+.message h2 { font-size: 1.45rem; }
+.message h3 { font-size: 1.3rem; }
+.message h4 { font-size: 1.2rem; font-weight: 500; }
+.message h5 { font-size: 1.05rem; font-weight: 500; }
+.message h6 { font-size: 0.95rem; font-weight: 500; }
 
 .message p {
-    font-size: 0.88rem;
-    margin: 0.3rem 0;
+    font-size: 0.85rem;
+    margin: 0.2rem 0;
     color: #d7d7d7;
 }
 
@@ -33,28 +34,25 @@
 .message a {
     color: #3b82f6;
     text-decoration: underline;
-    transition: color 0.2s ease, transform 0.2s ease;
+    transition: color 0.15s ease, transform 0.15s ease;
 }
-.message a:hover {
-    color: #60a5fa;
-    transform: translateY(-1px);
-}
+.message a:hover { color: #60a5fa; transform: translateY(-0.5px); }
 
-/* --- Listas --- */
+/* --- Listas compactas --- */
 .message ul,
 .message ol {
-    padding-left: 1.2rem;
-    margin: 0.3rem 0;
+    padding-left: 1rem;
+    margin: 0.2rem 0;
 }
 
 .message li {
     margin: 0.1rem 0;
-    padding: 0.2rem 0.4rem;
+    padding: 0.15rem 0.3rem;
     border-radius: 4px;
-    transition: background 0.2s ease;
+    transition: background 0.15s ease;
 }
 
-.message li:hover { background-color: #ffffff08; }
+.message li:hover { background-color: #ffffff05; }
 
 .message ul li::marker,
 .message ol li::marker { color: #ffffff; font-weight: bold; }
@@ -63,28 +61,28 @@
 .message li a strong,
 .message li a em { color: #60a5fa; }
 
-/* --- Código Inline --- */
+/* --- Código Inline compacto --- */
 .message code:not(pre code) {
-    background-color: #0000001e;
+    background-color: #0000001a;
     color: #facc15;
-    padding: 0.15rem 0.35rem;
-    border-radius: 4px;
+    padding: 0.1rem 0.25rem;
+    border-radius: 3px;
     font-family: 'Fira Code', monospace;
-    font-size: 0.85rem;
+    font-size: 0.83rem;
     word-break: break-word;
 }
 
-/* --- Blocos de Código --- */
+/* --- Blocos de Código compactos --- */
 .message pre {
-    background-color: #00000042;
+    background-color: #00000035;
     color: #d1d5db;
-    padding: 0.8rem;
-    border-radius: 8px;
+    padding: 0.6rem;
+    border-radius: 6px;
     font-family: 'Fira Code', monospace;
-    font-size: 0.85rem;
+    font-size: 0.83rem;
     overflow-x: auto;
-    margin: 0.3rem 0;
-    box-shadow: inset 0 0 8px #0000001f;
+    margin: 0.2rem 0;
+    box-shadow: inset 0 0 6px #0000001f;
 }
 
 .message pre code span.keyword { color: #f472b6; font-weight: 500; }
@@ -94,52 +92,52 @@
 .message pre code span.function { color: #60a5fa; }
 .message pre code span.variable { color: #f97316; }
 
-/* --- Citações --- */
+/* --- Citações compactas --- */
 .message blockquote {
-    border-left: 4px solid #3b82f6;
-    padding: 0.4rem 0.8rem;
+    border-left: 3px solid #3b82f6;
+    padding: 0.3rem 0.6rem;
     color: #9ca3af;
     font-style: italic;
-    font-size: 0.85rem;
-    background-color: #0f0f0f3a;
-    margin: 0.3rem 0;
-    border-radius: 5px;
+    font-size: 0.83rem;
+    background-color: #0f0f0f30;
+    margin: 0.2rem 0;
+    border-radius: 4px;
 }
 
-/* --- Tabelas --- */
+/* --- Tabelas compactas --- */
 .message table {
     border-collapse: collapse;
     width: 100%;
-    margin: 0.3rem 0;
+    margin: 0.2rem 0;
 }
 .message th,
 .message td {
     border: 1px solid #374151;
-    padding: 0.4rem 0.6rem;
+    padding: 0.3rem 0.5rem;
     text-align: left;
 }
 .message th { background-color: #131313a1; color: #e5e7eb; font-weight: 600; }
 .message td { background-color: #1b1b1b6c; color: #d1d5db; }
 
 /* --- Imagens --- */
-.message img { max-width: 100%; border-radius: 8px; margin: 0.3rem 0; }
+.message img { max-width: 100%; border-radius: 6px; margin: 0.2rem 0; }
 
 /* --- Linha Horizontal --- */
 .message hr {
     border: 0;
     height: 1px;
-    background: #73737388;
-    margin: 0.5rem 0;
+    background: #73737370;
+    margin: 0.3rem 0;
 }
 
-/* --- Scroll suave e responsivo --- */
+/* --- Scroll suave --- */
 .message pre::-webkit-scrollbar {
-    height: 6px; width: 6px;
+    height: 5px; width: 5px;
 }
-.message pre::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 4px; }
+.message pre::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 3px; }
 .message pre::-webkit-scrollbar-track { background: #1a1a1a; }
 
-/* --- Hover e efeitos sutis --- */
+/* --- Hover e interação sutis --- */
 .message p:hover,
 .message li:hover,
-.message code:hover { background-color: #ffffff04; transition: background 0.2s ease; }
+.message code:hover { background-color: #ffffff03; transition: background 0.15s ease; }
