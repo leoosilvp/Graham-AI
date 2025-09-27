@@ -141,7 +141,7 @@ function Chat() {
         <section className="chat-box" ref={chatBoxRef}>
           {messages.map((msg) => (
             <div key={msg.ts} className={`message ${msg.role} ${msg.thinking ? "thinking" : ""}`}>
-              <strong>{msg.role === "user" ? "Você:" : "Graham:"}</strong>
+              <strong>{msg.role === "user" ? "Você:" : "Graham:"}</strong>{" "}
               <ReactMarkdown
                 className="markdown"
                 remarkPlugins={[remarkGfm]}
