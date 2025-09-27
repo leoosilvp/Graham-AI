@@ -1,7 +1,10 @@
-import { useState, useRef, useEffect } from "react"; 
-import ReactMarkdown from "react-markdown";
-import { sendMessageToAI } from "../services/sendMessage.js";
 import '../css/chat.css';
+import { useState, useRef, useEffect } from "react";
+import { sendMessageToAI } from "../services/sendMessage.js";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from 'remark-gfm';
+import rehypeHighlight from 'rehype-highlight';
+import 'highlight.js/styles/github-dark.css';
 import '../css/markdown.css'
 
 function Chat() {
@@ -136,10 +139,16 @@ function Chat() {
         </section>
       ) : (
         <section className="chat-box" ref={chatBoxRef}>
-          {messages.map((msg, i) => (
-            <div key={i} className={`message ${msg.role} ${msg.thinking ? "thinking" : ""}`}>
-              <strong>{msg.role === "user" ? "Você:" : "Graham:"}</strong>{" "}
-              <span><ReactMarkdown className="markdown">{msg.content}</ReactMarkdown></span>
+          {messages.map((msg) => (
+            <div key={msg.ts} className={`message ${msg.role} ${msg.thinking ? "thinking" : ""}`}>
+              <strong>{msg.role === "user" ? "Você:" : "Graham:"}</strong>
+              <ReactMarkdown
+                className="markdown"
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeHighlight]}
+              >
+                {msg.content}
+              </ReactMarkdown>
             </div>
           ))}
         </section>
