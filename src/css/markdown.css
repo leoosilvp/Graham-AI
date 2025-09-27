@@ -1,8 +1,3 @@
-/* Parágrafos */
-.message p {
-  margin: 0.2rem 0;
-}
-
 /* Cabeçalhos */
 .message h1 { font-size: 1.6rem; color: #f9fafb; font-weight: 600; }
 .message h2 { font-size: 1.3rem; color: #f3f4f6; font-weight: 600; }
@@ -14,6 +9,12 @@
 /* Texto básico */
 .message strong { font-weight: 600; color: #ffffff; }
 .message p strong { font-weight: 600; color: #ffffff; }
+.message h1 strong { font-weight: 600; color: #ffffff; }
+.message h2 strong { font-weight: 600; color: #ffffff; }
+.message h3 strong { font-weight: 600; color: #ffffff; }
+.message h4 strong { font-weight: 600; color: #ffffff; }
+.message h5 strong { font-weight: 600; color: #ffffff; }
+.message h6 strong { font-weight: 600; color: #ffffff; }
 .message em { font-style: italic; color: #dadada; }
 .message strong em,
 .message em strong { font-weight: 600; font-style: italic; color: #f3f4f6; }
@@ -45,7 +46,7 @@
 }
 
 /* Blocos de código */
-.message pre code{
+.message pre{
   background: #000000de;
   color: #d1d5db;
   padding: 1rem;
