@@ -1,69 +1,94 @@
-/* Cabeçalhos */
-.message h1 { font-size: 2rem; color: #f9fafb; font-weight: 600; }
-.message h2 { font-size: 1.9rem; color: #f9fafb; font-weight: 600; }
-.message h3 { font-size: 1.7rem; color: #f9fafb; font-weight: 600; }
-.message h4 { font-size: 1.5rem; color: #f9fafb; font-weight: 500;  }
-.message h5 { font-size: 1.3rem; color: #f9fafb; font-weight: 500; }
-.message h6 { font-size: 1.1rem; color: #f9fafb; font-weight: 500; }
+.message h1,
+.message h2,
+.message h3,
+.message h4,
+.message h5,
+.message h6 {
+    color: #f9fafb;
+    margin: 1.2rem 0 0.5rem 0;
+    font-weight: 600;
+    line-height: 1.3;
+}
 
-.message p { font-size: 0.9rem; color: #d7d7d7; font-weight: 500; }
+.message h1 { font-size: 2.2rem; }
+.message h2 { font-size: 1.9rem; }
+.message h3 { font-size: 1.7rem; }
+.message h4 { font-size: 1.5rem; font-weight: 500; }
+.message h5 { font-size: 1.3rem; font-weight: 500; }
+.message h6 { font-size: 1.1rem; font-weight: 500; }
 
-/* Texto básico */
-.message strong { font-weight: 600; color: #ffffff; }
-.message p strong { font-weight: 600; color: #ffffff; }
-.message h1 strong { font-weight: 600; color: #ffffff; }
-.message h2 strong { font-weight: 600; color: #ffffff; }
-.message h3 strong { font-weight: 600; color: #ffffff; }
-.message h4 strong { font-weight: 600; color: #ffffff; }
-.message h5 strong { font-weight: 600; color: #ffffff; }
-.message h6 strong { font-weight: 600; color: #ffffff; }
-.message em { font-style: italic; color: #dadada; }
-.message strong em,
-.message em strong { font-weight: 600; font-style: italic; color: #f3f4f6; }
+.message p {
+    font-size: 0.95rem;
+    margin: 0.5rem 0;
+    color: #d7d7d7;
+}
+
+/* --- Ênfase --- */
+.message strong { color: #ffffff; font-weight: 600; }
+.message em { font-style: italic; color: #e5e7eb; }
+.message strong em, .message em strong { color: #f3f4f6; font-weight: 600; font-style: italic; }
 .message del, .message s { text-decoration: line-through; color: #bebebe; }
 
-/* Links */
+/* --- Links --- */
 .message a {
-  color: #395d97;
-  text-decoration: underline;
-  transition: color 0.2s ease;
+    color: #3b82f6;
+    text-decoration: underline;
+    transition: color 0.2s ease, transform 0.2s ease;
 }
-.message a:hover { color: #60a5fa; }
+.message a:hover {
+    color: #60a5fa;
+    transform: translateY(-1px);
+}
 
-/* Listas */
-.message li { margin: 0.1rem 0; padding: 5px;}
-.message ul li::marker { color: #ffffff; font-weight: bold; }
+/* --- Listas --- */
+.message ul,
+.message ol {
+    padding-left: 1.5rem;
+    margin: 0.5rem 0;
+}
+
+.message li {
+    margin: 0.2rem 0;
+    padding: 0.3rem 0.5rem;
+    border-radius: 5px;
+    transition: background 0.2s ease;
+}
+
+.message li:hover {
+    background-color: #ffffff08;
+}
+
+.message ul li::marker,
 .message ol li::marker { color: #ffffff; font-weight: bold; }
+.message li strong a,
+.message li em a,
+.message li a strong,
+.message li a em { color: #60a5fa; }
 
-/* Inline code */
+/* --- Código Inline --- */
 .message code:not(pre code) {
-  background-color: #0000001d;
-  color: #facc15;
-  padding: 0.2rem 0.4rem;
-  border-radius: 4px;
-  font-family: 'Fira Code', monospace;
-  font-size: 0.9em;
-  word-break: break-word;
+    background-color: #0000001e;
+    color: #facc15;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    word-break: break-word;
 }
 
-/* Blocos de código */
-.message pre{
-  background: #00000035;
-  color: #d1d5db;
-  padding: 1rem;
-  border-radius: 8px;
-  font-family: 'Fira Code', monospace;
-  font-size: 0.9em;
-  margin: 0.2rem 0;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  overflow-x: auto;
-  width: 100%;
-  max-width: 100%;
-  box-shadow: inset 0 0 5px #0000004d;
+/* --- Blocos de Código --- */
+.message pre {
+    background-color: #00000042;
+    color: #d1d5db;
+    padding: 1rem;
+    border-radius: 10px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    overflow-x: auto;
+    margin: 0.5rem 0;
+    box-shadow: inset 0 0 10px #0000001f;
 }
 
-/* Syntax Highlight (opcional, funciona com rehype-highlight) */
 .message pre code span.keyword { color: #f472b6; font-weight: 500; }
 .message pre code span.string { color: #facc15; }
 .message pre code span.number { color: #34d399; }
@@ -71,43 +96,55 @@
 .message pre code span.function { color: #60a5fa; }
 .message pre code span.variable { color: #f97316; }
 
-/* Citações */
+/* --- Citações --- */
 .message blockquote {
-  border-left: 4px solid #3b82f6;
-  padding: 0.3rem 1rem;
-  color: #9ca3af;
-  font-style: italic;
-  font-size: 0.8rem;
-  background: #0e0e0e88;
-  margin: 0.5rem 0;
-  border-radius: 5px;
+    border-left: 4px solid #3b82f6;
+    padding: 0.5rem 1rem;
+    color: #9ca3af;
+    font-style: italic;
+    font-size: 0.9rem;
+    background-color: #0f0f0f3a;
+    margin: 0.5rem 0;
+    border-radius: 6px;
 }
 
-/* Tabelas */
+/* --- Tabelas --- */
 .message table {
-  border-collapse: collapse;
-  width: 100%;
-  margin: 0.3rem 0;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0.5rem 0;
 }
-.message th, .message td {
-  border: 1px solid #374151;
-  padding: 0.6rem 0.8rem;
-  text-align: left;
+.message th,
+.message td {
+    border: 1px solid #374151;
+    padding: 0.6rem 1rem;
+    text-align: left;
 }
 .message th { background-color: #131313a1; color: #e5e7eb; font-weight: 600; }
 .message td { background-color: #1b1b1b6c; color: #d1d5db; }
 
-/* Imagens */
-.message img { max-width: 100%; border-radius: 8px; margin: 0.5rem 0; }
+/* --- Imagens --- */
+.message img { max-width: 100%; border-radius: 10px; margin: 0.5rem 0; }
 
-/* Linha horizontal */
-.message hr { border: 0; height: 1px; background: #73737398; margin: 1rem 0; }
+/* --- Linha Horizontal --- */
+.message hr {
+    border: 0;
+    height: 1px;
+    background: #73737388;
+    margin: 1rem 0;
+}
 
-/* Destaque em listas e links dentro de listas */
-.message li strong a,
-.message li em a,
-.message li a strong,
-.message li a em { color: #456391; text-decoration: underline; }
+/* --- Scroll suave e responsivo --- */
+.message pre::-webkit-scrollbar {
+    height: 8px; width: 8px;
+}
+.message pre::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 4px; }
+.message pre::-webkit-scrollbar-track { background: #1a1a1a; }
 
-/* Hover sutil para listas */
-.message li:hover { background-color: #ffffff04; border-radius: 4px; transition: background 0.2s ease; }
+/* --- Hover e efeitos sutis para interação --- */
+.message p:hover,
+.message li:hover,
+.message code:hover {
+    background-color: #ffffff05;
+    transition: background 0.2s ease;
+}
