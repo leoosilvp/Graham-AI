@@ -1,23 +1,23 @@
 /* Parágrafos */
 .message p {
-  margin: 0.5rem 0;
+  margin: 0.2rem 0;
 }
 
 /* Cabeçalhos */
-.message h1 { font-size: 2rem; color: #f9fafb; font-weight: 700; margin: 1rem 0 0.5rem; }
-.message h2 { font-size: 1.8rem; color: #f3f4f6; font-weight: 600; margin: 1rem 0 0.5rem; }
-.message h3 { font-size: 1.6rem; color: #e5e7eb; font-weight: 600; margin: 0.8rem 0; }
-.message h4 { font-size: 1.4rem; color: #d1d5db; font-weight: 600; margin: 0.6rem 0; }
-.message h5 { font-size: 1.2rem; color: #cbd5e1; font-weight: 500; margin: 0.5rem 0; }
-.message h6 { font-size: 1rem; color: #9ca3af; font-weight: 500; margin: 0.5rem 0; }
+.message h1 { font-size: 1.6rem; color: #f9fafb; font-weight: 600; }
+.message h2 { font-size: 1.3rem; color: #f3f4f6; font-weight: 600; }
+.message h3 { font-size: 1rem; color: #e5e7eb; font-weight: 500; }
+.message h4 { font-size: 0.9rem; color: #d1d5db; font-weight: 500;  }
+.message h5 { font-size: 0.8rem; color: #cbd5e1; font-weight: 500; }
+.message h6 { font-size: 0.7rem; color: #a8a8a8; font-weight: 500; }
 
 /* Texto básico */
 .message strong { font-weight: 600; color: #ffffff; }
 .message p strong { font-weight: 600; color: #ffffff; }
-.message em { font-style: italic; color: #d1d5db; }
+.message em { font-style: italic; color: #dadada; }
 .message strong em,
 .message em strong { font-weight: 600; font-style: italic; color: #f3f4f6; }
-.message del, .message s { text-decoration: line-through; color: #9ca3af; }
+.message del, .message s { text-decoration: line-through; color: #bebebe; }
 
 /* Links */
 .message a {
@@ -29,13 +29,13 @@
 
 /* Listas */
 .message ul, .message ol { margin: 0.5rem 0 0.5rem 1.5rem; padding: 0; }
-.message li { margin: 0.3rem 0; }
-.message ul li::marker { color: #60a5fa; font-weight: bold; }
-.message ol li::marker { color: #f472b6; font-weight: bold; }
+.message li { margin: 0.3rem 0; padding: 5px 10px;}
+.message ul li::marker { color: #ffffff; font-weight: bold; }
+.message ol li::marker { color: #ffffff; font-weight: bold; }
 
 /* Inline code */
 .message code:not(pre code) {
-  background-color: #131313f5;
+  background-color: #000000de;
   color: #facc15;
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
@@ -46,7 +46,7 @@
 
 /* Blocos de código */
 .message pre code{
-  background: #131313f5;
+  background: #000000de;
   color: #d1d5db;
   padding: 1rem;
   border-radius: 8px;
@@ -56,6 +56,7 @@
   white-space: pre-wrap;
   word-wrap: break-word;
   overflow-x: auto;
+  width: 100%;
   max-width: 100%;
   box-shadow: inset 0 0 5px #0000004d;
 }
@@ -74,7 +75,8 @@
   padding-left: 1rem;
   color: #9ca3af;
   font-style: italic;
-  background-color: #131313f5;
+  font-size: 0.8rem;
+  background-color: #0e0e0ef5;
   margin: 0.5rem 0;
   border-radius: 5px;
 }
