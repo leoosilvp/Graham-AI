@@ -19,13 +19,14 @@
 .message h6 { font-size: 0.95rem; font-weight: 500; }
 
 .message p {
-    font-size: 0.85rem;
-    margin: 0.2rem 0;
+    font-size: 1rem;
+    margin: 0.3rem 0;
     color: #d7d7d7;
 }
 
 /* --- Ênfase --- */
 .message strong { color: #ffffff; font-weight: 600; }
+.message p strong { color: #ffffff; font-weight: 600; }
 .message em { font-style: italic; color: #e5e7eb; }
 .message strong em, .message em strong { color: #f3f4f6; font-weight: 600; font-style: italic; }
 .message del, .message s { text-decoration: line-through; color: #bebebe; }
@@ -136,8 +137,3 @@
 }
 .message pre::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 3px; }
 .message pre::-webkit-scrollbar-track { background: #1a1a1a; }
-
-/* --- Hover e interação sutis --- */
-.message p:hover,
-.message li:hover,
-.message code:hover { background-color: #ffffff03; transition: background 0.15s ease; }
