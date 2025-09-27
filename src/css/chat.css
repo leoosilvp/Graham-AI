@@ -193,11 +193,11 @@
     letter-spacing: 1.2px;
 }
 
-.assistant strong{
+.assistant strong:first-child{
     color: #707070;
 }
 
-.user strong{
+.user strong:first-child{
     color: #707070;
 }
 
