@@ -1,12 +1,12 @@
 /* Cabeçalhos */
-.message h1 { font-size: 1.9rem; color: #f9fafb; font-weight: 600; }
-.message h2 { font-size: 1.5rem; color: #f3f4f6; font-weight: 600; }
-.message h3 { font-size: 1.1rem; color: #e5e7eb; font-weight: 600; }
-.message h4 { font-size: 0.9rem; color: #e5e7eb; font-weight: 600;  }
-.message h5 { font-size: 0.9rem; color: #e5e7eb; font-weight: 600; }
-.message h6 { font-size: 0.9rem; color: #e5e7eb; font-weight: 600; }
+.message h1 { font-size: 2rem; color: #f9fafb; font-weight: 600; }
+.message h2 { font-size: 1.9rem; color: #f9fafb; font-weight: 600; }
+.message h3 { font-size: 1.7rem; color: #f9fafb; font-weight: 600; }
+.message h4 { font-size: 1.5rem; color: #f9fafb; font-weight: 500;  }
+.message h5 { font-size: 1.3rem; color: #f9fafb; font-weight: 500; }
+.message h6 { font-size: 1.1rem; color: #f9fafb; font-weight: 500; }
 
-.message p { font-size: 0.9rem; color: #a8a8a8; font-weight: 500; }
+.message p { font-size: 0.9rem; color: #d7d7d7; font-weight: 500; }
 
 /* Texto básico */
 .message strong { font-weight: 600; color: #ffffff; }
@@ -37,7 +37,7 @@
 
 /* Inline code */
 .message code:not(pre code) {
-  background-color: #00000054;
+  background-color: #0000001d;
   color: #facc15;
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
@@ -48,7 +48,7 @@
 
 /* Blocos de código */
 .message pre{
-  background: #00000082;
+  background: #00000035;
   color: #d1d5db;
   padding: 1rem;
   border-radius: 8px;
@@ -74,11 +74,11 @@
 /* Citações */
 .message blockquote {
   border-left: 4px solid #3b82f6;
-  padding: 0.2rem 1rem;
+  padding: 0.3rem 1rem;
   color: #9ca3af;
   font-style: italic;
   font-size: 0.8rem;
-  background-color: #0e0e0ef5;
+  background: #0e0e0e88;
   margin: 0.5rem 0;
   border-radius: 5px;
 }
