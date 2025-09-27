@@ -56,8 +56,8 @@
 }
 
 /* Blocos de código */
-.markdown pre {
-  background-color: #131313f5;
+.markdown pre code{
+  background: #131313f5;
   color: #d1d5db;
   padding: 1rem;
   border-radius: 8px;
