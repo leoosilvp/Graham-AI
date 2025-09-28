@@ -161,11 +161,15 @@
     animation: fadeInUp 0.3s ease;
 }
 
-.message .user, .assistant strong:first-child{
+.message .user:first-child{
     color: #707070;
 }
 
-.message strong{
+.message .assistant:first-child{
+    color: #707070;
+}
+
+.message p strong{
     color: #f5f5f5;
 }
 
