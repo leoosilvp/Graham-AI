@@ -2,8 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
-import rehypeRaw from "rehype-raw"; // Importar rehype-raw para permitir a renderização de HTML bruto
-import 'katex/dist/katex.min.css'; // Importa o CSS padrão do KaTeX para funcionalidade básica
+import 'katex/dist/katex.min.css';
 
 import '../css/chat.css';
 import '../css/markdown.css';
@@ -148,7 +147,8 @@ function Chat() {
                 <ReactMarkdown
                   className="markdown"
                   remarkPlugins={[remarkMath]}
-                  rehypePlugins={[rehypeKatex, rehypeRaw]} // Adicionar rehypeRaw aqui para renderizar HTML bruto
+                  rehypePlugins={[rehypeKatex]}
+                  linkTarget="_blank"
                 >
                   {msg.content}
                 </ReactMarkdown>
