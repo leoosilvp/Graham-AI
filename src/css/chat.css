@@ -142,13 +142,13 @@
     margin-bottom: 75px;
     display: flex;
     flex-direction: column;
-    width: 860px;  
-    max-width: 860px;  
-    padding: 30px 30px 150px 30px;  
+    width: 860px;
+    max-width: 860px;
+    padding: 30px 30px 150px 30px;
     gap: 20px;
 }
 
-.chat-box::-webkit-scrollbar{
+.chat-box::-webkit-scrollbar {
     display: flex;
     background: none;
 }
@@ -161,15 +161,15 @@
     animation: fadeInUp 0.3s ease;
 }
 
-.message .user:first-child{
+.message .user:first-child {
     color: #707070;
 }
 
-.message .assistant:first-child{
+.message .assistant:first-child {
     color: #707070;
 }
 
-.message p strong{
+.message p strong {
     color: #f5f5f5;
 }
 
@@ -207,45 +207,68 @@
 }
 
 .message.assistant.thinking span {
-  font-style: italic;
-  color: #888;
-  position: relative;
+    display: flex;
+    font-style: italic;
+    color: #888;
+    position: relative;
+    gap: 5px;
 }
 
 .message.assistant.thinking span::after {
-  content: "";
-  display: inline-block;
-  width: 1ch;
-  animation: dots 1.5s steps(3, end) infinite;
+    content: "";
+    display: inline-block;
+    width: 1ch;
+    animation: dots 1.5s steps(3, end) infinite;
 }
 
 .cursor {
-  display: inline-block;
-  width: 1px;
-  background-color: #e5e7eb;
-  animation: blink 1s infinite;
-  margin-left: 2px;
+    display: inline-block;
+    width: 1px;
+    background-color: #e5e7eb;
+    animation: blink 1s infinite;
+    margin-left: 2px;
 }
 
 @keyframes blink {
-  0%, 50%, 100% { opacity: 1; }
-  25%, 75% { opacity: 0; }
+
+    0%,
+    50%,
+    100% {
+        opacity: 1;
+    }
+
+    25%,
+    75% {
+        opacity: 0;
+    }
 }
 
 @keyframes dots {
-  0%  { content: " "; }
-  33%  { content: "."; }
-  66%  { content: ".."; }
-  100% { content: "..."; }
+    0% {
+        content: " ";
+    }
+
+    33% {
+        content: ".";
+    }
+
+    66% {
+        content: "..";
+    }
+
+    100% {
+        content: "...";
+    }
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

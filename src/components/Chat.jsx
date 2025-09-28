@@ -1,27 +1,11 @@
 import '../css/chat.css';
+import '../css/markdown.css';
 import { useState, useRef, useEffect } from "react";
 import { sendMessageToAI } from "../services/sendMessage.js";
 import ReactMarkdown from "react-markdown";
-import '../css/markdown.css';
-
-// 🔹 Componente que decide se usa MathJax ou Markdown puro
-function MessageRenderer({ content }) {
-  const hasLatex = /\$[^$]+\$|\$\$[^$]+\$\$/.test(content);
-  const ref = useRef(null);
-
-  useEffect(() => {
-    if (hasLatex && window.MathJax && ref.current) {
-      window.MathJax.typesetPromise([ref.current]);
-    }
-  }, [content, hasLatex]);
-
-  return (
-    <span ref={ref} className="markdown">
-      <ReactMarkdown>{content}</ReactMarkdown>
-    </span>
-  );
-}
-
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import 'katex/dist/katex.min.css';
 
 function Chat() {
   const [input, setInput] = useState("");
@@ -158,7 +142,15 @@ function Chat() {
           {messages.map((msg) => (
             <div key={msg.ts} className={`message ${msg.role} ${msg.thinking ? "thinking" : ""}`}>
               <strong>{msg.role === "user" ? "Você:" : "Graham:"}</strong>{" "}
-              <span><MessageRenderer content={msg.content} /></span>
+              <span>
+                <ReactMarkdown
+                  className="markdown"
+                  remarkPlugins={[remarkMath]}
+                  rehypePlugins={[rehypeKatex]}
+                >
+                  {msg.content}
+                </ReactMarkdown>
+              </span>
             </div>
           ))}
         </section>
