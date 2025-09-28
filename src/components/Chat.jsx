@@ -3,102 +3,94 @@ import '../css/markdown.css';
 import { useState, useRef, useEffect } from "react";
 import { sendMessageToAI } from "../services/sendMessage.js";
 import ReactMarkdown from "react-markdown";
-import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
+import katex from 'katex';
 import 'katex/dist/katex.min.css';
 
-// Componente mais robusto para renderização híbrida
-const AdvancedHybridRenderer = ({ content }) => {
-  const renderContent = () => {
-    if (!content) return null;
-    
-    // Regex mais precisa para capturar expressões LaTeX
-    const latexBlockRegex = /\$\$([\s\S]*?)\$\$/g;
-    const latexInlineRegex = /\$([^$\n]+?)\$/g;
-    
-    let processedContent = content;
-    const latexExpressions = [];
-    let expressionIndex = 0;
-    
-    // Primeiro, extrair e substituir expressões de bloco ($$...$$)
-    processedContent = processedContent.replace(latexBlockRegex, (match, expression) => {
-      const placeholder = `__LATEX_BLOCK_${expressionIndex}__`;
-      latexExpressions[expressionIndex] = {
-        type: 'block',
-        expression: expression.trim(),
-        placeholder
-      };
-      expressionIndex++;
-      return placeholder;
-    });
-    
-    // Depois, extrair e substituir expressões inline ($...$)
-    processedContent = processedContent.replace(latexInlineRegex, (match, expression) => {
-      const placeholder = `__LATEX_INLINE_${expressionIndex}__`;
-      latexExpressions[expressionIndex] = {
-        type: 'inline',
-        expression: expression.trim(),
-        placeholder
-      };
-      expressionIndex++;
-      return placeholder;
-    });
-    
-    // Dividir o conteúdo pelos placeholders
-    let parts = [processedContent];
-    latexExpressions.forEach((latexExpr) => {
-      const newParts = [];
-      parts.forEach(part => {
-        if (typeof part === 'string' && part.includes(latexExpr.placeholder)) {
-          const splitParts = part.split(latexExpr.placeholder);
-          newParts.push(splitParts[0]);
-          newParts.push(latexExpr);
-          newParts.push(splitParts[1]);
-        } else {
-          newParts.push(part);
-        }
-      });
-      parts = newParts.filter(part => part !== '');
-    });
-    
-    return parts.map((part, index) => {
-      if (typeof part === 'string') {
-        // Renderizar como Markdown puro (sem processamento LaTeX)
-        return (
-          <ReactMarkdown key={index} className="markdown-part">
-            {part}
-          </ReactMarkdown>
-        );
-      } else if (part.type === 'block') {
-        // Renderizar expressão LaTeX de bloco
-        return (
-          <div key={index} className="latex-block-container">
-            <ReactMarkdown
-              remarkPlugins={[remarkMath]}
-              rehypePlugins={[rehypeKatex]}
-            >
-              {`$$${part.expression}$$`}
-            </ReactMarkdown>
-          </div>
-        );
-      } else if (part.type === 'inline') {
-        // Renderizar expressão LaTeX inline
-        return (
-          <span key={index} className="latex-inline-container">
-            <ReactMarkdown
-              remarkPlugins={[remarkMath]}
-              rehypePlugins={[rehypeKatex]}
-            >
-              {`$${part.expression}$`}
-            </ReactMarkdown>
-          </span>
-        );
-      }
-      return null;
-    });
-  };
+// Componente final e mais robusto para renderização LaTeX/Markdown
+const FinalLatexRenderer = ({ content }) => {
+  const [renderedContent, setRenderedContent] = useState('');
 
-  return <div className="advanced-hybrid-content">{renderContent()}</div>;
+  useEffect(() => {
+    if (!content) {
+      setRenderedContent('');
+      return;
+    }
+
+    const processContent = async () => {
+      try {
+        // Função para renderizar LaTeX
+        const renderLatex = (latex, displayMode = false) => {
+          try {
+            return katex.renderToString(latex, {
+              throwOnError: false,
+              displayMode: displayMode,
+              strict: false,
+              trust: false,
+              output: 'html'
+            });
+          } catch (err) {
+            return `<span style="color: #ef4444; font-size: 0.875rem; background-color: #fef2f2; padding: 0.25rem 0.5rem; border-radius: 0.25rem;">Erro LaTeX: ${err.message}</span>`;
+          }
+        };
+
+        let processedContent = content;
+
+        // Processar expressões de bloco ($$...$$)
+        processedContent = processedContent.replace(/\$\$([\s\S]*?)\$\$/g, (match, latex) => {
+          const rendered = renderLatex(latex.trim(), true);
+          return `<div class="latex-block-container">${rendered}</div>`;
+        });
+
+        // Processar expressões inline ($...$)
+        processedContent = processedContent.replace(/\$([^$\n]+?)\$/g, (match, latex) => {
+          const rendered = renderLatex(latex.trim(), false);
+          return `<span class="latex-inline-container">${rendered}</span>`;
+        });
+
+        setRenderedContent(processedContent);
+      } catch (error) {
+        console.error('Erro ao processar conteúdo:', error);
+        setRenderedContent(content);
+      }
+    };
+
+    processContent();
+  }, [content]);
+
+  return (
+    <div className="final-latex-renderer">
+      <ReactMarkdown
+        className="markdown-with-latex"
+        components={{
+          // Componente personalizado para renderizar HTML bruto (LaTeX renderizado)
+          p: ({ children, ...props }) => {
+            const content = children?.toString() || '';
+            if (content.includes('latex-block-container') || content.includes('latex-inline-container')) {
+              return <div {...props} dangerouslySetInnerHTML={{ __html: content }} />;
+            }
+            return <p {...props}>{children}</p>;
+          },
+          // Outros componentes podem ser personalizados aqui
+          strong: ({ children, ...props }) => <strong {...props} style={{ fontWeight: 600, color: '#1e293b' }}>{children}</strong>,
+          em: ({ children, ...props }) => <em {...props} style={{ fontStyle: 'italic', color: '#475569' }}>{children}</em>,
+          code: ({ children, ...props }) => (
+            <code {...props} style={{
+              backgroundColor: '#f1f5f9',
+              padding: '0.125rem 0.25rem',
+              borderRadius: '0.25rem',
+              fontFamily: 'Monaco, Menlo, Ubuntu Mono, monospace',
+              fontSize: '0.875em',
+              color: '#e11d48'
+            }}>
+              {children}
+            </code>
+          )
+        }}
+      >
+        {renderedContent}
+      </ReactMarkdown>
+    </div>
+  );
 };
 
 function Chat() {
@@ -236,8 +228,8 @@ function Chat() {
           {messages.map((msg) => (
             <div key={msg.ts} className={`message ${msg.role} ${msg.thinking ? "thinking" : ""}`}>
               <strong>{msg.role === "user" ? "Você:" : "Graham:"}</strong>{" "}
-              <span>
-                <AdvancedHybridRenderer content={msg.content} />
+              <span className="message-content">
+                <FinalLatexRenderer content={msg.content} />
               </span>
             </div>
           ))}
