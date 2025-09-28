@@ -2,7 +2,11 @@ import '../css/chat.css';
 import { useState, useRef, useEffect } from "react";
 import { sendMessageToAI } from "../services/sendMessage.js";
 import ReactMarkdown from "react-markdown";
-import '../css/markdown.css'
+import '../css/markdown.css';
+import { MathJax } from "better-react-mathjax";
+
+// função para checar se o texto contém LaTeX
+const hasLatex = (text) => /\$[^$].*?\$|\$\$[^$].*?\$\$/s.test(text);
 
 function Chat() {
   const [input, setInput] = useState("");
@@ -139,7 +143,13 @@ function Chat() {
           {messages.map((msg) => (
             <div key={msg.ts} className={`message ${msg.role} ${msg.thinking ? "thinking" : ""}`}>
               <strong>{msg.role === "user" ? "Você:" : "Graham:"}</strong>{" "}
-              <span><ReactMarkdown className="markdown">{msg.content}</ReactMarkdown></span>
+              <span>
+                {hasLatex(msg.content) ? (
+                  <MathJax dynamic>{msg.content}</MathJax>
+                ) : (
+                  <ReactMarkdown className="markdown">{msg.content}</ReactMarkdown>
+                )}
+              </span>
             </div>
           ))}
         </section>
