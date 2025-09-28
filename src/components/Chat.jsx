@@ -1,97 +1,13 @@
+import React, { useState, useRef, useEffect } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import rehypeRaw from "rehype-raw"; // Importar rehype-raw para permitir a renderização de HTML bruto
+import 'katex/dist/katex.min.css'; // Importa o CSS padrão do KaTeX para funcionalidade básica
+
 import '../css/chat.css';
 import '../css/markdown.css';
-import { useState, useRef, useEffect } from "react";
 import { sendMessageToAI } from "../services/sendMessage.js";
-import ReactMarkdown from "react-markdown";
-import katex from 'katex';
-import 'katex/dist/katex.min.css';
-
-// Componente final e mais robusto para renderização LaTeX/Markdown
-const FinalLatexRenderer = ({ content }) => {
-  const [renderedContent, setRenderedContent] = useState('');
-
-  useEffect(() => {
-    if (!content) {
-      setRenderedContent('');
-      return;
-    }
-
-    const processContent = async () => {
-      try {
-        // Função para renderizar LaTeX
-        const renderLatex = (latex, displayMode = false) => {
-          try {
-            return katex.renderToString(latex, {
-              throwOnError: false,
-              displayMode: displayMode,
-              strict: false,
-              trust: false,
-              output: 'html'
-            });
-          } catch (err) {
-            return `<span style="color: #ef4444; font-size: 0.875rem; background-color: #fef2f2; padding: 0.25rem 0.5rem; border-radius: 0.25rem;">Erro LaTeX: ${err.message}</span>`;
-          }
-        };
-
-        let processedContent = content;
-
-        // Processar expressões de bloco ($$...$$)
-        processedContent = processedContent.replace(/\$\$([\s\S]*?)\$\$/g, (match, latex) => {
-          const rendered = renderLatex(latex.trim(), true);
-          return `<div class="latex-block-container">${rendered}</div>`;
-        });
-
-        // Processar expressões inline ($...$)
-        processedContent = processedContent.replace(/\$([^$\n]+?)\$/g, (match, latex) => {
-          const rendered = renderLatex(latex.trim(), false);
-          return `<span class="latex-inline-container">${rendered}</span>`;
-        });
-
-        setRenderedContent(processedContent);
-      } catch (error) {
-        console.error('Erro ao processar conteúdo:', error);
-        setRenderedContent(content);
-      }
-    };
-
-    processContent();
-  }, [content]);
-
-  return (
-    <div className="final-latex-renderer">
-      <ReactMarkdown
-        className="markdown-with-latex"
-        components={{
-          // Componente personalizado para renderizar HTML bruto (LaTeX renderizado)
-          p: ({ children, ...props }) => {
-            const content = children?.toString() || '';
-            if (content.includes('latex-block-container') || content.includes('latex-inline-container')) {
-              return <div {...props} dangerouslySetInnerHTML={{ __html: content }} />;
-            }
-            return <p {...props}>{children}</p>;
-          },
-          // Outros componentes podem ser personalizados aqui
-          strong: ({ children, ...props }) => <strong {...props} style={{ fontWeight: 600, color: '#1e293b' }}>{children}</strong>,
-          em: ({ children, ...props }) => <em {...props} style={{ fontStyle: 'italic', color: '#475569' }}>{children}</em>,
-          code: ({ children, ...props }) => (
-            <code {...props} style={{
-              backgroundColor: '#f1f5f9',
-              padding: '0.125rem 0.25rem',
-              borderRadius: '0.25rem',
-              fontFamily: 'Monaco, Menlo, Ubuntu Mono, monospace',
-              fontSize: '0.875em',
-              color: '#e11d48'
-            }}>
-              {children}
-            </code>
-          )
-        }}
-      >
-        {renderedContent}
-      </ReactMarkdown>
-    </div>
-  );
-};
 
 function Chat() {
   const [input, setInput] = useState("");
@@ -228,8 +144,14 @@ function Chat() {
           {messages.map((msg) => (
             <div key={msg.ts} className={`message ${msg.role} ${msg.thinking ? "thinking" : ""}`}>
               <strong>{msg.role === "user" ? "Você:" : "Graham:"}</strong>{" "}
-              <span className="message-content">
-                <FinalLatexRenderer content={msg.content} />
+              <span>
+                <ReactMarkdown
+                  className="markdown"
+                  remarkPlugins={[remarkMath]}
+                  rehypePlugins={[rehypeKatex, rehypeRaw]} // Adicionar rehypeRaw aqui para renderizar HTML bruto
+                >
+                  {msg.content}
+                </ReactMarkdown>
               </span>
             </div>
           ))}
