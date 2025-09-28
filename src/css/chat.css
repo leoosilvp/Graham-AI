@@ -161,9 +161,14 @@
     animation: fadeInUp 0.3s ease;
 }
 
-.message strong:first-child{
+.message strong{
     color: #707070;
 }
+
+.message p strong{
+    color: #f5f5f5;
+}
+
 
 .chat-box span {
     display: flex;
