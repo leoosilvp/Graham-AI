@@ -1,12 +1,11 @@
+import { sendMessageToAI } from "../services/sendMessage.js";
 import React, { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import 'katex/dist/katex.min.css';
-
 import '../css/chat.css';
 import '../css/markdown.css';
-import { sendMessageToAI } from "../services/sendMessage.js";
 
 function Chat() {
   const [input, setInput] = useState("");
