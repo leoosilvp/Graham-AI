@@ -6,30 +6,19 @@ import ChangeIcon from './hooks/ChangeIcon'
 import './css/style.css'
 import Login from './components/Login'
 
-// importa o provider do MathJax
-import { MathJaxContext } from "better-react-mathjax";
-
 function App() {
+
   ChangeIcon();
 
-  // configuração dos delimitadores LaTeX
-  const mathJaxConfig = {
-    tex: {
-      inlineMath: [["$", "$"], ["\\(", "\\)"]],
-      displayMath: [["$$", "$$"], ["\\[", "\\]"]],
-    },
-  };
-
   return (
-    <MathJaxContext config={mathJaxConfig}>
-      <Login />
+    <><Login />
       <Header />
       <div className="content">
         <Aside />
         <Chat />
       </div>
       <Footer />
-    </MathJaxContext>
+    </>
   )
 }
 
