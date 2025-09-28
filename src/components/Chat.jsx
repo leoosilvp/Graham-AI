@@ -3,50 +3,9 @@ import '../css/markdown.css';
 import { useState, useRef, useEffect } from "react";
 import { sendMessageToAI } from "../services/sendMessage.js";
 import ReactMarkdown from "react-markdown";
-import katex from "katex";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 import 'katex/dist/katex.min.css';
-
-// Função para quebrar o texto em Markdown e LaTeX
-function parseMessage(text) {
-  const regex = /(\$\$.*?\$\$|\$.*?\$)/gs; // detecta $...$ ou $$...$$
-  const parts = [];
-  let lastIndex = 0;
-
-  text.replace(regex, (match, offset) => {
-    if (offset > lastIndex) {
-      parts.push({ type: 'markdown', content: text.slice(lastIndex, offset) });
-    }
-    parts.push({ type: 'latex', content: match });
-    lastIndex = offset + match.length;
-    return match;
-  });
-
-  if (lastIndex < text.length) {
-    parts.push({ type: 'markdown', content: text.slice(lastIndex) });
-  }
-
-  return parts;
-}
-
-function LaTeX({ content }) {
-  const clean = content.replace(/^\$\$?|\$\$?$/g, ""); // remove os $ ou $$
-  const html = katex.renderToString(clean, { throwOnError: false, displayMode: content.startsWith('$$') });
-  return <span dangerouslySetInnerHTML={{ __html: html }} />;
-}
-
-function ChatMessage({ msg }) {
-  const parts = parseMessage(msg.content);
-  return (
-    <div className={`message ${msg.role} ${msg.thinking ? "thinking" : ""}`}>
-      <strong>{msg.role === "user" ? "Você:" : "Graham:"}</strong>{" "}
-      <span>
-        {parts.map((p, idx) =>
-          p.type === 'latex' ? <LaTeX key={idx} content={p.content} /> : <ReactMarkdown key={idx}>{p.content}</ReactMarkdown>
-        )}
-      </span>
-    </div>
-  );
-}
 
 function Chat() {
   const [input, setInput] = useState("");
@@ -181,7 +140,18 @@ function Chat() {
       ) : (
         <section className="chat-box" ref={chatBoxRef}>
           {messages.map((msg) => (
-            <ChatMessage key={msg.ts} msg={msg} />
+            <div key={msg.ts} className={`message ${msg.role} ${msg.thinking ? "thinking" : ""}`}>
+              <strong>{msg.role === "user" ? "Você:" : "Graham:"}</strong>{" "}
+              <span>
+                <ReactMarkdown
+                  className="markdown"
+                  remarkPlugins={[remarkMath]}
+                  rehypePlugins={[rehypeKatex]}
+                >
+                  {msg.content}
+                </ReactMarkdown>
+              </span>
+            </div>
           ))}
         </section>
       )}
