@@ -53,8 +53,6 @@
     transition: background 0.15s ease;
 }
 
-.message li:hover { background-color: #ffffff03; }
-
 .message ul li::marker,
 .message ol li::marker { color: #ffffff; font-weight: bold; }
 .message li strong a,
@@ -64,7 +62,7 @@
 
 /* --- Código Inline compacto --- */
 .message code:not(pre code) {
-    background-color: #2b2b2b52;
+    background-color: #2e2e2e6b;
     color: #facc15;
     padding: 0.1rem 0.25rem;
     border-radius: 3px;
@@ -100,7 +98,7 @@
     color: #9ca3af;
     font-style: italic;
     font-size: 0.83rem;
-    background-color: #2b2b2b52;
+    background-color: #2e2e2e6b;
     margin: 0.2rem 0;
     border-radius: 4px;
 }

@@ -7,6 +7,100 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import 'katex/dist/katex.min.css';
 
+// Componente mais robusto para renderização híbrida
+const AdvancedHybridRenderer = ({ content }) => {
+  const renderContent = () => {
+    if (!content) return null;
+    
+    // Regex mais precisa para capturar expressões LaTeX
+    const latexBlockRegex = /\$\$([\s\S]*?)\$\$/g;
+    const latexInlineRegex = /\$([^$\n]+?)\$/g;
+    
+    let processedContent = content;
+    const latexExpressions = [];
+    let expressionIndex = 0;
+    
+    // Primeiro, extrair e substituir expressões de bloco ($$...$$)
+    processedContent = processedContent.replace(latexBlockRegex, (match, expression) => {
+      const placeholder = `__LATEX_BLOCK_${expressionIndex}__`;
+      latexExpressions[expressionIndex] = {
+        type: 'block',
+        expression: expression.trim(),
+        placeholder
+      };
+      expressionIndex++;
+      return placeholder;
+    });
+    
+    // Depois, extrair e substituir expressões inline ($...$)
+    processedContent = processedContent.replace(latexInlineRegex, (match, expression) => {
+      const placeholder = `__LATEX_INLINE_${expressionIndex}__`;
+      latexExpressions[expressionIndex] = {
+        type: 'inline',
+        expression: expression.trim(),
+        placeholder
+      };
+      expressionIndex++;
+      return placeholder;
+    });
+    
+    // Dividir o conteúdo pelos placeholders
+    let parts = [processedContent];
+    latexExpressions.forEach((latexExpr) => {
+      const newParts = [];
+      parts.forEach(part => {
+        if (typeof part === 'string' && part.includes(latexExpr.placeholder)) {
+          const splitParts = part.split(latexExpr.placeholder);
+          newParts.push(splitParts[0]);
+          newParts.push(latexExpr);
+          newParts.push(splitParts[1]);
+        } else {
+          newParts.push(part);
+        }
+      });
+      parts = newParts.filter(part => part !== '');
+    });
+    
+    return parts.map((part, index) => {
+      if (typeof part === 'string') {
+        // Renderizar como Markdown puro (sem processamento LaTeX)
+        return (
+          <ReactMarkdown key={index} className="markdown-part">
+            {part}
+          </ReactMarkdown>
+        );
+      } else if (part.type === 'block') {
+        // Renderizar expressão LaTeX de bloco
+        return (
+          <div key={index} className="latex-block-container">
+            <ReactMarkdown
+              remarkPlugins={[remarkMath]}
+              rehypePlugins={[rehypeKatex]}
+            >
+              {`$$${part.expression}$$`}
+            </ReactMarkdown>
+          </div>
+        );
+      } else if (part.type === 'inline') {
+        // Renderizar expressão LaTeX inline
+        return (
+          <span key={index} className="latex-inline-container">
+            <ReactMarkdown
+              remarkPlugins={[remarkMath]}
+              rehypePlugins={[rehypeKatex]}
+            >
+              {`$${part.expression}$`}
+            </ReactMarkdown>
+          </span>
+        );
+      }
+      return null;
+    });
+  };
+
+  return <div className="advanced-hybrid-content">{renderContent()}</div>;
+};
+
 function Chat() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
@@ -143,13 +237,7 @@ function Chat() {
             <div key={msg.ts} className={`message ${msg.role} ${msg.thinking ? "thinking" : ""}`}>
               <strong>{msg.role === "user" ? "Você:" : "Graham:"}</strong>{" "}
               <span>
-                <ReactMarkdown
-                  className="markdown"
-                  remarkPlugins={[remarkMath]}
-                  rehypePlugins={[rehypeKatex]}
-                >
-                  {msg.content}
-                </ReactMarkdown>
+                <AdvancedHybridRenderer content={msg.content} />
               </span>
             </div>
           ))}
