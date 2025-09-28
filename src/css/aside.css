@@ -188,13 +188,14 @@ aside::-webkit-scrollbar-thumb {
 .title-card {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 7px;
 }
 
 .title-card h1 {
     display: flex;
     color: #dedede;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 500;
 }
 
 .title-card i {
@@ -206,6 +207,7 @@ aside::-webkit-scrollbar-thumb {
 
 .card-chat button {
     margin: 0;
+    margin-left: 5px;
     display: flex;
     align-items: center;
     padding: 3px;

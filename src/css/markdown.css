@@ -33,11 +33,11 @@
 
 /* --- Links --- */
 .message a {
-    color: #3b82f6;
+    color: #39669c;
     text-decoration: underline;
     transition: color 0.15s ease, transform 0.15s ease;
 }
-.message a:hover { color: #60a5fa; transform: translateY(-0.5px); }
+.message a:hover { color: #508cd6; transform: translateY(-0.5px); }
 
 /* --- Listas compactas --- */
 .message ul,
@@ -58,11 +58,11 @@
 .message li strong a,
 .message li em a,
 .message li a strong,
-.message li a em { color: #60a5fa; }
+.message li a em { color: #39669c; }
 
 /* --- Código Inline compacto --- */
 .message code:not(pre code) {
-    background-color: #2e2e2e6b;
+    background-color: #2e2e2eb3;
     color: #facc15;
     padding: 0.1rem 0.25rem;
     border-radius: 3px;
