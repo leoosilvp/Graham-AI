@@ -1,9 +1,6 @@
 import { sendMessageToAI } from "../services/sendMessage.js";
 import React, { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
-import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
-import 'katex/dist/katex.min.css';
 import '../css/chat.css';
 import '../css/markdown.css';
 
@@ -143,14 +140,7 @@ function Chat() {
             <div key={msg.ts} className={`message ${msg.role} ${msg.thinking ? "thinking" : ""}`}>
               <strong>{msg.role === "user" ? "Você:" : "Graham:"}</strong>{" "}
               <span>
-                <ReactMarkdown
-                  className="markdown"
-                  remarkPlugins={[remarkMath]}
-                  rehypePlugins={[rehypeKatex]}
-                  linkTarget="_blank"
-                >
-                  {msg.content}
-                </ReactMarkdown>
+                <ReactMarkdown className="markdown">{msg.content}</ReactMarkdown>
               </span>
             </div>
           ))}
