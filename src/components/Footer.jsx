@@ -3,7 +3,7 @@ import '../css/footer.css'
 function Footer() {
     return (
         <footer>
-            <h1>Graham | V.0.9.3</h1>
+            <h1>Graham | V.0.9.4</h1>
         </footer>
     )
 }

@@ -150,7 +150,17 @@
 
 .chat-box::-webkit-scrollbar {
     display: flex;
-    background: none;
+    width: 3px;
+}
+
+.chat-box::-webkit-scrollbar-thumb{
+    background: #29292955;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.chat-box::-webkit-scrollbar-track{
+    background: #00000000;
 }
 
 .message {
