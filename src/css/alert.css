@@ -1,0 +1,42 @@
+.ctn-alert{
+    position: absolute;
+    top: 80px;
+    right: -1px;
+    background: #00000067;
+    border: 1px solid var(--color-line);
+    border-radius: 10px 0px 0px 10px;
+}
+
+.alert{
+    display: flex;
+    gap: 10px;
+    padding: 15px;
+}
+
+.alert i{
+    color: #e4c709;
+}
+
+.alert h1{
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.time-alert{
+    align-items: end;
+    display: flex;
+    height: 3px;
+    background: white;
+    border-radius: 0px 0px 0px 10px;
+    animation: time-out 4.01s linear;
+}
+
+@keyframes time-out{
+    0%{
+        width: 100%;
+    }
+    100%{
+        width: 0%;
+    }
+}
+
