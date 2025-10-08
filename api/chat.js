@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { messages } = req.body;
+    const { messages, files } = req.body;
 
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
       return res.status(400).json({ error: "Mensagens não fornecidas." });
@@ -12,6 +12,14 @@ export default async function handler(req, res) {
 
     if (!process.env.OPENROUTER_API_KEY) {
       return res.status(500).json({ error: "Chave da OpenRouter não configurada." });
+    }
+
+    let fileMessages = [];
+    if (files && Array.isArray(files)) {
+      fileMessages = files.map((f) => ({
+        role: "user",
+        content: `Conteúdo do arquivo "${f.name}":\n${f.content || "(vazio)"}`,
+      }));
     }
 
     const systemPrompt = {
@@ -22,7 +30,7 @@ export default async function handler(req, res) {
 
     const payload = {
       model: "deepseek/deepseek-chat-v3.1:free",
-      messages: [systemPrompt, ...messages],
+      messages: [systemPrompt, ...fileMessages, ...messages],
     };
 
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {

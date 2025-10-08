@@ -1,10 +1,22 @@
-export async function sendMessageToAI(messages) {
+export async function sendMessageToAI(messages, attachedFiles = []) {
+  const filesToSend = await Promise.all(
+    attachedFiles.map(async (file) => {
+      const text = await file.text();
+      return { name: file.name, content: text };
+    })
+  );
+
+  const payload = {
+    messages,
+    files: filesToSend,
+  };
+
   const response = await fetch("/api/chat", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ messages }),
+    body: JSON.stringify(payload),
   });
 
   if (!response.ok) {
