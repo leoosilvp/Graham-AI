@@ -63,6 +63,10 @@ body {
         height: 40px;
     }
 
+    .send-files button{
+        width: 100%;
+    }
+
     .presentation {
         width: 90%;
     }

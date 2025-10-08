@@ -1,5 +1,5 @@
 import { sendMessageToAI } from "../services/sendMessage.js";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import ReactMarkdown from "react-markdown";
 import '../css/chat.css';
 import '../css/markdown.css';
@@ -127,6 +127,29 @@ function Chat() {
     }
   };
 
+  const confRef = useRef(null);
+  const [showConf, setShowConf] = useState(false);
+
+  const toggleConf = useCallback(() => {
+    setShowConf(prev => !prev);
+  }, []);
+
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (
+        showConf &&
+        confRef.current &&
+        !confRef.current.contains(e.target) &&
+        !e.target.closest(".btn-profile")
+      ) {
+        setShowConf(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showConf]);
+
   return (
     <div className="hero-chat">
       {!started ? (
@@ -149,7 +172,16 @@ function Chat() {
 
       <section className={`ctn-input ${started ? "bottom" : ""}`}>
         <section className="input">
-          <button disabled={loading}><i className="fa-solid fa-paperclip"></i></button>
+          <button onClick={toggleConf} disabled={loading}><i className="fa-solid fa-paperclip"></i></button>
+
+          {showConf && (
+            <article ref={confRef} className="send-files">
+              <button type="file"><i className="fa-regular fa-folder" />Escolher arquivo</button>
+              <button type="image"><i className="fa-regular fa-image" />Escolher imagem</button>
+              <button type="file"><i className="fa-regular fa-file-code" />Incorporar código</button>
+            </article>
+          )}
+
           <input
             type="text"
             value={input}
@@ -161,6 +193,7 @@ function Chat() {
             onKeyDown={(e) => e.key === "Enter" && handleSend()}
             disabled={loading}
           />
+
           <button onClick={handleSend} disabled={loading}><i className="fa-regular fa-paper-plane"></i></button>
         </section>
       </section>
