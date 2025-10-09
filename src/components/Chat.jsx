@@ -105,7 +105,7 @@ function Chat() {
     const text = input.trim();
     const userMsg = {
       role: "user",
-      content: text || "(Arquivo enviado)",
+      content: text,
       files: attachedFiles.map((f) => ({
         name: f.name,
         type: f.type,

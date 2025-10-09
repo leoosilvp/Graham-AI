@@ -2,7 +2,7 @@
     position: absolute;
     top: 80px;
     right: -1px;
-    background: #00000067;
+    background: #171717;
     border: 1px solid var(--color-line);
     border-radius: 10px 0px 0px 10px;
     z-index: 100;
