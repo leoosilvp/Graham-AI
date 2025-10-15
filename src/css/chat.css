@@ -188,7 +188,6 @@
     flex-direction: column;
     gap: 15px;
     width: 100%;
-    align-items: center;
     margin: 15px 0;
 }
 
@@ -196,6 +195,7 @@
     display: inline-block !important;
     vertical-align: middle;
     max-width: 100%;
+    min-height: 100%;
     line-height: 1.2;
 }
 
