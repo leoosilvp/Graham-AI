@@ -8,7 +8,6 @@ function Login() {
   const [error, setError] = useState('');
   const [isLogged, setIsLogged] = useState(false);
 
-  // Verifica se já há usuário logado
   useEffect(() => {
     const storedUser = localStorage.getItem('grahamUser');
     if (storedUser) setIsLogged(true);
@@ -32,9 +31,8 @@ function Login() {
       };
 
       localStorage.setItem('grahamUser', JSON.stringify(userData));
-      setIsLogged(true); // Oculta o componente
+      setIsLogged(true);
 
-      // Atualiza a página após o login
       window.location.reload();
 
     } catch (err) {
@@ -44,7 +42,6 @@ function Login() {
     }
   };
 
-  // Se já estiver logado, não renderiza nada
   if (isLogged) return null;
 
   return (

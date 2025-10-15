@@ -1,35 +1,45 @@
 .conf-profile{
     position: absolute;
-    bottom: 45px;
-    left: 210px;
+    bottom: 47px;
+    left: 220px;
     display: flex;
     flex-direction: column;
-    width: 150px;
+    width: fit-content;
     height: fit-content;
     padding: 5px;
-    gap: 5px;
-    background: #0000002f;
+    gap: 2px;
+    background: #1e1e1e;
     backdrop-filter: blur(5px);
-    border-radius: 7px;
+    border-radius: 10px;
     border: 1px solid var(--color-line);
     box-shadow: 0px 0px 10px 2px #0000002b;
     z-index: 50;
 }
 
 .conf-profile button{
-    background: #171717;
     margin: 0;
-    width: 100%;
+    width: 120px;
     display: flex;
     justify-content: start;
-    padding: 3px 10px;
+    padding: 9px 10px;
+    border: none;
+    border-radius: 5px;
+    background: transparent;
+    font-size: 0.9rem;
+    color: #ffffffaf;
     gap: 5px;
+    transition: none;
 }
 
-.conf-profile button:hover:first-child{
-    color: #d80000;
+.conf-profile button:last-child{
+    color: #d30000;
+}
+
+.conf-profile button:hover:last-child{
+    color: #d30000;
 }
 
 .conf-profile button:hover{
-    background: #242424;
+    color: #f5f5f5;
+    background: #303030;
 }
