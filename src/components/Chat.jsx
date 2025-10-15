@@ -173,11 +173,11 @@ function Chat() {
 
       let userMessage = "❌ Ocorreu um erro inesperado. Tente novamente em instantes.";
 
-      if (err.message?.includes("429") || err.message?.includes("rate-limit")) {
+      if (err.message?.includes(429) || err.message?.includes("rate-limit")) {
         userMessage = "⚠️ O servidor está sobrecarregado no momento. Aguarde um pouco e tente novamente.";
-      } else if (err.message?.includes("401")) {
+      } else if (err.message?.includes(401)) {
         userMessage = "🔑 Erro de autenticação com a API. Verifique sua chave de acesso.";
-      } else if (err.message?.includes("500")) {
+      } else if (err.message?.includes(500)) {
         userMessage = "💥 Erro interno do servidor da IA. Tente novamente mais tarde.";
       } else if (err.message?.includes("network") || err.message?.includes("fetch")) {
         userMessage = "🌐 Falha de conexão. Verifique sua internet.";
@@ -235,13 +235,14 @@ function Chat() {
               className={`message ${msg.role} ${msg.thinking ? "thinking" : ""}`}
             >
               <strong>{msg.role === "user" ? "Você:" : "Graham:"}</strong>{" "}
-              <span>
+              <div className="markdown-wrapper">
                 <ReactMarkdown
                   remarkPlugins={[remarkMath]}
                   rehypePlugins={[rehypeKatex]}
-                  children={String(msg.content).replace(/\\\\/g, "\\")}
-                />
-              </span>
+                >
+                  {msg.content}
+                </ReactMarkdown>
+              </div>
 
               {msg.files && msg.files.length > 0 && (
                 <div className="msg-files">

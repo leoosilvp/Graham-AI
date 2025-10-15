@@ -183,13 +183,41 @@
     color: #f5f5f5;
 }
 
-
-.chat-box span {
+/* Wrapper do Markdown mantendo o gap original */
+.markdown-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 15px;                /* mantém o espaçamento entre elementos */
     width: 100%;
+    margin: 15px 0;           /* margin top/bottom de 15px */
 }
+
+/* KaTeX inline e block isolados */
+.markdown-wrapper .katex {
+    display: inline-block !important;
+    vertical-align: middle;
+    align-items: center;
+    max-width: 100%;
+}
+
+/* KaTeX em bloco */
+.markdown-wrapper .katex-display {
+    display: block !important;
+    margin: 15px 0;           /* garante margin top/bottom separadas */
+    overflow-x: auto;         /* scroll horizontal se muito grande */
+}
+
+/* MathML interno (não usado visualmente) */
+.markdown-wrapper .katex .katex-mathml {
+    display: none;
+}
+
+/* HTML interno do KaTeX */
+.markdown-wrapper .katex .katex-html {
+    display: inline-block !important;
+    line-height: 1.2;
+}
+
 
 .chat-box div.user {
     display: flex;
