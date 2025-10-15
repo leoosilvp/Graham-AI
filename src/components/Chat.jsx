@@ -169,12 +169,28 @@ function Chat() {
       setMessages(finalMsgs);
       saveChat(idToUse, finalMsgs);
     } catch (err) {
-      console.error("Erro ao se comunicar com a IA.", err);
+      console.error("❌ Erro ao se comunicar com a IA:", err);
+
+      let userMessage = "❌ Ocorreu um erro inesperado. Tente novamente em instantes.";
+
+      if (err.message?.includes("429") || err.message?.includes("rate-limit")) {
+        userMessage = "⚠️ O servidor está sobrecarregado no momento. Aguarde um pouco e tente novamente.";
+      } else if (err.message?.includes("401")) {
+        userMessage = "🔑 Erro de autenticação com a API. Verifique sua chave de acesso.";
+      } else if (err.message?.includes("500")) {
+        userMessage = "💥 Erro interno do servidor da IA. Tente novamente mais tarde.";
+      } else if (err.message?.includes("network") || err.message?.includes("fetch")) {
+        userMessage = "🌐 Falha de conexão. Verifique sua internet.";
+      } else if (err.name === "AbortError") {
+        userMessage = "🚫 Requisição cancelada. Nenhuma mensagem enviada.";
+      }
+
       const errMsg = {
         role: "assistant",
-        content: "❌ Erro ao se comunicar com a IA.",
+        content: userMessage,
         ts: Date.now(),
       };
+
       const afterError = [...updatedMsgs, errMsg];
       setMessages(afterError);
       saveChat(idToUse, afterError);
