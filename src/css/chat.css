@@ -68,13 +68,13 @@
     padding: 10px 10px 10px 20px;
     background: #3232324b;
     backdrop-filter: blur(20px);
-    box-shadow: 0px 0px 10px 2px #1e1e1e;
+    box-shadow: 0px 4px 15px 0px #00000045;
     gap: 15px;
 }
 
 .input input {
     display: flex;
-    width: 100%;
+    width: 95%;
     background: transparent;
     border: none;
     outline: none;
@@ -123,12 +123,12 @@
     gap: 10px;
     width: fit-content;
     padding: 15px 20px;
-    background: #1e1e1e;
+    background: #1e1e1eaa;
     border: 1px solid var(--color-line);
     border-radius: 50px;
-    cursor: pointer;
     transition: var(--transition);
     color: #dedede;
+    box-shadow: 0px 2px 10px 0px #00000033;
 }
 
 .links-file i:hover {
@@ -186,7 +186,8 @@
 .markdown-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    justify-content: center;
+    gap: 10px;
     width: 100%;
     margin: 15px 0;
 }
@@ -248,12 +249,11 @@
     flex-direction: column;
     align-self: flex-start;
     width: 100%;
-    padding: 0 20px;
     color: #dedede;
     letter-spacing: 1.2px;
 }
 
-.message.assistant.thinking span {
+.message.assistant.thinking .markdown-wrapper {
     display: flex;
     font-style: italic;
     color: #888;
@@ -261,7 +261,7 @@
     gap: 5px;
 }
 
-.message.assistant.thinking span::after {
+.message.assistant.thinking .markdown-wrapper::after {
     content: "";
     display: inline-block;
     width: 1ch;
@@ -280,16 +280,16 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    width: 185px;
+    width: fit-content;
     height: fit-content;
     bottom: 17px;
     padding: 5px;
-    gap: 5px;
-    background: #131313;
+    gap: 2px;
+    background: #1e1e1e;
     backdrop-filter: blur(5px);
-    border: 1px solid var(--color-line);
     box-shadow: 0px 0px 10px 2px #0000002b;
-    border-radius: 7px;
+    border: 1px solid var(--color-line);
+    border-radius: 15px;
     z-index: 100;
 }
 
@@ -300,34 +300,32 @@
 .send-files button:first-child {
     width: 100%;
     height: fit-content;
-    padding: 5px 7px;
-    background: #1b1b1b;
-    border: 1px solid var(--color-line);
-    border-radius: 4px;
+    padding: 9px 10px;
+    background: transparent;
+    border-radius: 10px;
     gap: 5px;
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
 .send-files button {
     display: flex;
-    width: 100%;
+    width: 220px;
     height: fit-content;
     justify-content: start;
-    background: #1b1b1b;
+    background: transparent;
     border: none;
-    padding: 5px 7px;
-    border: 1px solid var(--color-line);
-    border-radius: 4px;
+    padding: 9px 10px;
+    border-radius: 10px;
     color: #ffffffaf;
     cursor: pointer;
-    transition: var(--transition);
+    transition: none;
     gap: 5px;
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
 .send-files button:hover {
     box-shadow: none;
-    background: #232323;
+    background: #303030;
     color: #f5f5f5;
 }
 

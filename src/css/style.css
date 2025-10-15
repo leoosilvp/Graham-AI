@@ -17,7 +17,7 @@ body {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    background: linear-gradient(-45deg, #090909, #181818, #090909);
+    background: linear-gradient(-45deg, #101010, #181818, #101010);
     color: var(--secundary-color);
 }
 

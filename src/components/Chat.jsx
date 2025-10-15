@@ -286,12 +286,14 @@ function Chat() {
                 type="file"
                 ref={fileInputRef}
                 hidden
+                multiple
                 onChange={handleFileSelect}
               />
               <input
                 type="file"
                 ref={imageInputRef}
                 hidden
+                multiple
                 accept="image/*"
                 onChange={handleFileSelect}
               />
@@ -299,6 +301,7 @@ function Chat() {
                 type="file"
                 ref={codeInputRef}
                 hidden
+                multiple
                 accept=".js,.jsx,.ts,.tsx,.py,.html,.css"
                 onChange={handleFileSelect}
               />
@@ -352,6 +355,30 @@ function Chat() {
           <i className="fa-regular fa-file-code" onClick={() => codeInputRef.current.click()}>
             Escolher código
           </i>
+
+          <input
+            type="file"
+            ref={fileInputRef}
+            hidden
+            multiple
+            onChange={handleFileSelect}
+          />
+          <input
+            type="file"
+            ref={imageInputRef}
+            hidden
+            multiple
+            accept="image/*"
+            onChange={handleFileSelect}
+          />
+          <input
+            type="file"
+            ref={codeInputRef}
+            hidden
+            multiple
+            accept=".js,.jsx,.ts,.tsx,.py,.html,.css"
+            onChange={handleFileSelect}
+          />
         </section>
       )}
 
