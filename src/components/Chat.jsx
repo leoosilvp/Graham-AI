@@ -223,8 +223,8 @@ function Chat() {
                 <ReactMarkdown
                   remarkPlugins={[remarkMath]}
                   rehypePlugins={[rehypeKatex]}
-                >{msg.content}
-                </ReactMarkdown>
+                  children={String(msg.content).replace(/\\\\/g, "\\")}
+                />
               </span>
 
               {msg.files && msg.files.length > 0 && (
@@ -262,7 +262,7 @@ function Chat() {
                 <i className="fa-regular fa-image"></i> Escolher imagem
               </button>
               <button onClick={() => codeInputRef.current.click()}>
-                <i className="fa-regular fa-file-code"></i> Incorporar código
+                <i className="fa-regular fa-file-code"></i> Escolher código
               </button>
 
               <input
@@ -333,7 +333,7 @@ function Chat() {
             Escolher imagem
           </i>
           <i className="fa-regular fa-file-code" onClick={() => codeInputRef.current.click()}>
-            Incorporar código
+            Escolher código
           </i>
         </section>
       )}
