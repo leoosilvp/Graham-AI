@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
 import '../css/chat.css';
 import '../css/markdown.css';
 import Alert from "./Alert.jsx";
@@ -149,7 +150,7 @@ function Chat() {
         ts: Date.now(),
         thinking: true,
       };
-      setMessages((prev) => [...updatedMsgs, thinkingMsg]);
+      setMessages(() => [...updatedMsgs, thinkingMsg]);
 
       const systemPrompt = {
         role: "system",
@@ -168,6 +169,7 @@ function Chat() {
       setMessages(finalMsgs);
       saveChat(idToUse, finalMsgs);
     } catch (err) {
+      console.error("Erro ao se comunicar com a IA.", err);
       const errMsg = {
         role: "assistant",
         content: "❌ Erro ao se comunicar com a IA.",
