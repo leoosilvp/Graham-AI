@@ -43,24 +43,33 @@ aside::-webkit-scrollbar-thumb {
     background: #171717;
 }
 
-.hero-aside button {
+.hero-aside .btn-aside {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 30px;
     height: 30px;
     margin: 15px;
-    border: 1px solid var(--color-line);
+    border: none;
     border-radius: 5px;
     color: #dedede;
     background: transparent;
     cursor: pointer;
     transition: var(--transition);
+    font-size: 1rem;
 }
 
-.hero-aside button:hover {
-    background: #1e1e1e;
-    box-shadow: 0px 0px 10px 2px #1e1e1e8e;
+.hero-aside .btn-aside:hover{
+    background: #2b2b2b;
+    box-shadow: 0px 0px 10px 2px #1e1e1e21;
+}
+
+.hero-aside .btn-aside i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    rotate: 360deg;
+    transition: var(--transition);
 }
 
 .search-chat {

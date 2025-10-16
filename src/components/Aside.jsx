@@ -79,7 +79,7 @@ function Aside() {
             )}
 
             <button className="btn-aside" onClick={handleMove}>
-                <i className="fa-regular fa-window-maximize fa-rotate-90"></i>
+                <i className="fa-solid fa-bars-staggered"></i>
             </button>
         </div>
     );

@@ -41,11 +41,39 @@ body {
 }
 
 @media (width < 720px) {
+    header {
+        position: absolute;
+        justify-content: center;
+        box-shadow: none;
+        z-index: -1;
+    }
+
+    header h1 {
+        display: none;
+    }
+
+    header a {
+        display: none;
+    }
+
     aside {
         position: relative;
         margin-left: -292px;
         z-index: 30;
         background: #101010;
+    }
+
+    .hero-aside .btn-aside {
+        border: 0px solid var(--color-line);
+        border-radius: 0px;
+        transition: none;
+        font-size: 1.1rem;
+        background: transparent;
+    }
+
+    .hero-aside .btn-aside:hover {
+        background: transparent;
+        box-shadow: none;
     }
 
     .ctn-input {
@@ -63,20 +91,32 @@ body {
         height: 40px;
     }
 
-    .send-files button{
+    .input button:hover {
+        background: none;
+        box-shadow: none;
+    }
+
+    .input button:active {
+        background: #9595952d;
+        box-shadow: 0px 0px 10px 1px var(--color-line);
+    }
+
+    .send-files button {
         width: 100%;
     }
 
     .presentation {
         width: 90%;
+        margin-top: -50px;
     }
 
     .presentation h1 {
+        font-size: 1.7rem;
         text-align: center;
     }
 
     .presentation h2 {
-        text-align: center;
+        display: none;
     }
 
     .links-file {
@@ -93,6 +133,12 @@ body {
         z-index: 10;
     }
 
+    .send-files {
+        bottom: 55px;
+        left: 0px;
+        padding: 5px;
+    }
+
     .chat-box {
         width: 100%;
         max-width: 100%;
@@ -100,4 +146,47 @@ body {
         gap: 25px;
     }
 
+    .chat-box div.assistant {
+        padding: 0px 15px;
+    }
+
+    .ctn-profile {
+        width: 250px;
+    }
+
+    .ctn-profile:hover {
+        box-shadow: none;
+    }
+
+    .ctn-profile i:hover {
+        background: none;
+    }
+
+    .ctn-profile i:active {
+        background: #353535;
+    }
+
+    .conf-profile {
+        left: 140px;
+        bottom: 90px;
+        border-radius: 7px;
+    }
+
+    .conf-profile button {
+        align-items: center;
+        border-radius: 5px;
+        background: transparent;
+    }
+
+    .new-chat button:hover {
+        color: none;
+        background: none;
+        transform: none;
+    }
+
+    .new-chat button:active {
+        color: #f5f5f5;
+        background: #1e1e1e;
+        transform: scale(1.01);
+    }
 }
