@@ -9,12 +9,12 @@ function Search() {
   return (
     <article className='search-chat'>
       <label htmlFor="search-chat">
-        <i className="fa-solid fa-magnifying-glass"></i> Search chats
+        <i className="fa-solid fa-magnifying-glass"></i> Procurar chats
       </label>
       <input
         id='search-chat'
         type="text"
-        placeholder='Buscar conversas...'
+        placeholder='Procurar chats...'
         onChange={handleChange}
       />
     </article>

@@ -5,18 +5,12 @@
     padding: 0;
 }
 
-:root {
-    --primary-color: #1e1e1e;
-    --secundary-color: #f5f5f5;
-    --color-line: #282828;
-    --transition: all 0.4s ease;
-}
-
 .hero-aside {
     display: flex;
 }
 
 aside {
+    margin-left: -292px;
     display: flex;
     flex-direction: column;
     overflow: auto;
@@ -25,7 +19,6 @@ aside {
     padding: 25px 20px;
     background: #00000042;
     box-shadow: 1px 0px 0px 0px var(--color-line), 7px 0px 10px #0000001e;
-    transition: var(--transition);
 }
 
 aside::-webkit-scrollbar {
@@ -36,11 +29,15 @@ aside::-webkit-scrollbar {
 aside::-webkit-scrollbar-track {
     display: flex;
     width: 3px;
-    background-color: #1c1c1c;
 }
 
 aside::-webkit-scrollbar-thumb {
     background: #171717;
+}
+
+.aside-logo{
+    width: fit-content;
+    cursor: pointer;
 }
 
 .hero-aside .btn-aside {
@@ -171,8 +168,9 @@ aside::-webkit-scrollbar-thumb {
 
 .card-chat {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    padding: 6px 12px;
+    padding: 6px 6px 6px 12px;
     border-radius: 7px;
     background: #1a1a1a32;
     cursor: pointer;
@@ -184,7 +182,7 @@ aside::-webkit-scrollbar-thumb {
     opacity: 1;
     background-color: #1a1a1aaa;
     transform: scale(1.01);
-    border: 1px solid var(--color-line);
+    border: 1px solid #28282899;
 }
 
 .card-chat:hover {
@@ -218,12 +216,13 @@ aside::-webkit-scrollbar-thumb {
     margin-left: 5px;
     display: flex;
     align-items: center;
-    padding: 3px;
+    height: fit-content;
+    padding: 5px 3px;
     background: transparent;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: var(--secundary-color);
     opacity: 0;
     transition: all 0.1s ease;
@@ -245,9 +244,9 @@ aside::-webkit-scrollbar-thumb {
     justify-content: space-between;
     bottom: 0;
     width: 245px;
-    height: 70px;
+    height: fit-content;
     max-height: 100px;
-    padding: 15px;
+    padding: 13px;
     border: 1px solid var(--color-line);
     border-radius: 7px;
     background: #171717;
@@ -257,8 +256,8 @@ aside::-webkit-scrollbar-thumb {
 }
 
 .ctn-profile:hover {
-    box-shadow: 0px 0px 10px 1px #ffffff08;
-    transform: scale(1.01);
+    background: #1e1e1e;
+    box-shadow: 0px 0px 15px 2px #25252511;
 }
 
 .profile {

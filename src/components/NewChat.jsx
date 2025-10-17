@@ -20,8 +20,8 @@ function NewChat() {
 
     return (
         <article className='new-chat'>
-            <h2><i className="fa-regular fa-pen-to-square"></i> New chat</h2>
-            <button onClick={createNewChat}>New chat! <i className="fa-solid fa-comments"></i>
+            <h2><i className="fa-regular fa-pen-to-square"></i> Novo chat</h2>
+            <button onClick={createNewChat}>Novo chat! <i className="fa-solid fa-comments"></i>
             </button>
         </article>
     );

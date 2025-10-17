@@ -50,7 +50,7 @@ function Aside() {
     return (
         <div className="hero-aside">
             <aside ref={boxRef}>
-                <a href="#">
+                <a href="" className="aside-logo">
                     <img className="logo" src={logo} alt="logo" />
                 </a>
 

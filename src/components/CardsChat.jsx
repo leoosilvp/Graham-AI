@@ -50,9 +50,9 @@ function CardsChat() {
 
     return (
         <div className="ctn-chats">
-            <h1>Your chats</h1>
+            <h1>Chats</h1>
             <section className="chats">
-                {filteredChats.length === 0 && <p>No conversations</p>}
+                {filteredChats.length === 0 && <p>Sem conversas</p>}
                 {filteredChats.map(c => (
                     <article
                         key={c.id}
