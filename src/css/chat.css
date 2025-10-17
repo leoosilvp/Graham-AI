@@ -210,7 +210,7 @@
 }
 
 .markdown-wrapper .katex {
-    margin-top: 10px;
+    margin: 20px auto;
     display: inline-block !important;
     justify-content: center;
     vertical-align: middle;
