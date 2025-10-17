@@ -112,7 +112,7 @@ function Chat() {
         setLoading(false);
         const cancelMsg = {
           role: "assistant",
-          content: "⚠️ Conversa cancelada.",
+          content: "Resposta interrompida.",
           ts: Date.now(),
         };
         setMessages((prev) => [...prev, cancelMsg]);
@@ -187,7 +187,7 @@ function Chat() {
       setMessages(finalMsgs);
       saveChat(idToUse, finalMsgs);
     } catch (err) {
-      console.error("❌ Erro ao se comunicar com a IA:", err);
+      console.error("Erro ao se comunicar com a IA:", err);
 
       if (err.name === "AbortError") {
         return;
@@ -195,11 +195,11 @@ function Chat() {
 
       let userMessage = "❌ Ocorreu um erro inesperado. Tente novamente em instantes.";
 
-      if (err.message?.includes(429) || err.message?.includes("rate-limit")) {
+      if (err.message?.includes('429') || err.message?.includes("rate-limit")) {
         userMessage = "⚠️ O servidor está sobrecarregado no momento. Aguarde um pouco e tente novamente.";
-      } else if (err.message?.includes(401)) {
+      } else if (err.message?.includes('401')) {
         userMessage = "🔑 Erro de autenticação com a API. Verifique sua chave de acesso.";
-      } else if (err.message?.includes(500)) {
+      } else if (err.message?.includes('500')) {
         userMessage = "💥 Erro interno do servidor da IA. Tente novamente mais tarde.";
       } else if (err.message?.includes("network") || err.message?.includes("fetch")) {
         userMessage = "🌐 Falha de conexão. Verifique sua internet.";
