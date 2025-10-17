@@ -210,10 +210,11 @@
 }
 
 .markdown-wrapper .katex {
+    margin-top: 10px;
     display: inline-block !important;
+    justify-content: center;
     vertical-align: middle;
     max-width: 100%;
-    min-height: 100%;
     line-height: 1.2;
 }
 

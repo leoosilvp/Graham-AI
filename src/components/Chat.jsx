@@ -202,11 +202,11 @@ function Chat() {
         const code = err?.error?.code;
         const message = err?.error?.message || err?.message || "";
 
-        if (code == 429 || message.toLowerCase().includes("rate-limit")) {
+        if (code === 429 || message.toLowerCase().includes("rate-limit")) {
           userMessage = "⚠️ O servidor está sobrecarregado. Aguarde alguns segundos e tente novamente.";
-        } else if (code == 401 || message.includes("401")) {
+        } else if (code === 401 || message.includes("401")) {
           userMessage = "🔑 Erro de autenticação com a API. Verifique sua chave de acesso.";
-        } else if (code == 500 || message.includes("500")) {
+        } else if (code === 500 || message.includes("500")) {
           userMessage = "💥 Erro interno do servidor da IA. Tente novamente mais tarde.";
         } else if (message.toLowerCase().includes("network") || message.toLowerCase().includes("fetch")) {
           userMessage = "🌐 Falha de conexão. Verifique sua internet.";
