@@ -193,23 +193,27 @@ function Chat() {
       setMessages(finalMsgs);
       saveChat(idToUse, finalMsgs);
     } catch (err) {
-      console.error("Erro ao se comunicar com a IA:", err);
-
-      if (err.name === "AbortError") {
-        return;
-      }
 
       let userMessage = "❌ Ocorreu um erro inesperado. Tente novamente em instantes.";
 
-      if (err.message?.includes("429") || err.message?.includes("rate-limit")) {
-        userMessage = "⚠️ O servidor está sobrecarregado no momento. Aguarde um pouco e tente novamente.";
-      } else if (err.message?.includes("401")) {
-        userMessage = "🔑 Erro de autenticação com a API. Verifique sua chave de acesso.";
-      } else if (err.message?.includes("500")) {
-        userMessage = "💥 Erro interno do servidor da IA. Tente novamente mais tarde.";
-      } else if (err.message?.includes("network") || err.message?.includes("fetch")) {
-        userMessage = "🌐 Falha de conexão. Verifique sua internet.";
+      if (err.name === "AbortError") {
+        userMessage = "Resposta cancelada.";
+      } else {
+        const code = err?.error?.code;
+        const message = err?.error?.message || err?.message || "";
+
+        if (code == 429 || message.toLowerCase().includes("rate-limit")) {
+          userMessage = "⚠️ O servidor está sobrecarregado. Aguarde alguns segundos e tente novamente.";
+        } else if (code == 401 || message.includes("401")) {
+          userMessage = "🔑 Erro de autenticação com a API. Verifique sua chave de acesso.";
+        } else if (code == 500 || message.includes("500")) {
+          userMessage = "💥 Erro interno do servidor da IA. Tente novamente mais tarde.";
+        } else if (message.toLowerCase().includes("network") || message.toLowerCase().includes("fetch")) {
+          userMessage = "🌐 Falha de conexão. Verifique sua internet.";
+        }
       }
+
+      console.error(userMessage + ' Erro: ' + err);
 
       const errMsg = {
         role: "assistant",
