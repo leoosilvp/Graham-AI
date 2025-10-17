@@ -195,13 +195,13 @@ function Chat() {
 
       let userMessage = "❌ Ocorreu um erro inesperado. Tente novamente em instantes.";
 
-      if (err.message?.includes('429') || err.message?.includes("rate-limit")) {
+      if (err.includes('429') || err.message?.includes("rate-limit")) {
         userMessage = "⚠️ O servidor está sobrecarregado no momento. Aguarde um pouco e tente novamente.";
-      } else if (err.message?.includes('401')) {
+      } else if (err.includes('401')) {
         userMessage = "🔑 Erro de autenticação com a API. Verifique sua chave de acesso.";
-      } else if (err.message?.includes('500')) {
+      } else if (err.includes('500')) {
         userMessage = "💥 Erro interno do servidor da IA. Tente novamente mais tarde.";
-      } else if (err.message?.includes("network") || err.message?.includes("fetch")) {
+      } else if (err.includes("network") || err.message?.includes("fetch")) {
         userMessage = "🌐 Falha de conexão. Verifique sua internet.";
       }
 
