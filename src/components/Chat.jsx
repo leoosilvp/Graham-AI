@@ -342,21 +342,23 @@ function Chat() {
           )}
 
           {attachedFiles.length > 0 && (
-            <div className="file-preview">
-              {attachedFiles.map((file, index) => (
-                <div key={index} className="file-item">
-                  {file.type.startsWith("image/") ? (
-                    <img src={URL.createObjectURL(file)} alt={file.name} />
-                  ) : (
-                    <i className="fa-regular fa-file"></i>
-                  )}
-                  <span>{file.name}</span>
-                  <button onClick={() => removeFile(index)}>
-                    <i className="fa-solid fa-xmark"></i>
-                  </button>
-                </div>
-              ))}
-            </div>
+            <section className="ctn-file-preview">
+              <div className="file-preview">
+                {attachedFiles.map((file, index) => (
+                  <div key={index} className="file-item">
+                    {file.type.startsWith("image/") ? (
+                      <img src={URL.createObjectURL(file)} alt={file.name} />
+                    ) : (
+                      <i className="fa-regular fa-file"></i>
+                    )}
+                    <span>{file.name}</span>
+                    <button onClick={() => removeFile(index)}>
+                      <i className="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </section>
           )}
 
           <input
