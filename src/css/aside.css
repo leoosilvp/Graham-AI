@@ -35,7 +35,7 @@ aside::-webkit-scrollbar-thumb {
     background: #171717;
 }
 
-.aside-logo{
+.aside-logo {
     width: fit-content;
     cursor: pointer;
 }
@@ -56,12 +56,12 @@ aside::-webkit-scrollbar-thumb {
     font-size: 1rem;
 }
 
-.hero-aside .btn-aside:hover{
+.hero-aside .btn-aside:hover {
     background: #2b2b2b;
     box-shadow: 0px 0px 10px 2px #1e1e1e21;
 }
 
-.hero-aside .btn-aside i{
+.hero-aside .btn-aside i {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -160,7 +160,7 @@ aside::-webkit-scrollbar-thumb {
     gap: 10px;
 }
 
-.chats p{
+.chats p {
     margin-top: 30px;
     text-align: center;
     color: #a5a5a580;
@@ -204,14 +204,18 @@ aside::-webkit-scrollbar-thumb {
     font-weight: 500;
 }
 
-.title-card i {
+.title-card i:first-child {
     display: flex;
     color: #dedede;
     font-size: 0.95rem;
     font-weight: 500;
 }
 
-.card-chat button {
+.options-card {
+    display: flex;
+}
+
+.options-card button {
     margin: 0;
     margin-left: 5px;
     display: flex;
@@ -224,16 +228,16 @@ aside::-webkit-scrollbar-thumb {
     cursor: pointer;
     font-size: 0.9rem;
     color: var(--secundary-color);
-    opacity: 0;
     transition: all 0.1s ease;
+    opacity: 0;
 }
 
-.card-chat:hover button{
-    opacity: 1;
-}
-
-.card-chat button:hover {
+.options-card button:hover {
     background: #353535;
+}
+
+.card-chat:hover button {
+    opacity: 1;
 }
 
 .ctn-profile {
@@ -285,7 +289,7 @@ aside::-webkit-scrollbar-thumb {
     color: #bebebe;
 }
 
-.ctn-profile i{
+.ctn-profile i:last-child {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -299,5 +303,46 @@ aside::-webkit-scrollbar-thumb {
 
 .ctn-profile i:hover {
     font-weight: 600;
+    background: #353535;
+}
+
+.inline-edit{
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.inline-edit:last-child{
+    justify-content: end;
+}
+
+.inline-edit input{
+    border: none;
+    background: transparent;
+    outline: none;
+    color: #dedede;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.inline-edit button{
+    margin-left: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: fit-content;
+    border: none;
+    width: 0;
+    height: fit-content;
+    padding: 4.6px 12px;
+    border-radius: 3px;
+    font-size: 1.9rem;
+    color: #fff;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+.inline-edit button:hover{
     background: #353535;
 }
