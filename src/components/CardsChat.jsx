@@ -6,6 +6,7 @@ function CardsChat() {
     const [filteredChats, setFilteredChats] = useState([]);
     const [activeChatId, setActiveChatId] = useState(localStorage.getItem("activeChatId"));
     const [hoveredMenuId, setHoveredMenuId] = useState(null);
+    const [chatToDelete, setChatToDelete] = useState(null);
     const [editingChatId, setEditingChatId] = useState(null);
     const [editTitle, setEditTitle] = useState("");
     const editRef = useRef(null);
@@ -20,7 +21,6 @@ function CardsChat() {
 
     useEffect(() => {
         loadChats();
-
         const onUpdated = () => loadChats();
         const onFilter = (e) => {
             const query = e.detail.query.toLowerCase();
@@ -38,7 +38,6 @@ function CardsChat() {
         };
     }, []);
 
-    // Fecha edição ao clicar fora
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (editingChatId && editRef.current && !editRef.current.contains(event.target)) {
@@ -55,14 +54,6 @@ function CardsChat() {
         window.dispatchEvent(new CustomEvent("openChat", { detail: { id } }));
     };
 
-    const deleteChat = (id) => {
-        const all = JSON.parse(localStorage.getItem("chats") || "[]").filter(c => c.id !== id);
-        localStorage.setItem("chats", JSON.stringify(all));
-        if (id === activeChatId) localStorage.removeItem("activeChatId");
-        window.dispatchEvent(new CustomEvent("chatsUpdated"));
-        window.location.reload();
-    };
-
     const startEditing = (id, currentTitle) => {
         setEditingChatId(id);
         setEditTitle(currentTitle);
@@ -77,13 +68,36 @@ function CardsChat() {
         localStorage.setItem("chats", JSON.stringify(updated));
         setEditingChatId(null);
         setEditTitle("");
-        window.dispatchEvent(new CustomEvent("chatsUpdated"));
+        loadChats();
     };
 
     const cancelEdit = () => {
         setEditingChatId(null);
         setEditTitle("");
     };
+
+    const requestDelete = (chat) => {
+        if (window.innerWidth < 720) {
+            confirmDelete(chat);
+        } else {
+            setChatToDelete(chat);
+        }
+    };
+
+    const confirmDelete = (chat = chatToDelete) => {
+        if (!chat) return;
+
+        const all = JSON.parse(localStorage.getItem("chats") || "[]").filter(c => c.id !== chat.id);
+        localStorage.setItem("chats", JSON.stringify(all));
+
+        if (chat.id === activeChatId) localStorage.removeItem("activeChatId");
+
+        setChatToDelete(null);
+        loadChats();
+        window.dispatchEvent(new CustomEvent("chatsUpdated"));
+    };
+
+    const cancelDelete = () => setChatToDelete(null);
 
     return (
         <div className="ctn-chats">
@@ -113,13 +127,8 @@ function CardsChat() {
                                             onClick={(e) => e.stopPropagation()}
                                             onChange={(e) => setEditTitle(e.target.value)}
                                             onKeyDown={(e) => {
-                                                if (e.key === "Enter") {
-                                                    e.preventDefault();
-                                                    confirmEdit();
-                                                } else if (e.key === "Escape") {
-                                                    e.preventDefault();
-                                                    cancelEdit();
-                                                }
+                                                if (e.key === "Enter") confirmEdit();
+                                                else if (e.key === "Escape") cancelEdit();
                                             }}
                                         />
                                         <button onClick={confirmEdit}>
@@ -145,10 +154,10 @@ function CardsChat() {
 
                                 {isMenuVisible && !isEditing && (
                                     <>
-                                        <button onClick={(e) => { e.stopPropagation(); deleteChat(c.id); }}>
+                                        <button onClick={() => requestDelete(c)}>
                                             <i className="fa-regular fa-trash-can"></i>
                                         </button>
-                                        <button onClick={(e) => { e.stopPropagation(); startEditing(c.id, c.title); }}>
+                                        <button onClick={() => startEditing(c.id, c.title)}>
                                             <i className="fa-regular fa-pen-to-square"></i>
                                         </button>
                                     </>
@@ -158,6 +167,20 @@ function CardsChat() {
                     );
                 })}
             </section>
+
+            {chatToDelete && (
+                <section className="ctn-confirm-delete-card">
+                    <article className="confirm-delete-card">
+                        <h1>Deletar chat?</h1>
+                        <h2>Isto irá deletar: <span>{chatToDelete.title}</span></h2>
+                        <h3>Esta ação não tem volta! Você concorda em deletar TODOS os conteúdos guardados durante este chat?</h3>
+                        <section className="buttons-delete-card">
+                            <button onClick={cancelDelete}>Cancelar</button>
+                            <button className="active" onClick={() => confirmDelete(chatToDelete)}>Deletar</button>
+                        </section>
+                    </article>
+                </section>
+            )}
         </div>
     );
 }

@@ -65,7 +65,7 @@ function Aside() {
                         <img src={user.avatar} alt="img-profile" />
                         <div className="info-profile">
                             <h1>{user.name || "User"}</h1>
-                            <p>Graham - Free</p>
+                            <p>BASIC</p>
                         </div>
                     </div>
                     <i onClick={toggleConf} className="fa-solid fa-ellipsis btn-profile"></i>
