@@ -63,8 +63,3 @@ Para mais detalhes, leia o arquivo completo de licença: [LICENSE](./LICENSE).
 O desenvolvimento do **Graham** é fruto do trabalho colaborativo de pessoas dedicadas que acreditam no potencial de uma IA especializada em matemática.
 
 [Leonardo Silva](https://www.linkedin.com/in/leeosilvp/) — Fundador do projeto e **Desenvolvedor Principal (Lead Developer)** responsável pela arquitetura, implementação da IA e visão estratégica do Graham.
-
-<div align="center">
-
-```🚧⚠️ projeto em desenvolvimento.🚧```
-</div>

@@ -95,6 +95,7 @@ function CardsChat() {
         setChatToDelete(null);
         loadChats();
         window.dispatchEvent(new CustomEvent("chatsUpdated"));
+        window.location.reload()
     };
 
     const cancelDelete = () => setChatToDelete(null);
