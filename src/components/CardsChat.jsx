@@ -104,7 +104,7 @@ function CardsChat() {
         <div className="ctn-chats">
             <h1>Chats</h1>
             <section className="chats">
-                {filteredChats.length === 0 && <p>Sem conversas</p>}
+                {filteredChats.length === 0 && <p><i className="fa-regular fa-comment-dots"></i> Sem conversas</p>}
                 {filteredChats.map(c => {
                     const isMenuVisible = hoveredMenuId === c.id;
                     const isEditing = editingChatId === c.id;
@@ -124,7 +124,7 @@ function CardsChat() {
                                             type="text"
                                             value={editTitle}
                                             autoFocus
-                                            maxLength={20}
+                                            maxLength={22}
                                             onClick={(e) => e.stopPropagation()}
                                             onChange={(e) => setEditTitle(e.target.value)}
                                             onKeyDown={(e) => {

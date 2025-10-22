@@ -72,7 +72,7 @@ function Chat() {
     const idx = all.findIndex((c) => c.id === id);
     const title = (() => {
       const msg = msgs.find((m) => m.role === "user")?.content || '';
-      return msg.length >= 17 ? msg.slice(0, 17) + '...' : msg || 'Nova conversa';
+      return msg.length >= 19 ? msg.slice(0, 19) + '...' : msg || 'Nova conversa';
     })();
     const payload = { id, title, messages: msgs, updatedAt: Date.now() };
 

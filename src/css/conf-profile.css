@@ -1,7 +1,7 @@
 .conf-profile{
     position: absolute;
-    bottom: 40px;
-    left: 220px;
+    bottom: 15px;
+    left: 250px;
     display: flex;
     flex-direction: column;
     width: fit-content;

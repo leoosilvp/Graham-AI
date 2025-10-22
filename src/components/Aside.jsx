@@ -6,6 +6,7 @@ import CardsChat from "./CardsChat";
 import "../css/aside.css";
 import Search from "./Search";
 import ConfProfile from "./ConfProfile";
+import Library from "./Library";
 
 function Aside() {
     const boxRef = useRef(null);
@@ -53,10 +54,12 @@ function Aside() {
                 <a href="" className="aside-logo">
                     <img className="logo" src={logo} alt="logo" />
                 </a>
+                
+                <NewChat />
+
+                <Library />
 
                 <Search />
-
-                <NewChat />
 
                 <CardsChat />
 

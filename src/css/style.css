@@ -58,15 +58,19 @@ body {
         display: none;
     }
 
+    header img{
+        display: flex;
+    }
+
     aside {
+        width: 290px;
         position: relative;
-        margin-left: -292px;
         z-index: 1;
         background: #101010;
     }
 
     .hero-aside .btn-aside {
-        border: 0px solid var(--color-line);
+        border: none;
         border-radius: 0px;
         transition: none;
         font-size: 1.1rem;
@@ -187,7 +191,7 @@ body {
     }
 
     .ctn-profile {
-        width: 250px;
+        width: 270px;
     }
 
     .ctn-profile:hover {
@@ -203,30 +207,21 @@ body {
     }
 
     .conf-profile {
-        left: 140px;
-        bottom: 90px;
-        border-radius: 7px;
+        left: 10px;
+        bottom: 85px;
+        border-radius: 10px;
+        width: 270px;
     }
 
     .conf-profile button {
         align-items: center;
         border-radius: 5px;
+        width: 100%;
         background: transparent;
     }
 
-    .new-chat button:hover {
-        color: none;
-        background: none;
-        transform: none;
-    }
-
-    .new-chat button:active {
-        color: #f5f5f5;
-        background: #1e1e1e;
-        transform: scale(1.01);
-    }
-
     .options-card button {
+        background: transparent;
         opacity: 1;
     }
 }
