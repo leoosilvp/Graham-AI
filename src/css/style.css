@@ -58,7 +58,7 @@ body {
         display: none;
     }
 
-    header img{
+    header img {
         display: flex;
     }
 
@@ -67,6 +67,10 @@ body {
         position: relative;
         z-index: 1;
         background: #101010;
+    }
+
+    .change-model{
+        display: none;
     }
 
     .hero-aside .btn-aside {

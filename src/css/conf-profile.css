@@ -1,4 +1,4 @@
-.conf-profile{
+.conf-profile {
     position: absolute;
     bottom: 15px;
     left: 250px;
@@ -8,31 +8,39 @@
     height: fit-content;
     padding: 5px;
     gap: 2px;
-    background: #1e1e1e;
+    background: #252525;
     backdrop-filter: blur(5px);
     border-radius: 10px;
-    border: 1px solid var(--color-line);
+    border: 1px solid #303030;
     box-shadow: 0px 0px 10px 2px #0000002b;
     z-index: 50;
 }
 
-.conf-profile hr{
+.conf-profile hr {
     border: 1px solid #303030;
     margin: 5px 0;
 }
 
-.conf-profile .active{
+.conf-profile .active {
     display: flex;
     align-items: center;
-    border: 1px solid #3e3e3e;
+    justify-content: center;
+    border: 1px solid #373737;
     border-radius: 50px;
+    font-size: 0.9rem;
     color: #f5f5f5;
-    background: #2b2b2b;
+    background: #1f1f1f;
 }
 
-.conf-profile button{
+.conf-profile .active:hover {
+    border-color: #505050;
+    background: #2d2d2d;
+}
+
+
+.conf-profile button {
     margin: 0;
-    width: 120px;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: start;
@@ -43,18 +51,18 @@
     font-size: 0.9rem;
     color: #ffffffaf;
     gap: 5px;
-    transition: none;
+    transition: all 0.2s ease;
 }
 
-.conf-profile button:last-child{
-    color: #ba0000;
+.conf-profile button:last-child {
+    color: #d30000;
 }
 
-.conf-profile button:hover:last-child{
-    color: #b00000;
+.conf-profile button:hover:last-child {
+    color: #c20000;
 }
 
-.conf-profile button:hover{
+.conf-profile button:hover {
     color: #f5f5f5;
-    background: #303030;
+    background: #383838;
 }

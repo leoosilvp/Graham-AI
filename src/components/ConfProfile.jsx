@@ -15,9 +15,9 @@ function ConfProfile() {
   return (
     <section className='ctn-conf-profile'>
         <article className='conf-profile'>
-            <button className='active' onClick={() => window.location.href = 'https://graham-ai-page.vercel.app/#plans'}><i className='fa-regular fa-chess-queen'></i>Upgrade</button>
+            <button className='active' onClick={() => window.location.href = 'https://graham-ai-page.vercel.app/#plans'}><i className='fa-regular fa-chess-queen'></i>Atualizar</button>
             <hr />
-            <button onClick={() => window.location.href = 'https://graham-ai-page.vercel.app/'}><i className='fa-regular fa-life-ring'></i>Settings</button>
+            <button onClick={() => window.location.href = 'https://graham-ai-page.vercel.app/'}><i className='fa-regular fa-life-ring'></i>Configurações</button>
             <button onClick={handleLogout}><i className='fa-regular fa-trash-can'></i>Log-out</button>
         </article>
     </section>

@@ -7,6 +7,7 @@ import "../css/aside.css";
 import Search from "./Search";
 import ConfProfile from "./ConfProfile";
 import Library from "./Library";
+import ChangeModel from "./ChangeModel";
 
 function Aside() {
     const boxRef = useRef(null);
@@ -51,10 +52,14 @@ function Aside() {
     return (
         <div className="hero-aside">
             <aside ref={boxRef}>
-                <a href="" className="aside-logo">
-                    <img className="logo" src={logo} alt="logo" />
-                </a>
-                
+                <section className="header-aside">
+                    <a href="" className="aside-logo">
+                        <img className="logo" src={logo} alt="logo" />
+                    </a>
+
+                    <ChangeModel />
+                </section>
+
                 <NewChat />
 
                 <Library />
@@ -84,6 +89,7 @@ function Aside() {
             <button className="btn-aside" onClick={handleMove}>
                 <i className="fa-solid fa-bars-staggered"></i>
             </button>
+
         </div>
     );
 }
