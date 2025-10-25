@@ -17,7 +17,7 @@ function Library() {
       setImages((prev) => {
         if (prev.includes(base64)) return prev;
         const updated = [...prev, base64];
-        localStorage.setItem("chatImages", JSON.stringify(updated));
+        localStorage.setItem("libraryImages", JSON.stringify(updated));
         return updated;
       });
       window.dispatchEvent(new Event("updateLibrary"));
@@ -25,7 +25,7 @@ function Library() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("chatImages", JSON.stringify(images));
+    localStorage.setItem("libraryImages", JSON.stringify(images));
   }, [images]);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ function Library() {
 
   useEffect(() => {
     const update = () => {
-      const stored = JSON.parse(localStorage.getItem("chatImages")) || [];
+      const stored = JSON.parse(localStorage.getItem("libraryImages")) || [];
       setImages(stored);
     };
     window.addEventListener("updateLibrary", update);
@@ -147,7 +147,6 @@ function Library() {
         </section>
       )}
 
-      {/* Modal de confirmação */}
       {deleteModalOpen && (
         <ConfirmDelete
           cActive='active'
