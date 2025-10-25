@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import "../css/aside.css";
+import ConfirmDelete from "./ConfirmDelete";
 
 function CardsChat() {
     const [chats, setChats] = useState([]);
@@ -170,17 +171,7 @@ function CardsChat() {
             </section>
 
             {chatToDelete && (
-                <section className="ctn-confirm-delete-card">
-                    <article className="confirm-delete-card">
-                        <h1>Deletar chat?</h1>
-                        <h2>Isto irá deletar: <span>{chatToDelete.title}</span></h2>
-                        <h3>Esta ação não tem volta! Você concorda em deletar TODOS os conteúdos guardados durante este chat?</h3>
-                        <section className="buttons-delete-card">
-                            <button onClick={cancelDelete}>Cancelar</button>
-                            <button className="active" onClick={() => confirmDelete(chatToDelete)}>Deletar</button>
-                        </section>
-                    </article>
-                </section>
+                <ConfirmDelete cActive='active' h1='Deletar chat?' h2='Isto irá deletar:' span={chatToDelete.title} h3='Esta ação não tem volta! Você concorda em deletar TODOS os conteúdos guardados durante este chat?' button1='Cancelar' onClick1={cancelDelete} button2='Deletar' onClick2={() => confirmDelete(chatToDelete)} />
             )}
         </div>
     );

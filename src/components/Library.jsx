@@ -1,16 +1,27 @@
 import { useState, useEffect } from "react";
 import "../css/library.css";
+import ConfirmDelete from "./ConfirmDelete";
 
 function Library() {
   const [isOpen, setIsOpen] = useState(() => {
     return localStorage.getItem("libraryOpen") === "true";
   });
+
   const [selectedImg, setSelectedImg] = useState(null);
   const [images, setImages] = useState([]);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [imgToDelete, setImgToDelete] = useState(null);
 
   useEffect(() => {
-    const storedImages = JSON.parse(localStorage.getItem("chatImages")) || [];
-    setImages(storedImages);
+    window.addImageToLibrary = (base64) => {
+      setImages((prev) => {
+        if (prev.includes(base64)) return prev;
+        const updated = [...prev, base64];
+        localStorage.setItem("chatImages", JSON.stringify(updated));
+        return updated;
+      });
+      window.dispatchEvent(new Event("updateLibrary"));
+    };
   }, []);
 
   useEffect(() => {
@@ -48,11 +59,22 @@ function Library() {
     link.click();
   };
 
-  const handleDelete = (url) => {
-    const confirmDelete = window.confirm("Tem certeza que deseja excluir esta imagem?");
-    if (!confirmDelete) return;
-    const updated = images.filter((img) => img !== url);
+  const handleAskDelete = (url) => {
+    setImgToDelete(url);
+    setDeleteModalOpen(true);
+  };
+
+  const handleCancelDelete = () => {
+    setDeleteModalOpen(false);
+    setImgToDelete(null);
+  };
+
+  const handleConfirmDelete = () => {
+    if (!imgToDelete) return;
+    const updated = images.filter((img) => img !== imgToDelete);
     setImages(updated);
+    setDeleteModalOpen(false);
+    setImgToDelete(null);
   };
 
   const handleClose = () => {
@@ -74,7 +96,9 @@ function Library() {
           <article className="modal-library">
             <section className="header-modal-library">
               <h1>{selectedImg ? "Visualização" : "Imagens"}</h1>
-              <button onClick={handleClose}><i className="fa-solid fa-xmark"></i></button>
+              <button onClick={handleClose}>
+                <i className="fa-solid fa-xmark"></i>
+              </button>
             </section>
 
             <section className="content-modal-library">
@@ -87,7 +111,7 @@ function Library() {
                     <button onClick={() => handleDownload(selectedImg)}>
                       <i className="fa-solid fa-download"></i>
                     </button>
-                    <button onClick={() => handleDelete(selectedImg)}>
+                    <button onClick={() => handleAskDelete(selectedImg)}>
                       <i className="fa-solid fa-trash-can"></i>
                     </button>
                   </section>
@@ -97,7 +121,9 @@ function Library() {
                 <article className="grid-imgs-modal-library">
                   {images.length === 0 ? (
                     <div className="no-images">
-                      <p><i className="fa-regular fa-images"></i> Nenhuma imagem encontrada.</p>
+                      <p>
+                        <i className="fa-regular fa-images"></i> Nenhuma imagem encontrada.
+                      </p>
                     </div>
                   ) : (
                     images.map((img, i) => (
@@ -107,7 +133,7 @@ function Library() {
                           <button onClick={() => handleDownload(img)}>
                             <i className="fa-solid fa-download"></i>
                           </button>
-                          <button onClick={() => handleDelete(img)}>
+                          <button onClick={() => handleAskDelete(img)}>
                             <i className="fa-solid fa-trash-can"></i>
                           </button>
                         </section>
@@ -119,6 +145,20 @@ function Library() {
             </section>
           </article>
         </section>
+      )}
+
+      {/* Modal de confirmação */}
+      {deleteModalOpen && (
+        <ConfirmDelete
+          cActive='active'
+          h1="Deletar foto?"
+          h2='Você está apangando uma imagem!'
+          h3="Esta ação não tem mais volta. Você concorda em deletar essa imagem da sua conversa e do seu histórico para sempre?"
+          button1="Cancelar"
+          onClick1={handleCancelDelete}
+          button2="Deletar"
+          onClick2={handleConfirmDelete}
+        />
       )}
     </section>
   );
