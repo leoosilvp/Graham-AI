@@ -125,7 +125,7 @@ function Chat() {
     const text = input.trim();
     const userMsg = {
       role: "user",
-      content: text || "file",
+      content: text,
       files: attachedFiles.map((f) => ({
         name: f.name,
         type: f.type,
@@ -133,6 +133,21 @@ function Chat() {
       })),
       ts: Date.now(),
     };
+
+    userMsg.files.forEach((file) => {
+      if (file.type.startsWith("image/") && window.addImageToLibrary) {
+        window.addImageToLibrary(file.url);
+      }
+    });
+
+    const imageFiles = attachedFiles.filter((f) => f.type.startsWith("image/"));
+    if (imageFiles.length > 0) {
+      const stored = JSON.parse(localStorage.getItem("chatImages")) || [];
+      const newImgs = imageFiles.map((f) => URL.createObjectURL(f));
+      const updatedImgs = [...stored, ...newImgs];
+      localStorage.setItem("chatImages", JSON.stringify(updatedImgs));
+      window.dispatchEvent(new Event("updateLibrary"));
+    }
 
     setLoading(true);
     abortController = new AbortController();
@@ -173,7 +188,8 @@ function Chat() {
 
       const systemPrompt = {
         role: "system",
-        content: "Você é GrahamAI, um assistente inteligente, detalhista e confiável. Responda com clareza, precisão e empatia, mantendo um tom profissional e simpático.Use emojis com moderação, apenas quando agregarem ao contexto. Mantenha coerência com o contexto da conversa e transições naturais. Explique de forma didática e completa, com exemplos práticos quando útil. Todas as fórmulas e cálculos devem estar em LaTeX: $...$ para inline $$...$$ para bloco Estruture respostas com organização visual (negrito, listas, parágrafos curtos). Seja transparente e educado — nunca invente informações. Adote um estilo parecido com o ChatGPT, mas com toque humano e acolhedor.",
+        content:
+          "Você é GrahamAI, um assistente inteligente, detalhista e confiável. Responda com clareza, precisão e empatia, mantendo um tom profissional e simpático.Use emojis com moderação, apenas quando agregarem ao contexto. Mantenha coerência com o contexto da conversa e transições naturais. Explique de forma didática e completa, com exemplos práticos quando útil. Todas as fórmulas e cálculos devem estar em LaTeX: $...$ para inline $$...$$ para bloco Estruture respostas com organização visual (negrito, listas, parágrafos curtos). Seja transparente e educado — nunca invente informações. Adote um estilo parecido com o ChatGPT, mas com toque humano e acolhedor.",
       };
 
       const data = await sendMessageToAI(
@@ -192,7 +208,6 @@ function Chat() {
       setMessages(finalMsgs);
       saveChat(idToUse, finalMsgs);
     } catch (err) {
-
       let userMessage = "❌ Ocorreu um erro inesperado. Tente novamente em instantes.";
 
       if (err.name === "AbortError") {
@@ -257,7 +272,6 @@ function Chat() {
           <h2>Navegue pela IA mais eficiente do mercado!</h2>
         </section>
       ) : (
-
         <section className="ctn-chat-box" ref={chatBoxRef}>
           <section className="chat-box">
             {messages.map((msg) => (
@@ -314,29 +328,9 @@ function Chat() {
                 <i className="fa-regular fa-file-code"></i> Escolher código
               </button>
 
-              <input
-                type="file"
-                ref={fileInputRef}
-                hidden
-                multiple
-                onChange={handleFileSelect}
-              />
-              <input
-                type="file"
-                ref={imageInputRef}
-                hidden
-                multiple
-                accept="image/*"
-                onChange={handleFileSelect}
-              />
-              <input
-                type="file"
-                ref={codeInputRef}
-                hidden
-                multiple
-                accept=".js,.jsx,.ts,.tsx,.py,.html,.css"
-                onChange={handleFileSelect}
-              />
+              <input type="file" ref={fileInputRef} hidden multiple onChange={handleFileSelect} />
+              <input type="file" ref={imageInputRef} hidden multiple accept="image/*" onChange={handleFileSelect} />
+              <input type="file" ref={codeInputRef} hidden multiple accept=".js,.jsx,.ts,.tsx,.py,.html,.css" onChange={handleFileSelect} />
             </article>
           )}
 
@@ -390,29 +384,9 @@ function Chat() {
             Escolher código
           </i>
 
-          <input
-            type="file"
-            ref={fileInputRef}
-            hidden
-            multiple
-            onChange={handleFileSelect}
-          />
-          <input
-            type="file"
-            ref={imageInputRef}
-            hidden
-            multiple
-            accept="image/*"
-            onChange={handleFileSelect}
-          />
-          <input
-            type="file"
-            ref={codeInputRef}
-            hidden
-            multiple
-            accept=".js,.jsx,.ts,.tsx,.py,.html,.css"
-            onChange={handleFileSelect}
-          />
+          <input type="file" ref={fileInputRef} hidden multiple onChange={handleFileSelect} />
+          <input type="file" ref={imageInputRef} hidden multiple accept="image/*" onChange={handleFileSelect} />
+          <input type="file" ref={codeInputRef} hidden multiple accept=".js,.jsx,.ts,.tsx,.py,.html,.css" onChange={handleFileSelect} />
         </section>
       )}
 

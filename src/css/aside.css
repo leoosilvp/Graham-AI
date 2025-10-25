@@ -114,47 +114,6 @@ aside::-webkit-scrollbar-thumb {
     opacity: 1;
 }
 
-.library {
-    margin-top: 3px;
-}
-
-.library button {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: 35px;
-    padding: 0 10px;
-    border: none;
-    border-radius: 7px;
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.1s ease;
-}
-
-.library button p{
-    display: flex;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #eaeaea;
-    gap: 7px;
-}
-
-.library button:hover{
-    color: #fff;
-    background: #252525;
-}
-
-.library button span{
-    font-size: 0.7rem;
-    color: #ffffff5a;
-    opacity: 0;
-}
-
-.library button:hover span{
-    opacity: 1;
-}
-
 .search-chat {
     margin-top: 10px;
     display: flex;
