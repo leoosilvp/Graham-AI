@@ -199,48 +199,42 @@ function Chat() {
       };
 
       let streamedContent = "";
-      let streamInterval = null;
 
       const data = await sendMessageToAI(
         [systemPrompt, ...updatedMsgs],
         attachedFiles,
         {
           signal: abortControllerRef.current.signal,
-
           onStream: (token) => {
             streamedContent += token;
 
-            if (!streamInterval) {
-              streamInterval = setInterval(() => {
-                setMessages((prev) => {
-                  const base = [...updatedMsgs];
+            setMessages((prev) => {
+              const withoutThinking = prev.map((m) =>
+                m.thinking ? { ...m, thinking: false } : m
+              );
 
-                  const filtered = base.filter((m) => !m.thinking);
+              const existing = withoutThinking.find(
+                (m) => m.role === "assistant" && m.streaming
+              );
+              if (existing) {
+                return withoutThinking.map((m) =>
+                  m.streaming ? { ...m, content: streamedContent } : m
+                );
+              }
 
-                  const existing = prev.find((m) => m.role === "assistant" && m.streaming);
-                  if (existing) {
-                    return prev.map((m) =>
-                      m.streaming ? { ...m, content: streamedContent } : m
-                    );
-                  }
-
-                  return [
-                    ...filtered,
-                    {
-                      role: "assistant",
-                      content: streamedContent,
-                      streaming: true,
-                      ts: Date.now(),
-                    },
-                  ];
-                });
-              }, 20);
-            }
+              return [
+                ...withoutThinking,
+                {
+                  role: "assistant",
+                  content: streamedContent,
+                  streaming: true,
+                  ts: Date.now(),
+                },
+              ];
+            });
           },
         }
       );
-
-      if (streamInterval) clearInterval(streamInterval);
 
       const assistantMsg = {
         role: "assistant",
@@ -248,7 +242,6 @@ function Chat() {
         ts: Date.now(),
       };
 
-      const finalMsgs = [...updatedMsgs, assistantMsg];
       setMessages((prev) =>
         prev.map((m) =>
           m.streaming
@@ -256,7 +249,8 @@ function Chat() {
             : m
         )
       );
-      saveChat(idToUse, finalMsgs);
+
+      saveChat(idToUse, [...updatedMsgs, assistantMsg]);
     } catch (err) {
       console.error("Erro ao enviar mensagem:", err);
       const errMsg = {
@@ -412,7 +406,7 @@ function Chat() {
             autoCorrect="on"
             autoComplete="on"
             autoFocus
-            placeholder={loading ? "Aguardando resposta..." : "Como posso te ajudar?.."}
+            placeholder={loading ? "Aguardando resposta..." : "Como posso te ajudar?.." }
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSend()}
             disabled={loading}
@@ -421,9 +415,7 @@ function Chat() {
           <button onClick={handleSend} disabled={loading}>
             <i
               className={
-                loading
-                  ? "fa-solid fa-square"
-                  : "fa-regular fa-paper-plane"
+                loading ? "fa-solid fa-square" : "fa-regular fa-paper-plane"
               }
             ></i>
           </button>
