@@ -183,19 +183,11 @@
 .message {
     display: flex;
     flex-direction: column;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
     gap: 3px;
     animation: fadeInUp 0.3s ease;
-    overflow-x: auto;
-}
-
-.message::-webkit-scrollbar{
-    display: flex;
-    height: 7px;
-}
-
-.message::-webkit-scrollbar-thumb{
-    border-radius: 50px;
-    background: #303030;
 }
 
 .message .user:first-child {
@@ -427,7 +419,7 @@
     background: transparent;
 }
 
-.file-item button:active{
+.file-item button:active {
     box-shadow: none;
     background: transparent;
 }
