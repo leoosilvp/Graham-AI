@@ -190,7 +190,7 @@ function Chat() {
         ts: Date.now(),
         thinking: true,
       };
-      setMessages([...updatedMsgs, thinkingMsg]);
+      setMessages((prev) => [...prev, thinkingMsg]);
 
       const systemPrompt = {
         role: "system",
@@ -199,6 +199,7 @@ function Chat() {
       };
 
       let streamedContent = "";
+      let streamTimeout = null;
 
       const data = await sendMessageToAI(
         [systemPrompt, ...updatedMsgs],
@@ -208,30 +209,44 @@ function Chat() {
           onStream: (token) => {
             streamedContent += token;
 
-            setMessages((prev) => {
-              const withoutThinking = prev.map((m) =>
-                m.thinking ? { ...m, thinking: false } : m
-              );
+            if (streamTimeout) clearTimeout(streamTimeout);
 
-              const existing = withoutThinking.find(
-                (m) => m.role === "assistant" && m.streaming
-              );
-              if (existing) {
-                return withoutThinking.map((m) =>
-                  m.streaming ? { ...m, content: streamedContent } : m
+            streamTimeout = setTimeout(() => {
+              setMessages((prev) => {
+                const thinkingIndex = prev.findIndex(
+                  (m) => m.role === "assistant" && m.thinking
                 );
-              }
 
-              return [
-                ...withoutThinking,
-                {
-                  role: "assistant",
-                  content: streamedContent,
-                  streaming: true,
-                  ts: Date.now(),
-                },
-              ];
-            });
+                if (thinkingIndex !== -1) {
+                  const updated = [...prev];
+                  updated[thinkingIndex] = {
+                    role: "assistant",
+                    content: streamedContent,
+                    streaming: true,
+                    ts: updated[thinkingIndex].ts,
+                  };
+                  return updated;
+                }
+
+                const streamingIndex = prev.findIndex(
+                  (m) => m.role === "assistant" && m.streaming
+                );
+
+                if (streamingIndex !== -1) {
+                  const updated = [...prev];
+                  updated[streamingIndex] = {
+                    ...updated[streamingIndex],
+                    content: streamedContent,
+                  };
+                  return updated;
+                }
+
+                return [
+                  ...prev,
+                  { role: "assistant", content: streamedContent, streaming: true, ts: Date.now() },
+                ];
+              });
+            }, 20);
           },
         }
       );
@@ -242,6 +257,7 @@ function Chat() {
         ts: Date.now(),
       };
 
+      const finalMsgs = [...updatedMsgs, assistantMsg];
       setMessages((prev) =>
         prev.map((m) =>
           m.streaming
@@ -249,8 +265,7 @@ function Chat() {
             : m
         )
       );
-
-      saveChat(idToUse, [...updatedMsgs, assistantMsg]);
+      saveChat(idToUse, finalMsgs);
     } catch (err) {
       console.error("Erro ao enviar mensagem:", err);
       const errMsg = {
@@ -406,7 +421,7 @@ function Chat() {
             autoCorrect="on"
             autoComplete="on"
             autoFocus
-            placeholder={loading ? "Aguardando resposta..." : "Como posso te ajudar?.." }
+            placeholder={loading ? "Aguardando resposta..." : "Como posso te ajudar?.."}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSend()}
             disabled={loading}
@@ -415,7 +430,9 @@ function Chat() {
           <button onClick={handleSend} disabled={loading}>
             <i
               className={
-                loading ? "fa-solid fa-square" : "fa-regular fa-paper-plane"
+                loading
+                  ? "fa-solid fa-square"
+                  : "fa-regular fa-paper-plane"
               }
             ></i>
           </button>
