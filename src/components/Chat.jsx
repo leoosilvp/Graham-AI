@@ -198,10 +198,40 @@ function Chat() {
           "Você é GrahamAI, um assistente inteligente, detalhista e confiável. Responda com clareza, precisão e empatia, mantendo um tom profissional e simpático. Use emojis apenas quando agregarem ao contexto. Mantenha coerência com o contexto e explique de forma didática. Todas as fórmulas e cálculos devem estar em LaTeX: $...$ (inline) e $$...$$ (bloco). Seja transparente, nunca invente informações. Estilo parecido com o ChatGPT, porém mais humano e acolhedor.",
       };
 
+      let streamedContent = "";
+      let streamTimeout = null;
+
       const data = await sendMessageToAI(
         [systemPrompt, ...updatedMsgs],
         attachedFiles,
-        { signal: abortControllerRef.current.signal }
+        {
+          signal: abortControllerRef.current.signal,
+
+          onStream: (token) => {
+            streamedContent += token;
+
+            if (streamTimeout) clearTimeout(streamTimeout);
+
+            streamTimeout = setTimeout(() => {
+              setMessages((prev) => {
+                const base = [...updatedMsgs];
+                const existing = prev.find((m) => m.role === "assistant" && m.streaming);
+
+                if (existing) {
+                  const updated = prev.map((m) =>
+                    m.streaming ? { ...m, content: streamedContent } : m
+                  );
+                  return updated;
+                } else {
+                  return [
+                    ...base,
+                    { role: "assistant", content: streamedContent, streaming: true, ts: Date.now() },
+                  ];
+                }
+              });
+            }, 20);
+          },
+        }
       );
 
       const assistantMsg = {
@@ -211,7 +241,13 @@ function Chat() {
       };
 
       const finalMsgs = [...updatedMsgs, assistantMsg];
-      setMessages(finalMsgs);
+      setMessages((prev) =>
+        prev.map((m) =>
+          m.streaming
+            ? { ...m, content: data ?? "Resposta vazia.", streaming: false }
+            : m
+        )
+      );
       saveChat(idToUse, finalMsgs);
     } catch (err) {
       console.error("Erro ao enviar mensagem:", err);
