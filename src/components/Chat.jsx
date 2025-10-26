@@ -183,12 +183,14 @@ function Chat() {
 
       const thinkingMsg = {
         role: "assistant",
-        content: "",
+        content: "Humm, deixe-me pensar",
         ts: Date.now(),
         streaming: true,
       };
       setMessages([...updatedMsgs, thinkingMsg]);
       saveChat(idToUse, [...updatedMsgs, thinkingMsg]);
+
+      await new Promise((resolve) => setTimeout(resolve, 0));
 
       const systemPrompt = {
         role: "system",
@@ -236,7 +238,7 @@ function Chat() {
             : "❌ Ocorreu um erro inesperado. Tente novamente mais tarde.",
         ts: Date.now(),
       };
-      setMessages((prev) => [...prev.filter(m => !m.streaming), errMsg]);
+      setMessages((prev) => [...prev.filter((m) => !m.streaming), errMsg]);
       saveChat(idToUse, [...updatedMsgs, errMsg]);
     } finally {
       setLoading(false);
