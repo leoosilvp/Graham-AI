@@ -228,4 +228,8 @@ body {
         background: transparent;
         opacity: 1;
     }
+
+    .ctn-library{
+        display: none;
+    }
 }

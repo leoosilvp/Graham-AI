@@ -5,10 +5,13 @@ function NewChat() {
     const createNewChat = () => {
         const all = JSON.parse(localStorage.getItem("chats") || "[]");
 
-        const hasEmptyChat = all.some(chat => chat.messages.length === 0);
+        const emptyChat = all.find(chat => chat.messages.length === 0);
 
-        if (hasEmptyChat) {
-            window.location.reload();
+        if (emptyChat) {
+            localStorage.setItem("activeChatId", emptyChat.id);
+            window.dispatchEvent(new CustomEvent("chatsUpdated"));
+            window.dispatchEvent(new CustomEvent("openChat", { detail: { id: emptyChat.id } }));
+            window.location.reload()
             return;
         }
 
@@ -24,7 +27,7 @@ function NewChat() {
         localStorage.setItem("activeChatId", newId);
         window.dispatchEvent(new CustomEvent("chatsUpdated"));
         window.dispatchEvent(new CustomEvent("openChat", { detail: { id: newId } }));
-        window.location.reload();
+        window.location.reload()
     };
 
     useEffect(() => {

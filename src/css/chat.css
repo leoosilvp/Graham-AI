@@ -183,9 +183,19 @@
 .message {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 5px;
+    gap: 3px;
     animation: fadeInUp 0.3s ease;
+    overflow-x: auto;
+}
+
+.message::-webkit-scrollbar{
+    display: flex;
+    height: 7px;
+}
+
+.message::-webkit-scrollbar-thumb{
+    border-radius: 50px;
+    background: #303030;
 }
 
 .message .user:first-child {

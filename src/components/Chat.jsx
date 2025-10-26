@@ -3,10 +3,9 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
-import rehypeSanitize from "rehype-sanitize";
 import "katex/dist/katex.min.css";
-import "../css/chat.css";
-import "../css/markdown.css";
+import '../css/chat.css';
+import '../css/markdown.css';
 import Alert from "./Alert.jsx";
 
 function Chat() {
@@ -267,7 +266,7 @@ function Chat() {
                 <div className="markdown-wrapper">
                   <ReactMarkdown
                     remarkPlugins={[remarkMath]}
-                    rehypePlugins={[rehypeKatex, rehypeSanitize]}
+                    rehypePlugins={[rehypeKatex]}
                   >
                     {msg.content}
                   </ReactMarkdown>
