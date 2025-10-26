@@ -287,16 +287,18 @@
     color: #888;
     position: relative;
     gap: 5px;
+    overflow: hidden;
 }
 
 .message.assistant.thinking .markdown-wrapper::after {
-    margin-top: -24.5px;
+    margin-top: -25px;
     margin-left: 199px;
     content: "";
     display: inline-block;
     width: 0ch;
     height: 1px;
     animation: dots 1.5s steps(3, end) infinite;
+    overflow: hidden;
 }
 
 .cursor {
