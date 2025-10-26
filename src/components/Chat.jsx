@@ -171,14 +171,11 @@ function Chat() {
         idToUse = Date.now().toString();
         setChatId(idToUse);
         updatedMsgs = [userMsg];
-        setMessages(updatedMsgs);
         setStarted(true);
         isFirstMessage = true;
-        saveChat(idToUse, updatedMsgs);
       } else {
         isFirstMessage = messages.length === 0;
         updatedMsgs = [...messages, userMsg];
-        setMessages(updatedMsgs);
       }
 
       setInput("");
@@ -186,11 +183,12 @@ function Chat() {
 
       const thinkingMsg = {
         role: "assistant",
-        content: "Humm, deixe-me pensar",
+        content: "",
         ts: Date.now(),
-        thinking: true,
+        streaming: true,
       };
-      setMessages((prev) => [...prev, thinkingMsg]);
+      setMessages([...updatedMsgs, thinkingMsg]);
+      saveChat(idToUse, [...updatedMsgs, thinkingMsg]);
 
       const systemPrompt = {
         role: "system",
@@ -199,73 +197,35 @@ function Chat() {
       };
 
       let streamedContent = "";
-      let streamTimeout = null;
 
-      const data = await sendMessageToAI(
-        [systemPrompt, ...updatedMsgs],
-        attachedFiles,
-        {
-          signal: abortControllerRef.current.signal,
-          onStream: (token) => {
-            streamedContent += token;
+      await sendMessageToAI([systemPrompt, ...updatedMsgs], attachedFiles, {
+        signal: abortControllerRef.current.signal,
+        onStream: (token) => {
+          streamedContent += token;
+          setMessages((prev) => {
+            const updated = [...prev];
+            const assistantIndex = updated.findIndex((m) => m.role === "assistant" && m.streaming);
+            if (assistantIndex !== -1) {
+              updated[assistantIndex] = {
+                ...updated[assistantIndex],
+                content: streamedContent,
+              };
+            }
+            return updated;
+          });
+        },
+      });
 
-            if (streamTimeout) clearTimeout(streamTimeout);
-
-            streamTimeout = setTimeout(() => {
-              setMessages((prev) => {
-                const thinkingIndex = prev.findIndex(
-                  (m) => m.role === "assistant" && m.thinking
-                );
-
-                if (thinkingIndex !== -1) {
-                  const updated = [...prev];
-                  updated[thinkingIndex] = {
-                    role: "assistant",
-                    content: streamedContent,
-                    streaming: true,
-                    ts: updated[thinkingIndex].ts,
-                  };
-                  return updated;
-                }
-
-                const streamingIndex = prev.findIndex(
-                  (m) => m.role === "assistant" && m.streaming
-                );
-
-                if (streamingIndex !== -1) {
-                  const updated = [...prev];
-                  updated[streamingIndex] = {
-                    ...updated[streamingIndex],
-                    content: streamedContent,
-                  };
-                  return updated;
-                }
-
-                return [
-                  ...prev,
-                  { role: "assistant", content: streamedContent, streaming: true, ts: Date.now() },
-                ];
-              });
-            }, 20);
-          },
-        }
-      );
-
-      const assistantMsg = {
+      const finalAssistant = {
         role: "assistant",
-        content: data ?? "Resposta vazia.",
+        content: streamedContent || "Resposta vazia.",
         ts: Date.now(),
       };
 
-      const finalMsgs = [...updatedMsgs, assistantMsg];
       setMessages((prev) =>
-        prev.map((m) =>
-          m.streaming
-            ? { ...m, content: data ?? "Resposta vazia.", streaming: false }
-            : m
-        )
+        prev.map((m) => (m.streaming ? { ...finalAssistant, streaming: false } : m))
       );
-      saveChat(idToUse, finalMsgs);
+      saveChat(idToUse, [...updatedMsgs, finalAssistant]);
     } catch (err) {
       console.error("Erro ao enviar mensagem:", err);
       const errMsg = {
@@ -276,7 +236,7 @@ function Chat() {
             : "❌ Ocorreu um erro inesperado. Tente novamente mais tarde.",
         ts: Date.now(),
       };
-      setMessages([...updatedMsgs, errMsg]);
+      setMessages((prev) => [...prev.filter(m => !m.streaming), errMsg]);
       saveChat(idToUse, [...updatedMsgs, errMsg]);
     } finally {
       setLoading(false);
