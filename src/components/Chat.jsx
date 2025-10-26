@@ -19,6 +19,7 @@ function Chat() {
   const chatBoxRef = useRef(null);
   const confRef = useRef(null);
   const [showConf, setShowConf] = useState(false);
+  const [alertMsg, setAlertMsg] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const fileInputRef = useRef(null);
   const imageInputRef = useRef(null);
@@ -109,17 +110,26 @@ function Chat() {
       "application/x-python-code", "text/x-python",
     ];
 
+    let errorMsg = "";
+
     for (const file of files) {
-      if (!validTypes.includes(file.type) || file.size > 10 * 1024 * 1024) {
-        setShowAlert(true);
-        setTimeout(() => setShowAlert(false), 4000);
-        return;
+      if (!validTypes.includes(file.type)) {
+        errorMsg = "Tipo de arquivo inválido!";
+        break;
+      }
+      if (file.size > 10 * 1024 * 1024) {
+        errorMsg = "Arquivo muito grande! Máx: 10MB";
+        break;
       }
     }
 
-    if (attachedFiles.length + files.length > 10) {
+    if (!errorMsg && attachedFiles.length + files.length > 8) {
+      errorMsg = `Você pode anexar no máximo 8 arquivos!`;
+    }
+
+    if (errorMsg) {
+      setAlertMsg(errorMsg);
       setShowAlert(true);
-      setShowConf(false);
       setTimeout(() => setShowAlert(false), 4000);
       return;
     }
@@ -351,7 +361,7 @@ function Chat() {
                 ref={codeInputRef}
                 hidden
                 multiple
-                accept=".js,.jsx,.ts,.tsx,.py,.html,.css,.json,.xml,.md,.txt"
+                accept=".js,.jsx,.ts,.tsx,.py,.java,.c,.cpp,.cc,.cxx,.h,.hpp,.cs,.go,.rs,.kt,.kts,.swift,.rb,.php,.sql,.r,.pl,.pm,.scala,.sh,.bash,.lua,.hs,.m,.dart,.html,.css,.json,.jsonc,.xml,.md,.txt"
                 onChange={handleFileSelect}
               />
             </article>
@@ -424,11 +434,11 @@ function Chat() {
 
           <input type="file" ref={fileInputRef} hidden multiple onChange={handleFileSelect} />
           <input type="file" ref={imageInputRef} hidden multiple accept="image/*" onChange={handleFileSelect} />
-          <input type="file" ref={codeInputRef} hidden multiple accept=".js,.jsx,.ts,.tsx,.py,.html,.css,.json,.xml,.md,.txt" onChange={handleFileSelect} />
+          <input type="file" ref={codeInputRef} hidden multiple accept=".js,.jsx,.ts,.tsx,.py,.java,.c,.cpp,.cc,.cxx,.h,.hpp,.cs,.go,.rs,.kt,.kts,.swift,.rb,.php,.sql,.r,.pl,.pm,.scala,.sh,.bash,.lua,.hs,.m,.dart,.html,.css,.json,.jsonc,.xml,.md,.txt" onChange={handleFileSelect} />
         </section>
       )}
 
-      <Alert visible={showAlert} message="Limite ou tipo de arquivo inválido!" />
+      <Alert visible={showAlert} message={alertMsg} />
     </div>
   );
 }

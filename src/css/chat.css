@@ -162,7 +162,7 @@
     flex-direction: column;
     width: 800px;
     max-width: 800px;
-    gap: 20px;
+    gap: 10px;
 }
 
 .chat-box::-webkit-scrollbar {
@@ -186,20 +186,7 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
     white-space: pre-wrap;
-    gap: 3px;
     animation: fadeInUp 0.3s ease;
-}
-
-.message .user:first-child {
-    color: #707070;
-}
-
-.message .assistant:first-child {
-    color: #707070;
-}
-
-.message p strong {
-    color: #f5f5f5;
 }
 
 .markdown-wrapper {
@@ -212,12 +199,12 @@
 }
 
 .markdown-wrapper .katex {
-    margin: 20px auto;
+    margin: 13px auto;
     display: inline-block !important;
     justify-content: center;
     vertical-align: middle;
     max-width: 100%;
-    line-height: 1.2;
+    line-height: 1.15;
 }
 
 .markdown-wrapper .katex-display {
@@ -228,7 +215,7 @@
     overflow-y: hidden;
     white-space: nowrap;
     text-align: center;
-    line-height: 1.2;
+    line-height: 1.15;
 }
 
 .markdown-wrapper .katex-display::-webkit-scrollbar {
@@ -246,7 +233,7 @@
 
 .markdown-wrapper .katex .katex-html {
     display: inline-block !important;
-    line-height: 1.2;
+    line-height: 1.15;
 }
 
 .chat-box div.user {
@@ -261,7 +248,7 @@
     box-shadow: 0px 0px 15px 0px #111;
     color: #dedede;
     font-size: 0.9rem;
-    letter-spacing: 1.2px;
+    letter-spacing: 1.1px;
 }
 
 .chat-box div.assistant {
@@ -270,7 +257,7 @@
     align-self: flex-start;
     width: 100%;
     color: #dedede;
-    letter-spacing: 1.2px;
+    letter-spacing: 1.1px;
 }
 
 .message.assistant.thinking .markdown-wrapper {
@@ -278,7 +265,6 @@
     font-style: italic;
     color: #888;
     position: relative;
-    gap: 3px;
 }
 
 .message.assistant.thinking .markdown-wrapper::after {
@@ -289,14 +275,6 @@
     width: 0ch;
     height: 1px;
     animation: dots 1.5s steps(3, end) infinite;
-}
-
-.cursor {
-    display: inline-block;
-    width: 1px;
-    background-color: #e5e7eb;
-    animation: blink 1s infinite;
-    margin-left: 2px;
 }
 
 .send-files {
@@ -353,7 +331,7 @@
 }
 
 .ctn-file-preview {
-    margin-left: -15px;
+    margin-left: -16px;
     margin-top: -270px;
     position: absolute;
     width: 800px;
@@ -425,13 +403,10 @@
 }
 
 .msg-files {
-    margin-top: 8px;
     display: flex;
     flex-wrap: wrap;
-    flex-wrap: wrap;
-    gap: 8px;
+    gap: 0px 6px;
 }
-
 
 .msg-file a {
     display: flex;
@@ -439,32 +414,19 @@
     align-items: center;
     background: #2e2e2e;
     border: 1px solid #3f3f3f;
-    border-radius: 5px;
+    border-radius: 4px;
     padding: 7px 10px;
-    gap: 10px;
+    gap: 7px;
+}
+
+.msg-file a:hover{
+    background: #333333;
 }
 
 .msg-file img {
     width: 160px;
-    padding: 5px;
     border-radius: 10px;
     border: 1px solid #3f3f3f;
-    cursor: pointer;
-}
-
-
-@keyframes blink {
-
-    0%,
-    50%,
-    100% {
-        opacity: 1;
-    }
-
-    25%,
-    75% {
-        opacity: 0;
-    }
 }
 
 @keyframes dots {
