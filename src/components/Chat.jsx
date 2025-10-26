@@ -199,7 +199,7 @@ function Chat() {
       };
 
       let streamedContent = "";
-      let streamTimeout = null;
+      let streamInterval = null;
 
       const data = await sendMessageToAI(
         [systemPrompt, ...updatedMsgs],
@@ -210,29 +210,37 @@ function Chat() {
           onStream: (token) => {
             streamedContent += token;
 
-            if (streamTimeout) clearTimeout(streamTimeout);
+            if (!streamInterval) {
+              streamInterval = setInterval(() => {
+                setMessages((prev) => {
+                  const base = [...updatedMsgs];
 
-            streamTimeout = setTimeout(() => {
-              setMessages((prev) => {
-                const base = [...updatedMsgs];
-                const existing = prev.find((m) => m.role === "assistant" && m.streaming);
+                  const filtered = base.filter((m) => !m.thinking);
 
-                if (existing) {
-                  const updated = prev.map((m) =>
-                    m.streaming ? { ...m, content: streamedContent } : m
-                  );
-                  return updated;
-                } else {
+                  const existing = prev.find((m) => m.role === "assistant" && m.streaming);
+                  if (existing) {
+                    return prev.map((m) =>
+                      m.streaming ? { ...m, content: streamedContent } : m
+                    );
+                  }
+
                   return [
-                    ...base,
-                    { role: "assistant", content: streamedContent, streaming: true, ts: Date.now() },
+                    ...filtered,
+                    {
+                      role: "assistant",
+                      content: streamedContent,
+                      streaming: true,
+                      ts: Date.now(),
+                    },
                   ];
-                }
-              });
-            }, 20);
+                });
+              }, 20);
+            }
           },
         }
       );
+
+      if (streamInterval) clearInterval(streamInterval);
 
       const assistantMsg = {
         role: "assistant",
