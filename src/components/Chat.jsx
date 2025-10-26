@@ -186,7 +186,7 @@ function Chat() {
 
       const thinkingMsg = {
         role: "assistant",
-        content: "Humm, deixe-me pensar...",
+        content: "Humm, deixe-me pensar",
         ts: Date.now(),
         thinking: true,
       };
@@ -206,9 +206,10 @@ function Chat() {
 
       const assistantMsg = {
         role: "assistant",
-        content: data.reply ?? "Resposta vazia.",
+        content: data ?? "Resposta vazia.",
         ts: Date.now(),
       };
+
       const finalMsgs = [...updatedMsgs, assistantMsg];
       setMessages(finalMsgs);
       saveChat(idToUse, finalMsgs);
