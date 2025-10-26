@@ -286,8 +286,7 @@
     font-style: italic;
     color: #888;
     position: relative;
-    gap: 5px;
-    overflow: hidden;
+    gap: 3px;
 }
 
 .message.assistant.thinking .markdown-wrapper::after {
