@@ -297,7 +297,6 @@
     width: 0ch;
     height: 1px;
     animation: dots 1.5s steps(3, end) infinite;
-    overflow: hidden;
 }
 
 .cursor {
