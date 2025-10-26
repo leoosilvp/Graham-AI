@@ -280,9 +280,12 @@
 }
 
 .message.assistant.thinking .markdown-wrapper::after {
+    margin-top: -24.5px;
+    margin-left: 199px;
     content: "";
     display: inline-block;
-    width: 1ch;
+    width: 0ch;
+    height: 1px;
     animation: dots 1.5s steps(3, end) infinite;
 }
 

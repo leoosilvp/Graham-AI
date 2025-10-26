@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, { useRef, useState, useCallback } from "react";
 import logo from "../assets/img/icon-light.svg";
 import MoveElement from "./MoveElement";
 import NewChat from "./NewChat";
@@ -8,52 +8,36 @@ import Search from "./Search";
 import ConfProfile from "./ConfProfile";
 import Library from "./Library";
 import ChangeModel from "./ChangeModel";
+import { useUser } from "../hooks/useUser";
+import { useOutsideClick } from "../hooks/useOutsideClick";
 
 function Aside() {
     const boxRef = useRef(null);
     const confRef = useRef(null);
-    const handleMove = MoveElement(boxRef);
 
-    const [user, setUser] = useState({
-        avatar: "https://img.freepik.com/vetores-premium/icone-de-perfil-de-avatar-padrao-imagem-de-usuario-de-midia-social-icone-de-avatar-cinza-silhueta-de-perfil-em-branco-ilustracao-vetorial_561158-3407.jpg",
-        name: "User",
-        login: ""
-    });
+    const handleMove = MoveElement ? MoveElement(boxRef) : () => { };
+
+    const { user, setUser } = useUser();
 
     const [showConf, setShowConf] = useState(false);
 
-    useEffect(() => {
-        const storedUser = localStorage.getItem("grahamUser");
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
-    }, []);
-
     const toggleConf = useCallback(() => {
-        setShowConf(prev => !prev);
+        setShowConf((prev) => !prev);
     }, []);
 
-    useEffect(() => {
-        function handleClickOutside(e) {
-            if (
-                showConf &&
-                confRef.current &&
-                !confRef.current.contains(e.target) &&
-                !e.target.closest(".btn-profile")
-            ) {
-                setShowConf(false);
-            }
-        }
+    useOutsideClick(confRef, () => {
+        if (showConf) setShowConf(false);
+    }, showConf);
 
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, [showConf]);
+    const handleUpdateAvatar = useCallback((avatarUrl) => {
+        setUser((prev) => ({ ...prev, avatar: avatarUrl }));
+    }, [setUser]);
 
     return (
         <div className="hero-aside">
             <aside ref={boxRef}>
                 <section className="header-aside">
-                    <a href="" className="aside-logo">
+                    <a href="" className="aside-logo" title="GrahamAI">
                         <img className="logo" src={logo} alt="logo" />
                     </a>
 
@@ -70,26 +54,29 @@ function Aside() {
 
                 <section className="ctn-profile">
                     <div className="profile">
-                        <img src={user.avatar} alt="img-profile" />
+                        <img src={user.avatar} alt={`${user.name || "User"} avatar`} />
                         <div className="info-profile">
                             <h1>{user.name || "User"}</h1>
                             <p>BASIC</p>
                         </div>
                     </div>
-                    <i onClick={toggleConf} className="fa-solid fa-ellipsis btn-profile"></i>
+                    <i onClick={toggleConf} className="fa-solid fa-ellipsis"></i>
                 </section>
             </aside>
 
             {showConf && (
-                <div ref={confRef} className="ctn-conf-profile">
-                    <ConfProfile />
+                <div ref={confRef}>
+                    <ConfProfile onUpdateAvatar={handleUpdateAvatar} onClose={() => setShowConf(false)} />
                 </div>
             )}
 
-            <button className="btn-aside" onClick={handleMove}>
+            <button
+                className="btn-aside"
+                onClick={handleMove}
+                title="Mover barra lateral"
+            >
                 <i className="fa-solid fa-bars-staggered"></i>
             </button>
-
         </div>
     );
 }

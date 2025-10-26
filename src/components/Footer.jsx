@@ -3,7 +3,7 @@ import '../css/footer.css'
 function Footer() {
     return (
         <footer>
-            <h1>GrahamAI | V.1.3.0</h1>
+            <h1>GrahamAI | V.1.3.1</h1>
         </footer>
     )
 }

@@ -1,28 +1,42 @@
-export async function sendMessageToAI(messages, attachedFiles = []) {
-  const filesToSend = await Promise.all(
-    attachedFiles.map(async (file) => {
-      const text = await file.text();
-      return { name: file.name, content: text };
-    })
-  );
-
-  const payload = {
-    messages,
-    files: filesToSend,
-  };
+export async function sendMessageToAI(messages, files, options = {}) {
+  const controller = new AbortController();
+  if (options.signal) {
+    options.signal.addEventListener("abort", () => controller.abort());
+  }
 
   const response = await fetch("/api/chat", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ messages, files, stream: true }),
+    signal: controller.signal,
   });
 
   if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(errorData.error || "Erro na comunicação com o backend");
+    throw new Error("Erro na requisição da IA");
   }
 
-  return response.json();
+  if (!response.body) {
+    const data = await response.json();
+    return data;
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder("utf-8");
+  let partialText = "";
+  let done = false;
+
+  while (!done) {
+    const { value, done: readerDone } = await reader.read();
+    done = readerDone;
+    if (value) {
+      const chunk = decoder.decode(value, { stream: true });
+      partialText += chunk;
+
+      window.dispatchEvent(
+        new CustomEvent("aiStreamChunk", { detail: { text: chunk } })
+      );
+    }
+  }
+
+  return { reply: partialText };
 }

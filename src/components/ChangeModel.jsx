@@ -8,7 +8,6 @@ function ChangeModel() {
     const toggleMenu = () => setIsOpen(prev => !prev);
     const closeMenu = () => setIsOpen(false);
 
-    // Fecha o menu se clicar fora
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (ref.current && !ref.current.contains(e.target)) {
@@ -21,13 +20,16 @@ function ChangeModel() {
 
     return (
         <section className='change-model' ref={ref}>
-            <button className='active-model' onClick={toggleMenu}>
+            <button
+                className='active-model'
+                onClick={toggleMenu}
+            >
                 Modelo <i className={`fa-solid fa-chevron-${isOpen ? 'left' : 'right'}`}></i>
             </button>
 
             {isOpen && (
                 <article className='options-model'>
-                    <button onClick={() => window.location.href='https://graham-ai-page.vercel.app/'}>
+                    <button>
                         <section className='ctn-desc-model'>
                             <i className='fa-solid fa-wand-magic-sparkles'></i>
                             <article className='desc-model'>
@@ -35,9 +37,7 @@ function ChangeModel() {
                                 <h2>A inteligência evoluiu. E agora, vai além.</h2>
                             </article>
                         </section>
-                        <a href="https://graham-ai-page.vercel.app/">
-                            <i className='fa-regular fa-chess-queen'></i> Atualizar
-                        </a>
+                        <a  onClick={() => window.open('https://graham-ai-page.vercel.app/#plans', '_blank', 'noopener,noreferrer')}><i className='fa-regular fa-chess-queen'></i> Atualizar</a>
                     </button>
 
                     <button className='active' onClick={closeMenu}>
