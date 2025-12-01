@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     };
 
     const payload = {
-      model: "deepseek/deepseek-chat-v3.1:free",
+      model: "deepseek/deepseek-chat",
       stream: true,
       messages: [systemPrompt, ...fileMessages, ...messages],
     };
