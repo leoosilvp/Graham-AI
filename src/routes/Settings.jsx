@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import '../css/settings.css'
-import AsideSettings from './ui/AsideSettings'
-import HeaderSettings from './ui/HeaderSettings'
+import AsideSettings from '../components/ui/AsideSettings'
+import HeaderSettings from '../components/ui/HeaderSettings'
 
 const Settings = () => {
   return (

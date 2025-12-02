@@ -58,9 +58,10 @@
 .aside-settings nav ul li a{
     text-decoration: none;
     display: flex;
+    align-items: center;
     width: 100%;
     padding: 9px 14px;
-    transition: all 0.2s linear;
+    transition: all 0.1s linear;
     font-size: 0.9rem;
     color: #e1e1e1;
     gap: 7px;

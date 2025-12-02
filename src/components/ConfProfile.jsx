@@ -24,7 +24,7 @@ function ConfProfile() {
         <hr />
 
         <button
-          onClick={() => handleNavigate('https://graham-ai-page.vercel.app/')}
+          onClick={() => handleNavigate('/chat/settings')}
         >
           <i className='fa-regular fa-life-ring'></i> Configurações
         </button>
