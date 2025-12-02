@@ -5,20 +5,24 @@ const ChangeTitle = () => {
   const location = useLocation()
 
   useEffect(() => {
-    switch (location.pathname) {
-      case '/':
-      case '/chat':
-        document.title = 'GrahamAi ▪️ chat'
-        break
-      case '/chat/settings':
-        document.title = 'GrahamAi ▪️ settings'
-        break
-      case '/login':
-        document.title = 'GrahamAi ▪️ login'
-        break
-      default:
-        document.title = 'GrahamAi'
+    const path = location.pathname
+
+    if (path === '/') {
+      document.title = 'GrahamAi'
+      return
     }
+
+    if (path === '/login') {
+      document.title = 'GrahamAi ▪️ login'
+      return
+    }
+
+    if (path.startsWith('/settings')) {
+      document.title = 'GrahamAi ▪️ settings'
+      return
+    }
+
+    document.title = 'GrahamAi'
   }, [location.pathname])
 
   return null

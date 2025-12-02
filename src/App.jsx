@@ -15,9 +15,7 @@ function App() {
     <BrowserRouter>
       <ChangeTitle />
       <Routes>
-        <Route path="/" element={<Navigate to="/chat" replace />} />
-
-        <Route path="/chat" element={<Home />}>
+        <Route path="/" element={<Home />}>
           <Route path="settings" element={<Settings />}>
             <Route path="general" element={<General />}/>
             <Route path="notifications" element={<Appearance />}/>
