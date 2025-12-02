@@ -118,12 +118,22 @@
     border: 0.2px solid #1d1d1d;
 }
 
+.ctn-settings-change{    
+    padding: 15px 5px;
+}
+
+.ctn-settings-change p{
+    margin-top: 7px;
+    font-size: 0.8rem;
+    font-weight: 200;
+    color: #555555;
+}
+
 .settings-change{
     display: flex;
     align-items: center;
     width: 100%;
     justify-content: space-between;
-    padding: 15px 5px;
 }
 
 .settings-change h2{
@@ -137,7 +147,7 @@
     justify-content: center;
     padding: 8px 10px;
     border: none;
-    border-radius: 5px;
+    border-radius: 7px;
     gap: 4px;
     cursor: pointer;
     background: transparent;
@@ -147,12 +157,12 @@
 .settings-change button div{
     margin-right: 7px;
     display: flex;
-    width: 10px;
-    height: 10px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: #868686;
 }
 
 .settings-change button:hover{
-    background: #252525;
+    background: #282828;
 }
