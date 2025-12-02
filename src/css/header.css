@@ -1,4 +1,4 @@
-header{
+header {
     position: relative;
     display: flex;
     align-items: center;
@@ -9,7 +9,7 @@ header{
     z-index: 2;
 }
 
-header h1{
+header h1 {
     font-size: 0.7rem;
     font-weight: 500;
     color: #f5f5f559;
@@ -20,7 +20,7 @@ header img {
     width: 20px;
 }
 
-header a{
+header a {
     text-decoration: none;
     display: flex;
     height: 100%;
@@ -32,6 +32,27 @@ header a{
     transition: all 0.4s ease;
 }
 
-header a:hover{
+header a:hover {
     color: #bebebe;
+}
+
+@media (width < 720px) {
+    header {
+        position: absolute;
+        justify-content: center;
+        box-shadow: none;
+        z-index: -1;
+    }
+
+    header h1 {
+        display: none;
+    }
+
+    header a {
+        display: none;
+    }
+
+    header img {
+        display: flex;
+    }
 }

@@ -16,7 +16,7 @@
     transition: all 0.1s ease;
 }
 
-.library button p{
+.library button p {
     display: flex;
     font-size: 0.9rem;
     font-weight: 500;
@@ -24,22 +24,22 @@
     gap: 7px;
 }
 
-.library button:hover{
+.library button:hover {
     color: #fff;
     background: #252525;
 }
 
-.library button span{
+.library button span {
     font-size: 0.7rem;
     color: #ffffff5a;
     opacity: 0;
 }
 
-.library button:hover span{
+.library button:hover span {
     opacity: 1;
 }
 
-.ctn-modal-library{
+.ctn-modal-library {
     position: absolute;
     top: 0;
     left: 0;
@@ -52,7 +52,7 @@
     z-index: 10;
 }
 
-.modal-library{
+.modal-library {
     display: flex;
     flex-direction: column;
     width: 1036px;
@@ -63,7 +63,7 @@
     box-shadow: 0px 0px 10px 0px #00000065;
 }
 
-.header-modal-library{
+.header-modal-library {
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -71,7 +71,7 @@
     border-bottom: 1px solid #323232;
 }
 
-.header-modal-library h1{
+.header-modal-library h1 {
     font-size: 1rem;
     font-weight: 500;
     text-decoration: underline;
@@ -80,7 +80,7 @@
     cursor: default;
 }
 
-.header-modal-library button{
+.header-modal-library button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -94,11 +94,11 @@
     transition: var(--transition);
 }
 
-.header-modal-library button:hover{
+.header-modal-library button:hover {
     background: #353535;
 }
 
-.content-modal-library{
+.content-modal-library {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
@@ -106,7 +106,7 @@
     overflow-y: auto;
 }
 
-.grid-imgs-modal-library{
+.grid-imgs-modal-library {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
@@ -116,16 +116,16 @@
     gap: 5px;
 }
 
-.grid-imgs-modal-library::-webkit-scrollbar{
+.grid-imgs-modal-library::-webkit-scrollbar {
     display: flex;
     width: 5px;
 }
 
-.grid-imgs-modal-library::-webkit-scrollbar-thumb{
+.grid-imgs-modal-library::-webkit-scrollbar-thumb {
     background: #323232;
 }
 
-.grid-imgs-modal-library p{
+.grid-imgs-modal-library p {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -133,18 +133,19 @@
     color: #989898;
     gap: 15px;
 }
-.grid-imgs-modal-library p i{
+
+.grid-imgs-modal-library p i {
     font-size: 2rem;
 }
 
-.no-images{
+.no-images {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
 }
 
-.ctn-img-modal-library{
+.ctn-img-modal-library {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -156,13 +157,13 @@
     cursor: pointer;
 }
 
-.ctn-img-modal-library img{
+.ctn-img-modal-library img {
     display: flex;
     width: fit-content;
     height: 200px;
 }
 
-.options-img-modal-library{
+.options-img-modal-library {
     position: relative;
     display: flex;
     width: 100%;
@@ -175,11 +176,11 @@
     opacity: 0;
 }
 
-.ctn-img-modal-library:hover .options-img-modal-library{
+.ctn-img-modal-library:hover .options-img-modal-library {
     opacity: 1;
 }
 
-.options-img-modal-library button{
+.options-img-modal-library button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -192,12 +193,12 @@
     transition: all 0.2s ease;
 }
 
-.options-img-modal-library button:hover{
+.options-img-modal-library button:hover {
     background: #0000002f;
     backdrop-filter: blur(3px);
 }
 
-.ctn-view-img{
+.ctn-view-img {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -206,13 +207,13 @@
     overflow-x: hidden;
 }
 
-.ctn-view-img img{
+.ctn-view-img img {
     display: flex;
     width: fit-content;
     height: 430px;
 }
 
-.options-view-img{
+.options-view-img {
     position: absolute;
     margin-bottom: 500px;
     display: flex;
@@ -221,7 +222,7 @@
     gap: 20px;
 }
 
-.options-view-img button{
+.options-view-img button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -234,6 +235,13 @@
     cursor: pointer;
 }
 
-.options-view-img button:hover{
+.options-view-img button:hover {
     background: #393939;
+}
+
+@media (width < 720px) {
+
+    .ctn-library {
+        display: none;
+    }
 }

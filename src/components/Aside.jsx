@@ -1,6 +1,6 @@
 import React, { useRef, useState, useCallback } from "react";
 import logo from "../assets/img/icon-light.svg";
-import MoveElement from "./MoveElement";
+import MoveElement from "../hooks/MoveElement";
 import NewChat from "./NewChat";
 import CardsChat from "./CardsChat";
 import "../css/aside.css";

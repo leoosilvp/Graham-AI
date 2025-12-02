@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom"
 
-const AsideSettings = () => {
+const SettingsAside = () => {
     return (
-        <section className='aside-settings'>
+        <section className='settings-aside'>
             <nav>
                 <ul>
                     <li><NavLink to='general' className={({ isActive }) => isActive ? 'active' : ''}><i className="fa-solid fa-gear"/> Geral</NavLink></li>
@@ -19,4 +19,4 @@ const AsideSettings = () => {
     )
 }
 
-export default AsideSettings
+export default SettingsAside

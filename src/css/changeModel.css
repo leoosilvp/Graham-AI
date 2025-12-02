@@ -85,3 +85,9 @@
     font-weight: 500;
     color: #b3b3b3;
 }
+
+@media (width < 720px) {
+    .change-model{
+        display: none;
+    }
+}
