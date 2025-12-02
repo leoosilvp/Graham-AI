@@ -76,3 +76,22 @@
     background: #282828;
     color: #fff;
 }
+
+.content-settings{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    overflow-y: auto;
+    width: 100%;
+    height: 100%;
+}
+
+.content-settings::-webkit-scrollbar{
+    display: flex;
+    width: 5px;
+}
+
+.content-settings::-webkit-scrollbar-thumb{
+    background: #252525;
+    border-radius: 50px;
+}

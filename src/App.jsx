@@ -4,19 +4,22 @@ import './css/style.css'
 import Settings from './routes/Settings'
 import Home from './routes/Home'
 import Appearance from './components/ui/Appearance'
+import General from './components/ui/General'
+import ChangeTitle from './hooks/ChangeTitle'
 
 function App() {
-
+  
   ChangeIcon();
 
   return (
     <BrowserRouter>
+      <ChangeTitle />
       <Routes>
         <Route path="/" element={<Navigate to="/chat" replace />} />
 
         <Route path="/chat" element={<Home />}>
           <Route path="settings" element={<Settings />}>
-            <Route path="general" element={<Appearance />}/>
+            <Route path="general" element={<General />}/>
             <Route path="notifications" element={<Appearance />}/>
             <Route path="customization" element={<Appearance />}/>
             <Route path="accessibility" element={<Appearance />}/>

@@ -12,7 +12,7 @@ const Settings = () => {
           <section>
             <AsideSettings />
           </section>
-          <section>
+          <section className='content-settings'>
             <Outlet />
           </section>
         </div>
