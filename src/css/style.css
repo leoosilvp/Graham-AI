@@ -1,8 +1,9 @@
-* {
+*{
     margin: 0;
     box-sizing: border-box;
     gap: 0;
     padding: 0;
+    list-style: none;
 }
 
 :root {
@@ -10,6 +11,7 @@
     --secundary-color: #f5f5f5;
     --color-line: #282828;
     --transition: all 0.4s ease;
+    --border: 7px; 
 }
 
 body {

@@ -1,25 +1,27 @@
-import Aside from './components/Aside'
-import Chat from './components/Chat'
-import Footer from './components/Footer'
-import Header from './components/Header'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import ChangeIcon from './hooks/ChangeIcon'
 import './css/style.css'
-import Login from './components/Login'
+import Settings from './components/Settings'
+import Home from './routes/Home'
+import Appearance from './components/ui/Appearance'
 
 function App() {
 
   ChangeIcon();
 
   return (
-    <>
-      <Login />
-      <Header />
-      <div className="content">
-        <Aside />
-        <Chat />
-      </div>
-      <Footer />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/chat" replace />} />
+
+        <Route path="/chat" element={<Home />}>
+          <Route path="settings" element={<Settings />}>
+            <Route path="appearance" element={<Appearance />}/>
+          </Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+
   )
 }
 
