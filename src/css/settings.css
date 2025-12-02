@@ -113,3 +113,46 @@
     font-size: 1.2rem;
     font-weight: 500;
 }
+
+.settings-area-content hr{
+    border: 0.2px solid #1d1d1d;
+}
+
+.settings-change{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    padding: 15px 5px;
+}
+
+.settings-change h2{
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+.settings-change button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 5px;
+    gap: 4px;
+    cursor: pointer;
+    background: transparent;
+    color: #fff;
+}
+
+.settings-change button div{
+    margin-right: 7px;
+    display: flex;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #868686;
+}
+
+.settings-change button:hover{
+    background: #252525;
+}
