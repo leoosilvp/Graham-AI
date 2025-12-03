@@ -349,3 +349,40 @@
     font-weight: 200;
     color: #555555;
 }
+
+.ctn-settings-change-img{
+    display: flex;
+    padding: 25px 5px 10px 5px;
+    gap: 30px;
+}
+
+.ctn-settings-change-img button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    background:  #2f2f2f;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.ctn-settings-change-img button:hover{
+    background: #424242;
+}
+
+.ctn-settings-change-img p{
+    text-align: justify;
+    margin-top: 10px;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #969696;
+}
+
+.settings-change-img img{
+    display: flex;
+    width: 150px;
+    border-radius: 50%;
+}
