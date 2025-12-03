@@ -12,7 +12,7 @@ const General = () => {
                 </div>
             </section>
 
-            <hr />
+            <hr className="settings-divisor-area"/>
 
             <section className="ctn-settings-change">
                 <div className="settings-change">
@@ -21,7 +21,7 @@ const General = () => {
                 </div>
             </section>
 
-            <hr />
+            <hr className="settings-divisor-area"/>
 
             <section className="ctn-settings-change">
                 <div className="settings-change">

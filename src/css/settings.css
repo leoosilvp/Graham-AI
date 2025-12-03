@@ -163,11 +163,11 @@
 
 .settings-area-content hr {
     margin: 15px 0;
-    border: 0.2px solid #1d1d1d;
+    border: 0.2px solid #1e1e1e;
 }
 
 .ctn-settings-change {
-    padding: 15px 5px;
+    padding: 25px 5px 0px 5px;
 }
 
 .ctn-settings-change p {
@@ -216,14 +216,36 @@
 }
 
 .ctn-settings-input {
+    display: flex;
     margin-top: 10px;
     margin-bottom: -10px;
     padding: 15px 5px;
+    gap: 20px;
+}
+
+.ctn-settings-input button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    height: fit-content;
+    padding: 7px 10px;
+    background: transparent;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.ctn-settings-input button:hover{
+    background: #2f2f2f;
 }
 
 .settings-input {
     display: flex;
     flex-direction: column;
+    width: 100%;
     gap: 7px;
 }
 
@@ -236,6 +258,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
     padding: 10px;
     outline: none;
     border: 1px solid #424242;
@@ -249,7 +272,7 @@
 }
 
 .settings-area-content .settings-divisor-area{
-    margin-bottom: -5px;
+    margin-bottom: -10px;
 }
 
 .ctn-settings-switch {
@@ -273,4 +296,56 @@
 .settings-switch h2 {
     font-size: 0.9rem;
     font-weight: 400;
+}
+
+.ctn-settings-button{
+    display: flex;
+    flex-direction: column;
+    padding: 0 5px;
+}
+
+.settings-button{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.settings-button h2{
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.settings-button button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 15px;
+    border: 1px solid #383838;
+    border-radius: 50px;
+    background: #202020;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.settings-button button:hover{
+    background: #353535;
+    border-color: #505050;
+}
+
+.settings-button .active{
+    border-color: #d63c3c;
+    color: #d63c3c;
+}
+
+.settings-button .active:hover{
+    border-color: #d63c3c;
+}
+
+.ctn-settings-button p{
+    margin-top: 10px;
+    font-size: 0.8rem;
+    font-weight: 200;
+    color: #555555;
 }

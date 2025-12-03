@@ -13,7 +13,7 @@ const Notifications = () => {
                 <p>Receba uma notificação quando o Graham AI responder a pedidos que demoram algum tempo, tal como uma investigação ou geração de imagens.</p>
             </section>
 
-            <hr />
+            <hr className="settings-divisor-area"/>
 
             <section className="ctn-settings-change">
                 <div className="settings-change">
