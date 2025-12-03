@@ -13,6 +13,7 @@ import TermsPrivacy from './components/ui/TermsPrivacy'
 import Security from './components/ui/Security'
 import Support from './components/ui/Support'
 import Account from './components/ui/Account'
+import Login from './routes/Login'
 
 function App() {
   
@@ -22,6 +23,7 @@ function App() {
     <BrowserRouter>
       <ChangeTitle />
       <Routes>
+        <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />}>
           <Route path="settings" element={<Settings />}>
             <Route path="general" element={<General />}/>
