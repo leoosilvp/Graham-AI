@@ -3,10 +3,16 @@ import ChangeIcon from './hooks/ChangeIcon'
 import './css/style.css'
 import Settings from './routes/Settings'
 import Home from './routes/Home'
-import Appearance from './components/ui/Appearance'
+
 import General from './components/ui/General'
 import ChangeTitle from './hooks/ChangeTitle'
 import Notifications from './components/ui/Notifications'
+import Customization from './components/ui/Customization'
+import Accessibility from './components/ui/Accessibility'
+import TermsPrivacy from './components/ui/TermsPrivacy'
+import Security from './components/ui/Security'
+import Support from './components/ui/Support'
+import Account from './components/ui/Account'
 
 function App() {
   
@@ -20,12 +26,12 @@ function App() {
           <Route path="settings" element={<Settings />}>
             <Route path="general" element={<General />}/>
             <Route path="notifications" element={<Notifications />}/>
-            <Route path="customization" element={<Appearance />}/>
-            <Route path="accessibility" element={<Appearance />}/>
-            <Route path="terms and privacy" element={<Appearance />}/>
-            <Route path="security" element={<Appearance />}/>
-            <Route path="support" element={<Appearance />}/>
-            <Route path="account" element={<Appearance />}/>
+            <Route path="customization" element={<Customization />}/>
+            <Route path="accessibility" element={<Accessibility />}/>
+            <Route path="terms and privacy" element={<TermsPrivacy />}/>
+            <Route path="security" element={<Security />}/>
+            <Route path="support" element={<Support />}/>
+            <Route path="account" element={<Account />}/>
           </Route>
         </Route>
       </Routes>
