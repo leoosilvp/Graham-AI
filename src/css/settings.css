@@ -1,4 +1,50 @@
-.ctn-settings{
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 35px;
+    height: 19px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #757575;
+    border-radius: 34px;
+    transition: 0.3s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 15px;
+    width: 15px;
+    left: 2.5px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.switch input:checked+.slider {
+    background-color: #3b72e9;
+}
+
+.switch input:checked+.slider:before {
+    transform: translateX(15px);
+}
+
+
+.ctn-settings {
     position: absolute;
     display: flex;
     align-items: center;
@@ -12,7 +58,7 @@
     z-index: 2;
 }
 
-.settings{
+.settings {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -24,7 +70,7 @@
     overflow: hidden;
 }
 
-.settings-header{
+.settings-header {
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -33,24 +79,24 @@
     background: #141414;
 }
 
-.settings-header h1{
+.settings-header h1 {
     font-size: 0.9rem;
     font-weight: 500;
 }
 
-.settings-header a{
+.settings-header a {
     text-decoration: none;
     font-size: 0.85rem;
     font-weight: 500;
     color: #cd3e3e;
 }
 
-.ctn-content-settings{
+.ctn-content-settings {
     display: flex;
     height: 100%;
 }
 
-.settings-aside{
+.settings-aside {
     width: 220px;
     height: 100%;
     padding: 10px 0;
@@ -58,7 +104,7 @@
     background: #151515;
 }
 
-.settings-aside nav ul li a{
+.settings-aside nav ul li a {
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -70,78 +116,80 @@
     gap: 7px;
 }
 
-.settings-aside nav ul li a:hover{
+.settings-aside nav ul li a:hover {
     background: #282828;
     color: #fff;
 }
 
-.settings-aside nav ul .active{
+.settings-aside nav ul .active {
     background: #282828;
     color: #fff;
 }
 
-.content-settings{
+.content-settings {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
     padding: 0px 15px;
     width: 100%;
-    height: 100%;
+    height: 475px;
 }
 
-.content-settings::-webkit-scrollbar{
+.content-settings::-webkit-scrollbar {
     display: flex;
     width: 5px;
 }
 
-.content-settings::-webkit-scrollbar-thumb{
+.content-settings::-webkit-scrollbar-thumb {
     background: #252525;
     border-radius: 50px;
 }
 
-.settings-area-content{
+.settings-area-content {
     display: flex;
     flex-direction: column;
+    padding-bottom: 40px;
 }
 
-.settings-area-header{
-    padding: 11px 5px;
-    border-bottom: 1px solid var(--color-line);
-}
-
-.settings-area-header h1{
+.settings-area-content h1 {
     font-size: 1.2rem;
     font-weight: 500;
 }
 
-.settings-area-content hr{
+.settings-area-header {
+    padding: 15px 5px;
+    border-bottom: 1px solid var(--color-line);
+}
+
+.settings-area-content hr {
+    margin: 15px 0;
     border: 0.2px solid #1d1d1d;
 }
 
-.ctn-settings-change{    
+.ctn-settings-change {
     padding: 15px 5px;
 }
 
-.ctn-settings-change p{
+.ctn-settings-change p {
     margin-top: 7px;
     font-size: 0.8rem;
     font-weight: 200;
     color: #555555;
 }
 
-.settings-change{
+.settings-change {
     display: flex;
     align-items: center;
     width: 100%;
     justify-content: space-between;
 }
 
-.settings-change h2{
+.settings-change h2 {
     font-size: 0.9rem;
     font-weight: 400;
 }
 
-.settings-change button{
+.settings-change button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -154,7 +202,7 @@
     color: #fff;
 }
 
-.settings-change button div{
+.settings-change button div {
     margin-right: 7px;
     display: flex;
     width: 7px;
@@ -163,6 +211,66 @@
     background: #868686;
 }
 
-.settings-change button:hover{
+.settings-change button:hover {
     background: #282828;
+}
+
+.ctn-settings-input {
+    margin-top: 10px;
+    margin-bottom: -10px;
+    padding: 15px 5px;
+}
+
+.settings-input {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.settings-input h2 {
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+.settings-input input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    outline: none;
+    border: 1px solid #424242;
+    border-radius: 7px;
+    background: #282828;
+    color: #fff;
+}
+
+.settings-new-area{
+    margin-top: 25px;
+}
+
+.settings-area-content .settings-divisor-area{
+    margin-bottom: -5px;
+}
+
+.ctn-settings-switch {
+    padding: 0 5px;
+}
+
+.ctn-settings-switch p {
+    margin-top: 7px;
+    font-size: 0.8rem;
+    font-weight: 200;
+    color: #555555;
+}
+
+.settings-switch {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.settings-switch h2 {
+    font-size: 0.9rem;
+    font-weight: 400;
 }
