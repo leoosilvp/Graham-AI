@@ -216,6 +216,11 @@
     box-shadow: inset 0px 0px 7px 1px #383838;
 }
 
+.login-content input:-webkit-autofill, input:autofill{
+    box-shadow: 0px 0px 0px 100px #ffffff inset;
+}
+    
+
 .login-content .active{
     margin-top: 15px;
     background: #ffffff;
