@@ -1,9 +1,9 @@
 <div align="center">
 
-<a href='https://graham-ai-kappa.vercel.app/'><img src="https://graham-ai-page.vercel.app/assets/logo-light-6T0NhedT.svg" width="400px"></a>
+<a href='https://ai-graham.vercel.app/'><img src="https://graham-ai-page.vercel.app/assets/logo-light-6T0NhedT.svg" width="400px"></a>
 </div>
 
-access: [graham.ai](https://graham-ai-kappa.vercel.app/)
+access: [graham.ai](https://ai-graham.vercel.app/)
 
 
 # 📑 About
