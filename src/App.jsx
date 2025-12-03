@@ -8,7 +8,6 @@ import General from './components/ui/General'
 import ChangeTitle from './hooks/ChangeTitle'
 import Notifications from './components/ui/Notifications'
 import Customization from './components/ui/Customization'
-import Accessibility from './components/ui/Accessibility'
 import TermsPrivacy from './components/ui/TermsPrivacy'
 import Security from './components/ui/Security'
 import Support from './components/ui/Support'
@@ -29,7 +28,6 @@ function App() {
             <Route path="general" element={<General />}/>
             <Route path="notifications" element={<Notifications />}/>
             <Route path="customization" element={<Customization />}/>
-            <Route path="accessibility" element={<Accessibility />}/>
             <Route path="terms and privacy" element={<TermsPrivacy />}/>
             <Route path="security" element={<Security />}/>
             <Route path="support" element={<Support />}/>

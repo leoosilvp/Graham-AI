@@ -432,3 +432,22 @@
     margin-top: 7px;
     color: #3b72e9;
 }
+
+.ctn-settings-link{
+    padding: 15px 5px 0px 5px;
+}
+
+.settings-link {
+    display: flex;
+    justify-content: space-between;
+}
+
+.settings-link h2{
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.settings-link a{
+    text-decoration: none;
+    color: #3b72e9;
+}
