@@ -2,7 +2,7 @@ const TermsPrivacy = () => {
     return (
         <section className="settings-area-content">
             <section className="settings-area-header">
-                <h1>Termos e Privacidade</h1>
+                <h1><i className="fa-regular fa-address-book"/> Termos e Privacidade</h1>
             </section>
 
 

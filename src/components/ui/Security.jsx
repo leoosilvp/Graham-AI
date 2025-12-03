@@ -2,7 +2,7 @@ const Security = () => {
     return (
         <section className="settings-area-content">
             <section className="settings-area-header">
-                <h1>Segurança</h1>
+                <h1><i className="fa-solid fa-fingerprint"/> Segurança</h1>
             </section>
 
             <section className="ctn-settings-input">

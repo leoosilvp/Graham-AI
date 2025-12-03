@@ -2,7 +2,7 @@ const Account = () => {
     return (
         <section className="settings-area-content">
             <section className="settings-area-header">
-                <h1>Conta</h1>
+                <h1><i className="fa-regular fa-circle-user"/> Conta</h1>
             </section>
 
             <section className="ctn-settings-change-img">

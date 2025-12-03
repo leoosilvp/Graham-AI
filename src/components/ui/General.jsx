@@ -2,7 +2,7 @@ const General = () => {
     return (
         <section className="settings-area-content">
             <section className="settings-area-header">
-                <h1>Geral</h1>
+                <h1><i className="fa-solid fa-gear"/> Geral</h1>
             </section>
 
             <section className="ctn-settings-change">

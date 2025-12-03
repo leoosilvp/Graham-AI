@@ -2,7 +2,7 @@ const Notifications = () => {
     return (
         <section className="settings-area-content">
             <section className="settings-area-header">
-                <h1>Notificações</h1>
+                <h1><i className="fa-regular fa-bell"/> Notificações</h1>
             </section>
 
             <section className="ctn-settings-change">

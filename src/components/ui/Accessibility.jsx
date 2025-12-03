@@ -2,7 +2,7 @@ const Accessibility = () => {
     return (
         <section className="settings-area-content">
             <section className="settings-area-header">
-                <h1>Acessibilidade</h1>
+                <h1><i className="fa-regular fa-eye"/> Acessibilidade</h1>
             </section>
 
 

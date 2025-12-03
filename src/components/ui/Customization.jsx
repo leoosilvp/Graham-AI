@@ -2,7 +2,7 @@ const Customization = () => {
   return (
     <section className="settings-area-content">
       <section className="settings-area-header">
-        <h1>Personalização</h1>
+        <h1><i className="fa-regular fa-face-grin-tongue-wink"/> Personalização</h1>
       </section>
 
       <section className="ctn-settings-change">
