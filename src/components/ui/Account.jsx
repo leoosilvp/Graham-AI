@@ -1,4 +1,44 @@
+import { useEffect, useState } from "react";
+
 const Account = () => {
+
+    const [avatar, setAvatar] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem("grahamUser"));
+
+        if (user) {
+            setAvatar(user.avatar);
+
+            if (user.name) {
+                const parts = user.name.trim().split(" ");
+                setFirstName(parts[0] || "");
+                setLastName(parts.slice(1).join(" ") || "");
+            }
+        }
+    }, []);
+
+    const saveToLocalStorage = () => {
+        const current = JSON.parse(localStorage.getItem("grahamUser")) || {};
+        
+        const updatedUser = {
+            ...current,
+            name: `${firstName} ${lastName}`.trim(),
+            avatar: current.avatar
+        };
+
+        localStorage.setItem("grahamUser", JSON.stringify(updatedUser));
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            saveToLocalStorage();
+            window.location.reload();
+        }
+    };
+
     return (
         <section className="settings-area-content">
             <section className="settings-area-header">
@@ -7,11 +47,14 @@ const Account = () => {
 
             <section className="ctn-settings-change-img">
                 <div className="settings-change-img">
-                    <img src="https://avatars.githubusercontent.com/u/182553526?v=4" alt="img-profile" />
+                    <img 
+                        src={avatar || "https://static.vecteezy.com/ti/vetor-gratis/p1/9292244-default-avatar-icon-vector-of-social-media-user-vetor.jpg"} 
+                        alt="img-profile" 
+                    />
                 </div>
                 <div>
                     <button>Trocar Imagem</button>
-                    <p>Envie uma nova imagem para atualizar seu perfil no Graham AI. Para garantir qualidade e alinhamento visual, recomendamos utilizar um arquivo quadrado de 500×500 pixels. Apenas imagens nos formatos PNG, JPG ou JPEG são aceitas, com tamanho máximo permitido de 20 MB. Certifique-se de que a imagem esteja nítida, atual e adequada antes de prosseguir com o envio.</p>
+                    <p>Envie uma nova imagem para atualizar seu perfil no Graham AI. Para garantir qualidade e alinhamento visual, recomendamos utilizar um arquivo quadrado de 500×500 pixels. Apenas imagens nos formatos PNG, JPG ou JPEG são aceitos, com tamanho máximo permitido de 20 MB. Certifique-se de que a imagem esteja nítida, atual e adequada antes de prosseguir com o envio.</p>
                 </div>
             </section>
 
@@ -20,7 +63,14 @@ const Account = () => {
             <section className="ctn-settings-input">
                 <div className="settings-input">
                     <h2>Primeiro nome</h2>
-                    <input type="text" placeholder="Seu nome" value={''} />
+                    <input 
+                        type="text" 
+                        placeholder="Seu nome" 
+                        maxLength={13}
+                        value={firstName} 
+                        onChange={(e) => setFirstName(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                    />
                 </div>
             </section>
 
@@ -29,7 +79,14 @@ const Account = () => {
             <section className="ctn-settings-input">
                 <div className="settings-input">
                     <h2>Sobrenome</h2>
-                    <input type="text" placeholder="Seu sobrenome" value={''} />
+                    <input 
+                        type="text" 
+                        placeholder="Seu sobrenome"
+                        maxLength={13}
+                        value={lastName} 
+                        onChange={(e) => setLastName(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                    />
                 </div>
             </section>
 
@@ -55,7 +112,7 @@ const Account = () => {
             </section>
 
         </section>
-    )
+    );
 }
 
-export default Account
+export default Account;

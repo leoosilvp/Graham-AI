@@ -66,7 +66,7 @@ const Login = () => {
 
                 <input
                     type="text"
-                    placeholder='Digite seu username'
+                    placeholder='Digite seu username do GitHub'
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
