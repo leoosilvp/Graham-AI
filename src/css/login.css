@@ -205,6 +205,7 @@
 }
 
 .login-content input{
+    margin-bottom: 10px;
     display: flex;
     width: 340px;
     padding: 12px;
@@ -220,7 +221,6 @@
     box-shadow: 0px 0px 0px 100px #ffffff inset;
 }
     
-
 .login-content .active{
     margin-top: 15px;
     background: #ffffff;
