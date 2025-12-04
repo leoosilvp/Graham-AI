@@ -78,7 +78,7 @@ const Login = () => {
                 </button>
 
                 {error && (
-                    <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>
+                    <p style={{ color: '#d63c3c', marginTop: '370px', position: 'absolute', fontSize:'0.85rem' , fontWeight: '200', }}>{error}</p>
                 )}
             </section>
 

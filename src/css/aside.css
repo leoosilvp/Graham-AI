@@ -408,23 +408,4 @@ aside::-webkit-scrollbar-thumb {
     .ctn-profile i:active {
         background: #353535;
     }
-
-    .conf-profile {
-        left: 10px;
-        bottom: 85px;
-        border-radius: 10px;
-        width: 270px;
-    }
-
-    .conf-profile button {
-        align-items: center;
-        border-radius: 5px;
-        width: 100%;
-        background: transparent;
-    }
-
-    .options-card button {
-        background: transparent;
-        opacity: 1;
-    }
 }
