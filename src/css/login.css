@@ -148,13 +148,13 @@
     width: 110px;
 }
 
-.login-content h1{
+.login-content h1 {
     margin-top: 15px;
     font-size: 1.4rem;
     font-weight: 500;
 }
 
-.login-content h2{
+.login-content h2 {
     margin-top: 5px;
     margin-bottom: 23px;
     font-size: 0.85rem;
@@ -162,7 +162,7 @@
     color: #969696;
 }
 
-.login-content button{
+.login-content button {
     margin-top: 7px;
     display: flex;
     align-items: center;
@@ -180,31 +180,31 @@
     transition: all 0.2s ease;
 }
 
-.login-content button:hover{
+.login-content button:hover {
     color: #000;
     background: #fff;
     box-shadow: 0px 0px 10px 2px #ffffff7d;
 }
 
-.login-content button i{
+.login-content button i {
     font-size: 1rem;
 }
 
-.line-login-page{
+.line-login-page {
     display: flex;
     align-items: center;
     gap: 10px;
     color: #383838;
 }
 
-.line-login-page hr{
+.line-login-page hr {
     margin: 30px 0;
     display: flex;
     width: 150px;
     border: 1px solid #383838;
 }
 
-.login-content input{
+.login-content input {
     margin-bottom: 10px;
     display: flex;
     width: 340px;
@@ -217,23 +217,24 @@
     box-shadow: inset 0px 0px 7px 1px #383838;
 }
 
-.login-content input:-webkit-autofill, input:autofill{
+.login-content input:-webkit-autofill,
+input:autofill {
     box-shadow: 0px 0px 0px 100px #ffffff inset;
 }
-    
-.login-content .active{
+
+.login-content .active {
     margin-top: 15px;
     background: #ffffff;
     box-shadow: none;
     color: #000;
 }
 
-.login-page-footer{
+.login-page-footer {
     position: absolute;
     bottom: 10px;
 }
 
-.login-page-footer p{
+.login-page-footer p {
     display: flex;
     align-items: center;
     font-size: 0.65rem;
@@ -241,6 +242,22 @@
     gap: 5px;
 }
 
-.login-page-footer a{
+.login-page-footer a {
     color: #7a7a7a;
+}
+
+@media (width < 720px) {
+
+    .login-page-header {
+        padding: 25px;
+    }
+
+    .login-content {
+        margin-bottom: 30px;
+    }
+
+    .login-page-footer p {
+        flex-wrap: wrap;
+        font-size: 0.55rem;
+    }
 }
