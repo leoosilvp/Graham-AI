@@ -1,6 +1,8 @@
-import React, { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useLayoutEffect } from "react";
+import { useOutsideClick } from "../hooks/useOutsideClick";
+import { NavLink } from "react-router-dom";
+import { useUser } from "../hooks/useUser";
 import logo from "../assets/img/icon-light.svg";
-import MoveElement from "../hooks/MoveElement";
 import NewChat from "./NewChat";
 import CardsChat from "./CardsChat";
 import "../css/aside.css";
@@ -8,18 +10,51 @@ import Search from "./Search";
 import ConfProfile from "./ConfProfile";
 import Library from "./Library";
 import ChangeModel from "./ChangeModel";
-import { useUser } from "../hooks/useUser";
-import { useOutsideClick } from "../hooks/useOutsideClick";
-import { NavLink } from "react-router-dom";
 
 function Aside() {
     const boxRef = useRef(null);
     const confRef = useRef(null);
 
-    const handleMove = MoveElement ? MoveElement(boxRef) : () => { };
+    const [moved, setMoved] = useState(() => {
+        return localStorage.getItem("showAside") === "true";
+    });
+
+    useLayoutEffect(() => {
+        const element = boxRef.current;
+        if (!element) return;
+
+        const width = element.offsetWidth;
+        element.style.marginLeft = moved ? "0" : `-${width + 2}px`;
+    }, [moved]);
+
+    const handleMove = () => {
+        const element = boxRef.current;
+        if (!element) return;
+
+        const width = element.offsetWidth;
+        const newState = !moved;
+
+        setMoved(newState);
+        localStorage.setItem("showAside", newState);
+
+        element.style.transition = "var(--transition)";
+        element.style.marginLeft = newState ? "0" : `-${width + 2}px`;
+    };
+
+    const closeSidebar = () => {
+        const element = boxRef.current;
+        if (!element) return;
+
+        const width = element.offsetWidth;
+
+        setMoved(false);
+        localStorage.setItem("showAside", false);
+
+        element.style.transition = "var(--transition)";
+        element.style.marginLeft = `-${width + 2}px`;
+    };
 
     const { user, setUser } = useUser();
-
     const [showConf, setShowConf] = useState(false);
 
     const toggleConf = useCallback(() => {
@@ -30,9 +65,23 @@ function Aside() {
         if (showConf) setShowConf(false);
     }, showConf);
 
-    const handleUpdateAvatar = useCallback((avatarUrl) => {
-        setUser((prev) => ({ ...prev, avatar: avatarUrl }));
-    }, [setUser]);
+    useOutsideClick(
+        boxRef,
+        () => {
+            const isMobile = window.innerWidth <= 768;
+            if (moved && isMobile) {
+                closeSidebar();
+            }
+        },
+        moved
+    );
+
+    const handleUpdateAvatar = useCallback(
+        (avatarUrl) => {
+            setUser((prev) => ({ ...prev, avatar: avatarUrl }));
+        },
+        [setUser]
+    );
 
     return (
         <div className="hero-aside">
@@ -67,7 +116,10 @@ function Aside() {
 
             {showConf && (
                 <div ref={confRef}>
-                    <ConfProfile onUpdateAvatar={handleUpdateAvatar} onClose={() => setShowConf(false)} />
+                    <ConfProfile
+                        onUpdateAvatar={handleUpdateAvatar}
+                        onClose={() => setShowConf(false)}
+                    />
                 </div>
             )}
 
