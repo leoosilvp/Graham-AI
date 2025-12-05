@@ -320,6 +320,7 @@ aside::-webkit-scrollbar-thumb {
 }
 
 .profile {
+    text-decoration: none;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -342,6 +343,7 @@ aside::-webkit-scrollbar-thumb {
     display: flex;
     font-size: 0.8rem;
     font-weight: 600;
+    color: #f5f5f5;
 }
 
 .info-profile p {
@@ -368,7 +370,7 @@ aside::-webkit-scrollbar-thumb {
     background: #454545;
 }
 
-@media (width < 720px) {
+@media (width < 720px) { 
     aside {
         width: 290px;
         position: relative;

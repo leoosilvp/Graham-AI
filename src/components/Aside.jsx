@@ -10,6 +10,7 @@ import Library from "./Library";
 import ChangeModel from "./ChangeModel";
 import { useUser } from "../hooks/useUser";
 import { useOutsideClick } from "../hooks/useOutsideClick";
+import { NavLink } from "react-router-dom";
 
 function Aside() {
     const boxRef = useRef(null);
@@ -53,13 +54,13 @@ function Aside() {
                 <CardsChat />
 
                 <section className="ctn-profile">
-                    <div className="profile">
+                    <NavLink to={'/settings/account'} className="profile">
                         <img src={user.avatar} alt={`${user.name || "User"} avatar`} />
                         <div className="info-profile">
                             <h1>{user.name || "User"}</h1>
                             <p>BASIC</p>
                         </div>
-                    </div>
+                    </NavLink>
                     <i onClick={toggleConf} className="fa-solid fa-ellipsis"></i>
                 </section>
             </aside>
