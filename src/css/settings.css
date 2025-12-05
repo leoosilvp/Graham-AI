@@ -469,6 +469,7 @@
 
     .settings-aside {
         width: 100%;
+        padding: 0px;
     }
 
     .settings-aside nav {
@@ -478,13 +479,7 @@
 
     .settings-aside nav::-webkit-scrollbar {
         display: flex;
-        height: 4px;
-    }
-
-    .settings-aside nav::-webkit-scrollbar-thumb {
-        border-radius: 50px;
-        background: #252525;
-        cursor: pointer;
+        height: 0px;
     }
 
     .settings-aside nav ul {
