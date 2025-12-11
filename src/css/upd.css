@@ -73,9 +73,28 @@
 }
 
 .text-upd p{
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 400;
     color: #d0d0d0;
+}
+
+.date-upd{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.date-upd h2{
+    font-size: 0.9rem;
+    color: #d9d9d9;
+}
+
+.date-upd h3{
+    font-size: 0.85rem;
+    font-weight: 200;
+    color: #969696;
 }
 
 .upd-btns{

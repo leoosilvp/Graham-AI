@@ -20,12 +20,13 @@ const Upd = () => {
     const handleClose = () => {
         localStorage.setItem("firstLogin", false)
         setShow(false)
+        window.location.reload()
     }
 
     const redirectUpd = () => {
         localStorage.setItem("firstLogin", false)
         setShow(false)
-        window.location.href = 'https://graham-ai-page.vercel.app/'
+        window.open('https://graham-ai-page.vercel.app/', '_blank')
     }
 
     if (!show) return null
@@ -38,6 +39,10 @@ const Upd = () => {
                     <section className='text-upd'>
                         <h1>Apresentando o Graham 1.3</h1>
                         <p>mais rápido, mais fluido e capaz de manter contexto real das conversas. Agora interpreta documentos e imagens com profundidade, extrai insights úteis e aprende continuamente com cada interação. Uma atualização de paradigma para criar experiências mais inteligentes, personalizadas e humanas.</p>
+                        <div className="date-upd">
+                            <h2>Atualização</h2>
+                            <h3>10 Novembro 2025 </h3>
+                        </div>
                     </section>
                 </div>
                 <div className="upd-btns">
