@@ -10,7 +10,7 @@ const Upd = () => {
         const first = localStorage.getItem("firstLogin")
 
         if (!first) {
-            localStorage.setItem("firstLogin", true)
+            localStorage.setItem("firstLogin", "true")
             setShow(true)
         } else {
             if (first === "true") setShow(true)
