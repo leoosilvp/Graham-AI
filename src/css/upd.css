@@ -16,8 +16,8 @@
     display: flex;
     width: 600px;
     height: 500px;
-    background: #1e1e1e;
-    border: 1px solid var(--color-line);
+    background: #252525;
+    border: 1px solid #353535;
     border-radius: 20px;
     box-shadow: 0px 0px 20px 0px #00000033;
 }
