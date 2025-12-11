@@ -4,6 +4,7 @@ import Aside from '../components/Aside'
 import Footer from '../components/Footer'
 import Chat from '../components/Chat'
 import useAuthRedirect from "../hooks/useAuthRedirect";
+import Upd from '../components/Upd'
 
 const Home = () => {
 
@@ -18,6 +19,7 @@ const Home = () => {
             </div>
             <Outlet />
             <Footer />
+            <Upd />
         </div>
     )
 }
