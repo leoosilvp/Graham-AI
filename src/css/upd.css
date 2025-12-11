@@ -14,10 +14,95 @@
 
 .upd{
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 600px;
     height: 500px;
     background: #252525;
     border: 1px solid #353535;
     border-radius: 20px;
     box-shadow: 0px 0px 20px 0px #00000033;
+    overflow: hidden;
+}
+
+.upd-content::-webkit-scrollbar{
+    display: flex;
+    width: 4px;
+}
+
+.upd-content::-webkit-scrollbar-thumb{
+    background: #313131;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.upd-content{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.upd-content video{
+    display: flex;
+    width: 600px;
+    height: fit-content;
+    cursor: pointer;
+}
+
+.upd-content video::-webkit-media-controls {
+    opacity: 0;
+    transition: all 0.15s ease;
+    transform: translateY(1px);
+}
+
+.upd-content video:hover::-webkit-media-controls {
+    opacity: 1;
+}
+
+.text-upd{
+    display: flex;
+    flex-direction: column;
+    padding: 15px 10px;
+    gap: 7px;
+}
+
+.text-upd h1{
+    font-size: 1.7rem;
+}
+
+.text-upd p{
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: #d0d0d0;
+}
+
+.upd-btns{
+    display: flex;
+    justify-content: end;
+    padding: 15px;
+    gap: 15px;
+}
+
+.upd-btns button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 13px;
+    border: 1px solid #505050;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 0.9rem;
+    background: transparent;
+    cursor: pointer;
+}
+
+.upd-btns button:hover{
+    background: #313131;
+}
+
+.upd-btns button:last-child{
+    color: #000;
+    background: #fff;
 }

@@ -30,6 +30,7 @@ function Login() {
         avatar: data.avatar_url,
       };
 
+      localStorage.setItem('firstLogin', true)
       localStorage.setItem('grahamUser', JSON.stringify(userData));
       setIsLogged(true);
 
