@@ -9,7 +9,7 @@ const Settings = () => {
   useAuthRedirect();
 
   return (
-    <section className='ctn-settings'>
+    <main className='ctn-settings'>
       <article className='settings'>
         <SettingsHeader />
         <div className='ctn-content-settings'>
@@ -21,7 +21,7 @@ const Settings = () => {
           </section>
         </div>
       </article>
-    </section>
+    </main>
   )
 }
 

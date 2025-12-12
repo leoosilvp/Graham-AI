@@ -46,7 +46,7 @@ const Login = () => {
     }
 
     return (
-        <section className="login-page">
+        <main className="login-page">
             <section className='login-page-header'>
                 <img src={logo} alt="logo Graham AI" />
             </section>
@@ -88,7 +88,7 @@ const Login = () => {
                     e nossa <a href="">Política de Privacidade</a>.
                 </p>
             </section>
-        </section>
+        </main>
     )
 }
 

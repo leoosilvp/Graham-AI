@@ -11,7 +11,7 @@ const Home = () => {
     useAuthRedirect();
 
     return (
-        <div>
+        <main>
             <Header />
             <div className="content">
                 <Aside />
@@ -20,7 +20,7 @@ const Home = () => {
             <Outlet />
             <Footer />
             <Upd />
-        </div>
+        </main>
     )
 }
 

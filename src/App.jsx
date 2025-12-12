@@ -16,7 +16,7 @@ import Login from './routes/Login'
 import Docs from './routes/Docs'
 
 function App() {
-  
+
   ChangeIcon();
 
   return (
@@ -24,18 +24,19 @@ function App() {
       <ChangeTitle />
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/docs" element={<Docs />} />
-        <Route path="/" element={<Home />}>
+        <Route path="/" element={<Navigate to='/chat' />} />
+        <Route path="/chat" element={<Home />}>
           <Route path="settings" element={<Settings />}>
-            <Route path="general" element={<General />}/>
-            <Route path="notifications" element={<Notifications />}/>
-            <Route path="customization" element={<Customization />}/>
-            <Route path="terms and privacy" element={<TermsPrivacy />}/>
-            <Route path="security" element={<Security />}/>
-            <Route path="support" element={<Support />}/>
-            <Route path="account" element={<Account />}/>
+            <Route path="general" element={<General />} />
+            <Route path="notifications" element={<Notifications />} />
+            <Route path="customization" element={<Customization />} />
+            <Route path="terms and privacy" element={<TermsPrivacy />} />
+            <Route path="security" element={<Security />} />
+            <Route path="support" element={<Support />} />
+            <Route path="account" element={<Account />} />
           </Route>
         </Route>
+        <Route path="/docs" element={<Docs />} />
       </Routes>
     </BrowserRouter>
 
