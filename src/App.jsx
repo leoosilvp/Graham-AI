@@ -13,6 +13,7 @@ import Security from './components/ui/Security'
 import Support from './components/ui/Support'
 import Account from './components/ui/Account'
 import Login from './routes/Login'
+import Docs from './routes/Docs'
 
 function App() {
   
@@ -23,6 +24,7 @@ function App() {
       <ChangeTitle />
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/docs" element={<Docs />} />
         <Route path="/" element={<Home />}>
           <Route path="settings" element={<Settings />}>
             <Route path="general" element={<General />}/>
