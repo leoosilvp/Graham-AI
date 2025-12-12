@@ -103,7 +103,7 @@ function Aside() {
                 <CardsChat />
 
                 <section className="ctn-profile">
-                    <NavLink to={'/settings/account'} className="profile">
+                    <NavLink to={'/chat/settings/account'} className="profile">
                         <img src={user.avatar} alt={`${user.name || "User"} avatar`} />
                         <div className="info-profile">
                             <h1>{user.name || "User"}</h1>

@@ -26,7 +26,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Navigate to='/chat' />} />
         <Route path="/chat" element={<Home />}>
-          <Route path="settings" element={<Settings />}>
+          <Route path="/chat/settings" element={<Settings />}>
             <Route path="general" element={<General />} />
             <Route path="notifications" element={<Notifications />} />
             <Route path="customization" element={<Customization />} />

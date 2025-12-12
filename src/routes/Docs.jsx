@@ -7,8 +7,9 @@ const Docs = () => {
         <main className='docs-page'>
             <header>
                 <section className="docs-header-content">
-                    <img src={logo} alt='logo Graham AI' />
-
+                    <Link to='/chat'>
+                        <img src={logo} alt='logo Graham AI' />
+                    </Link>
 
                     <section className="docs-search">
                         <div className="sec-left-search">
@@ -18,7 +19,7 @@ const Docs = () => {
                         <p>Ctrl + p</p>
                     </section>
 
-                    <Link><i className='fa-regular fa-circle-user'></i></Link>
+                    <Link to='/chat/settings/account'><i className='fa-regular fa-circle-user'></i></Link>
                 </section>
 
                 <nav>

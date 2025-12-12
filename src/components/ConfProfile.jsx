@@ -35,7 +35,7 @@ function ConfProfile() {
         <hr />
 
         <button
-          onClick={() => handleNavigate('/settings/general')}
+          onClick={() => handleNavigate('/chat/settings/general')}
         >
           <i className='fa-regular fa-life-ring'></i> Configurações
         </button>

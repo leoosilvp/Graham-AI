@@ -4,7 +4,7 @@ const SettingsHeader = () => {
   return (
     <section className="settings-header">
         <h1>Configurações</h1>
-        <Link to="/">Fechar <i className="fa-solid fa-xmark"></i></Link>
+        <Link to="/chat">Fechar <i className="fa-solid fa-xmark"></i></Link>
     </section>
   )
 }
