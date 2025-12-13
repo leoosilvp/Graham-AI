@@ -16,6 +16,7 @@ import Login from './routes/Login'
 import Docs from './routes/Docs'
 import Introduction from './components/ui/Introduction'
 import Features from './components/ui/Features'
+import Api from './components/ui/Api'
 
 function App() {
 
@@ -48,7 +49,7 @@ function App() {
           <Route path='plans and services' element={<Features />}>
             
           </Route>
-          <Route path='api' element={<Features />}>
+          <Route path='api' element={<Api />}>
             
           </Route>
           <Route path='enterprise' element={<Features />}>
