@@ -1,6 +1,7 @@
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import '../css/docs.css'
 import logo from '../assets/img/logo.svg'
+import icon from '../assets/img/icon-light.svg'
 
 const Docs = () => {
     return (
@@ -35,6 +36,27 @@ const Docs = () => {
                 </header>
 
                 <Outlet />
+
+                <footer className='docs-footer'>
+                    <section className='graham-info'>
+                        <img src={icon} alt="icon Graham AI" />
+                        <nav>
+                            <ul>
+                                <li><NavLink>Chat</NavLink></li>
+                                <li><NavLink>Docs</NavLink></li>
+                                <li><NavLink>Configurações</NavLink></li>
+                                <li><NavLink>Ajuda</NavLink></li>
+                                <li><NavLink>Politicas e Privacidade</NavLink></li>
+                                <li><NavLink>Contato</NavLink></li>
+                            </ul>
+                        </nav>
+                    </section>
+
+                    <section className='system-stats'>
+                        <div />
+                        <h1>Sistema funcionando normalmente.</h1>
+                    </section>
+                </footer>
             </section>
         </main>
     )
