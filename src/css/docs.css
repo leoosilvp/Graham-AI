@@ -1,7 +1,21 @@
-.docs-page {
+.ctn-docs-page{
+    display: flex;
+    flex-direction: column;
     width: 100vw;
     height: 100vh;
     background: #000;
+    overflow: auto;
+}
+
+.ctn-docs-page::-webkit-scrollbar{
+    display: flex;
+    width: 5px;
+    background: #080808;
+}
+
+.ctn-docs-page::-webkit-scrollbar-thumb{
+    background: #0d0d0d;
+    border-radius: 50px;
 }
 
 .docs-page header {
@@ -11,6 +25,8 @@
     flex-direction: column;
     border-bottom: 1px solid #181818;
     box-shadow: none;
+    background: #000000de;
+    backdrop-filter: blur(7px);
 }
 
 .docs-header-content {
@@ -32,14 +48,15 @@
     justify-content: space-between;
     width: 350px;
     padding: 10px 12px;
-    border: 1px solid #202020;
+    border: 1px solid #ffffff15;
+    background: #090909cd;
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.15s ease;
 }
 
 .docs-search:hover {
-    background: #080808;
+    background: #090909;
 }
 
 .docs-search:hover {
@@ -106,9 +123,8 @@
 
 .docs-content{
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 150px 0 0 0;
+    padding: 150px 0 100px 0;
 }
 
 .docs-aside-left{
@@ -126,12 +142,14 @@
 }
 
 .docs-aside-left nav ul a{
-    padding: 7px 14px;
+    display: flex;
+    width: 80%;
+    padding: 10px 15px;
     text-decoration: none;
     font-size: 0.85rem;
     font-weight: 400;
     color: #707070;
-    border-radius: 9px;
+    border-radius: 10px;
     transition: all 0.2s ease;
 }
 
@@ -142,14 +160,73 @@
 
 .docs-aside-left nav ul .active{
     color: #797979;
-    background: #151515;
+    background: #101010;
 }
 
 .docs-feed{
     display: flex;
     flex-direction: column;
     width: 600px;
-    background: #2e2e2e;
+}
+
+.docs-feed h1{
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.docs-feed h2{
+    margin-top: 4px;
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: #ababab;
+}
+
+.docs-feed video{
+    margin: 25px 0 10px 0;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.docs-feed p{
+    margin-top: 15px;
+    margin-bottom: 50px;
+    font-size: 1.1rem;
+    color: #ababab;
+    line-height: 25px;
+}
+
+.docs-feed p span{
+    font-weight: 600;
+    color: #d2d2d2;
+}
+
+.docs-feed hr{
+    margin: 40px 0;
+    border: 1px solid #151515;
+}
+
+.social-links{
+    display: flex;
+    gap: 15px;
+}
+
+.social-links a{
+    font-size: 1.2rem;
+    color: #969696;
+    transition: all 0.2s ease;
+}
+
+.social-links a:hover{
+    color: #c7c7c7;
+}
+
+.docs-feed video::-webkit-media-controls{
+    opacity: 0;
+    transition: all 0.2s ease;
+}
+
+.docs-feed video:hover::-webkit-media-controls{
+    opacity: 1;
 }
 
 .docs-aside-right{
