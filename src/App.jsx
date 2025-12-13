@@ -20,7 +20,7 @@ import Api from './components/ui/Api'
 import GrahamApi from './components/ui/GrahamApi'
 import References from './components/ui/References'
 import ApiKey from './components/ui/ApiKey'
-import SettingsAPi from './components/ui/SettingsAPi'
+import SettingsApi from './components/ui/SettingsApi'
 
 function App() {
 
@@ -58,7 +58,7 @@ function App() {
             <Route path='Graham-api' element={<GrahamApi />}/>
             <Route path='references' element={<References />}/>
             <Route path='api-key' element={<ApiKey />}/>
-            <Route path='settings' element={<SettingsAPi />}/>
+            <Route path='settings' element={<SettingsApi />}/>
           </Route>
           <Route path='enterprise' element={<Features />}>
             
