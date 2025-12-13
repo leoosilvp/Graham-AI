@@ -8,8 +8,8 @@ const Api = () => {
                     <ul>
                         <li><NavLink to='Graham-api'>Graham API</NavLink></li>
                         <li><NavLink to='references'>Referências</NavLink></li>
-                        <li><NavLink to='api-key'>API Key</NavLink></li>
-                        <li><NavLink to='settings'>Settings API</NavLink></li>
+                        <li><NavLink to='api-key'>Chave API</NavLink></li>
+                        <li><NavLink to='settings'>Configurações</NavLink></li>
                     </ul>
                 </nav>
             </div>
