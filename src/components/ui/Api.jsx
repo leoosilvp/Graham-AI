@@ -6,10 +6,10 @@ const Api = () => {
             <div className='docs-aside-left'>
                 <nav>
                     <ul>
-                        <li><NavLink to='welcome'>Graham API</NavLink></li>
-                        <li><NavLink to='welcome'>Referências</NavLink></li>
-                        <li><NavLink to='welcome'>API Key</NavLink></li>
-                        <li><NavLink to='welcome'>Settings API</NavLink></li>
+                        <li><NavLink to='Graham-api'>Graham API</NavLink></li>
+                        <li><NavLink to='references'>Referências</NavLink></li>
+                        <li><NavLink to='api-key'>API Key</NavLink></li>
+                        <li><NavLink to='settings'>Settings API</NavLink></li>
                     </ul>
                 </nav>
             </div>
