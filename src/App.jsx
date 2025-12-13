@@ -19,6 +19,7 @@ import Features from './components/ui/Features'
 import Api from './components/ui/Api'
 import GrahamApi from './components/ui/GrahamApi'
 import References from './components/ui/References'
+import ApiKey from './components/ui/ApiKey'
 
 function App() {
 
@@ -55,6 +56,7 @@ function App() {
             <Route index element={<Navigate to='Graham-api' />}/>
             <Route path='Graham-api' element={<GrahamApi />}/>
             <Route path='references' element={<References />}/>
+            <Route path='api-key' element={<ApiKey />}/>
           </Route>
           <Route path='enterprise' element={<Features />}>
             
