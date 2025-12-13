@@ -5,6 +5,8 @@
 }
 
 .docs-page header {
+    position: fixed;
+    padding: 0;
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid #181818;
@@ -78,7 +80,7 @@
 
 .docs-page header nav ul li a{
     text-decoration: underline;
-    text-underline-offset: 23px;
+    text-underline-offset: 17px;
     text-decoration-color: transparent;
     font-size: 0.9rem;
     font-weight: 200;
@@ -99,3 +101,62 @@
     text-decoration-color: #fff;
 }
 
+
+/* conteudo do Docs  */
+
+.docs-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 150px 0 0 0;
+}
+
+.docs-aside-left{
+    margin-right: 930px;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: 290px;
+}
+
+.docs-aside-left nav ul{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.docs-aside-left nav ul a{
+    padding: 7px 14px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #707070;
+    border-radius: 9px;
+    transition: all 0.2s ease;
+}
+
+.docs-aside-left nav ul a:hover{
+    color: #707070;
+    background: #151515;
+}
+
+.docs-aside-left nav ul .active{
+    color: #797979;
+    background: #151515;
+}
+
+.docs-feed{
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    background: #2e2e2e;
+}
+
+.docs-aside-right{
+    margin-left: 930px;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: 290px;
+    background: #181818;
+}

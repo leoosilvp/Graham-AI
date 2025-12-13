@@ -14,6 +14,8 @@ import Support from './components/ui/Support'
 import Account from './components/ui/Account'
 import Login from './routes/Login'
 import Docs from './routes/Docs'
+import Introduction from './components/ui/Introduction'
+import Features from './components/ui/Features'
 
 function App() {
 
@@ -26,7 +28,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Navigate to='/chat' />} />
         <Route path="/chat" element={<Home />}>
-          <Route path="/chat/settings" element={<Settings />}>
+          <Route path="settings" element={<Settings />}>
+            <Route index element={<Navigate to='general' />} />
             <Route path="general" element={<General />} />
             <Route path="notifications" element={<Notifications />} />
             <Route path="customization" element={<Customization />} />
@@ -36,7 +39,22 @@ function App() {
             <Route path="account" element={<Account />} />
           </Route>
         </Route>
-        <Route path="/docs" element={<Docs />} />
+        <Route path="/docs" element={<Docs />}>
+          <Route index element={<Navigate to='introduction' />} />
+          <Route path='introduction' element={<Introduction />} />
+          <Route path='features' element={<Features />}>
+            {/* outras sub rotas */}
+          </Route>
+          <Route path='plans and services' element={<Features />}>
+            {/* outras sub rotas */}
+          </Route>
+          <Route path='api' element={<Features />}>
+            {/* outras sub rotas */}
+          </Route>
+          <Route path='enterprise' element={<Features />}>
+            {/* outras sub rotas */}
+          </Route>
+        </Route>
       </Routes>
     </BrowserRouter>
 

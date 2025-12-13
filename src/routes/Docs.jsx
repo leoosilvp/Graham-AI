@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, NavLink, Outlet } from 'react-router-dom'
 import '../css/docs.css'
 import logo from '../assets/img/logo.svg'
 
@@ -13,7 +13,7 @@ const Docs = () => {
 
                     <section className="docs-search">
                         <div className="sec-left-search">
-                            <i className='fa-solid fa-search'/>
+                            <i className='fa-solid fa-search' />
                             <p>Search...</p>
                         </div>
                         <p>Ctrl + p</p>
@@ -24,14 +24,16 @@ const Docs = () => {
 
                 <nav>
                     <ul>
-                        <li><Link className='active'>Introdução</Link></li>
-                        <li><Link className=''>Aparência</Link></li>
-                        <li><Link className=''>Planos e Preços</Link></li>
-                        <li><Link className=''>APIs</Link></li>
-                        <li><Link className=''>Para empresas</Link></li>
+                        <li><NavLink to='introduction' className={({ isActive }) => isActive ? 'active' : ''}>Introdução</NavLink></li>
+                        <li><NavLink to='features' className={({ isActive }) => isActive ? 'active' : ''}>Aparência</NavLink></li>
+                        <li><NavLink to='plans and services' className={({ isActive }) => isActive ? 'active' : ''}>Planos e Preços</NavLink></li>
+                        <li><NavLink to='api' className={({ isActive }) => isActive ? 'active' : ''}>APIs</NavLink></li>
+                        <li><NavLink to='enterprise' className={({ isActive }) => isActive ? 'active' : ''}>Para empresas</NavLink></li>
                     </ul>
                 </nav>
             </header>
+
+            <Outlet />
         </main>
     )
 }
