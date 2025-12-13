@@ -7,7 +7,7 @@ function Header() {
         <header>
             <h1>Graham AI</h1>
             <img src={logo} alt="logo" />
-            <Link to='/docs'><i className="fa-solid fa-book-open"></i></Link>
+            <Link to='https://graham-ai-page.vercel.app/'><i className="fa-solid fa-book-open"></i></Link>
         </header>
     )
 }
