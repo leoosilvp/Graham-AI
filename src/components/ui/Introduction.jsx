@@ -7,7 +7,7 @@ const Introduction = () => {
             <div className='docs-aside-left'>
                 <nav>
                     <ul>
-                        <li><NavLink className='active' to='welcome'>Bem-Vindo/a</NavLink></li>
+                        <li><NavLink className='active'>Bem-Vindo/a</NavLink></li>
                     </ul>
                 </nav>
             </div>

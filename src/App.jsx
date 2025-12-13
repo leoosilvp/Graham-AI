@@ -40,19 +40,19 @@ function App() {
           </Route>
         </Route>
         <Route path="/docs" element={<Docs />}>
-          <Route index element={<Navigate to='introduction' />} />
-          <Route path='introduction' element={<Introduction />} />
+          <Route index element={<Navigate to='introduction/welcome' />} />
+          <Route path='introduction/welcome' element={<Introduction />} />
           <Route path='features' element={<Features />}>
-            {/* outras sub rotas */}
+            
           </Route>
           <Route path='plans and services' element={<Features />}>
-            {/* outras sub rotas */}
+            
           </Route>
           <Route path='api' element={<Features />}>
-            {/* outras sub rotas */}
+            
           </Route>
           <Route path='enterprise' element={<Features />}>
-            {/* outras sub rotas */}
+            
           </Route>
         </Route>
       </Routes>
