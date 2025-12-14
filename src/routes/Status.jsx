@@ -52,10 +52,10 @@ const Status = () => {
                 <article className='status-all-applications'>
                     <i
                         className={`fa-solid ${overallStatus === 'success'
-                                ? 'fa-check'
-                                : overallStatus === 'warning'
-                                    ? 'fa-triangle-exclamation'
-                                    : 'fa-xmark'
+                            ? 'fa-check'
+                            : overallStatus === 'warning'
+                                ? 'fa-triangle-exclamation'
+                                : 'fa-xmark'
                             }`}
                         style={
                             overallStatus === 'failure'
@@ -95,17 +95,9 @@ const Status = () => {
                                                 </h2>
                                             </section>
 
-                                            <i
-                                                className={`fa-solid ${commit.status === 'success'
-                                                        ? 'fa-check'
-                                                        : 'fa-xmark'
-                                                    }`}
-                                                style={
-                                                    commit.status !== 'success'
-                                                        ? { color: 'red' }
-                                                        : {}
-                                                }
-                                            ></i>
+                                            <i className={`fa-solid ${commit.status === 'success' || commit.status === 'pending' ? 'fa-check' : 'fa-xmark'}`}
+                                                style={commit.status === 'success' || commit.status === 'pending' ? {} : { color: 'red' }}>
+                                            </i>
                                         </article>
                                     ))
                                 )}

@@ -7,7 +7,7 @@ export default async function handler(req, res) {
       Accept: 'application/vnd.github+json'
     }
 
-    const commitsRes = await fetch(`${COMMITS_URL}?per_page=50`, { headers })
+    const commitsRes = await fetch(`${COMMITS_URL}?per_page=35`, { headers })
 
     if (!commitsRes.ok) {
       return res.status(commitsRes.status).json({ error: 'Erro ao buscar commits' })
