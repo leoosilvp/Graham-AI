@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 const Status = () => {
     const [commitsByDay, setCommitsByDay] = useState({})
-    const [overallStatus, setOverallStatus] = useState('success')
+    const [overallStatus, setOverallStatus] = useState('')
 
     useEffect(() => {
         const fetchStatus = async () => {
@@ -54,29 +54,28 @@ const Status = () => {
                     <Link to='/docs'>Ir para Docs</Link>
                 </header>
 
-                <article className='status-all-applications'>
-                    <i
-                        className={`fa-solid ${overallStatus === 'success'
+                <article style={overallStatus === 'failure' ? { background: '#ec2222' } : overallStatus === 'warning' ? { background: '#efa422' } : overallStatus === '' ? { background: '#444444ff' } : {}}
+                    className='status-all-applications'>
+
+                    <i className={`fa-solid ${overallStatus === ''
+                        ? 'fa-circle-exclamation'
+                        : overallStatus === 'success'
                             ? 'fa-check'
                             : overallStatus === 'warning'
                                 ? 'fa-triangle-exclamation'
                                 : 'fa-xmark'
-                            }`}
-                        style={
-                            overallStatus === 'failure'
-                                ? { color: 'red' }
-                                : overallStatus === 'warning'
-                                    ? { color: '#f59e0b' }
-                                    : {}
-                        }
+                        }`}
                     ></i>
 
                     <h1>
-                        {overallStatus === 'success'
-                            ? 'Sistema funcionando normalmente.'
-                            : overallStatus === 'warning'
-                                ? 'Erros recentes detectados. Sistema pode estar instável.'
-                                : 'Sistema com falhas recentes.'}
+                        {overallStatus === ''
+                            ? 'Sistema fora do ar. Sem registros recentes.'
+                            : overallStatus === 'success'
+                                ? 'Sistema funcionando normalmente.'
+                                : overallStatus === 'warning'
+                                    ? 'Erros recentes detectados. Sistema pode estar instável.'
+                                    : 'Sistema com falhas recentes.'
+                        }
                     </h1>
                 </article>
 
