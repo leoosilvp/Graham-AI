@@ -52,10 +52,10 @@ const Docs = () => {
                         </nav>
                     </section>
 
-                    <section className='system-stats'>
+                    <NavLink to='/status' className='system-stats'>
                         <div />
                         <h1>Sistema funcionando normalmente.</h1>
-                    </section>
+                    </NavLink>
                 </footer>
             </section>
         </main>

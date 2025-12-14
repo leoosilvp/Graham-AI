@@ -249,7 +249,7 @@
     justify-content: center;
     padding: 20px 0;
     border-top: 1px solid #181818;
-    gap: 485px;
+    gap: 433px;
 }
 
 .graham-info {
@@ -281,9 +281,17 @@
 }
 
 .system-stats{
+    text-decoration: none;
     display: flex;
     align-items: center;
     gap: 10px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.system-stats:hover{
+    background: #0f0f0f;
 }
 
 .system-stats div{

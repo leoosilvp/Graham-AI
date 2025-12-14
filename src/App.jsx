@@ -21,6 +21,7 @@ import GrahamApi from './components/ui/GrahamApi'
 import References from './components/ui/References'
 import ApiKey from './components/ui/ApiKey'
 import SettingsApi from './components/ui/SettingsApi'
+import Status from './routes/Status'
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
     <BrowserRouter>
       <ChangeTitle />
       <Routes>
+        <Route path="/status" element={<Status />} />
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Navigate to='/chat' />} />
         <Route path="/chat" element={<Home />}>
