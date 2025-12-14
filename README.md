@@ -8,7 +8,7 @@ access: [graham.ai](https://ai-graham.vercel.app/)
 
 # 📑 About
 
-GrahamAI é uma plataforma de conversação baseada em Inteligência Artificial, com foco especial em matemática de grande porte. O nome “Graham” remete à ideia de erudição matemática e especialização — uma IA que vai além do básico, habilitada para cálculos complexos, análises numéricas, resolução de problemas acadêmicos e aplicações técnicas.
+GrahamAI é uma plataforma de conversação baseada em Inteligência Artificial, com foco especial em matemática de grande porte. O nome “Graham” remete à ideia de erudição matemática e especialização, uma IA que vai além do básico, habilitada para cálculos complexos, análises numéricas, resolução de problemas acadêmicos e aplicações técnicas.
 
 A interface permite que usuários interajam com a IA via chat, guardando histórico de conversas, permitindo que ela interprete Markdown (para fórmulas, explicações formatadas), e apresente respostas com clareza.
 
@@ -39,8 +39,8 @@ A interface permite que usuários interajam com a IA via chat, guardando histór
 
 - ✅ Finalizar motor de IA básico para respostas gerais  
 - ✅ Adicionar placeholder de “pensando…”  
-- ⏳ Implementar streaming de respostas (para visibilidade em tempo real enquanto a IA responde)  
-- 🔍 Integrar suporte a LaTeX / MathJax para equações matemáticas bem formatadas  
+- ✅ Implementar streaming de respostas (para visibilidade em tempo real enquanto a IA responde)  
+- ✅ Integrar suporte a LaTeX / MathJax para equações matemáticas bem formatadas  
 - ⚙️ Adicionar capacidades de cálculo simbólico / bibliotecas de matemática avançada (Sympy, etc.)  
 - 📊 Suportar gráficos, plotagens, interpretação visual de funções  
 - 🛡️ Segurança: limites de uso, sanitização de entrada, controle de custos da IA  
