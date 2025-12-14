@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import '../css/status.css'
 import icon from '../assets/img/icon-light.svg'
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Status = () => {
     const [commitsByDay, setCommitsByDay] = useState({})
@@ -45,8 +45,8 @@ const Status = () => {
         <main className='ctn-status-page'>
             <section className='status-page'>
                 <header className='status-page-header'>
-                    <img src={icon} alt="Graham AI icon" />
-                    <NavLink to='/docs'>Ir para Docs</NavLink>
+                    <img onClick={() => window.location.href = '/chat'} src={icon} alt="Graham AI icon" />
+                    <Link to='/docs'>Ir para Docs</Link>
                 </header>
 
                 <article className='status-all-applications'>
@@ -106,7 +106,7 @@ const Status = () => {
                     ))}
                 </section>
 
-                <NavLink to='/docs' className='link-go-to'>🠔 Ir para Docs</NavLink>
+                <Link to='/docs' className='link-go-to'>🠔 Ir para Docs</Link>
             </section>
         </main>
     )

@@ -42,20 +42,20 @@ const Docs = () => {
                         <img src={icon} alt="icon Graham AI" />
                         <nav>
                             <ul>
-                                <li><NavLink>Chat</NavLink></li>
-                                <li><NavLink>Docs</NavLink></li>
-                                <li><NavLink>Configurações</NavLink></li>
-                                <li><NavLink>Ajuda</NavLink></li>
-                                <li><NavLink>Politicas e Privacidade</NavLink></li>
-                                <li><NavLink>Contato</NavLink></li>
+                                <li><Link to='/chat'>Chat</Link></li>
+                                <li><Link to='/docs'>Docs</Link></li>
+                                <li><Link to='/chat/settings'>Configurações</Link></li>
+                                <li><Link to='/chat/settings/support'>Ajuda</Link></li>
+                                <li><Link to='/chat/settings/terms%20and%20privacy'>Politicas e Privacidade</Link></li>
+                                <li><Link to='/chat/settings/support#contact'>Contato</Link></li>
                             </ul>
                         </nav>
                     </section>
 
-                    <NavLink to='/status' className='system-stats'>
+                    <Link to='/status' className='system-stats'>
                         <div />
                         <h1>Sistema funcionando normalmente.</h1>
-                    </NavLink>
+                    </Link>
                 </footer>
             </section>
         </main>

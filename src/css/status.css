@@ -36,6 +36,7 @@
 .status-page header img{
     display: flex;
     width: 32px;
+    cursor: pointer;
 }
 
 .status-page header a{

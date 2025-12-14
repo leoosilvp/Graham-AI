@@ -31,7 +31,7 @@ const Support = () => {
                     <li>Tamanho ideal 500×500 pixels</li>
                 </ul>
 
-                <h2>Contato</h2>
+                <h2 id="contact">Contato</h2>
                 <p>Se ainda precisar de ajuda, entre em contato com nossa equipe:</p>
                 <a href="mailto:support@grahamai.com">support@grahamai.com</a>
             </section>
