@@ -293,10 +293,6 @@
     cursor: pointer;
 }
 
-.system-stats:hover{
-    background: #0f0f0f;
-}
-
 .system-stats div{
     display: flex;
     width: 9px;
