@@ -1,0 +1,33 @@
+.status-page{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+}
+
+.status-page header{
+    display: flex;
+    justify-content: center;
+    height: fit-content;
+    box-shadow: none;
+    padding: 20px;
+    gap: 700px;
+}
+
+.status-page header img{
+    display: flex;
+    width: 32px;
+}
+
+.status-page header a{
+    display: flex;
+    padding: 7px 14px;
+    border-radius: 7px;
+    border: 1px solid #181818;
+}
+
+.status-page header a:hover{
+    color: #000;
+    background: #fff;
+    box-shadow: 0 0 10px 0 #ffffff4c;
+}
