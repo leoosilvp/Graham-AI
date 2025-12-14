@@ -31,14 +31,14 @@ const Status = () => {
             month: 'short',
             day: '2-digit',
             year: 'numeric',
-            timeZone: 'GMT-3'
+            timeZone: 'UTC'
         })
 
     const formatTime = (dateStr) =>
         new Date(dateStr).toLocaleTimeString('pt-BR', {
             hour: '2-digit',
             minute: '2-digit',
-            timeZone: 'GMT-3'
+            timeZone: 'UTC'
         })
 
     return (
