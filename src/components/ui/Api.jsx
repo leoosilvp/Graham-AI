@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom"
+import Faq from "../Faq"
 
 const Api = () => {
   return (
@@ -19,7 +20,7 @@ const Api = () => {
             </section>
 
             <div className='docs-aside-right'>
-                <h1>Ads</h1>
+                <Faq />
             </div>
         </section>
   )

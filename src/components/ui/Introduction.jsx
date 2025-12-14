@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom"
 import video from '../../assets/video/upd.mp4'
+import Faq from "../Faq"
 
 const Introduction = () => {
     return (
@@ -34,6 +35,7 @@ const Introduction = () => {
             </section>
 
             <div className='docs-aside-right'>
+                <Faq />
             </div>
         </section>
     )

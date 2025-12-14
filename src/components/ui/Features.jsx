@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom"
+import Faq from "../Faq"
 
 const Features = () => {
     return (
@@ -16,7 +17,7 @@ const Features = () => {
             </section>
 
             <div className='docs-aside-right'>
-                <h1>aki</h1>
+                <Faq />
             </div>
         </section>
     )
