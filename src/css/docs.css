@@ -298,11 +298,11 @@
     display: flex;
     width: 9px;
     height: 9px;
-    background: #3b69f6;
+    background: #006efe;
     border-radius: 50%;
 }
 
 .system-stats h1{
     font-size: 0.85rem;
-    color: #3b69f6;
+    color: #006efe;
 }
