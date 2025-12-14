@@ -3,101 +3,36 @@ import '../css/status.css'
 import icon from '../assets/img/icon-light.svg'
 import { NavLink } from 'react-router-dom'
 
-const COMMITS_URL = 'https://api.github.com/repos/leoosilvp/Graham-AI/commits'
-
-const GITHUB_HEADERS = {
-    Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
-    Accept: 'application/vnd.github+json'
-}
-
 const Status = () => {
     const [commitsByDay, setCommitsByDay] = useState({})
     const [overallStatus, setOverallStatus] = useState('success')
 
     useEffect(() => {
-        const fetchCommits = async () => {
+        const fetchStatus = async () => {
             try {
-                const commitsRes = await fetch(
-                    `${COMMITS_URL}?per_page=50`,
-                    { headers: GITHUB_HEADERS }
-                )
+                const res = await fetch('/api/status')
 
-                if (!commitsRes.ok) return
+                if (!res.ok) return
 
-                const commits = await commitsRes.json()
-                if (!Array.isArray(commits) || commits.length === 0) return
+                const data = await res.json()
 
-                const commitsWithStatus = await Promise.all(
-                    commits.map(async (commit) => {
-                        const statusRes = await fetch(
-                            `https://api.github.com/repos/leoosilvp/Graham-AI/commits/${commit.sha}/status`,
-                            { headers: GITHUB_HEADERS }
-                        )
-
-                        const statusData = await statusRes.json()
-
-                        return {
-                            sha: commit.sha,
-                            message: commit.commit.message,
-                            date: commit.commit.committer.date,
-                            status: statusData.state
-                        }
-                    })
-                )
-
-                const latestCommit = commitsWithStatus[0]
-                const lastFiveCommits = commitsWithStatus.slice(0, 3)
-
-                if (latestCommit?.status !== 'success') {
-                    setOverallStatus('failure')
-                } else if (
-                    lastFiveCommits.some(
-                        c => c.status === 'failure' || c.status === 'error'
-                    )
-                ) {
-                    setOverallStatus('warning')
-                } else {
-                    setOverallStatus('success')
-                }
-
-                const grouped = commitsWithStatus.reduce((acc, commit) => {
-                    const day = new Date(commit.date).toISOString().split('T')[0]
-                    acc[day] = acc[day] || []
-                    acc[day].push(commit)
-                    return acc
-                }, {})
-
-                const newestDate = new Date(commitsWithStatus[0].date)
-                const oldestDate = new Date(
-                    commitsWithStatus[commitsWithStatus.length - 1].date
-                )
-
-                const completedDays = {}
-                const current = new Date(newestDate)
-
-                while (current >= oldestDate) {
-                    const dayKey = current.toISOString().split('T')[0]
-                    completedDays[dayKey] = grouped[dayKey] || []
-                    current.setUTCDate(current.getUTCDate() - 1)
-                }
-
-                setCommitsByDay(completedDays)
+                setOverallStatus(data.overallStatus)
+                setCommitsByDay(data.commitsByDay)
             } catch (error) {
-                console.error('Erro ao buscar status do GitHub:', error)
+                console.error('Erro ao buscar status:', error)
             }
         }
 
-        fetchCommits()
+        fetchStatus()
     }, [])
 
     const formatDay = (dateStr) =>
-        new Date(dateStr).toLocaleDateString('pt-BR', {
+        new Date(`${dateStr}T00:00:00Z`).toLocaleDateString('pt-BR', {
             day: '2-digit',
             month: 'long',
             year: 'numeric',
             timeZone: 'UTC'
         })
-
 
     const formatTime = (dateStr) =>
         new Date(dateStr).toLocaleTimeString('pt-BR', {
@@ -155,7 +90,8 @@ const Status = () => {
                                             <section>
                                                 <p>{commit.message}</p>
                                                 <h2>
-                                                    {formatDay(commit.date)} {formatTime(commit.date)} UTC
+                                                    {formatDay(commit.date.split('T')[0])}{' '}
+                                                    {formatTime(commit.date)} UTC
                                                 </h2>
                                             </section>
 
@@ -177,9 +113,8 @@ const Status = () => {
                         </article>
                     ))}
                 </section>
-                
-                <NavLink to='/docs' className='link-go-to'>🠔 Ir para Docs</NavLink>
 
+                <NavLink to='/docs' className='link-go-to'>🠔 Ir para Docs</NavLink>
             </section>
         </main>
     )
