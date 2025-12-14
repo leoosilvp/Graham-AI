@@ -11,11 +11,9 @@ const Status = () => {
         const fetchStatus = async () => {
             try {
                 const res = await fetch('/api/status')
-
                 if (!res.ok) return
 
                 const data = await res.json()
-
                 setOverallStatus(data.overallStatus)
                 setCommitsByDay(data.commitsByDay)
             } catch (error) {
@@ -26,20 +24,27 @@ const Status = () => {
         fetchStatus()
     }, [])
 
-    const formatDay = (dateStr) =>
-        new Date(`${dateStr}T00:00:00Z`).toLocaleDateString('pt-BR', {
-            month: 'short',
-            day: '2-digit',
-            year: 'numeric',
-            timeZone: 'UTC'
-        })
+    const formatMonth = (date) =>
+        date
+            .toLocaleString('pt-BR', { month: 'short', timeZone: 'UTC' })
+            .replace('.', '')
+            .replace(/^./, c => c.toUpperCase())
 
-    const formatTime = (dateStr) =>
-        new Date(dateStr).toLocaleTimeString('pt-BR', {
+    const formatDayTitle = (dateStr) => {
+        const date = new Date(`${dateStr}T00:00:00Z`)
+        return `${formatMonth(date)} ${date.getUTCDate()}, ${date.getUTCFullYear()}`
+    }
+
+    const formatCommitDate = (dateStr) => {
+        const date = new Date(dateStr)
+        const time = date.toLocaleTimeString('pt-BR', {
             hour: '2-digit',
             minute: '2-digit',
             timeZone: 'UTC'
         })
+
+        return `${formatMonth(date)} ${date.getUTCDate()}, ${time} UTC`
+    }
 
     return (
         <main className='ctn-status-page'>
@@ -78,7 +83,7 @@ const Status = () => {
                 <section className='commits-dates'>
                     {Object.entries(commitsByDay).map(([day, commits]) => (
                         <article className='commits-day' key={day}>
-                            <h1>{formatDay(day)}</h1>
+                            <h1>{formatDayTitle(day)}</h1>
                             <hr />
 
                             <section className='latest-commits'>
@@ -89,10 +94,7 @@ const Status = () => {
                                         <article className='commit' key={commit.sha}>
                                             <section>
                                                 <p>{commit.message}</p>
-                                                <h2>
-                                                    {formatDay(commit.date.split('T')[0])},
-                                                    {formatTime(commit.date)} GMT-3
-                                                </h2>
+                                                <h2>{formatCommitDate(commit.date)}</h2>
                                             </section>
 
                                             <i className={`fa-solid ${commit.status === 'success' || commit.status === 'pending' ? 'fa-check' : 'fa-xmark'}`}
