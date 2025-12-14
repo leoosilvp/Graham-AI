@@ -20,7 +20,7 @@ import Api from './components/ui/Api'
 import GrahamApi from './components/ui/GrahamApi'
 import References from './components/ui/References'
 import ApiKey from './components/ui/ApiKey'
-import SettingsApi from './components/ui/SettingsApi'
+import SettingsApi from './components/ui/SettingsAPi'
 import Status from './routes/Status'
 
 function App() {
