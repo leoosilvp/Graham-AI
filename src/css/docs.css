@@ -250,7 +250,7 @@
     justify-content: center;
     padding: 20px 0;
     border-top: 1px solid #181818;
-    gap: 433px;
+    gap: 380px; /* 410 */
 }
 
 .graham-info {
@@ -285,7 +285,9 @@
     text-decoration: none;
     display: flex;
     align-items: center;
+    justify-content: end;
     gap: 10px;
+    min-width: 280px;
     padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;

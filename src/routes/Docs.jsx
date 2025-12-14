@@ -1,9 +1,29 @@
+import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import '../css/docs.css'
 import logo from '../assets/img/logo.svg'
 import icon from '../assets/img/icon-light.svg'
 
 const Docs = () => {
+
+    const [overallStatus, setOverallStatus] = useState('')
+
+    useEffect(() => {
+        const fetchStatus = async () => {
+            try {
+                const res = await fetch('/api/status')
+                if (!res.ok) return
+
+                const data = await res.json()
+                setOverallStatus(data.overallStatus)
+            } catch (error) {
+                console.error('Erro ao buscar status:', error)
+            }
+        }
+
+        fetchStatus()
+    }, [])
+
     return (
         <main className='ctn-docs-page'>
             <section className='docs-page'>
@@ -53,8 +73,14 @@ const Docs = () => {
                     </section>
 
                     <Link to='/status' className='system-stats'>
-                        <div />
-                        <h1>Sistema funcionando normalmente.</h1>
+                        <div style={{ background: overallStatus === '' ? '#444444ff' : overallStatus === 'success' ? '#006efe' : overallStatus === 'warning' ? '#efa422' : '#ec2222' }} />
+                        <h1 style={{ color: overallStatus === '' ? '#444444ff' : overallStatus === 'success' ? '#006efe' : overallStatus === 'warning' ? '#efa422' : '#ec2222' }}>
+                            {overallStatus === '' ? 'Sistema fora do ar. Sem registros recentes.'
+                                : overallStatus === 'success'
+                                    ? 'Sistema funcionando normalmente.'
+                                    : overallStatus === 'warning'
+                                        ? 'Sistema pode estar instável.'
+                                        : 'Sistema com falhas recentes.'}</h1>
                     </Link>
                 </footer>
             </section>
