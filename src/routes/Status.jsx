@@ -28,17 +28,17 @@ const Status = () => {
 
     const formatDay = (dateStr) =>
         new Date(`${dateStr}T00:00:00Z`).toLocaleDateString('pt-BR', {
+            month: 'short',
             day: '2-digit',
-            month: 'long',
             year: 'numeric',
-            timeZone: 'UTC'
+            timeZone: 'GMT-3'
         })
 
     const formatTime = (dateStr) =>
         new Date(dateStr).toLocaleTimeString('pt-BR', {
             hour: '2-digit',
             minute: '2-digit',
-            timeZone: 'UTC'
+            timeZone: 'GMT-3'
         })
 
     return (
@@ -90,8 +90,8 @@ const Status = () => {
                                             <section>
                                                 <p>{commit.message}</p>
                                                 <h2>
-                                                    {formatDay(commit.date.split('T')[0])}{' '}
-                                                    {formatTime(commit.date)} UTC
+                                                    {formatDay(commit.date.split('T')[0])},
+                                                    {formatTime(commit.date)} GMT-3
                                                 </h2>
                                             </section>
 
