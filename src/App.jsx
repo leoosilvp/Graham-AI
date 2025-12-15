@@ -22,6 +22,7 @@ import References from './components/ui/References'
 import ApiKey from './components/ui/ApiKey'
 import SettingsApi from './components/ui/SettingsApi'
 import Status from './routes/Status'
+import PlansPrinces from './components/ui/PlansPrinces'
 
 function App() {
 
@@ -52,9 +53,7 @@ function App() {
           <Route path='features' element={<Features />}>
             
           </Route>
-          <Route path='plans and services' element={<Features />}>
-            
-          </Route>
+          <Route path='plans' element={<PlansPrinces />} />
           <Route path='api' element={<Api />}>
             <Route index element={<Navigate to='Graham-api' />}/>
             <Route path='Graham-api' element={<GrahamApi />}/>
