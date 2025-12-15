@@ -30,8 +30,8 @@
     flex-direction: column;
     border-bottom: 1px solid #181818;
     box-shadow: none;
-    background: #000000c6;
-    backdrop-filter: blur(8px);
+    background: #000000c4;
+    backdrop-filter: blur(7px);
 }
 
 .docs-header-content {

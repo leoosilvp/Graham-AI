@@ -23,6 +23,7 @@ import ApiKey from './components/ui/ApiKey'
 import SettingsApi from './components/ui/SettingsApi'
 import Status from './routes/Status'
 import Plans from './components/ui/Plans'
+import SmartChat from './components/ui/SmartChat'
 
 function App() {
 
@@ -51,18 +52,20 @@ function App() {
           <Route index element={<Navigate to='introduction/welcome' />} />
           <Route path='introduction/welcome' element={<Introduction />} />
           <Route path='features' element={<Features />}>
-            
+            <Route index element={<Navigate to='chat' />} />
+            <Route path='chat' element={<SmartChat />} />
+
           </Route>
           <Route path='plans' element={<Plans />} />
           <Route path='api' element={<Api />}>
-            <Route index element={<Navigate to='Graham-api' />}/>
-            <Route path='Graham-api' element={<GrahamApi />}/>
-            <Route path='references' element={<References />}/>
-            <Route path='api-key' element={<ApiKey />}/>
-            <Route path='settings' element={<SettingsApi />}/>
+            <Route index element={<Navigate to='Graham-api' />} />
+            <Route path='Graham-api' element={<GrahamApi />} />
+            <Route path='references' element={<References />} />
+            <Route path='api-key' element={<ApiKey />} />
+            <Route path='settings' element={<SettingsApi />} />
           </Route>
           <Route path='enterprise' element={<Features />}>
-            
+
           </Route>
         </Route>
       </Routes>
