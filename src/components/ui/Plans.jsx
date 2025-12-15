@@ -1,6 +1,6 @@
 import '../../css/plans.css'
 
-const PlansPrinces = () => {
+const Plans = () => {
     return (
         <section className='docs-content'>
 
@@ -64,4 +64,4 @@ const PlansPrinces = () => {
     )
 }
 
-export default PlansPrinces
+export default Plans
