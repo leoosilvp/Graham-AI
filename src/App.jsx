@@ -27,6 +27,7 @@ import SmartChat from './components/ui/SmartChat'
 import Memory from './components/ui/Memory'
 import Performance from './components/ui/Performance'
 import Generation from './components/ui/Generation'
+import SecurityDocs from './components/ui/SecurityDocs'
 
 function App() {
 
@@ -60,7 +61,7 @@ function App() {
             <Route path='memory' element={<Memory />} />
             <Route path='performance' element={<Performance />} />
             <Route path='generation' element={<Generation />} />
-
+            <Route path='security' element={<SecurityDocs />} />
           </Route>
           <Route path='plans' element={<Plans />} />
           <Route path='api' element={<Api />}>
