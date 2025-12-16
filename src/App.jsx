@@ -26,6 +26,7 @@ import Plans from './components/ui/Plans'
 import SmartChat from './components/ui/SmartChat'
 import Memory from './components/ui/Memory'
 import Performance from './components/ui/Performance'
+import Generation from './components/ui/Generation'
 
 function App() {
 
@@ -58,6 +59,7 @@ function App() {
             <Route path='chat' element={<SmartChat />} />
             <Route path='memory' element={<Memory />} />
             <Route path='performance' element={<Performance />} />
+            <Route path='generation' element={<Generation />} />
 
           </Route>
           <Route path='plans' element={<Plans />} />
