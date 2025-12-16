@@ -1,19 +1,41 @@
-const SmartChat = () => {
+import ex1 from '../../assets/img/ex-question-graham.png'
+import ex2 from '../../assets/img/ex-result-graham.png'
+
+const Chat = () => {
     return (
         <article>
             <h1>Chat Inteligente</h1>
             <p>
-                O <span>Chat Inteligente</span> do Graham AI transcende a funcionalidade de um chatbot tradicional. Ele foi meticulosamente projetado para ser um assistente de alto desempenho, caracterizado pela <span>clareza, precisão e uma notável capacidade de raciocínio contextual</span>. Diferentemente de modelos que apenas respondem a perguntas isoladas, Graham engaja-se em diálogos complexos e multifacetados, mantendo o fio condutor da conversa e aprofundando-se nos temas conforme a necessidade.
+                O <span>Chat Inteligente</span> do Graham AI estabelece um novo paradigma na interação com a inteligência artificial. Ele é concebido como um <span>assistente de alto desempenho</span>, focado na <span>resolução autônoma de problemas</span> e na entrega de resultados finais, e não apenas na recuperação de informações.
             </p>
             <p>
-                A nossa arquitetura de conversação prioriza a <span>entrega de soluções completas</span>, e não apenas informações. Isso significa que, ao invés de receber uma lista de passos, você recebe o resultado final, seja ele um cálculo preciso, uma análise detalhada ou um trecho de código funcional. O foco é na <span>resolução autônoma de problemas</span>, permitindo que você defina a tarefa e confie que o Graham AI executará o processo do início ao fim com a máxima eficiência.
+                A principal distinção do Graham AI reside na sua capacidade de manter um <span>raciocínio contextual profundo e contínuo</span>. Ele se engaja em diálogos complexos, compreendendo a totalidade do seu projeto, histórico e intenção. Isso permite que você delegue tarefas complexas com a certeza de que o contexto será preservado e a solução será completa e coerente.
             </p>
-            <h3>Precisão e Didática</h3>
+            
+            <h3>Exemplo de 'Entrada' e 'Saida' do Graham</h3>
+            <h2>Entrada</h2>
+            <img src={ex1} />
+            <hr />
+            <h2>Saída</h2>
+            <img src={ex2} />
+            <hr />
+            
+            <h3>O Ciclo de Resolução Autônoma (CRA)</h3>
             <p>
-                Cada interação é calibrada para ser não apenas correta, mas também <span>didática e acessível</span>. O Graham se esforça para explicar conceitos complexos de forma compreensível, garantindo que o usuário não apenas obtenha a resposta, mas também entenda o <span>porquê</span> e o <span>como</span>. Esta abordagem transforma cada sessão de chat em uma oportunidade de aprendizado e produtividade.
+                O fluxo de trabalho do Chat Inteligente é uma máquina de produtividade otimizada:
+                <ul>
+                    <li><span>Entendimento do Objetivo:</span> O usuário define a meta (ex: "Crie um plano de marketing para o lançamento do produto X").</li>
+                    <li><span>Análise Contextual e de Dados:</span> O Graham AI utiliza a Memória de Conversa e integra dados em tempo real para formar uma base de conhecimento robusta.</li>
+                    <li><span>Execução Multimodal e Iterativa:</span> O assistente executa as etapas necessárias (pesquisa, cálculo, codificação, formatação) de forma autônoma, iterando até a solução.</li>
+                    <li><span>Entrega do Output Final:</span> O resultado é um documento, código ou análise <span>pronto para ser utilizado</span>, eliminando a necessidade de intervenção ou formatação manual.</li>
+                </ul>
+            </p>
+            <h3>Precisão, Didática e Transparência</h3>
+            <p>
+                Cada interação é marcada pela <span>precisão técnica</span> e pela <span>abordagem didática</span>. O Graham AI não apenas fornece a resposta correta, mas também se esforça para explicar o processo de raciocínio e os conceitos subjacentes de forma acessível. Essa transparência no processo de pensamento transforma cada sessão em uma valiosa oportunidade de aprendizado.
             </p>
         </article>
     )
 }
 
-export default SmartChat
+export default Chat

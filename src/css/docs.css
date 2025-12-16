@@ -199,6 +199,14 @@
     cursor: pointer;
 }
 
+.docs-feed img{
+    display: flex;
+    width: 100%;
+    border-radius: 7px;
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+
 .docs-feed p{
     margin-top: 15px;
     margin-bottom: 50px;
