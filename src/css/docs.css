@@ -224,6 +224,26 @@
     margin: 40px 0;
     border: 1px solid #151515;
 }
+
+.line-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.line-icon hr{
+    border: 1px dashed #ffffff;
+    width: 100%;
+}
+
+.line-icon .icon{
+    margin: 0 25px;
+    font-size: 2.5rem;
+    margin-top: 55px;
+    margin-bottom: 55px;
+}
+
 .docs-table {
     margin-top: 15px;
     width: 100%;
