@@ -224,6 +224,41 @@
     margin: 40px 0;
     border: 1px solid #151515;
 }
+.docs-table {
+    margin-top: 15px;
+    width: 100%;
+    background: #0000009c;
+    backdrop-filter: blur(5px);
+    border: 1px solid #181818;
+    border-radius: var(--border);
+    overflow: hidden;
+}
+
+.docs-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.docs-table td {
+    padding: 10px 15px;
+    text-align: left;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #181818;
+    color: #dedede;
+}
+
+.docs-table th {
+    text-align: left;
+    padding: 10px 15px;
+    background: #101010;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.docs-table tr:last-child td {
+    border-bottom: none;
+}
 
 .social-links{
     display: flex;

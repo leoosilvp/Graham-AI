@@ -25,6 +25,7 @@ import Status from './routes/Status'
 import Plans from './components/ui/Plans'
 import SmartChat from './components/ui/SmartChat'
 import Memory from './components/ui/Memory'
+import Performance from './components/ui/Performance'
 
 function App() {
 
@@ -56,6 +57,7 @@ function App() {
             <Route index element={<Navigate to='chat' />} />
             <Route path='chat' element={<SmartChat />} />
             <Route path='memory' element={<Memory />} />
+            <Route path='performance' element={<Performance />} />
 
           </Route>
           <Route path='plans' element={<Plans />} />
