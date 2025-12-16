@@ -28,6 +28,8 @@ import Memory from './components/ui/Memory'
 import Performance from './components/ui/Performance'
 import Generation from './components/ui/Generation'
 import SecurityDocs from './components/ui/SecurityDocs'
+import Chat from './components/Chat'
+import Notification from './components/Notification'
 
 function App() {
 
@@ -39,9 +41,11 @@ function App() {
       <Routes>
         <Route path="/status" element={<Status />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Navigate to='/chat' />} />
-        <Route path="/chat" element={<Home />}>
-          <Route path="settings" element={<Settings />}>
+        <Route path="/" element={<Home />}>
+          <Route path='/' element={<Navigate to='chat' />} />
+          <Route path='chat' element={<Chat />} />
+          <Route path='notification' element={<Notification />} />
+          <Route path="/chat/settings" element={<Settings />}>
             <Route index element={<Navigate to='general' />} />
             <Route path="general" element={<General />} />
             <Route path="notifications" element={<Notifications />} />

@@ -49,6 +49,7 @@ export function useChats() {
     localStorage.setItem("activeChatId", id);
     setActiveChatId(id);
     window.dispatchEvent(new CustomEvent("openChat", { detail: { id } }));
+    window.location.href=('/chat')
   }, []);
 
   useEffect(() => {

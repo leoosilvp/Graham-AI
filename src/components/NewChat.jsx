@@ -12,6 +12,7 @@ function NewChat() {
             window.dispatchEvent(new CustomEvent("chatsUpdated"));
             window.dispatchEvent(new CustomEvent("openChat", { detail: { id: emptyChat.id } }));
             window.location.reload()
+            window.location.href=('/chat')
             return;
         }
 
@@ -28,6 +29,7 @@ function NewChat() {
         window.dispatchEvent(new CustomEvent("chatsUpdated"));
         window.dispatchEvent(new CustomEvent("openChat", { detail: { id: newId } }));
         window.location.reload()
+        window.location.href=('/chat')
     };
 
     useEffect(() => {
@@ -35,6 +37,7 @@ function NewChat() {
             if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'o') {
                 e.preventDefault();
                 createNewChat();
+                window.location.href=('/chat')
             }
         };
 

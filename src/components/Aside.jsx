@@ -1,6 +1,6 @@
 import { useRef, useState, useCallback, useLayoutEffect } from "react";
 import { useOutsideClick } from "../hooks/useOutsideClick";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useUser } from "../hooks/useUser";
 import logo from "../assets/img/icon-light.svg";
 import NewChat from "./NewChat";
@@ -87,9 +87,9 @@ function Aside() {
         <div className="hero-aside">
             <aside ref={boxRef}>
                 <section className="header-aside">
-                    <a href="" className="aside-logo" title="GrahamAI">
+                    <Link to='/' className="aside-logo" title="GrahamAI">
                         <img className="logo" src={logo} alt="logo" />
-                    </a>
+                    </Link>
 
                     <ChangeModel />
                 </section>
