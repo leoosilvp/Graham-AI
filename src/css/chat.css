@@ -501,6 +501,10 @@
         width: 100%;
     }
 
+    .chat-header{
+        top: 0px;
+    }
+
     .presentation {
         width: 90%;
         margin-top: -50px;
@@ -578,9 +582,5 @@
 
     .chat-box div.assistant {
         padding: 0px 15px;
-    }
-
-    .ctn-profile {
-        width: 270px;
     }
 }

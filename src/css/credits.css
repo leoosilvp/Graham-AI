@@ -94,7 +94,7 @@
     transition: all 0.2s ease;
 }
 
-.credits-header a:hover{
+.credits-header a:hover {
     box-shadow: 0 0 10px 0 #ffffff2f;
 }
 
@@ -150,4 +150,14 @@
 
 .credits-content a:hover {
     color: #777777;
+}
+
+@media (width < 720px) {
+    .credits-header a:hover {
+        box-shadow: 0 0 0 0 transparent !important;
+    }
+
+    .credits-header a:active {
+        box-shadow: 0 0 10px #ffffff2f !important;
+    }
 }

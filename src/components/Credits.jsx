@@ -24,7 +24,7 @@ const Credits = () => {
                 >
                     <section className='credits-header'>
                         <h1>BASIC</h1>
-                        <Link to='/docs/plans'>Atualizar</Link>
+                        <Link>Atualizar</Link>
                     </section>
 
                     <hr />

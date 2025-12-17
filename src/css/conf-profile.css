@@ -68,6 +68,10 @@
 }
 
 @media (width < 720px) {
+    .ctn-profile {
+        width: 285px;
+    }
+
     .ctn-profile:hover {
         background: #101010;
         box-shadow: 0px 0px 15px 2px #00000050;
@@ -77,11 +81,19 @@
         background: #202020;
     }
 
+    .ctn-profile i:hover {
+        background: none;
+    }
+
+    .ctn-profile i:active {
+        background: #353535;
+    }
+
     .conf-profile {
         left: 10px;
         bottom: 90px;
         border-radius: 10px;
-        width: 270px;
+        width: 285px;
         background: #101010;
     }
 
@@ -89,15 +101,15 @@
         align-items: center;
         border-radius: 5px;
         width: 100%;
-        background: #161616 !important;
+        background: transparent !important;
     }
 
     .conf-profile button:hover {
-        background: #161616 !important;
+        background: transparent !important;
     }
 
     .conf-profile button:active {
-        background: #191919 !important;
+        background: #151515 !important;
     }
 
     .options-card button {

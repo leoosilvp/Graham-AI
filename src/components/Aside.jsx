@@ -14,6 +14,7 @@ import ChangeModel from "./ChangeModel";
 function Aside() {
     const boxRef = useRef(null);
     const confRef = useRef(null);
+    const isMobile = window.innerWidth <= 768;
 
     const [moved, setMoved] = useState(() => {
         return localStorage.getItem("showAside") === "true";
@@ -68,7 +69,6 @@ function Aside() {
     useOutsideClick(
         boxRef,
         () => {
-            const isMobile = window.innerWidth <= 768;
             if (moved && isMobile) {
                 closeSidebar();
             }
@@ -124,7 +124,7 @@ function Aside() {
             )}
 
             <button
-                className="btn-aside"
+                className={`btn-aside ${isMobile && moved ? 'open' : 'close'}`}
                 onClick={handleMove}
                 title="Mover barra lateral"
             >

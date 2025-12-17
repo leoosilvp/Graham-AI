@@ -73,6 +73,16 @@ aside::-webkit-scrollbar-thumb {
     box-shadow: 0px 0px 10px 0px #1e1e1e21;
 }
 
+.hero-aside .close {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.hero-aside .open {
+    opacity: 0;
+    pointer-events: none;
+}
+
 .new-chat {
     margin-top: 25px;
 }
@@ -370,19 +380,16 @@ aside::-webkit-scrollbar-thumb {
     background: #454545;
 }
 
-@media (width < 720px) { 
+@media (width < 720px) {
     aside {
-        width: 290px;
+        width: 305px;
         position: relative;
         z-index: 1;
         background: #101010;
     }
 
-    aside {
-        width: 290px;
-        position: relative;
-        z-index: 1;
-        background: #101010;
+    .ctn-profile{
+        width: 250px;
     }
 
     .hero-aside .btn-aside {
@@ -398,16 +405,43 @@ aside::-webkit-scrollbar-thumb {
         box-shadow: none;
     }
 
-
-    .ctn-profile:hover {
-        box-shadow: none;
+    .new-chat button {
+        background: transparent !important;
     }
 
-    .ctn-profile i:hover {
-        background: none;
+    .new-chat button:hover {
+        background: transparent !important;
     }
 
-    .ctn-profile i:active {
-        background: #353535;
+    .new-chat button:hover span {
+        display: none;
+    }
+
+    .new-chat button:active {
+        background: #171717 !important;
+    }
+
+    .card-chat.active {
+        background: #181818;
+    }
+
+    .card-chat:hover {
+        background: transparent !important;
+    }
+
+    .options-card button{
+        background: transparent !important;
+    }
+
+    .options-card:hover{
+        background: transparent !important;
+    }
+
+    .options-card button:hover {
+        background: transparent !important;
+    }
+
+    .options-card:active{
+        background: #181818 !important;
     }
 }
