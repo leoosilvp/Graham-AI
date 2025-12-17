@@ -1,6 +1,7 @@
-.credits-btn{
+.credits-btn {
     display: flex;
     align-items: center;
+    width: fit-content;
     height: 33px;
     padding: 0 7px;
     border: 1px solid var(--color-line);
@@ -8,13 +9,145 @@
     gap: 5px;
     cursor: pointer;
     transition: all 0.2s ease;
+    background: none;
     color: #c4c4c4;
 }
 
-.credits-btn i{
+.credits-btn i {
     font-size: 1rem;
 }
 
-.credits-btn:hover{
+.credits-btn:hover {
     background: #1e1e1e;
+}
+
+.credits-ctn {
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    margin-top: -10px;
+    right: 15px;
+    width: 250px;
+    transition: all 0.2s ease;
+    padding: 10px;
+    z-index: 30;
+}
+
+.credits-ctn.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.credits {
+    position: absolute;
+    margin-top: 5px;
+    right: 0px;
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    background: #1e1e1e;
+    border: 1px solid #303030;
+    border-radius: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+    box-shadow: 0 0 20px 0 #0000002f;
+    cursor: default;
+}
+
+.credits.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.credits.close {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+}
+
+.credits-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+}
+
+.credits-header h1 {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.credits-header a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+    border-radius: 50px;
+    background: #fff;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #000;
+    transition: all 0.2s ease;
+}
+
+.credits-header a:hover{
+    box-shadow: 0 0 10px 0 #ffffff2f;
+}
+
+.credits hr {
+    margin: 0 12px;
+    border: 1px dashed #707070;
+}
+
+.credits-content {
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    gap: 12px;
+}
+
+.credits-content h1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #f5f5f5;
+}
+
+.credits-content h1 span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.credits-content h1 span i {
+    color: #b3b3b3;
+}
+
+.credits-content h2 {
+    margin-top: 5px;
+    font-size: 0.70rem;
+    font-weight: 200;
+    color: #8d8d8d;
+}
+
+.credits-content a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 0.85rem;
+    color: #8d8d8d;
+    transition: all 0.1s ease;
+}
+
+.credits-content a i {
+    font-size: 0.7rem;
+}
+
+.credits-content a:hover {
+    color: #777777;
 }
