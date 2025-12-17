@@ -15,7 +15,7 @@ const Credits = () => {
                 onMouseEnter={() => setOpen(true)}
             >
                 <i className="fa-regular fa-copyright" />
-                000
+                500
             </article>
             <section className={`credits-ctn ${open ? 'open' : 'close'}`} onMouseEnter={() => setOpen(true)}>
                 <article
@@ -44,9 +44,9 @@ const Credits = () => {
                                     <i className='fa-regular fa-calendar' />
                                     Creditos diários
                                 </span>
-                                <span>000</span>
+                                <span>500</span>
                             </h1>
-                            <h2>Atualizar para © 300 às 00:00 todos os dias</h2>
+                            <h2>Atualizar para © 500 às 00:00 todos os dias</h2>
                         </div>
 
                         <Link to='/chat/settings'>

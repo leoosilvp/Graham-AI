@@ -1,4 +1,4 @@
-.ctn-upd{
+.ctn-upd {
     position: absolute;
     display: flex;
     align-items: center;
@@ -12,7 +12,7 @@
     z-index: 30;
 }
 
-.upd{
+.upd {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -25,18 +25,18 @@
     overflow: hidden;
 }
 
-.upd-content::-webkit-scrollbar{
+.upd-content::-webkit-scrollbar {
     display: flex;
     width: 4px;
 }
 
-.upd-content::-webkit-scrollbar-thumb{
+.upd-content::-webkit-scrollbar-thumb {
     background: #313131;
     border-radius: 50px;
     cursor: pointer;
 }
 
-.upd-content{
+.upd-content {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -44,7 +44,7 @@
     overflow-x: hidden;
 }
 
-.upd-content video{
+.upd-content video {
     display: flex;
     width: 600px;
     height: fit-content;
@@ -61,24 +61,24 @@
     opacity: 1;
 }
 
-.text-upd{
+.text-upd {
     display: flex;
     flex-direction: column;
     padding: 15px 10px;
     gap: 7px;
 }
 
-.text-upd h1{
+.text-upd h1 {
     font-size: 1.7rem;
 }
 
-.text-upd p{
+.text-upd p {
     font-size: 0.9rem;
     font-weight: 400;
     color: #d0d0d0;
 }
 
-.date-upd{
+.date-upd {
     margin-top: 10px;
     display: flex;
     flex-direction: column;
@@ -86,25 +86,25 @@
     gap: 2px;
 }
 
-.date-upd h2{
+.date-upd h2 {
     font-size: 0.9rem;
     color: #d9d9d9;
 }
 
-.date-upd h3{
+.date-upd h3 {
     font-size: 0.85rem;
     font-weight: 200;
     color: #969696;
 }
 
-.upd-btns{
+.upd-btns {
     display: flex;
     justify-content: end;
     padding: 15px;
     gap: 15px;
 }
 
-.upd-btns button{
+.upd-btns button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -117,11 +117,32 @@
     cursor: pointer;
 }
 
-.upd-btns button:hover{
+.upd-btns button:hover {
     background: #313131;
 }
 
-.upd-btns button:last-child{
+.upd-btns button:last-child {
     color: #000;
     background: #fff;
+}
+
+@media (width < 720px) {
+
+    .upd{
+        margin: 0 15px;
+        height: 380px;
+        border-radius: 15px;
+    }
+
+    .upd-content video {
+        width: 100%;
+    }
+
+    .text-upd h1 {
+        font-size: 1.6rem;
+    }
+
+    .text-upd p {
+        font-size: 0.85rem;
+    }
 }
