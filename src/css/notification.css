@@ -15,3 +15,60 @@
 .notification-btn a:hover{
     background: #1e1e1e;
 }
+
+.ctn-notification-page{
+    margin-top: 4px;
+    margin-right: 4px;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    width: 100vw;
+    height: calc(100vh - 35px);
+    padding: 10px 10px 100px 10px;
+}
+
+.ctn-notification-page::-webkit-scrollbar{
+    display: flex;
+    width: 5px;
+}
+
+.ctn-notification-page::-webkit-scrollbar-thumb{
+    background: #222222;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.notification-page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.close-notification-btn{
+    position: absolute;
+    top: 42px;
+    right: 14px;
+    text-decoration: none;
+    display: flex;
+    padding: 8px;
+    color: #555555;
+    border-radius: 7px;
+    font-size: 1rem;
+    transition: all 0.15s ease;
+}
+
+.close-notification-btn:hover{
+    background: #1c1c1c;
+}
+
+.notification-header{
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.notification-header h1{
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #a4a4a4;
+}

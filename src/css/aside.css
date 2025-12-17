@@ -325,8 +325,7 @@ aside::-webkit-scrollbar-thumb {
 }
 
 .ctn-profile:hover {
-    background: #202020;
-    box-shadow: 0px 0px 15px 2px #25252511;
+    background: #141414;
 }
 
 .profile {
@@ -377,7 +376,7 @@ aside::-webkit-scrollbar-thumb {
 
 .ctn-profile i:hover {
     font-weight: 600;
-    background: #454545;
+    background: #202020;
 }
 
 @media (width < 720px) {
