@@ -1,0 +1,20 @@
+.credits-btn{
+    display: flex;
+    align-items: center;
+    height: 33px;
+    padding: 0 7px;
+    border: 1px solid var(--color-line);
+    border-radius: 50px;
+    gap: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #c4c4c4;
+}
+
+.credits-btn i{
+    font-size: 1rem;
+}
+
+.credits-btn:hover{
+    background: #1e1e1e;
+}

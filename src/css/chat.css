@@ -23,6 +23,18 @@
     width: 100%;
 }
 
+.chat-header{
+    position: absolute;
+    top: 25px;
+    left: 0;
+    display: flex;
+    width: 100%;
+    padding: 15px;
+    align-items: center;
+    justify-content: end;
+    gap: 10px;
+}
+
 .presentation {
     display: flex;
     flex-direction: column;

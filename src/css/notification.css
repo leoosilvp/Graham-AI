@@ -1,0 +1,17 @@
+.notification-btn a{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 33px;
+    height: 33px;
+    color: #c4c4c4;
+    font-size: 1.1rem;
+    border-radius: 50%;
+    border: 1px solid var(--color-line);
+    transition: all 0.2s ease;
+}
+
+.notification-btn a:hover{
+    background: #1e1e1e;
+}

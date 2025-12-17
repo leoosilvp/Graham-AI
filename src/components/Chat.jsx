@@ -7,6 +7,8 @@ import "katex/dist/katex.min.css";
 import '../css/chat.css';
 import '../css/markdown.css';
 import Alert from "./Alert.jsx";
+import { Link } from "react-router-dom";
+import Credits from "./Credits.jsx";
 
 function Chat() {
   const [input, setInput] = useState("");
@@ -275,11 +277,25 @@ function Chat() {
 
   return (
     <div className="hero-chat">
+
       {!started ? (
-        <section className="presentation">
-          <h1>Olá {username}! O que posso fazer por ti?</h1>
-          <h2>Navegue pela IA mais eficiente do mercado!</h2>
-        </section>
+        <>
+          <section className="chat-header">
+            <article className="notification-btn">
+              <Link to='/notification' title="Notificações">
+                <i className="fa-regular fa-bell" />
+              </Link>
+            </article>
+
+            <Credits />
+          </section>
+          
+          <section className="presentation">
+            <h1>Olá {username}! O que posso fazer por ti?</h1>
+            <h2>Navegue pela IA mais eficiente do mercado!</h2>
+          </section>
+        </>
+
       ) : (
         <section className="ctn-chat-box" ref={chatBoxRef}>
           <section className="chat-box">
