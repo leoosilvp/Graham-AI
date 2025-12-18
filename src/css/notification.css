@@ -1,4 +1,4 @@
-.notification-btn a{
+.notification-btn a {
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -12,11 +12,11 @@
     transition: all 0.2s ease;
 }
 
-.notification-btn a:hover{
+.notification-btn a:hover {
     background: #1e1e1e;
 }
 
-.ctn-notification-page{
+.ctn-notification-page {
     margin-top: 4px;
     margin-right: 4px;
     display: flex;
@@ -27,24 +27,24 @@
     padding: 10px 10px 100px 10px;
 }
 
-.ctn-notification-page::-webkit-scrollbar{
+.ctn-notification-page::-webkit-scrollbar {
     display: flex;
     width: 5px;
 }
 
-.ctn-notification-page::-webkit-scrollbar-thumb{
+.ctn-notification-page::-webkit-scrollbar-thumb {
     background: #222222;
     border-radius: 50px;
     cursor: pointer;
 }
 
-.notification-page{
+.notification-page {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.close-notification-btn{
+.close-notification-btn {
     position: absolute;
     top: 42px;
     right: 14px;
@@ -57,18 +57,101 @@
     transition: all 0.15s ease;
 }
 
-.close-notification-btn:hover{
+.close-notification-btn:hover {
     background: #1c1c1c;
 }
 
-.notification-header{
+.notification-header {
     margin-top: 40px;
     display: flex;
     flex-direction: column;
 }
 
-.notification-header h1{
+.notification-header h1 {
     font-size: 1.6rem;
     font-weight: 600;
     color: #a4a4a4;
+}
+
+.notification-feed {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.ctn-notification{
+    display: flex;
+    width: 820px;
+    padding: 0px 0 35px 0;
+    gap: 100px;
+    border-bottom: 1px solid #262626;
+}
+
+.notification-date {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0;
+}
+
+.notification-date h1{
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #c5c5c5;
+}
+
+.notification-date h2{
+    font-size: 0.75rem;
+    font-weight: 200;
+    color: #898989;
+}
+
+.notification{
+    display: flex;
+    flex-direction: column;
+    width: 620px;
+}
+
+.notification img{
+    display: flex;
+    border-radius: 7px;
+    border: 1px solid #2b2b2b;
+    cursor: pointer;
+}
+
+.notification video{
+    display: flex;
+    border-radius: 7px;
+    border: 1px solid #2b2b2b;
+    cursor: pointer;
+}
+
+.notification video::-webkit-media-controls {
+    opacity: 0;
+    transition: all 0.15s ease;
+    transform: translateY(1px);
+}
+
+.notification video:hover::-webkit-media-controls {
+    opacity: 1;
+}
+
+.notification-content{
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+}
+
+.notification-content h1{
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #d7d7d7;
+}
+
+.notification-content p{
+    margin-top: 15px;
+    font-size: 0.85rem;
+    font-weight: 200;
+    line-height: 1.4;
+    color: #717171;
 }
