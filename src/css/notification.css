@@ -30,6 +30,14 @@
     animation: rotation 2s linear infinite;
 }
 
+.notification-error{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
 .ctn-notification-page {
     margin-top: 4px;
     margin-right: 4px;

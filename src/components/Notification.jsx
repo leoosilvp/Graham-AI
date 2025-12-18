@@ -11,7 +11,7 @@ const Notification = () => {
   }
 
   if (error) {
-    return <main className="notification-error">{error}</main>;
+    return <main className="notification-error">Erro ao buscar notificações!</main>;
   }
 
   return (
@@ -35,7 +35,7 @@ const Notification = () => {
             <article className='ctn-notification' key={item.id}>
               <section className='notification-date'>
                 <h1>{item.type}</h1>
-                <h2>{item.date}</h2>
+                <h2>{item.data}</h2>
               </section>
 
               <section className='notification'>
