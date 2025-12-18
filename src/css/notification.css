@@ -16,6 +16,20 @@
     background: #1e1e1e;
 }
 
+.notification-loading{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification-loading img{
+    display: flex;
+    width: 30px;
+    animation: rotation 2s linear infinite;
+}
+
 .ctn-notification-page {
     margin-top: 4px;
     margin-right: 4px;
