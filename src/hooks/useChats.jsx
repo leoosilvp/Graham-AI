@@ -97,6 +97,7 @@ export function useChats() {
               ...chat,
               usageToken: (chat.usageToken ?? 0) + tokens,
               updatedAt: Date.now(),
+              messages: chat.messages,
             }
             : chat
         );
