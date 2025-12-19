@@ -13,6 +13,7 @@ export function useChats() {
     localStorage.getItem("activeChatId") || null
   );
 
+  // Carrega todos os chats do localStorage
   const loadChats = useCallback(() => {
     try {
       const saved = JSON.parse(localStorage.getItem("chats") || "[]");
@@ -33,6 +34,7 @@ export function useChats() {
     }
   }, []);
 
+  // Salva chats no localStorage e dispara evento de atualização
   const saveChats = useCallback((updated) => {
     const normalized = updated.map((chat) => ({
       ...chat,
@@ -44,6 +46,7 @@ export function useChats() {
     window.dispatchEvent(new CustomEvent("chatsUpdated"));
   }, []);
 
+  // Deleta um chat específico
   const deleteChat = useCallback(
     (id) => {
       const updated = chats.filter((c) => c.id !== id);
@@ -55,12 +58,12 @@ export function useChats() {
         window.dispatchEvent(
           new CustomEvent("openChat", { detail: { id: null } })
         );
-        window.location.reload();
       }
     },
     [chats, activeChatId, saveChats]
   );
 
+  // Atualiza título de chat
   const updateChatTitle = useCallback(
     (id, newTitle) => {
       const updated = chats.map((c) =>
@@ -73,13 +76,14 @@ export function useChats() {
     [chats, saveChats]
   );
 
+  // Abre chat ativo sem recarregar a página
   const openChat = useCallback((id) => {
     localStorage.setItem("activeChatId", id);
     setActiveChatId(id);
     window.dispatchEvent(new CustomEvent("openChat", { detail: { id } }));
-    window.location.href = "/chat";
   }, []);
 
+  // Listener para atualizações e tokens de uso
   useEffect(() => {
     loadChats();
 
@@ -87,7 +91,7 @@ export function useChats() {
 
     const onUsage = (e) => {
       const { chatId, tokens } = e.detail || {};
-      if (!chatId || !tokens) return;
+      if (!chatId || tokens == null) return;
 
       setChats((prev) => {
         const updated = prev.map((chat) =>
