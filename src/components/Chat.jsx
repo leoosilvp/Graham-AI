@@ -43,7 +43,6 @@ function Chat() {
 
   const openChatById = useCallback((id) => {
     if (!id) return;
-
     setChatId(id);
     localStorage.setItem("activeChatId", id);
 
@@ -52,22 +51,13 @@ function Chat() {
     const chat = all.find((c) => c.id === id);
 
     if (chat) {
-      const normalizedMessages = (chat.messages || []).map((m) => ({
-        ...m,
-        streaming: false,
-      }));
-
-
-      setMessages(normalizedMessages);
-      setStarted(normalizedMessages.length > 0);
-      setLoading(false);
+      setMessages(chat.messages || []);
+      setStarted((chat.messages?.length || 0) > 0);
     } else {
       setMessages([]);
       setStarted(false);
-      setLoading(false);
     }
   }, []);
-
 
   useEffect(() => {
     const lastId = localStorage.getItem("activeChatId");
@@ -244,11 +234,10 @@ function Chat() {
         role: "assistant",
         content: streamedContent || "Resposta vazia.",
         ts: Date.now(),
-        streaming: false,
       };
 
       setMessages((prev) =>
-        prev.map((m) => (m.streaming ? finalAssistant : m))
+        prev.map((m) => (m.streaming ? { ...finalAssistant, streaming: false } : m))
       );
       saveChat(idToUse, [...updatedMsgs, finalAssistant]);
     } catch (err) {
@@ -300,7 +289,7 @@ function Chat() {
 
             <Credits />
           </section>
-
+          
           <section className="presentation">
             <h1>Olá {username}! O que posso fazer por ti?</h1>
             <h2>Navegue pela IA mais eficiente do mercado!</h2>
