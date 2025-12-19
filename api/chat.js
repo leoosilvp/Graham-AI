@@ -1,5 +1,3 @@
-import { encode } from "gpt-tokenizer";
-
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -36,9 +34,6 @@ export default async function handler(req, res) {
       messages: [systemPrompt, ...fileMessages, ...messages],
     };
 
-    const inputText = payload.messages.map((m) => m.content).join("\n");
-    const inputTokens = encode(inputText).length;
-
     const response = await fetch(
       "https://openrouter.ai/api/v1/chat/completions",
       {
@@ -57,6 +52,10 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: "Erro na comunicação com a OpenRouter" });
     }
 
+    const usageHeader = response.headers.get("x-openrouter-usage");
+    const usage = usageHeader ? JSON.parse(usageHeader) : null;
+    const totalTokens = usage?.total_tokens || 0;
+
     res.writeHead(200, {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache, no-transform",
@@ -64,45 +63,17 @@ export default async function handler(req, res) {
     });
 
     const reader = response.body.getReader();
-    const decoder = new TextDecoder("utf-8");
-
-    let buffer = "";
-    let assistantText = "";
+    const decoder = new TextDecoder();
 
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
 
-      const chunk = decoder.decode(value, { stream: true });
+      const chunk = decoder.decode(value);
       res.write(chunk);
-      buffer += chunk;
-
-      const parts = buffer.split("\n\n");
-      buffer = parts.pop();
-
-      for (const part of parts) {
-        if (!part.startsWith("data:")) continue;
-
-        const dataStr = part.replace("data:", "").trim();
-        if (dataStr === "[DONE]") continue;
-
-        try {
-          const json = JSON.parse(dataStr);
-          const delta = json.choices?.[0]?.delta?.content;
-          if (delta) assistantText += delta;
-        } catch {
-          // ignora
-        }
-      }
     }
 
-    const outputTokens = encode(assistantText).length;
-    const totalTokens = inputTokens + outputTokens;
-
-    res.write(
-      `event: usage\ndata: ${JSON.stringify({ tokens: totalTokens })}\n\n`
-    );
-
+    res.write(`event: usage\ndata: ${JSON.stringify({ totalTokens })}\n\n`);
     res.write("data: [DONE]\n\n");
     res.end();
   } catch (err) {
