@@ -34,13 +34,8 @@ export function useChats() {
   }, []);
 
   const saveChats = useCallback((updated) => {
-    const normalized = updated.map((chat) => ({
-      ...chat,
-      usageToken: chat.usageToken ?? 0,
-    }));
-
-    localStorage.setItem("chats", JSON.stringify(normalized));
-    setChats(normalized);
+    localStorage.setItem("chats", JSON.stringify(updated));
+    setChats(updated);
     window.dispatchEvent(new CustomEvent("chatsUpdated"));
   }, []);
 
@@ -93,12 +88,13 @@ export function useChats() {
         const updated = prev.map((chat) =>
           chat.id === chatId
             ? {
-              ...chat,
-              usageToken: (chat.usageToken ?? 0) + tokens,
-              updatedAt: Date.now(),
-            }
+                ...chat,
+                usageToken: (chat.usageToken) + tokens,
+                updatedAt: Date.now(),
+              }
             : chat
         );
+
         localStorage.setItem("chats", JSON.stringify(updated));
         return updated;
       });
