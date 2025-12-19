@@ -51,13 +51,19 @@ function Chat() {
     const chat = all.find((c) => c.id === id);
 
     if (chat) {
-      setMessages(chat.messages || []);
-      setStarted((chat.messages?.length || 0) > 0);
+      const normalizedMessages = (chat.messages || []).map(m => ({
+        ...m,
+        streaming: false,
+      }));
+
+      setMessages(normalizedMessages);
+      setStarted(normalizedMessages.length > 0);
     } else {
       setMessages([]);
       setStarted(false);
     }
   }, []);
+
 
   useEffect(() => {
     const lastId = localStorage.getItem("activeChatId");
@@ -234,6 +240,7 @@ function Chat() {
         role: "assistant",
         content: streamedContent || "Resposta vazia.",
         ts: Date.now(),
+        streaming: false,
       };
 
       setMessages((prev) =>
@@ -289,7 +296,7 @@ function Chat() {
 
             <Credits />
           </section>
-          
+
           <section className="presentation">
             <h1>Olá {username}! O que posso fazer por ti?</h1>
             <h2>Navegue pela IA mais eficiente do mercado!</h2>
