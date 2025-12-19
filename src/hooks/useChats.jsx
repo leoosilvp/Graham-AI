@@ -87,16 +87,16 @@ export function useChats() {
 
     const onUsage = (e) => {
       const { chatId, tokens } = e.detail || {};
-      if (!chatId || !tokens) return;
+      if (!chatId || tokens == null) return;
 
       setChats((prev) => {
         const updated = prev.map((chat) =>
           chat.id === chatId
             ? {
-              ...chat,
-              usageToken: (chat.usageToken ?? 0) + tokens,
-              updatedAt: Date.now(),
-            }
+                ...chat,
+                usageToken: (chat.usageToken ?? 0) + tokens,
+                updatedAt: Date.now(),
+              }
             : chat
         );
         localStorage.setItem("chats", JSON.stringify(updated));
