@@ -75,9 +75,25 @@ export function useChats() {
   const openChat = useCallback((id) => {
     localStorage.setItem("activeChatId", id);
     setActiveChatId(id);
+
+    setChats((prev) =>
+      prev.map((chat) =>
+        chat.id === id
+          ? {
+            ...chat,
+            messages: (chat.messages || []).map((m) => ({
+              ...m,
+              streaming: false,
+            })),
+          }
+          : chat
+      )
+    );
+
     window.dispatchEvent(new CustomEvent("openChat", { detail: { id } }));
     window.location.href = "/chat";
   }, []);
+
 
   useEffect(() => {
     loadChats();

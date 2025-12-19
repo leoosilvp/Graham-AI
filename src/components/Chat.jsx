@@ -52,9 +52,11 @@ function Chat() {
     const chat = all.find((c) => c.id === id);
 
     if (chat) {
-      const normalizedMessages = (chat.messages || []).map((m) =>
-        m.streaming ? { ...m, streaming: false } : m
-      );
+      const normalizedMessages = (chat.messages || []).map((m) => ({
+        ...m,
+        streaming: false,
+      }));
+
 
       setMessages(normalizedMessages);
       setStarted(normalizedMessages.length > 0);
@@ -242,10 +244,11 @@ function Chat() {
         role: "assistant",
         content: streamedContent || "Resposta vazia.",
         ts: Date.now(),
+        streaming: false,
       };
 
       setMessages((prev) =>
-        prev.map((m) => (m.streaming ? { ...finalAssistant, streaming: false } : m))
+        prev.map((m) => (m.streaming ? finalAssistant : m))
       );
       saveChat(idToUse, [...updatedMsgs, finalAssistant]);
     } catch (err) {
