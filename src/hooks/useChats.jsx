@@ -88,10 +88,10 @@ export function useChats() {
         const updated = prev.map((chat) =>
           chat.id === chatId
             ? {
-              ...chat,
-              usageToken: (chat.usageToken ?? 0) + tokens,
-              updatedAt: Date.now(),
-            }
+                ...chat,
+                usageToken: (chat.usageToken ?? 0) + tokens,
+                updatedAt: Date.now(),
+              }
             : chat
         );
 
