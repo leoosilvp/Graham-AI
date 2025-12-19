@@ -44,7 +44,6 @@ export function useChats() {
     window.dispatchEvent(new CustomEvent("chatsUpdated"));
   }, []);
 
-
   const deleteChat = useCallback(
     (id) => {
       const updated = chats.filter((c) => c.id !== id);
@@ -97,11 +96,9 @@ export function useChats() {
               ...chat,
               usageToken: (chat.usageToken ?? 0) + tokens,
               updatedAt: Date.now(),
-              messages: chat.messages,
             }
             : chat
         );
-
         localStorage.setItem("chats", JSON.stringify(updated));
         return updated;
       });
