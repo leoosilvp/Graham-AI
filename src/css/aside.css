@@ -398,6 +398,7 @@ aside::-webkit-scrollbar-thumb {
         transition: none;
         font-size: 1.1rem;
         background: transparent;
+        color: #969696;
     }
 
     .hero-aside .btn-aside:hover {

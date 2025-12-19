@@ -41,6 +41,7 @@ header a:hover {
         position: absolute;
         justify-content: center;
         box-shadow: none;
+        padding: 10px;
         z-index: -1;
     }
 
@@ -54,5 +55,16 @@ header a:hover {
 
     header img {
         display: flex;
+    }
+
+    .header-notification {
+        position: absolute;
+        justify-content: center;
+        height: 60px;
+        background: #121212df;
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid #252525;
+        box-shadow: none;
+        z-index: 1;
     }
 }
