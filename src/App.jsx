@@ -30,6 +30,7 @@ import Generation from './components/ui/Generation'
 import SecurityDocs from './components/ui/SecurityDocs'
 import Chat from './components/Chat'
 import Notification from './components/Notification'
+import Usage from './components/ui/Usage'
 
 function App() {
 
@@ -50,10 +51,11 @@ function App() {
             <Route path="general" element={<General />} />
             <Route path="notifications" element={<Notifications />} />
             <Route path="customization" element={<Customization />} />
-            <Route path="terms and privacy" element={<TermsPrivacy />} />
             <Route path="security" element={<Security />} />
-            <Route path="support" element={<Support />} />
+            <Route path="usage" element={<Usage />} />
             <Route path="account" element={<Account />} />
+            <Route path="support" element={<Support />} />
+            <Route path="terms and privacy" element={<TermsPrivacy />} />
           </Route>
         </Route>
         <Route path="/docs" element={<Docs />}>
