@@ -1,7 +1,8 @@
 export async function sendMessageToAI(messages, files, options = {}) {
   const controller = new AbortController();
-  if (options.signal)
+  if (options.signal) {
     options.signal.addEventListener("abort", () => controller.abort());
+  }
 
   const response = await fetch("/api/chat", {
     method: "POST",
@@ -14,6 +15,7 @@ export async function sendMessageToAI(messages, files, options = {}) {
 
   const reader = response.body.getReader();
   const decoder = new TextDecoder("utf-8");
+
   let buffer = "";
   let reply = "";
 
@@ -22,56 +24,47 @@ export async function sendMessageToAI(messages, files, options = {}) {
     if (done) break;
 
     buffer += decoder.decode(value, { stream: true });
-    const chunks = buffer.split("\n\n");
-    buffer = chunks.pop();
 
-    for (const chunk of chunks) {
-      const lines = chunk.split("\n");
+    const parts = buffer.split("\n\n");
+    buffer = parts.pop();
 
-      let eventType = "message";
-      let dataLine = "";
+    for (const part of parts) {
 
-      for (const line of lines) {
-        if (line.startsWith("event:")) {
-          eventType = line.replace("event:", "").trim();
-        }
-        if (line.startsWith("data:")) {
-          dataLine += line.replace("data:", "").trim();
-        }
-      }
+      if (part.startsWith("event: usage")) {
+        const dataLine = part
+          .split("\n")
+          .find((l) => l.startsWith("data:"));
 
-      if (!dataLine) continue;
-
-      if (eventType === "usage") {
-        try {
-          const { totalTokens } = JSON.parse(dataLine);
+        if (dataLine) {
+          const payload = JSON.parse(dataLine.replace("data:", "").trim());
 
           window.dispatchEvent(
             new CustomEvent("chatUsage", {
               detail: {
                 chatId: localStorage.getItem("activeChatId"),
-                tokens: totalTokens,
+                tokens: payload.tokens,
               },
             })
           );
-        } catch {
-          /* ignora */
         }
         continue;
       }
 
-      if (dataLine === "[DONE]") break;
+      if (!part.startsWith("data:")) continue;
+
+      const dataStr = part.replace("data:", "").trim();
+      if (dataStr === "[DONE]") continue;
 
       try {
-        const json = JSON.parse(dataLine);
+        const json = JSON.parse(dataStr);
         const token = json.choices?.[0]?.delta?.content || "";
         reply += token;
         if (options.onStream) options.onStream(token);
       } catch {
-        continue;
+        // ignora
       }
     }
   }
 
-  return reply.replace(/<｜begin▁of▁sentence｜>$/, "");
+  return reply;
 }
