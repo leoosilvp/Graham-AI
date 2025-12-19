@@ -13,7 +13,6 @@ export function useChats() {
     localStorage.getItem("activeChatId") || null
   );
 
-  // Carrega todos os chats do localStorage
   const loadChats = useCallback(() => {
     try {
       const saved = JSON.parse(localStorage.getItem("chats") || "[]");
@@ -34,7 +33,6 @@ export function useChats() {
     }
   }, []);
 
-  // Salva chats no localStorage e dispara evento de atualização
   const saveChats = useCallback((updated) => {
     const normalized = updated.map((chat) => ({
       ...chat,
@@ -46,7 +44,6 @@ export function useChats() {
     window.dispatchEvent(new CustomEvent("chatsUpdated"));
   }, []);
 
-  // Deleta um chat específico
   const deleteChat = useCallback(
     (id) => {
       const updated = chats.filter((c) => c.id !== id);
@@ -58,12 +55,12 @@ export function useChats() {
         window.dispatchEvent(
           new CustomEvent("openChat", { detail: { id: null } })
         );
+        window.location.reload();
       }
     },
     [chats, activeChatId, saveChats]
   );
 
-  // Atualiza título de chat
   const updateChatTitle = useCallback(
     (id, newTitle) => {
       const updated = chats.map((c) =>
@@ -76,14 +73,13 @@ export function useChats() {
     [chats, saveChats]
   );
 
-  // Abre chat ativo sem recarregar a página
   const openChat = useCallback((id) => {
     localStorage.setItem("activeChatId", id);
     setActiveChatId(id);
     window.dispatchEvent(new CustomEvent("openChat", { detail: { id } }));
+    window.location.reload();
   }, []);
 
-  // Listener para atualizações e tokens de uso
   useEffect(() => {
     loadChats();
 
@@ -97,10 +93,10 @@ export function useChats() {
         const updated = prev.map((chat) =>
           chat.id === chatId
             ? {
-                ...chat,
-                usageToken: (chat.usageToken ?? 0) + tokens,
-                updatedAt: Date.now(),
-              }
+              ...chat,
+              usageToken: (chat.usageToken ?? 0) + tokens,
+              updatedAt: Date.now(),
+            }
             : chat
         );
         localStorage.setItem("chats", JSON.stringify(updated));
