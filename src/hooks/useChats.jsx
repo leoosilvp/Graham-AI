@@ -16,32 +16,30 @@ export function useChats() {
   const loadChats = useCallback(() => {
     try {
       const saved = JSON.parse(localStorage.getItem("chats") || "[]");
-
       const normalized = saved.map((chat) => ({
         ...chat,
         date: chat.date || getTodayDate(),
         usageToken: chat.usageToken ?? 0,
+        messages: chat.messages || [],
       }));
-
       const sorted = normalized.sort(
         (a, b) => (b.updatedAt || 0) - (a.updatedAt || 0)
       );
-
       setChats(sorted);
     } catch {
       setChats([]);
     }
   }, []);
 
-  const saveChats = useCallback((updated) => {
+  const saveChats = useCallback((updated, emitEvent = true) => {
     const normalized = updated.map((chat) => ({
       ...chat,
       usageToken: chat.usageToken ?? 0,
+      messages: chat.messages || [],
     }));
-
     localStorage.setItem("chats", JSON.stringify(normalized));
     setChats(normalized);
-    window.dispatchEvent(new CustomEvent("chatsUpdated"));
+    if (emitEvent) window.dispatchEvent(new CustomEvent("chatsUpdated"));
   }, []);
 
   const deleteChat = useCallback(
@@ -83,8 +81,6 @@ export function useChats() {
   useEffect(() => {
     loadChats();
 
-    const onUpdated = () => loadChats();
-
     const onUsage = (e) => {
       const { chatId, tokens } = e.detail || {};
       if (!chatId || tokens == null) return;
@@ -104,11 +100,9 @@ export function useChats() {
       });
     };
 
-    window.addEventListener("chatsUpdated", onUpdated);
     window.addEventListener("chatUsage", onUsage);
 
     return () => {
-      window.removeEventListener("chatsUpdated", onUpdated);
       window.removeEventListener("chatUsage", onUsage);
     };
   }, [loadChats]);
