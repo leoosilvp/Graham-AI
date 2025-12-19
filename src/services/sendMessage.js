@@ -29,14 +29,15 @@ export async function sendMessageToAI(messages, files, options = {}) {
     buffer = parts.pop();
 
     for (const part of parts) {
-
       if (part.startsWith("event: usage")) {
         const dataLine = part
           .split("\n")
           .find((l) => l.startsWith("data:"));
 
         if (dataLine) {
-          const payload = JSON.parse(dataLine.replace("data:", "").trim());
+          const payload = JSON.parse(
+            dataLine.replace("data:", "").trim()
+          );
 
           window.dispatchEvent(
             new CustomEvent("chatUsage", {

@@ -43,6 +43,7 @@ function Chat() {
 
   const openChatById = useCallback((id) => {
     if (!id) return;
+
     setChatId(id);
     localStorage.setItem("activeChatId", id);
 
@@ -51,13 +52,20 @@ function Chat() {
     const chat = all.find((c) => c.id === id);
 
     if (chat) {
-      setMessages(chat.messages || []);
-      setStarted((chat.messages?.length || 0) > 0);
+      const normalizedMessages = (chat.messages || []).map((m) =>
+        m.streaming ? { ...m, streaming: false } : m
+      );
+
+      setMessages(normalizedMessages);
+      setStarted(normalizedMessages.length > 0);
+      setLoading(false);
     } else {
       setMessages([]);
       setStarted(false);
+      setLoading(false);
     }
   }, []);
+
 
   useEffect(() => {
     const lastId = localStorage.getItem("activeChatId");
@@ -289,7 +297,7 @@ function Chat() {
 
             <Credits />
           </section>
-          
+
           <section className="presentation">
             <h1>Olá {username}! O que posso fazer por ti?</h1>
             <h2>Navegue pela IA mais eficiente do mercado!</h2>
