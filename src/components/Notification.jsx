@@ -1,27 +1,29 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import '../css/notification.css';
 import useNotification from '../hooks/useNotification';
-import icon from "../assets/img/icon-light.svg"
+import icon from "../assets/img/icon-light.svg";
 
 const Notification = () => {
   const { notifications, loading, error } = useNotification();
+  const [filter, setFilter] = useState('Todas');
 
   if (loading) {
-    return <main className="notification-loading"><img src={icon}/></main>;
+    return <main className="notification-loading"><img src={icon} /></main>;
   }
 
   if (error) {
     return <main className="notification-error">Erro ao buscar notificações!</main>;
   }
 
+  const filteredNotifications = notifications.filter(item => {
+    if (filter === 'Todas') return true;
+    return item.type === filter;
+  });
+
   return (
     <main className='ctn-notification-page'>
-      <Link
-        to='/chat'
-        className='close-notification-btn'
-        title='Fechar'
-        aria-label='Fechar notificações'
-      >
+      <Link to='/chat' className='close-notification-btn' title='Fechar'>
         <i className='fa-solid fa-xmark' />
       </Link>
 
@@ -30,8 +32,22 @@ const Notification = () => {
           <h1>Notificações</h1>
         </section>
 
+        <section className='notification-type-change'>
+          <button className={filter === 'Todas' ? 'active' : ''} onClick={() => setFilter('Todas')}>
+            Todas
+          </button>
+
+          <button className={filter === 'Notificação' ? 'active' : ''} onClick={() => setFilter('Notificação')}>
+            Notificação
+          </button>
+
+          <button className={filter === 'Mensagem' ? 'active' : ''} onClick={() => setFilter('Mensagem')}>
+            Mensagem
+          </button>
+        </section>
+
         <section className='notification-feed'>
-          {notifications.map(item => (
+          {filteredNotifications.map(item => (
             <article className='ctn-notification' key={item.id}>
               <section className='notification-date'>
                 <h1>{item.type}</h1>
@@ -39,9 +55,7 @@ const Notification = () => {
               </section>
 
               <section className='notification'>
-                {item.videoUrl && (
-                  <video src={item.videoUrl} controls />
-                )}
+                {item.videoUrl && <video src={item.videoUrl} controls />}
 
                 {item.imgUrl && (
                   <img src={item.imgUrl} alt={item.title} />
