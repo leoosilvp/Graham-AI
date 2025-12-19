@@ -17,9 +17,18 @@
     display: none;
 }
 
+.credits-ctn.opened {
+    padding: 0;
+    margin: 0;
+    position: initial;
+    width: 100%;
+}
+
 .credits.opened {
+    margin-top: 10px;
+    position: initial;
     display: flex;
-    width: 548px;
+    width: 100%;
 }
 
 .credits-btn i {

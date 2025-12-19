@@ -451,6 +451,81 @@
     color: #3b72e9;
 }
 
+.usage-ctn{
+    margin-top: 15px;
+    margin-bottom: -20px;
+    display: flex;
+    flex-direction: column;
+    max-height: 235px;
+    border: 1px solid #303030;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.usage-header{
+    display: flex;
+    padding: 10px 15px;
+    justify-content: space-between;
+    background: #1e1e1e;
+    border-bottom: 1px solid #303030;
+}
+
+.usage-header h1{
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #969696;
+}
+
+.usage-content{
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.usage-content::-webkit-scrollbar{
+    display: flex;
+    width: 5px;
+}
+
+.usage-content::-webkit-scrollbar-thumb{
+    background: #303030;
+    border-radius: 50px;
+}
+
+.usage{
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #303030;
+    cursor: pointer;
+}
+
+.usage:hover{
+    background: #1e1e1e;
+}
+
+.usage h3{
+    font-size: 0.85rem;
+    font-weight: 200;
+    color: #c4c4c4;
+}
+
+.card-usage-title{
+    display: flex;
+    width: 220px;
+}
+
+.card-usage-data{
+    display: flex;
+    width: 190px;
+}
+
+.card-usage-total{
+    display: flex;
+    justify-content: end;
+    width: 50px;
+}
+
 @media (width < 720px) {
     .ctn-settings {
         width: 100%;

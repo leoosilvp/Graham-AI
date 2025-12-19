@@ -23,7 +23,7 @@ const Credits = ({ opened }) => {
                 500
             </article>
 
-            <section className={`credits-ctn ${open ? 'open' : 'close'}`} onMouseEnter={() => setOpen(true)}>
+            <section className={`credits-ctn ${open ? 'open' : 'close'} ${opened ? 'opened' : ''}`} onMouseEnter={() => setOpen(true)}>
                 <article className={`credits ${open ? 'open' : 'close'} ${opened ? 'opened' : ''}`} onMouseEnter={() => setOpen(true)}>
                     <section className='credits-header'>
                         <h1>BASIC</h1>
