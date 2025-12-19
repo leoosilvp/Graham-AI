@@ -21,6 +21,10 @@ export function useChats() {
         ...chat,
         date: chat.date || getTodayDate(),
         usageToken: chat.usageToken ?? 0,
+        messages: (chat.messages || []).map((m) => ({
+          ...m,
+          streaming: false,
+        })),
       }));
 
       const sorted = normalized.sort(
@@ -88,13 +92,12 @@ export function useChats() {
         const updated = prev.map((chat) =>
           chat.id === chatId
             ? {
-                ...chat,
-                usageToken: (chat.usageToken ?? 0) + tokens,
-                updatedAt: Date.now(),
-              }
+              ...chat,
+              usageToken: (chat.usageToken ?? 0) + tokens,
+              updatedAt: Date.now(),
+            }
             : chat
         );
-
         localStorage.setItem("chats", JSON.stringify(updated));
         return updated;
       });
