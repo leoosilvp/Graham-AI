@@ -1,3 +1,5 @@
+import { encode } from "gpt-tokenizer";
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -34,6 +36,9 @@ export default async function handler(req, res) {
       messages: [systemPrompt, ...fileMessages, ...messages],
     };
 
+    const inputText = payload.messages.map(m => m.content).join("\n");
+    const inputTokens = encode(inputText).length;
+
     const response = await fetch(
       "https://openrouter.ai/api/v1/chat/completions",
       {
@@ -52,10 +57,6 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: "Erro na comunicação com a OpenRouter" });
     }
 
-    const usageHeader = response.headers.get("x-openrouter-usage");
-    const usage = usageHeader ? JSON.parse(usageHeader) : null;
-    const totalTokens = usage?.total_tokens || 0;
-
     res.writeHead(200, {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache, no-transform",
@@ -65,15 +66,24 @@ export default async function handler(req, res) {
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
 
+    let fullResponse = "";
+
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
 
       const chunk = decoder.decode(value);
+      fullResponse += chunk;
       res.write(chunk);
     }
 
-    res.write(`event: usage\ndata: ${JSON.stringify({ totalTokens })}\n\n`);
+    const outputTokens = encode(fullResponse).length;
+    const totalTokens = inputTokens + outputTokens;
+
+    res.write(
+      `event: usage\ndata: ${JSON.stringify({ tokens: totalTokens })}\n\n`
+    );
+
     res.write("data: [DONE]\n\n");
     res.end();
   } catch (err) {
