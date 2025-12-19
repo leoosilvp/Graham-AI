@@ -34,10 +34,16 @@ export function useChats() {
   }, []);
 
   const saveChats = useCallback((updated) => {
-    localStorage.setItem("chats", JSON.stringify(updated));
-    setChats(updated);
+    const normalized = updated.map((chat) => ({
+      ...chat,
+      usageToken: chat.usageToken ?? 0,
+    }));
+
+    localStorage.setItem("chats", JSON.stringify(normalized));
+    setChats(normalized);
     window.dispatchEvent(new CustomEvent("chatsUpdated"));
   }, []);
+
 
   const deleteChat = useCallback(
     (id) => {
