@@ -42,6 +42,15 @@ export function useChats() {
     if (emitEvent) window.dispatchEvent(new CustomEvent("chatsUpdated"));
   }, []);
 
+  const updateChatMessages = useCallback((chatId, newMessages) => {
+    const updated = chats.map((chat) =>
+      chat.id === chatId
+        ? { ...chat, messages: newMessages, updatedAt: Date.now() }
+        : chat
+    );
+    saveChats(updated);
+  }, [chats, saveChats]);
+
   const deleteChat = useCallback(
     (id) => {
       const updated = chats.filter((c) => c.id !== id);
@@ -92,6 +101,7 @@ export function useChats() {
                 ...chat,
                 usageToken: (chat.usageToken ?? 0) + tokens,
                 updatedAt: Date.now(),
+                messages: chat.messages || [],
               }
             : chat
         );
@@ -113,6 +123,7 @@ export function useChats() {
     openChat,
     deleteChat,
     updateChatTitle,
+    updateChatMessages,
     reload: loadChats,
   };
 }
