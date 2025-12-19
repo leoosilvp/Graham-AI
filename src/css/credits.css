@@ -13,6 +13,15 @@
     color: #c4c4c4;
 }
 
+.credits-btn.opened {
+    display: none;
+}
+
+.credits.opened {
+    display: flex;
+    width: 548px;
+}
+
 .credits-btn i {
     font-size: 1rem;
 }
@@ -142,6 +151,10 @@
     font-size: 0.85rem;
     color: #8d8d8d;
     transition: all 0.1s ease;
+}
+
+.credits-content a.opened{
+    display: none;
 }
 
 .credits-content a i {
