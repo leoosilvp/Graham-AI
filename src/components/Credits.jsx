@@ -52,7 +52,7 @@ const Credits = ({ opened }) => {
                             <h2>Atualizar para © 500 às 00:00 todos os dias</h2>
                         </div>
 
-                        <Link to='/chat/settings' className={`${opened ? 'opened' : ''}`}>
+                        <Link to='/chat/settings/usage' className={`${opened ? 'opened' : ''}`}>
                             Ver consumo <i className='fa-solid fa-chevron-right' />
                         </Link>
                     </section>
