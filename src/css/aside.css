@@ -38,6 +38,7 @@ aside::-webkit-scrollbar-thumb {
     display: flex;
     align-items: center;
     gap: 7px;
+    z-index: 2;
 }
 
 .aside-logo {

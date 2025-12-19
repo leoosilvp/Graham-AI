@@ -118,7 +118,7 @@
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    background-image: url('../assets/img/background.gif');
+    background-image: url('https://anonymousai-hub.github.io/DB/img/background.gif');
     background-size: cover;
     background-repeat: no-repeat;
 }

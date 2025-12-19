@@ -282,7 +282,7 @@ function Chat() {
         <>
           <section className="chat-header">
             <article className="notification-btn">
-              <Link title="Notificações">
+              <Link to='/notification' title="Notificações">
                 <i className="fa-regular fa-bell" />
               </Link>
             </article>
