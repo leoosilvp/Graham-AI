@@ -36,7 +36,7 @@ export default async function handler(req, res) {
       messages: [systemPrompt, ...fileMessages, ...messages],
     };
 
-    const inputText = payload.messages.map(m => m.content).join("\n");
+    const inputText = payload.messages.map((m) => m.content).join("\n");
     const inputTokens = encode(inputText).length;
 
     const response = await fetch(
@@ -64,20 +64,39 @@ export default async function handler(req, res) {
     });
 
     const reader = response.body.getReader();
-    const decoder = new TextDecoder();
+    const decoder = new TextDecoder("utf-8");
 
-    let fullResponse = "";
+    let buffer = "";
+    let assistantText = "";
 
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
 
-      const chunk = decoder.decode(value);
-      fullResponse += chunk;
+      const chunk = decoder.decode(value, { stream: true });
       res.write(chunk);
+      buffer += chunk;
+
+      const parts = buffer.split("\n\n");
+      buffer = parts.pop();
+
+      for (const part of parts) {
+        if (!part.startsWith("data:")) continue;
+
+        const dataStr = part.replace("data:", "").trim();
+        if (dataStr === "[DONE]") continue;
+
+        try {
+          const json = JSON.parse(dataStr);
+          const delta = json.choices?.[0]?.delta?.content;
+          if (delta) assistantText += delta;
+        } catch {
+          // ignora
+        }
+      }
     }
 
-    const outputTokens = encode(fullResponse).length;
+    const outputTokens = encode(assistantText).length;
     const totalTokens = inputTokens + outputTokens;
 
     res.write(
