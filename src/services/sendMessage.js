@@ -5,6 +5,8 @@ export async function sendMessageToAI(messages, files, options = {}) {
     options.signal.addEventListener("abort", () => controller.abort());
   }
 
+  console.log("Enviando mensagem para IA, chatId:", options.chatId);
+
   const response = await fetch("/api/chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -27,7 +29,6 @@ export async function sendMessageToAI(messages, files, options = {}) {
 
   let buffer = "";
   let reply = "";
-  let usageData = null;
 
   while (true) {
     const { done, value } = await reader.read();
@@ -39,22 +40,21 @@ export async function sendMessageToAI(messages, files, options = {}) {
     buffer = lines.pop() || "";
 
     for (const line of lines) {
-      if (line.startsWith("event:")) {
-        const eventType = line.replace("event:", "").trim();
+      if (line.trim() === "") continue;
 
-        continue;
-      }
+      if (line.startsWith("data: ")) {
+        const data = line.slice(6).trim();
 
-      if (line.startsWith("data:")) {
-        const data = line.replace("data:", "").trim();
-
-        if (data === "[DONE]") continue;
+        if (data === "[DONE]") {
+          console.log("Stream finalizado");
+          return reply;
+        }
 
         try {
           const json = JSON.parse(data);
 
-          if (json.totalTokens !== undefined) {
-            usageData = json;
+          if (json.type === "usage" && json.totalTokens !== undefined) {
+            console.log("Recebido uso de tokens:", json);
 
             if (options.chatId) {
               window.dispatchEvent(
@@ -74,9 +74,8 @@ export async function sendMessageToAI(messages, files, options = {}) {
             reply += token;
             if (options.onStream) options.onStream(token);
           }
-        } catch {
-          // ignore
-          continue;
+        } catch (err) {
+          console.warn("Erro ao parsear linha:", line, err);
         }
       }
     }

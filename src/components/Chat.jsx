@@ -294,7 +294,8 @@ function Chat() {
   useEffect(() => {
     const handleChatUsage = (e) => {
       const { chatId, tokens } = e.detail || {};
-      if (chatId && tokens) {
+      if (chatId && tokens !== undefined) {
+        console.log(`Recebido uso de tokens para chat ${chatId}: ${tokens}`);
         updateChatTokens(chatId, tokens);
       }
     };

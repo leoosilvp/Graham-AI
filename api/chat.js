@@ -50,6 +50,8 @@ export default async function handler(req, res) {
       countTokensFromMessages(fileMessages) +
       countTokensFromMessages(messages);
 
+    console.log(`Input tokens: ${inputTokens} for chat ${chatId}`);
+
     const response = await fetch(
       "https://openrouter.ai/api/v1/chat/completions",
       {
@@ -79,6 +81,7 @@ export default async function handler(req, res) {
 
     let buffer = "";
     let outputTokens = 0;
+    let receivedFirstToken = false;
 
     while (true) {
       const { done, value } = await reader.read();
@@ -86,39 +89,46 @@ export default async function handler(req, res) {
 
       buffer += decoder.decode(value, { stream: true });
 
-      const events = buffer.split("\n\n");
-      buffer = events.pop();
+      const lines = buffer.split("\n");
+      buffer = lines.pop() || "";
 
-      for (const evt of events) {
-        res.write(evt + "\n\n");
+      for (const line of lines) {
+        if (line.trim() === "") continue;
 
-        if (!evt.startsWith("data:")) continue;
+        if (line.startsWith("data: ")) {
+          const data = line.slice(6).trim();
 
-        const data = evt.replace("data:", "").trim();
-        if (data === "[DONE]") continue;
+          if (data === "[DONE]") {
+            const totalTokens = inputTokens + outputTokens;
+            console.log(`Total tokens: ${totalTokens} for chat ${chatId}`);
 
-        try {
-          const json = JSON.parse(data);
-          const content = json.choices?.[0]?.delta?.content;
-          if (content) {
-            outputTokens += countTokens(content);
+            res.write(`data: ${JSON.stringify({ type: "usage", chatId, totalTokens })}\n\n`);
+            res.write(`data: [DONE]\n\n`);
+            continue;
           }
-        } catch {
-          // ignore
+
+          try {
+            const json = JSON.parse(data);
+            const content = json.choices?.[0]?.delta?.content;
+
+            if (content) {
+              if (!receivedFirstToken) {
+                receivedFirstToken = true;
+                console.log("Recebendo stream da IA...");
+              }
+
+              outputTokens += countTokens(content);
+              res.write(`data: ${JSON.stringify(json)}\n\n`);
+            } else if (json.choices?.[0]?.delta?.role) {
+              res.write(`data: ${JSON.stringify(json)}\n\n`);
+            }
+          } catch (err) {
+            console.error("Erro ao parsear JSON:", err, "Data:", data);
+          }
         }
       }
     }
 
-    const totalTokens = inputTokens + outputTokens;
-    
-    res.write(`event: usage\n`);
-    res.write(`data: ${JSON.stringify({
-      chatId,
-      totalTokens,
-    })}\n\n`);
-    
-    res.write(`event: done\n`);
-    res.write(`data: [DONE]\n\n`);
     res.end();
 
   } catch (err) {

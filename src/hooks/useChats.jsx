@@ -2,9 +2,9 @@ import { useState, useEffect, useCallback } from "react";
 
 function getTodayDate() {
   const now = new Date();
-  return `${String(now.getDate()).padStart(2, "0")}-${String(
+  return `${String(now.getDate()).padStart(2, "0")}/${String(
     now.getMonth() + 1
-  ).padStart(2, "0")}-${now.getFullYear()}`;
+  ).padStart(2, "0")}/${now.getFullYear()}`;
 }
 
 export function useChats() {
@@ -16,17 +16,19 @@ export function useChats() {
   const loadChats = useCallback(() => {
     try {
       const saved = JSON.parse(localStorage.getItem("chats") || "[]");
+      console.log("Chats carregados do localStorage:", saved);
 
       const normalized = saved.map((chat) => ({
         ...chat,
         date: chat.date || getTodayDate(),
-        usageToken: chat.usageToken ?? 0,
+        usageToken: chat.usageToken || 0,
       }));
 
       const sorted = normalized.sort(
         (a, b) => (b.updatedAt || 0) - (a.updatedAt || 0)
       );
 
+      console.log("Chats normalizados e ordenados:", sorted);
       setChats(sorted);
     } catch (err) {
       console.error("Erro ao carregar chats:", err);
@@ -36,12 +38,42 @@ export function useChats() {
 
   const saveChats = useCallback((updated) => {
     try {
+      console.log("Salvando chats:", updated);
       localStorage.setItem("chats", JSON.stringify(updated));
       setChats(updated);
       window.dispatchEvent(new CustomEvent("chatsUpdated"));
     } catch (err) {
       console.error("Erro ao salvar chats:", err);
     }
+  }, []);
+
+  const updateChatTokens = useCallback((chatId, tokens) => {
+    console.log(`Atualizando tokens para chat ${chatId}: ${tokens}`);
+    setChats((prevChats) => {
+      const chatExists = prevChats.find(chat => chat.id === chatId);
+      if (!chatExists) {
+        console.log(`Chat ${chatId} não encontrado para atualizar tokens`);
+        return prevChats;
+      }
+
+      const updated = prevChats.map((chat) => {
+        if (chat.id === chatId) {
+          const updatedChat = {
+            ...chat,
+            usageToken: tokens,
+            updatedAt: Date.now(),
+          };
+          console.log("Chat atualizado:", updatedChat);
+          return updatedChat;
+        }
+        return chat;
+      });
+
+      localStorage.setItem("chats", JSON.stringify(updated));
+      console.log("Chats atualizados no localStorage");
+
+      return updated;
+    });
   }, []);
 
   const deleteChat = useCallback(
@@ -95,17 +127,27 @@ export function useChats() {
   useEffect(() => {
     loadChats();
 
+    const handleChatUsage = (e) => {
+      console.log("Evento chatUsage recebido:", e.detail);
+      const { chatId, tokens } = e.detail || {};
+      if (chatId && tokens !== undefined) {
+        updateChatTokens(chatId, tokens);
+      }
+    };
+
     const onUpdated = () => {
       console.log("Chats atualizados, recarregando...");
       loadChats();
     };
 
+    window.addEventListener("chatUsage", handleChatUsage);
     window.addEventListener("chatsUpdated", onUpdated);
 
     return () => {
+      window.removeEventListener("chatUsage", handleChatUsage);
       window.removeEventListener("chatsUpdated", onUpdated);
     };
-  }, [loadChats]);
+  }, [loadChats, updateChatTokens]);
 
   return {
     chats,
@@ -114,5 +156,6 @@ export function useChats() {
     deleteChat,
     updateChatTitle,
     reload: loadChats,
+    updateChatTokens,
   };
 }
