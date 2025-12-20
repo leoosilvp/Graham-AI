@@ -37,7 +37,7 @@ const Usage = () => {
               </h3>
 
               <h3 className="card-usage-total">
-                -{chat.usageToken}
+                - {chat.usageToken?.toLocaleString("pt-BR") ?? 0}
               </h3>
             </article>
           ))}
