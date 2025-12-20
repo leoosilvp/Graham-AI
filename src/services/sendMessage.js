@@ -19,8 +19,6 @@ export async function sendMessageToAI(messages, files, options = {}) {
   let buffer = "";
   let reply = "";
 
-  let currentEvent = "message";
-
   while (true) {
     const { done, value } = await reader.read();
     if (done) break;
@@ -31,6 +29,7 @@ export async function sendMessageToAI(messages, files, options = {}) {
     buffer = events.pop();
 
     for (const evt of events) {
+      let currentEvent = "message";
       const lines = evt.split("\n");
 
       for (const line of lines) {

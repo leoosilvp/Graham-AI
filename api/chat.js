@@ -1,3 +1,5 @@
+import { encode } from "gpt-tokenizer";
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -14,12 +16,13 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: "Chave da OpenRouter não configurada." });
     }
 
-    function countTokensFromText(text = "") {
-      return Math.ceil(text.length / 4);
+    function countTokens(text = "") {
+      if (!text) return 0;
+      return encode(text).length;
     }
 
     function countTokensFromMessages(msgs = []) {
-      return msgs.reduce((acc, m) => acc + countTokensFromText(m.content), 0);
+      return msgs.reduce((acc, m) => acc + countTokens(m.content || ""), 0);
     }
 
     let fileMessages = [];
@@ -98,9 +101,9 @@ export default async function handler(req, res) {
           const json = JSON.parse(data);
           const content = json.choices?.[0]?.delta?.content;
           if (content) {
-            outputTokens += countTokensFromText(content);
+            outputTokens += countTokens(content);
           }
-        } catch { 
+        } catch {
           // ignore
         }
       }

@@ -82,14 +82,15 @@ export function useChats() {
 
     const onUsage = (e) => {
       const { chatId, tokens } = e.detail || {};
-      if (!chatId || !tokens) return;
+
+      if (!chatId || typeof tokens !== "number") return;
 
       setChats((prev) => {
         const updated = prev.map((chat) =>
           chat.id === chatId
             ? {
               ...chat,
-              usageToken: (chat.usageToken ?? 0) + tokens,
+              usageToken: tokens,
               updatedAt: Date.now(),
             }
             : chat
@@ -99,6 +100,7 @@ export function useChats() {
         return updated;
       });
     };
+
 
     window.addEventListener("chatsUpdated", onUpdated);
     window.addEventListener("chatUsage", onUsage);
