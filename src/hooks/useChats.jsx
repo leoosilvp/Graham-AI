@@ -1,123 +1,124 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 
-function getTodayDate() {
-  const now = new Date();
-  return `${String(now.getDate()).padStart(2, "0")}-${String(
-    now.getMonth() + 1
-  ).padStart(2, "0")}-${now.getFullYear()}`;
-}
+const CHATS_STORAGE_KEY = "chats";
 
-export function useChats() {
-  const [chats, setChats] = useState([]);
-  const [activeChatId, setActiveChatId] = useState(
-    localStorage.getItem("activeChatId") || null
-  );
+const loadChatsFromLocalStorage = () => {
+  try {
+    const chats = localStorage.getItem(CHATS_STORAGE_KEY);
+    // Garante que o usageToken seja inicializado para chats antigos
+    return chats ? JSON.parse(chats).map(chat => ({ ...chat, usageToken: chat.usageToken ?? 0 })) : [];
+  } catch (error) {
+    console.error("Erro ao carregar chats do localStorage:", error);
+    return [];
+  }
+};
 
-  const loadChats = useCallback(() => {
-    try {
-      const saved = JSON.parse(localStorage.getItem("chats") || "[]");
+const saveChatsToLocalStorage = (chats) => {
+  try {
+    localStorage.setItem(CHATS_STORAGE_KEY, JSON.stringify(chats));
+  } catch (error) {
+    console.error("Erro ao salvar chats no localStorage:", error);
+  }
+};
 
-      const normalized = saved.map((chat) => ({
-        ...chat,
-        date: chat.date || getTodayDate(),
-        usageToken: chat.usageToken ?? 0,
-      }));
-
-      const sorted = normalized.sort(
-        (a, b) => (b.updatedAt || 0) - (a.updatedAt || 0)
-      );
-
-      setChats(sorted);
-    } catch {
-      setChats([]);
-    }
-  }, []);
-
-  const saveChats = useCallback((updated) => {
-    localStorage.setItem("chats", JSON.stringify(updated));
-    setChats(updated);
-    window.dispatchEvent(new CustomEvent("chatsUpdated"));
-  }, []);
-
-  const deleteChat = useCallback(
-    (id) => {
-      const updated = chats.filter((c) => c.id !== id);
-      saveChats(updated);
-
-      if (id === activeChatId) {
-        localStorage.removeItem("activeChatId");
-        setActiveChatId(null);
-        window.dispatchEvent(
-          new CustomEvent("openChat", { detail: { id: null } })
-        );
-        window.location.reload();
-      }
-    },
-    [chats, activeChatId, saveChats]
-  );
-
-  const updateChatTitle = useCallback(
-    (id, newTitle) => {
-      const updated = chats.map((c) =>
-        c.id === id
-          ? { ...c, title: newTitle.trim(), updatedAt: Date.now() }
-          : c
-      );
-      saveChats(updated);
-    },
-    [chats, saveChats]
-  );
-
-  const openChat = useCallback((id) => {
-    localStorage.setItem("activeChatId", id);
-    setActiveChatId(id);
-    window.dispatchEvent(new CustomEvent("openChat", { detail: { id } }));
-    window.location.href = "/chat";
-  }, []);
+export const useChats = () => {
+  const [chats, setChats] = useState(loadChatsFromLocalStorage());
+  const [activeChatId, setActiveChatId] = useState(null);
 
   useEffect(() => {
-    loadChats();
+    if (chats.length > 0 && !activeChatId) {
+      setActiveChatId(chats[0].id);
+    }
+  }, [chats, activeChatId]);
 
-    const onUpdated = () => loadChats();
+  const createNewChat = () => {
+    const newChat = {
+      id: uuidv4(),
+      title: "Novo Chat",
+      date: new Date().toLocaleDateString("pt-BR"),
+      messages: [],
+      usageToken: 0, // Inicializa o contador de tokens
+    };
+    setChats((prevChats) => {
+      const newChats = [newChat, ...prevChats];
+      saveChatsToLocalStorage(newChats);
+      return newChats;
+    });
+    setActiveChatId(newChat.id);
+  };
 
-    const onUsage = (e) => {
-      const { chatId, tokens } = e.detail || {};
+  const openChat = (chatId) => {
+    setActiveChatId(chatId);
+  };
 
-      if (!chatId || typeof tokens !== "number") return;
+  const deleteChat = (chatId) => {
+    setChats((prevChats) => {
+      const newChats = prevChats.filter((chat) => chat.id !== chatId);
+      saveChatsToLocalStorage(newChats);
+      if (activeChatId === chatId) {
+        setActiveChatId(newChats.length > 0 ? newChats[0].id : null);
+      }
+      return newChats;
+    });
+  };
 
-      setChats((prev) => {
-        const updated = prev.map((chat) =>
-          chat.id === chatId
-            ? {
-              ...chat,
-              usageToken: tokens,
-              updatedAt: Date.now(),
+  const updateChatMessages = (chatId, newMessages) => {
+    setChats((prevChats) => {
+      const newChats = prevChats.map((chat) =>
+        chat.id === chatId ? { ...chat, messages: newMessages } : chat
+      );
+      saveChatsToLocalStorage(newChats);
+      return newChats;
+    });
+  };
+
+  // ====================================================================
+  // NOVO CÓDIGO PARA RASTREAMENTO DE USO DE TOKENS
+  // ====================================================================
+
+  useEffect(() => {
+    const handleChatUsage = (event) => {
+      // O evento é disparado pela função sendMessageToAI
+      const { chatId, tokens } = event.detail;
+
+      if (chatId && tokens !== undefined) {
+        setChats((prevChats) => {
+          const newChats = prevChats.map((chat) => {
+            if (chat.id === chatId) {
+              // Atualiza o usageToken com o total de tokens fornecido pelo evento
+              return { ...chat, usageToken: tokens };
             }
-            : chat
-        );
-
-        localStorage.setItem("chats", JSON.stringify(updated));
-        return updated;
-      });
-      console.log("USAGE EVENT RECEIVED:", e.detail);
+            return chat;
+          });
+          
+          // Salva o estado atualizado no localStorage
+          saveChatsToLocalStorage(newChats);
+          return newChats;
+        });
+      }
     };
 
+    // Adiciona o listener para o evento customizado 'chatUsage'
+    window.addEventListener("chatUsage", handleChatUsage);
 
-    window.addEventListener("chatsUpdated", onUpdated);
-    window.addEventListener("chatUsage", onUsage);
-
+    // Remove o listener quando o componente for desmontado
     return () => {
-      window.removeEventListener("chatsUpdated", onUpdated);
-      window.removeEventListener("chatUsage", onUsage);
+      window.removeEventListener("chatUsage", handleChatUsage);
     };
-  }, [loadChats]);
+  }, []); // O array de dependências vazio garante que o listener seja adicionado apenas uma vez
+
+  // ====================================================================
+
+  const activeChat = chats.find((chat) => chat.id === activeChatId);
 
   return {
     chats,
+    activeChat,
     activeChatId,
+    createNewChat,
     openChat,
     deleteChat,
-    updateChatTitle,
-    reload: loadChats,
+    updateChatMessages,
   };
-}
+};
