@@ -24,8 +24,9 @@ export async function sendMessageToAI(messages, files, options = {}) {
   let buffer = "";
   let reply = "";
   let currentEvent = "message";
+  let finished = false;
 
-  while (true) {
+  while (!finished) {
     const { done, value } = await reader.read();
     if (done) break;
 
@@ -47,19 +48,18 @@ export async function sendMessageToAI(messages, files, options = {}) {
 
         const data = line.replace("data:", "").trim();
 
-        if (currentEvent === "done") {
-          return reply;
-        }
-
         if (currentEvent === "usage") {
           try {
             const parsed = JSON.parse(data);
 
-            if (options.chatId && parsed.totalTokens !== undefined) {
+            if (
+              parsed.chatId &&
+              typeof parsed.totalTokens === "number"
+            ) {
               window.dispatchEvent(
                 new CustomEvent("chatUsage", {
                   detail: {
-                    chatId: options.chatId,
+                    chatId: parsed.chatId,
                     tokens: parsed.totalTokens,
                   },
                 })
@@ -71,6 +71,11 @@ export async function sendMessageToAI(messages, files, options = {}) {
           continue;
         }
 
+        if (currentEvent === "done") {
+          finished = true;
+          break;
+        }
+
         if (data === "[DONE]") continue;
 
         try {
@@ -79,7 +84,7 @@ export async function sendMessageToAI(messages, files, options = {}) {
           reply += token;
           if (options.onStream) options.onStream(token);
         } catch {
-          continue;
+          // ignore
         }
       }
     }
