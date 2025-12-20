@@ -50,8 +50,6 @@ export default async function handler(req, res) {
       countTokensFromMessages(fileMessages) +
       countTokensFromMessages(messages);
 
-    console.log(`Input tokens: ${inputTokens} for chat ${chatId}`);
-
     const response = await fetch(
       "https://openrouter.ai/api/v1/chat/completions",
       {
@@ -81,7 +79,6 @@ export default async function handler(req, res) {
 
     let buffer = "";
     let outputTokens = 0;
-    let receivedFirstToken = false;
 
     while (true) {
       const { done, value } = await reader.read();
@@ -100,9 +97,8 @@ export default async function handler(req, res) {
 
           if (data === "[DONE]") {
             const totalTokens = inputTokens + outputTokens;
-            console.log(`Total tokens: ${totalTokens} for chat ${chatId}`);
-
-            res.write(`data: ${JSON.stringify({ type: "usage", chatId, totalTokens })}\n\n`);
+            res.write(`event: usage\ndata: ${JSON.stringify({ chatId, totalTokens })}\n\n`);
+            res.write(`event: complete\ndata: {"status": "completed"}\n\n`);
             res.write(`data: [DONE]\n\n`);
             continue;
           }
@@ -112,18 +108,13 @@ export default async function handler(req, res) {
             const content = json.choices?.[0]?.delta?.content;
 
             if (content) {
-              if (!receivedFirstToken) {
-                receivedFirstToken = true;
-                console.log("Recebendo stream da IA...");
-              }
-
               outputTokens += countTokens(content);
               res.write(`data: ${JSON.stringify(json)}\n\n`);
             } else if (json.choices?.[0]?.delta?.role) {
               res.write(`data: ${JSON.stringify(json)}\n\n`);
             }
           } catch (err) {
-            console.error("Erro ao parsear JSON:", err, "Data:", data);
+            console.error("Erro ao parsear JSON:", err);
           }
         }
       }

@@ -5,8 +5,6 @@ export async function sendMessageToAI(messages, files, options = {}) {
     options.signal.addEventListener("abort", () => controller.abort());
   }
 
-  console.log("Enviando mensagem para IA, chatId:", options.chatId);
-
   const response = await fetch("/api/chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -29,6 +27,7 @@ export async function sendMessageToAI(messages, files, options = {}) {
 
   let buffer = "";
   let reply = "";
+  let currentEvent = "";
 
   while (true) {
     const { done, value } = await reader.read();
@@ -42,20 +41,22 @@ export async function sendMessageToAI(messages, files, options = {}) {
     for (const line of lines) {
       if (line.trim() === "") continue;
 
+      if (line.startsWith("event:")) {
+        currentEvent = line.replace("event:", "").trim();
+        continue;
+      }
+
       if (line.startsWith("data: ")) {
         const data = line.slice(6).trim();
-
+        
         if (data === "[DONE]") {
-          console.log("Stream finalizado");
           return reply;
         }
 
         try {
           const json = JSON.parse(data);
-
-          if (json.type === "usage" && json.totalTokens !== undefined) {
-            console.log("Recebido uso de tokens:", json);
-
+          
+          if (currentEvent === "usage" && json.totalTokens !== undefined) {
             if (options.chatId) {
               window.dispatchEvent(
                 new CustomEvent("chatUsage", {
@@ -68,7 +69,12 @@ export async function sendMessageToAI(messages, files, options = {}) {
             }
             continue;
           }
-
+          
+          if (currentEvent === "complete") {
+            console.log("Stream completado com sucesso");
+            continue;
+          }
+          
           const token = json.choices?.[0]?.delta?.content || "";
           if (token) {
             reply += token;
