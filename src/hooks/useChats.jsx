@@ -28,29 +28,38 @@ export function useChats() {
       );
 
       setChats(sorted);
-    } catch {
+    } catch (err) {
+      console.error("Erro ao carregar chats:", err);
       setChats([]);
     }
   }, []);
 
   const saveChats = useCallback((updated) => {
-    localStorage.setItem("chats", JSON.stringify(updated));
-    setChats(updated);
-    window.dispatchEvent(new CustomEvent("chatsUpdated"));
+    try {
+      localStorage.setItem("chats", JSON.stringify(updated));
+      setChats(updated);
+      window.dispatchEvent(new CustomEvent("chatsUpdated"));
+    } catch (err) {
+      console.error("Erro ao salvar chats:", err);
+    }
   }, []);
 
   const deleteChat = useCallback(
     (id) => {
-      const updated = chats.filter((c) => c.id !== id);
-      saveChats(updated);
+      try {
+        const updated = chats.filter((c) => c.id !== id);
+        saveChats(updated);
 
-      if (id === activeChatId) {
-        localStorage.removeItem("activeChatId");
-        setActiveChatId(null);
-        window.dispatchEvent(
-          new CustomEvent("openChat", { detail: { id: null } })
-        );
-        window.location.reload();
+        if (id === activeChatId) {
+          localStorage.removeItem("activeChatId");
+          setActiveChatId(null);
+          window.dispatchEvent(
+            new CustomEvent("openChat", { detail: { id: null } })
+          );
+          window.location.reload();
+        }
+      } catch (err) {
+        console.error("Erro ao deletar chat:", err);
       }
     },
     [chats, activeChatId, saveChats]
@@ -58,57 +67,43 @@ export function useChats() {
 
   const updateChatTitle = useCallback(
     (id, newTitle) => {
-      const updated = chats.map((c) =>
-        c.id === id
-          ? { ...c, title: newTitle.trim(), updatedAt: Date.now() }
-          : c
-      );
-      saveChats(updated);
+      try {
+        const updated = chats.map((c) =>
+          c.id === id
+            ? { ...c, title: newTitle.trim(), updatedAt: Date.now() }
+            : c
+        );
+        saveChats(updated);
+      } catch (err) {
+        console.error("Erro ao atualizar título:", err);
+      }
     },
     [chats, saveChats]
   );
 
   const openChat = useCallback((id) => {
-    localStorage.setItem("activeChatId", id);
-    setActiveChatId(id);
-    window.dispatchEvent(new CustomEvent("openChat", { detail: { id } }));
-    window.location.href = "/chat";
+    try {
+      localStorage.setItem("activeChatId", id);
+      setActiveChatId(id);
+      window.dispatchEvent(new CustomEvent("openChat", { detail: { id } }));
+      window.location.href = "/chat";
+    } catch (err) {
+      console.error("Erro ao abrir chat:", err);
+    }
   }, []);
 
   useEffect(() => {
     loadChats();
 
-    const onUpdated = () => loadChats();
-
-    const onUsage = (e) => {
-      const { chatId, tokens } = e.detail || {};
-
-      if (!chatId || typeof tokens !== "number") return;
-
-      setChats((prev) => {
-        const updated = prev.map((chat) =>
-          chat.id === chatId
-            ? {
-              ...chat,
-              usageToken: tokens,
-              updatedAt: Date.now(),
-            }
-            : chat
-        );
-
-        localStorage.setItem("chats", JSON.stringify(updated));
-        return updated;
-      });
-      console.log("USAGE EVENT RECEIVED:", e.detail);
+    const onUpdated = () => {
+      console.log("Chats atualizados, recarregando...");
+      loadChats();
     };
 
-
     window.addEventListener("chatsUpdated", onUpdated);
-    window.addEventListener("chatUsage", onUsage);
 
     return () => {
       window.removeEventListener("chatsUpdated", onUpdated);
-      window.removeEventListener("chatUsage", onUsage);
     };
   }, [loadChats]);
 

@@ -8,7 +8,6 @@ export default async function handler(req, res) {
   try {
     const { messages, files, chatId } = req.body;
 
-
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
       return res.status(400).json({ error: "Mensagens não fornecidas." });
     }
@@ -111,21 +110,21 @@ export default async function handler(req, res) {
     }
 
     const totalTokens = inputTokens + outputTokens;
-
+    
     res.write(`event: usage\n`);
-    res.write(
-      `data: ${JSON.stringify({
-        chatId,
-        totalTokens,
-      })}\n\n`
-    );
-
+    res.write(`data: ${JSON.stringify({
+      chatId,
+      totalTokens,
+    })}\n\n`);
+    
     res.write(`event: done\n`);
     res.write(`data: [DONE]\n\n`);
     res.end();
 
   } catch (err) {
     console.error("Erro interno:", err);
-    res.status(500).json({ error: "Erro interno no servidor" });
+    if (!res.headersSent) {
+      res.status(500).json({ error: "Erro interno no servidor" });
+    }
   }
 }

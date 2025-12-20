@@ -151,7 +151,11 @@ function Chat() {
         setLoading(false);
         setMessages((prev) => [
           ...prev,
-          { role: "assistant", content: "⚠️ Conversa cancelada pelo usuário.", ts: Date.now() },
+          {
+            role: "assistant",
+            content: "⚠️ Conversa cancelada pelo usuário.",
+            ts: Date.now()
+          },
         ]);
       }
       return;
@@ -199,8 +203,10 @@ function Chat() {
         ts: Date.now(),
         streaming: true,
       };
-      setMessages([...updatedMsgs, thinkingMsg]);
-      saveChat(idToUse, [...updatedMsgs, thinkingMsg]);
+
+      const initialMessages = [...updatedMsgs, thinkingMsg];
+      setMessages(initialMessages);
+      saveChat(idToUse, initialMessages);
 
       await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -214,6 +220,7 @@ function Chat() {
 
       await sendMessageToAI([systemPrompt, ...updatedMsgs], attachedFiles, {
         signal: abortControllerRef.current.signal,
+        chatId: idToUse,
         onStream: (token) => {
           streamedContent += token;
           setMessages((prev) => {
@@ -236,10 +243,13 @@ function Chat() {
         ts: Date.now(),
       };
 
+      const finalMessages = [...updatedMsgs, finalAssistant];
       setMessages((prev) =>
         prev.map((m) => (m.streaming ? { ...finalAssistant, streaming: false } : m))
       );
-      saveChat(idToUse, [...updatedMsgs, finalAssistant]);
+
+      saveChat(idToUse, finalMessages);
+
     } catch (err) {
       console.error("Erro ao enviar mensagem:", err);
       const errMsg = {
@@ -250,13 +260,52 @@ function Chat() {
             : "❌ Ocorreu um erro inesperado. Tente novamente mais tarde.",
         ts: Date.now(),
       };
-      setMessages((prev) => [...prev.filter((m) => !m.streaming), errMsg]);
-      saveChat(idToUse, [...updatedMsgs, errMsg]);
+
+      const errorMessages = [...updatedMsgs, errMsg];
+      setMessages(errorMessages);
+      saveChat(idToUse, errorMessages);
+
     } finally {
       setLoading(false);
       if (isFirstMessage && idToUse) openChatById(idToUse);
     }
   };
+
+  const updateChatTokens = useCallback((chatId, tokens) => {
+    const stored = localStorage.getItem("chats");
+    if (!stored) return;
+
+    const all = JSON.parse(stored);
+    const updated = all.map(chat => {
+      if (chat.id === chatId) {
+        return {
+          ...chat,
+          usageToken: tokens,
+          updatedAt: Date.now(),
+        };
+      }
+      return chat;
+    });
+
+    localStorage.setItem("chats", JSON.stringify(updated));
+    window.dispatchEvent(new CustomEvent("chatsUpdated"));
+  }, []);
+
+  useEffect(() => {
+    const handleChatUsage = (e) => {
+      const { chatId, tokens } = e.detail || {};
+      if (chatId && tokens) {
+        updateChatTokens(chatId, tokens);
+      }
+    };
+
+    window.addEventListener("chatUsage", handleChatUsage);
+
+    return () => {
+      window.removeEventListener("chatUsage", handleChatUsage);
+    };
+  }, [updateChatTokens]);
+
 
   const toggleConf = useCallback(() => setShowConf((prev) => !prev), []);
 
