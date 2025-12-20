@@ -28,42 +28,17 @@ function Chat() {
   const codeInputRef = useRef(null);
   const abortControllerRef = useRef(null);
 
-  // Carrega mensagens do localStorage ao montar
   useEffect(() => {
     const storedUser = localStorage.getItem("grahamUser");
     if (storedUser) {
       const data = JSON.parse(storedUser);
       setUsername(data.name || data.login || "User");
     }
-
-    // Limpa qualquer estado de streaming pendente
-    const activeId = localStorage.getItem("activeChatId");
-    if (activeId) {
-      const stored = localStorage.getItem("chats");
-      if (stored) {
-        const all = JSON.parse(stored);
-        const chat = all.find((c) => c.id === activeId);
-        
-        if (chat) {
-          // Remove propriedades de streaming das mensagens
-          const cleanedMessages = (chat.messages || []).map(msg => ({
-            ...msg,
-            streaming: false, // Garante que streaming seja false
-            thinking: false
-          }));
-          
-          setMessages(cleanedMessages);
-          setStarted(cleanedMessages.length > 0);
-          setChatId(activeId);
-        }
-      }
-    }
   }, []);
 
   useEffect(() => {
-    if (chatBoxRef.current) {
+    if (chatBoxRef.current)
       chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-    }
   }, [messages]);
 
   const openChatById = useCallback((id) => {
@@ -76,14 +51,8 @@ function Chat() {
     const chat = all.find((c) => c.id === id);
 
     if (chat) {
-      // Limpa estado de streaming ao carregar chat
-      const cleanedMessages = (chat.messages || []).map(msg => ({
-        ...msg,
-        streaming: false,
-        thinking: false
-      }));
-      setMessages(cleanedMessages);
-      setStarted(cleanedMessages.length > 0);
+      setMessages(chat.messages || []);
+      setStarted((chat.messages?.length || 0) > 0);
     } else {
       setMessages([]);
       setStarted(false);
@@ -114,18 +83,7 @@ function Chat() {
       return msg.length >= 19 ? msg.slice(0, 19) + "..." : msg || "Nova conversa";
     })();
 
-    // Remove propriedades de streaming antes de salvar
-    const cleanedMessages = msgs.map(msg => {
-      const { streaming, thinking, ...rest } = msg;
-      return rest;
-    });
-
-    const payload = { 
-      id, 
-      title, 
-      messages: cleanedMessages, 
-      updatedAt: Date.now() 
-    };
+    const payload = { id, title, messages: msgs, updatedAt: Date.now() };
 
     if (idx === -1) all.push(payload);
     else all[idx] = payload;
@@ -135,8 +93,51 @@ function Chat() {
     window.dispatchEvent(new CustomEvent("chatsUpdated"));
   };
 
-  const handleFileSelect = () => {
-    // ... código existente ...
+  const handleFileSelect = (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length === 0) return;
+
+    const validTypes = [
+      "image/png", "image/jpeg", "image/jpg", "image/webp", "image/gif", "image/svg+xml",
+      "text/plain", "application/pdf",
+      "application/javascript", "text/javascript",
+      "text/html", "text/css", "text/markdown",
+      "application/json", "application/xml",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "application/vnd.ms-excel",
+      "application/vnd.ms-powerpoint",
+      "application/zip", "application/x-zip-compressed",
+      "application/x-python-code", "text/x-python",
+    ];
+
+    let errorMsg = "";
+
+    for (const file of files) {
+      if (!validTypes.includes(file.type)) {
+        errorMsg = "Tipo de arquivo inválido!";
+        break;
+      }
+      if (file.size > 10 * 1024 * 1024) {
+        errorMsg = "Arquivo muito grande! Máx: 10MB";
+        break;
+      }
+    }
+
+    if (!errorMsg && attachedFiles.length + files.length > 8) {
+      errorMsg = `Você pode anexar no máximo 8 arquivos!`;
+    }
+
+    if (errorMsg) {
+      setAlertMsg(errorMsg);
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 4000);
+      return;
+    }
+
+    setAttachedFiles((prev) => [...prev, ...files]);
+    setShowConf(false);
   };
 
   const removeFile = (index) => {
@@ -148,15 +149,9 @@ function Chat() {
       if (abortControllerRef.current) {
         abortControllerRef.current.abort();
         setLoading(false);
-        // Remove mensagens de streaming
-        setMessages((prev) => prev.filter(m => !m.streaming));
         setMessages((prev) => [
           ...prev,
-          { 
-            role: "assistant", 
-            content: "⚠️ Conversa cancelada pelo usuário.", 
-            ts: Date.now() 
-          },
+          { role: "assistant", content: "⚠️ Conversa cancelada pelo usuário.", ts: Date.now() },
         ]);
       }
       return;
@@ -200,14 +195,14 @@ function Chat() {
 
       const thinkingMsg = {
         role: "assistant",
-        content: "Humm, deixe-me pensar...",
+        content: "Humm, deixe-me pensar",
         ts: Date.now(),
-        streaming: true, // Marca como streaming
+        streaming: true,
       };
-      
-      const initialMessages = [...updatedMsgs, thinkingMsg];
-      setMessages(initialMessages);
-      saveChat(idToUse, initialMessages);
+      setMessages([...updatedMsgs, thinkingMsg]);
+      saveChat(idToUse, [...updatedMsgs, thinkingMsg]);
+
+      await new Promise((resolve) => setTimeout(resolve, 0));
 
       const systemPrompt = {
         role: "system",
@@ -215,11 +210,10 @@ function Chat() {
           "Você é GrahamAI, um assistente inteligente, detalhista e confiável. Responda com clareza, precisão e empatia, mantendo um tom profissional e simpático. Use emojis apenas quando agregarem ao contexto. Mantenha coerência com o contexto e explique de forma didática. Todas as fórmulas e cálculos devem estar em LaTeX: $...$ (inline) e $$...$$ (bloco). Seja transparente, nunca invente informações. Estilo parecido com o ChatGPT, porém mais humano e acolhedor.",
       };
 
-      let streamedContent = "Humm, deixe-me pensar...";
+      let streamedContent = "";
 
       await sendMessageToAI([systemPrompt, ...updatedMsgs], attachedFiles, {
         signal: abortControllerRef.current.signal,
-        chatId: idToUse,
         onStream: (token) => {
           streamedContent += token;
           setMessages((prev) => {
@@ -236,27 +230,18 @@ function Chat() {
         },
       });
 
-      // Remove a flag de streaming e salva
       const finalAssistant = {
         role: "assistant",
         content: streamedContent || "Resposta vazia.",
         ts: Date.now(),
       };
 
-      const finalMessages = [...updatedMsgs, finalAssistant];
-      
-      // Atualiza estado removendo streaming
-      setMessages(finalMessages);
-      
-      // Salva sem flags de streaming
-      saveChat(idToUse, finalMessages);
-
+      setMessages((prev) =>
+        prev.map((m) => (m.streaming ? { ...finalAssistant, streaming: false } : m))
+      );
+      saveChat(idToUse, [...updatedMsgs, finalAssistant]);
     } catch (err) {
       console.error("Erro ao enviar mensagem:", err);
-      
-      // Remove mensagens de streaming em caso de erro
-      setMessages((prev) => prev.filter(m => !m.streaming));
-      
       const errMsg = {
         role: "assistant",
         content:
@@ -265,18 +250,11 @@ function Chat() {
             : "❌ Ocorreu um erro inesperado. Tente novamente mais tarde.",
         ts: Date.now(),
       };
-      
-      const errorMessages = [...updatedMsgs, errMsg];
-      setMessages(errorMessages);
-      saveChat(idToUse, errorMessages);
-      
+      setMessages((prev) => [...prev.filter((m) => !m.streaming), errMsg]);
+      saveChat(idToUse, [...updatedMsgs, errMsg]);
     } finally {
       setLoading(false);
-      abortControllerRef.current = null;
-      
-      if (isFirstMessage && idToUse) {
-        openChatById(idToUse);
-      }
+      if (isFirstMessage && idToUse) openChatById(idToUse);
     }
   };
 
@@ -296,29 +274,6 @@ function Chat() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showConf]);
-
-  useEffect(() => {
-    const handleBeforeUnload = () => {
-      const stored = localStorage.getItem("chats");
-      if (stored) {
-        const all = JSON.parse(stored);
-        const cleaned = all.map(chat => ({
-          ...chat,
-          messages: (chat.messages || []).map(msg => {
-            const { streaming, thinking, ...rest } = msg;
-            return rest;
-          })
-        }));
-        localStorage.setItem("chats", JSON.stringify(cleaned));
-      }
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, []);
 
   return (
     <div className="hero-chat">
@@ -347,7 +302,7 @@ function Chat() {
             {messages.map((msg) => (
               <div
                 key={msg.ts}
-                className={`message ${msg.role} ${msg.streaming ? "thinking" : ""}`}
+                className={`message ${msg.role} ${msg.thinking ? "thinking" : ""}`}
               >
                 <strong>{msg.role === "user" ? "Você:" : "Graham:"}</strong>{" "}
                 <div className="markdown-wrapper">

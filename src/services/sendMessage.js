@@ -16,18 +16,14 @@ export async function sendMessageToAI(messages, files, options = {}) {
     signal: controller.signal,
   });
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    console.error("Erro na resposta:", errorText);
-    throw new Error("Erro na requisição da IA");
-  }
+  if (!response.ok) throw new Error("Erro na requisição da IA");
 
   const reader = response.body.getReader();
   const decoder = new TextDecoder("utf-8");
 
   let buffer = "";
   let reply = "";
-  let currentEvent = "";
+  let currentEvent = "message";
 
   while (true) {
     const { done, value } = await reader.read();
@@ -35,53 +31,55 @@ export async function sendMessageToAI(messages, files, options = {}) {
 
     buffer += decoder.decode(value, { stream: true });
 
-    const lines = buffer.split("\n");
-    buffer = lines.pop() || "";
+    const events = buffer.split("\n\n");
+    buffer = events.pop();
 
-    for (const line of lines) {
-      if (line.trim() === "") continue;
+    for (const evt of events) {
+      const lines = evt.split("\n");
 
-      if (line.startsWith("event:")) {
-        currentEvent = line.replace("event:", "").trim();
-        continue;
-      }
+      for (const line of lines) {
+        if (line.startsWith("event:")) {
+          currentEvent = line.replace("event:", "").trim();
+          continue;
+        }
 
-      if (line.startsWith("data: ")) {
-        const data = line.slice(6).trim();
-        
-        if (data === "[DONE]") {
+        if (!line.startsWith("data:")) continue;
+
+        const data = line.replace("data:", "").trim();
+
+        if (currentEvent === "done") {
           return reply;
         }
 
-        try {
-          const json = JSON.parse(data);
-          
-          if (currentEvent === "usage" && json.totalTokens !== undefined) {
-            if (options.chatId) {
+        if (currentEvent === "usage") {
+          try {
+            const parsed = JSON.parse(data);
+
+            if (options.chatId && parsed.totalTokens !== undefined) {
               window.dispatchEvent(
                 new CustomEvent("chatUsage", {
                   detail: {
                     chatId: options.chatId,
-                    tokens: json.totalTokens,
+                    tokens: parsed.totalTokens,
                   },
                 })
               );
             }
-            continue;
+          } catch {
+            // ignore
           }
-          
-          if (currentEvent === "complete") {
-            console.log("Stream completado com sucesso");
-            continue;
-          }
-          
+          continue;
+        }
+
+        if (data === "[DONE]") continue;
+
+        try {
+          const json = JSON.parse(data);
           const token = json.choices?.[0]?.delta?.content || "";
-          if (token) {
-            reply += token;
-            if (options.onStream) options.onStream(token);
-          }
-        } catch (err) {
-          console.warn("Erro ao parsear linha:", line, err);
+          reply += token;
+          if (options.onStream) options.onStream(token);
+        } catch {
+          continue;
         }
       }
     }

@@ -8,6 +8,7 @@ export default async function handler(req, res) {
   try {
     const { messages, files, chatId } = req.body;
 
+
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
       return res.status(400).json({ error: "Mensagens não fornecidas." });
     }
@@ -86,46 +87,45 @@ export default async function handler(req, res) {
 
       buffer += decoder.decode(value, { stream: true });
 
-      const lines = buffer.split("\n");
-      buffer = lines.pop() || "";
+      const events = buffer.split("\n\n");
+      buffer = events.pop();
 
-      for (const line of lines) {
-        if (line.trim() === "") continue;
+      for (const evt of events) {
+        res.write(evt + "\n\n");
 
-        if (line.startsWith("data: ")) {
-          const data = line.slice(6).trim();
+        if (!evt.startsWith("data:")) continue;
 
-          if (data === "[DONE]") {
-            const totalTokens = inputTokens + outputTokens;
-            res.write(`event: usage\ndata: ${JSON.stringify({ chatId, totalTokens })}\n\n`);
-            res.write(`event: complete\ndata: {"status": "completed"}\n\n`);
-            res.write(`data: [DONE]\n\n`);
-            continue;
+        const data = evt.replace("data:", "").trim();
+        if (data === "[DONE]") continue;
+
+        try {
+          const json = JSON.parse(data);
+          const content = json.choices?.[0]?.delta?.content;
+          if (content) {
+            outputTokens += countTokens(content);
           }
-
-          try {
-            const json = JSON.parse(data);
-            const content = json.choices?.[0]?.delta?.content;
-
-            if (content) {
-              outputTokens += countTokens(content);
-              res.write(`data: ${JSON.stringify(json)}\n\n`);
-            } else if (json.choices?.[0]?.delta?.role) {
-              res.write(`data: ${JSON.stringify(json)}\n\n`);
-            }
-          } catch (err) {
-            console.error("Erro ao parsear JSON:", err);
-          }
+        } catch {
+          // ignore
         }
       }
     }
 
+    const totalTokens = inputTokens + outputTokens;
+
+    res.write(`event: usage\n`);
+    res.write(
+      `data: ${JSON.stringify({
+        chatId,
+        totalTokens,
+      })}\n\n`
+    );
+
+    res.write(`event: done\n`);
+    res.write(`data: [DONE]\n\n`);
     res.end();
 
   } catch (err) {
     console.error("Erro interno:", err);
-    if (!res.headersSent) {
-      res.status(500).json({ error: "Erro interno no servidor" });
-    }
+    res.status(500).json({ error: "Erro interno no servidor" });
   }
 }

@@ -2,9 +2,9 @@ import { useState, useEffect, useCallback } from "react";
 
 function getTodayDate() {
   const now = new Date();
-  return `${String(now.getDate()).padStart(2, "0")}/${String(
+  return `${String(now.getDate()).padStart(2, "0")}-${String(
     now.getMonth() + 1
-  ).padStart(2, "0")}/${now.getFullYear()}`;
+  ).padStart(2, "0")}-${now.getFullYear()}`;
 }
 
 export function useChats() {
@@ -16,82 +16,41 @@ export function useChats() {
   const loadChats = useCallback(() => {
     try {
       const saved = JSON.parse(localStorage.getItem("chats") || "[]");
-      console.log("Chats carregados do localStorage:", saved);
 
       const normalized = saved.map((chat) => ({
         ...chat,
         date: chat.date || getTodayDate(),
-        usageToken: chat.usageToken || 0,
+        usageToken: chat.usageToken ?? 0,
       }));
 
       const sorted = normalized.sort(
         (a, b) => (b.updatedAt || 0) - (a.updatedAt || 0)
       );
 
-      console.log("Chats normalizados e ordenados:", sorted);
       setChats(sorted);
-    } catch (err) {
-      console.error("Erro ao carregar chats:", err);
+    } catch {
       setChats([]);
     }
   }, []);
 
   const saveChats = useCallback((updated) => {
-    try {
-      console.log("Salvando chats:", updated);
-      localStorage.setItem("chats", JSON.stringify(updated));
-      setChats(updated);
-      window.dispatchEvent(new CustomEvent("chatsUpdated"));
-    } catch (err) {
-      console.error("Erro ao salvar chats:", err);
-    }
-  }, []);
-
-  const updateChatTokens = useCallback((chatId, tokens) => {
-    console.log(`Atualizando tokens para chat ${chatId}: ${tokens}`);
-    setChats((prevChats) => {
-      const chatExists = prevChats.find(chat => chat.id === chatId);
-      if (!chatExists) {
-        console.log(`Chat ${chatId} não encontrado para atualizar tokens`);
-        return prevChats;
-      }
-
-      const updated = prevChats.map((chat) => {
-        if (chat.id === chatId) {
-          const updatedChat = {
-            ...chat,
-            usageToken: tokens,
-            updatedAt: Date.now(),
-          };
-          console.log("Chat atualizado:", updatedChat);
-          return updatedChat;
-        }
-        return chat;
-      });
-
-      localStorage.setItem("chats", JSON.stringify(updated));
-      console.log("Chats atualizados no localStorage");
-
-      return updated;
-    });
+    localStorage.setItem("chats", JSON.stringify(updated));
+    setChats(updated);
+    window.dispatchEvent(new CustomEvent("chatsUpdated"));
   }, []);
 
   const deleteChat = useCallback(
     (id) => {
-      try {
-        const updated = chats.filter((c) => c.id !== id);
-        saveChats(updated);
+      const updated = chats.filter((c) => c.id !== id);
+      saveChats(updated);
 
-        if (id === activeChatId) {
-          localStorage.removeItem("activeChatId");
-          setActiveChatId(null);
-          window.dispatchEvent(
-            new CustomEvent("openChat", { detail: { id: null } })
-          );
-          window.location.reload();
-        }
-      } catch (err) {
-        console.error("Erro ao deletar chat:", err);
+      if (id === activeChatId) {
+        localStorage.removeItem("activeChatId");
+        setActiveChatId(null);
+        window.dispatchEvent(
+          new CustomEvent("openChat", { detail: { id: null } })
+        );
+        window.location.reload();
       }
     },
     [chats, activeChatId, saveChats]
@@ -99,55 +58,59 @@ export function useChats() {
 
   const updateChatTitle = useCallback(
     (id, newTitle) => {
-      try {
-        const updated = chats.map((c) =>
-          c.id === id
-            ? { ...c, title: newTitle.trim(), updatedAt: Date.now() }
-            : c
-        );
-        saveChats(updated);
-      } catch (err) {
-        console.error("Erro ao atualizar título:", err);
-      }
+      const updated = chats.map((c) =>
+        c.id === id
+          ? { ...c, title: newTitle.trim(), updatedAt: Date.now() }
+          : c
+      );
+      saveChats(updated);
     },
     [chats, saveChats]
   );
 
   const openChat = useCallback((id) => {
-    try {
-      localStorage.setItem("activeChatId", id);
-      setActiveChatId(id);
-      window.dispatchEvent(new CustomEvent("openChat", { detail: { id } }));
-      window.location.href = "/chat";
-    } catch (err) {
-      console.error("Erro ao abrir chat:", err);
-    }
+    localStorage.setItem("activeChatId", id);
+    setActiveChatId(id);
+    window.dispatchEvent(new CustomEvent("openChat", { detail: { id } }));
+    window.location.href = "/chat";
   }, []);
 
   useEffect(() => {
     loadChats();
 
-    const handleChatUsage = (e) => {
-      console.log("Evento chatUsage recebido:", e.detail);
+    const onUpdated = () => loadChats();
+
+    const onUsage = (e) => {
       const { chatId, tokens } = e.detail || {};
-      if (chatId && tokens !== undefined) {
-        updateChatTokens(chatId, tokens);
-      }
+
+      if (!chatId || typeof tokens !== "number") return;
+
+      setChats((prev) => {
+        const updated = prev.map((chat) =>
+          chat.id === chatId
+            ? {
+              ...chat,
+              usageToken: tokens,
+              updatedAt: Date.now(),
+            }
+            : chat
+        );
+
+        localStorage.setItem("chats", JSON.stringify(updated));
+        return updated;
+      });
+      console.log("USAGE EVENT RECEIVED:", e.detail);
     };
 
-    const onUpdated = () => {
-      console.log("Chats atualizados, recarregando...");
-      loadChats();
-    };
 
-    window.addEventListener("chatUsage", handleChatUsage);
     window.addEventListener("chatsUpdated", onUpdated);
+    window.addEventListener("chatUsage", onUsage);
 
     return () => {
-      window.removeEventListener("chatUsage", handleChatUsage);
       window.removeEventListener("chatsUpdated", onUpdated);
+      window.removeEventListener("chatUsage", onUsage);
     };
-  }, [loadChats, updateChatTokens]);
+  }, [loadChats]);
 
   return {
     chats,
@@ -156,6 +119,5 @@ export function useChats() {
     deleteChat,
     updateChatTitle,
     reload: loadChats,
-    updateChatTokens,
   };
 }
