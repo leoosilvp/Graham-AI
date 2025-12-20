@@ -1,5 +1,6 @@
 export async function sendMessageToAI(messages, files, options = {}) {
   const controller = new AbortController();
+
   if (options.signal) {
     options.signal.addEventListener("abort", () => controller.abort());
   }
@@ -22,6 +23,7 @@ export async function sendMessageToAI(messages, files, options = {}) {
 
   let buffer = "";
   let reply = "";
+  let currentEvent = "message";
 
   while (true) {
     const { done, value } = await reader.read();
@@ -33,7 +35,6 @@ export async function sendMessageToAI(messages, files, options = {}) {
     buffer = events.pop();
 
     for (const evt of events) {
-      let currentEvent = "message";
       const lines = evt.split("\n");
 
       for (const line of lines) {

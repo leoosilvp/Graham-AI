@@ -113,7 +113,6 @@ export default async function handler(req, res) {
     const totalTokens = inputTokens + outputTokens;
 
     res.write(`event: usage\n`);
-    res.write(`event: usage\n`);
     res.write(
       `data: ${JSON.stringify({
         chatId,

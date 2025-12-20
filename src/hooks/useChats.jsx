@@ -99,6 +99,7 @@ export function useChats() {
         localStorage.setItem("chats", JSON.stringify(updated));
         return updated;
       });
+      console.log("USAGE EVENT RECEIVED:", e.detail);
     };
 
 
