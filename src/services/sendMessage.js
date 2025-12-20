@@ -1,6 +1,8 @@
 export async function sendMessageToAI(messages, files, options = {}) {
   const controller = new AbortController();
-  if (options.signal) options.signal.addEventListener("abort", () => controller.abort());
+  if (options.signal) {
+    options.signal.addEventListener("abort", () => controller.abort());
+  }
 
   const response = await fetch("/api/chat", {
     method: "POST",
@@ -13,18 +15,41 @@ export async function sendMessageToAI(messages, files, options = {}) {
 
   const reader = response.body.getReader();
   const decoder = new TextDecoder("utf-8");
+
   let buffer = "";
   let reply = "";
+  let usageHandled = false;
 
   while (true) {
     const { done, value } = await reader.read();
     if (done) break;
+
     buffer += decoder.decode(value, { stream: true });
 
     const parts = buffer.split("\n\n");
     buffer = parts.pop();
 
     for (const part of parts) {
+      if (part.startsWith("event: usage")) continue;
+
+      if (part.includes('"totalTokens"') && !usageHandled) {
+        try {
+          const data = JSON.parse(part.replace("data: ", ""));
+          window.dispatchEvent(
+            new CustomEvent("chatUsage", {
+              detail: {
+                chatId: options.chatId,
+                tokens: data.totalTokens,
+              },
+            })
+          );
+          usageHandled = true;
+        } catch {
+          // ignore
+        }
+        continue;
+      }
+
       if (part.startsWith("data: ")) {
         const dataStr = part.replace("data: ", "").trim();
         if (dataStr === "[DONE]") break;
