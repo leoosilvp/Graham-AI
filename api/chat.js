@@ -33,7 +33,7 @@ export default async function handler(req, res) {
     const systemPrompt = {
       role: "system",
       content:
-        "Você é GrahamAI, um assistente inteligente, detalhista e confiável. Responda com clareza, precisão e empatia, mantendo um tom profissional e simpático. Use emojis com moderação, apenas quando agregarem ao contexto. Mantenha coerência com o contexto da conversa e explique de forma didática. Todas as fórmulas e cálculos devem estar em LaTeX: $...$ e $$...$$. Seja transparente, nunca invente informações.",
+        "Você é GrahamAI, um assistente inteligente, detalhista e confiável. Responda com clareza, precisão e empatia, mantendo um tom profissional e simpático.",
     };
 
     const payload = {
@@ -61,39 +61,62 @@ export default async function handler(req, res) {
 
     if (!response.ok) {
       const err = await response.text();
-      console.error("Erro na API da OpenRouter:", err);
+      console.error("Erro OpenRouter:", err);
       return res.status(500).json({ error: "Erro na comunicação com a OpenRouter" });
     }
 
     res.writeHead(200, {
       "Content-Type": "text/event-stream",
-      "Cache-Control": "no-cache, no-transform",
+      "Cache-Control": "no-cache",
       Connection: "keep-alive",
     });
 
     const reader = response.body.getReader();
-    const decoder = new TextDecoder();
+    const decoder = new TextDecoder("utf-8");
 
+    let buffer = "";
     let outputTokens = 0;
 
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
 
-      const chunk = decoder.decode(value);
-      outputTokens += countTokensFromText(chunk);
-      res.write(chunk);
+      buffer += decoder.decode(value, { stream: true });
+
+      const events = buffer.split("\n\n");
+      buffer = events.pop();
+
+      for (const evt of events) {
+        res.write(evt + "\n\n");
+
+        if (!evt.startsWith("data:")) continue;
+
+        const data = evt.replace("data:", "").trim();
+        if (data === "[DONE]") continue;
+
+        try {
+          const json = JSON.parse(data);
+          const content = json.choices?.[0]?.delta?.content;
+          if (content) {
+            outputTokens += countTokensFromText(content);
+          }
+        } catch { 
+          // ignore
+        }
+      }
     }
 
     const totalTokens = inputTokens + outputTokens;
 
-    res.write(
-      `event: usage\ndata: ${JSON.stringify({ totalTokens })}\n\n`
-    );
-    res.write("data: [DONE]\n\n");
+    res.write(`event: usage\n`);
+    res.write(`data: ${JSON.stringify({ totalTokens })}\n\n`);
+
+    res.write(`event: done\n`);
+    res.write(`data: [DONE]\n\n`);
     res.end();
+
   } catch (err) {
-    console.error("Erro na função chat:", err);
+    console.error("Erro interno:", err);
     res.status(500).json({ error: "Erro interno no servidor" });
   }
 }

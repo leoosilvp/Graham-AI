@@ -18,7 +18,8 @@ export async function sendMessageToAI(messages, files, options = {}) {
 
   let buffer = "";
   let reply = "";
-  let usageHandled = false;
+
+  let currentEvent = "message";
 
   while (true) {
     const { done, value } = await reader.read();
@@ -26,36 +27,50 @@ export async function sendMessageToAI(messages, files, options = {}) {
 
     buffer += decoder.decode(value, { stream: true });
 
-    const parts = buffer.split("\n\n");
-    buffer = parts.pop();
+    const events = buffer.split("\n\n");
+    buffer = events.pop();
 
-    for (const part of parts) {
-      if (part.startsWith("event: usage")) continue;
+    for (const evt of events) {
+      const lines = evt.split("\n");
 
-      if (part.includes('"totalTokens"') && !usageHandled) {
-        try {
-          const data = JSON.parse(part.replace("data: ", ""));
-          window.dispatchEvent(
-            new CustomEvent("chatUsage", {
-              detail: {
-                chatId: options.chatId,
-                tokens: data.totalTokens,
-              },
-            })
-          );
-          usageHandled = true;
-        } catch {
-          // ignore
+      for (const line of lines) {
+        if (line.startsWith("event:")) {
+          currentEvent = line.replace("event:", "").trim();
+          continue;
         }
-        continue;
-      }
 
-      if (part.startsWith("data: ")) {
-        const dataStr = part.replace("data: ", "").trim();
-        if (dataStr === "[DONE]") break;
+        if (!line.startsWith("data:")) continue;
+
+        const data = line.replace("data:", "").trim();
+
+        if (currentEvent === "done") {
+          return reply;
+        }
+
+        if (currentEvent === "usage") {
+          try {
+            const parsed = JSON.parse(data);
+
+            if (options.chatId && parsed.totalTokens !== undefined) {
+              window.dispatchEvent(
+                new CustomEvent("chatUsage", {
+                  detail: {
+                    chatId: options.chatId,
+                    tokens: parsed.totalTokens,
+                  },
+                })
+              );
+            }
+          } catch {
+            // ignore
+          }
+          continue;
+        }
+
+        if (data === "[DONE]") continue;
 
         try {
-          const json = JSON.parse(dataStr);
+          const json = JSON.parse(data);
           const token = json.choices?.[0]?.delta?.content || "";
           reply += token;
           if (options.onStream) options.onStream(token);
@@ -66,5 +81,5 @@ export async function sendMessageToAI(messages, files, options = {}) {
     }
   }
 
-  return reply.replace(/<｜begin▁of▁sentence｜>$/, "");
+  return reply;
 }
