@@ -6,7 +6,8 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { messages, files } = req.body;
+    const { messages, files, chatId } = req.body;
+
 
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
       return res.status(400).json({ error: "Mensagens não fornecidas." });
@@ -112,7 +113,13 @@ export default async function handler(req, res) {
     const totalTokens = inputTokens + outputTokens;
 
     res.write(`event: usage\n`);
-    res.write(`data: ${JSON.stringify({ totalTokens })}\n\n`);
+    res.write(`event: usage\n`);
+    res.write(
+      `data: ${JSON.stringify({
+        chatId,
+        totalTokens,
+      })}\n\n`
+    );
 
     res.write(`event: done\n`);
     res.write(`data: [DONE]\n\n`);
