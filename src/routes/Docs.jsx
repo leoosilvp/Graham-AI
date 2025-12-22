@@ -40,8 +40,11 @@ const Docs = () => {
                             </div>
                             <p>Ctrl + p</p>
                         </section>
-
-                        <Link to='/chat/settings/account'><i className='fa-regular fa-circle-user'></i></Link>
+                        
+                        <section className='header-options'>
+                            <button><i className='fa-solid fa-search' /></button>
+                            <Link to='/chat/settings/account'><i className='fa-regular fa-circle-user'></i></Link>
+                        </section>
                     </section>
 
                     <nav>
