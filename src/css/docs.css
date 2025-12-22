@@ -201,6 +201,7 @@
 
 .docs-feed video {
     margin: 25px 0 10px 0;
+    border: 1px solid #181818;
     border-radius: 15px;
     cursor: pointer;
 }
@@ -208,6 +209,7 @@
 .docs-feed img {
     display: flex;
     width: 100%;
+    border: 1px solid #181818;
     border-radius: 7px;
     margin-top: 10px;
     margin-bottom: 40px;
@@ -415,15 +417,21 @@
 @media (width < 720px) {
     .docs-page header {
         margin: 0;
+        width: 100vw;
         top: 0;
         left: 0;
-        z-index: 0;
+        z-index: 2;
     }
 
     .docs-header-content {
-        justify-content: center;
+        display: flex;
         width: 100vw;
         gap: 0px;
+    }
+
+    .docs-header-content img {
+        display: flex;
+        width: 120px;
     }
 
     .docs-search {
@@ -432,16 +440,70 @@
 
     .docs-page header nav ul {
         margin: 0px;
+        display: flex;
+        align-items: center;
+        width: 100vw;
+        padding: 7px 0;
         gap: 0px;
-        z-index: 1;
+        overflow: auto;
+    }
+
+    .docs-page header nav ul li a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 116px;
+        text-underline-offset: 13px;
+        padding: 3px 5px;
+        max-width: 200px;
     }
 
 
     /* conteudo do Docs  */
 
     .docs-content {
-        padding: 150px 15px 100px 15px;
+        padding: 190px 15px 100px 15px;
     }
+
+    .docs-aside-left {
+        margin: 0;
+        width: 100vw;
+        margin-top: -82.4px;
+        left: 0px;
+        padding: 15px 0;
+        background: #000000c4;
+        backdrop-filter: blur(7px);
+        border-bottom: 1px solid #181818;
+        overflow: auto;
+        z-index: 1;
+    }
+
+    .docs-aside-left nav ul a:hover {
+        background: transparent;
+    }
+
+    .docs-aside-left nav ul a:hover {
+        background: #090909cd;
+        color: #d6d6d6;
+    }
+
+    .docs-aside-left nav ul .active {
+        background: #090909cd;
+        color: #d6d6d6;
+    }
+
+    .docs-aside-left nav ul {
+        flex-direction: initial;
+        padding: 0 15px;
+    }
+
+    .docs-aside-left nav ul a {
+        width: max-content;
+        padding: 7px 13px;
+        border-radius: 7px;
+    }
+
+
 
     .docs-feed {
         width: 100%;
@@ -455,16 +517,13 @@
         line-height: 28px;
     }
 
-
-
-
-
-
-
+    .docs-aside-right {
+        display: none;
+    }
 
     .docs-footer {
         justify-content: space-between;
-        padding: 20px 15px;
+        padding: 15px;
         gap: 0px;
     }
 
@@ -476,5 +535,4 @@
         min-width: 0px;
         padding: 0;
     }
-
 }

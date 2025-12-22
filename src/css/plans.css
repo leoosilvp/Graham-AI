@@ -181,6 +181,7 @@
 
 @media (width < 720px) {
     .plans-feed {
+        margin-top: -83px;
         width: 100%;
     }
 
