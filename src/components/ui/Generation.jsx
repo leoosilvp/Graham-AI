@@ -10,7 +10,7 @@ const Generation = () => {
             </p>
 
             <h3>Domínios de Especialização e Aplicações Estratégicas</h3>
-            <p>
+            <div>
                 O Graham AI se destaca na produção de conteúdo em domínios críticos:
                 <ul>
                     <li><span>Engenharia de Software e Codificação:</span> Geração de código otimizado, testes unitários, documentação de API e refatoração de código legado em mais de 50 linguagens de programação.</li>
@@ -18,9 +18,9 @@ const Generation = () => {
                     <li><span>Comunicação Técnica e Científica:</span> Criação de white papers, artigos científicos, manuais de usuário e especificações técnicas com formatação rigorosa (ABNT, APA, Vancouver).</li>
                     <li><span>Criação Multimodal Estruturada:</span> Capacidade de gerar conteúdo que integra texto, tabelas, listas e até mesmo sugestões de visualizações de dados (gráficos) em um único output coerente.</li>
                 </ul>
-            </p>
+            </div>
             <h3>Entrega Estruturada e Integração de Fluxo de Trabalho</h3>
-            <p>
+            <div>
                 O output do Graham AI é projetado para <span>integração imediata</span>. Os formatos de entrega são estruturados para máxima utilidade:
                 <div className="docs-table">
                     <table>
@@ -55,7 +55,7 @@ const Generation = () => {
                         </tbody>
                     </table>
                 </div>
-            </p>
+            </div>
         </article>
     )
 }

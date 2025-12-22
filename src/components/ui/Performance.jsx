@@ -13,7 +13,7 @@ const Performance = () => {
             <p>
                 Implementamos técnicas avançadas de <span>otimização de processamento</span> e cache inteligente para minimizar o tempo de resposta. Isso é crucial para tarefas que exigem cálculos complexos ou geração de conteúdo extenso, onde a eficiência do tempo de processamento se traduz diretamente em produtividade para o usuário.
             </p>
-            <p>
+            <div>
                 <h3>Métricas de Confiabilidade:</h3>
                 <div className="docs-table">
                     <table>
@@ -43,7 +43,7 @@ const Performance = () => {
                         </tbody>
                     </table>
                 </div>
-            </p>
+            </div>
         </article>
     )
 }

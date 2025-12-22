@@ -18,7 +18,7 @@ const Chat = () => {
             <hr />
             
             <h3>O Ciclo de Resolução Autônoma (CRA)</h3>
-            <p>
+            <div>
                 O fluxo de trabalho do Chat Inteligente é uma máquina de produtividade otimizada:
                 <ul>
                     <li><span>Entendimento do Objetivo:</span> O usuário define a meta (ex: "Crie um plano de marketing para o lançamento do produto X").</li>
@@ -26,7 +26,7 @@ const Chat = () => {
                     <li><span>Execução Multimodal e Iterativa:</span> O assistente executa as etapas necessárias (pesquisa, cálculo, codificação, formatação) de forma autônoma, iterando até a solução.</li>
                     <li><span>Entrega do Output Final:</span> O resultado é um documento, código ou análise <span>pronto para ser utilizado</span>, eliminando a necessidade de intervenção ou formatação manual.</li>
                 </ul>
-            </p>
+            </div>
             <h3>Precisão, Didática e Transparência</h3>
             <p>
                 Cada interação é marcada pela <span>precisão técnica</span> e pela <span>abordagem didática</span>. O Graham AI não apenas fornece a resposta correta, mas também se esforça para explicar o processo de raciocínio e os conceitos subjacentes de forma acessível. Essa transparência no processo de pensamento transforma cada sessão em uma valiosa oportunidade de aprendizado.

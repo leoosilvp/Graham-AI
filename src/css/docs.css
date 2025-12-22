@@ -1,4 +1,4 @@
-.ctn-docs-page{
+.ctn-docs-page {
     display: flex;
     flex-direction: column;
     width: 100vw;
@@ -7,24 +7,26 @@
     overflow: auto;
 }
 
-.ctn-docs-page::-webkit-scrollbar{
+.ctn-docs-page::-webkit-scrollbar {
     display: flex;
     width: 5px;
     background: #080808;
 }
 
-.ctn-docs-page::-webkit-scrollbar-thumb{
+.ctn-docs-page::-webkit-scrollbar-thumb {
     background: #0f0f0f;
     border-radius: 50px;
 }
 
-.docs-page{
+.docs-page {
     display: flex;
     flex-direction: column;
 }
 
 .docs-page header {
     position: fixed;
+    top: 0;
+    left: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -100,7 +102,7 @@
     gap: 25px;
 }
 
-.docs-page header nav ul li a{
+.docs-page header nav ul li a {
     text-decoration: underline;
     text-underline-offset: 17px;
     text-decoration-color: transparent;
@@ -109,34 +111,34 @@
     color: #808080;
 }
 
-.docs-page header nav ul li a:hover{
+.docs-page header nav ul li a:hover {
     text-decoration-color: #a7a7a7;
     color: #a7a7a7;
 }
 
-.docs-page header nav ul li .active{
+.docs-page header nav ul li .active {
     color: #fff;
     text-decoration-color: #fff;
 }
 
-.docs-page header nav ul li .active:hover{
+.docs-page header nav ul li .active:hover {
     text-decoration-color: #fff;
 }
 
-.docs-page header nav ul li a.block{
+.docs-page header nav ul li a.block {
     cursor: not-allowed;
 }
 
 
 /* conteudo do Docs  */
 
-.docs-content{
+.docs-content {
     display: flex;
     justify-content: center;
     padding: 150px 0 100px 0;
 }
 
-.docs-aside-left{
+.docs-aside-left {
     margin-right: 930px;
     position: fixed;
     display: flex;
@@ -144,13 +146,13 @@
     width: 290px;
 }
 
-.docs-aside-left nav ul{
+.docs-aside-left nav ul {
     list-style: none;
     display: flex;
     flex-direction: column;
 }
 
-.docs-aside-left nav ul a{
+.docs-aside-left nav ul a {
     display: flex;
     width: 80%;
     padding: 10px 15px;
@@ -162,48 +164,48 @@
     transition: all 0.2s ease;
 }
 
-.docs-aside-left nav ul a:hover{
+.docs-aside-left nav ul a:hover {
     color: #707070;
     background: #151515;
 }
 
-.docs-aside-left nav ul .active{
+.docs-aside-left nav ul .active {
     color: #797979;
     background: #131313;
 }
 
-.docs-feed{
+.docs-feed {
     display: flex;
     flex-direction: column;
     width: 600px;
     min-height: 100vh;
 }
 
-.docs-feed h1{
+.docs-feed h1 {
     font-size: 1.8rem;
     font-weight: 600;
 }
 
-.docs-feed h2{
+.docs-feed h2 {
     margin-top: 4px;
     font-size: 1.2rem;
     font-weight: 300;
     color: #ababab;
 }
 
-.docs-feed h3{
+.docs-feed h3 {
     font-size: 1.2rem;
     font-weight: 600;
     color: #fff;
 }
 
-.docs-feed video{
+.docs-feed video {
     margin: 25px 0 10px 0;
     border-radius: 15px;
     cursor: pointer;
 }
 
-.docs-feed img{
+.docs-feed img {
     display: flex;
     width: 100%;
     border-radius: 7px;
@@ -211,7 +213,7 @@
     margin-bottom: 40px;
 }
 
-.docs-feed p{
+.docs-feed p {
     margin-top: 15px;
     margin-bottom: 50px;
     font-size: 1.1rem;
@@ -219,12 +221,25 @@
     line-height: 25px;
 }
 
-.docs-feed p span{
+.docs-feed p span {
     font-weight: 600;
     color: #d2d2d2;
 }
 
-.docs-feed p ul{
+.docs-feed div {
+    margin-top: 15px;
+    margin-bottom: 50px;
+    font-size: 1.1rem;
+    color: #ababab;
+    line-height: 25px;
+}
+
+.docs-feed div span {
+    font-weight: 600;
+    color: #d2d2d2;
+}
+
+.docs-feed div ul {
     display: flex;
     flex-direction: column;
     margin-top: 10px;
@@ -232,12 +247,20 @@
     gap: 3px;
 }
 
-.docs-feed hr{
+.docs-feed div ol {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-left: 20px;
+    gap: 3px;
+}
+
+.docs-feed hr {
     margin: 40px 0;
     border: 1px solid #151515;
 }
 
-.line-icon{
+.line-icon {
     margin-top: -50px;
     display: flex;
     align-items: center;
@@ -245,12 +268,12 @@
     width: 100%;
 }
 
-.line-icon hr{
+.line-icon hr {
     border: 1px dashed #ffffff;
     width: 100%;
 }
 
-.line-icon .icon{
+.line-icon .icon {
     margin: 0 25px;
     font-size: 2.5rem;
     margin-top: 55px;
@@ -293,31 +316,31 @@
     border-bottom: none;
 }
 
-.social-links{
+.social-links {
     display: flex;
     gap: 15px;
 }
 
-.social-links a{
+.social-links a {
     font-size: 1.2rem;
     color: #969696;
     transition: all 0.2s ease;
 }
 
-.social-links a:hover{
+.social-links a:hover {
     color: #c7c7c7;
 }
 
-.docs-feed video::-webkit-media-controls{
+.docs-feed video::-webkit-media-controls {
     opacity: 0;
     transition: all 0.2s ease;
 }
 
-.docs-feed video:hover::-webkit-media-controls{
+.docs-feed video:hover::-webkit-media-controls {
     opacity: 1;
 }
 
-.docs-aside-right{
+.docs-aside-right {
     margin-left: 930px;
     position: fixed;
     display: flex;
@@ -325,14 +348,15 @@
     width: 290px;
 }
 
-.docs-footer{
+.docs-footer {
     position: static;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px 0;
     border-top: 1px solid #181818;
-    gap: 380px; /* 410 */
+    gap: 380px;
+    /* 410 */
 }
 
 .graham-info {
@@ -341,29 +365,29 @@
     gap: 20px;
 }
 
-.graham-info img{
+.graham-info img {
     display: flex;
     width: 30px;
 }
 
-.graham-info nav ul{
+.graham-info nav ul {
     display: flex;
     list-style: none;
     gap: 20px;
 }
 
-.graham-info nav ul a{
+.graham-info nav ul a {
     text-decoration: none;
     color: #969696;
     font-size: 0.85rem;
     transition: all 0.2s ease;
 }
 
-.graham-info nav ul a:hover{
+.graham-info nav ul a:hover {
     color: #fff;
 }
 
-.system-stats{
+.system-stats {
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -375,7 +399,7 @@
     cursor: pointer;
 }
 
-.system-stats div{
+.system-stats div {
     display: flex;
     width: 9px;
     height: 9px;
@@ -383,7 +407,74 @@
     border-radius: 50%;
 }
 
-.system-stats h1{
+.system-stats h1 {
     font-size: 0.85rem;
     color: #006efe;
+}
+
+@media (width < 720px) {
+    .docs-page header {
+        margin: 0;
+        top: 0;
+        left: 0;
+        z-index: 0;
+    }
+
+    .docs-header-content {
+        justify-content: center;
+        width: 100vw;
+        gap: 0px;
+    }
+
+    .docs-search {
+        width: 100%;
+    }
+
+    .docs-page header nav ul {
+        margin: 0px;
+        gap: 0px;
+        z-index: 1;
+    }
+
+
+    /* conteudo do Docs  */
+
+    .docs-content {
+        padding: 150px 15px 100px 15px;
+    }
+
+    .docs-feed {
+        width: 100%;
+    }
+
+    .docs-feed video {
+        border-radius: 10px;
+    }
+
+    .docs-feed p {
+        line-height: 28px;
+    }
+
+
+
+
+
+
+
+
+    .docs-footer {
+        justify-content: space-between;
+        padding: 20px 15px;
+        gap: 0px;
+    }
+
+    .graham-info nav {
+        display: none;
+    }
+
+    .system-stats {
+        min-width: 0px;
+        padding: 0;
+    }
+
 }

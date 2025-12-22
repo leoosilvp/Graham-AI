@@ -12,14 +12,14 @@ const Memory = () => {
             <p>
                 A memória não é apenas um armazenamento passivo. o Graham AI emprega algoritmos de <span>gerenciamento inteligente de contexto</span> para priorizar e recuperar as informações mais relevantes do histórico, garantindo que o foco da conversa seja sempre mantido, mesmo em projetos com milhares de interações.
             </p>
-            <p>
+            <div>
                 <h3>Benefícios Chave:</h3>
                 <ul>
                     <li><span>Continuidade:</span> Retomada fluida de projetos complexos.</li>
                     <li><span>Eficiência:</span> Redução drástica na necessidade de reintroduzir informações.</li>
                     <li><span>Personalização:</span> Respostas e ações mais alinhadas com o seu estilo e objetivos.</li>
                 </ul>
-            </p>
+            </div>
         </article>
     )
 }
