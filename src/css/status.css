@@ -1,4 +1,4 @@
-.ctn-status-page{
+.ctn-status-page {
     display: flex;
     width: 100vw;
     height: 100vh;
@@ -6,25 +6,25 @@
     overflow: auto;
 }
 
-.ctn-status-page::-webkit-scrollbar{
+.ctn-status-page::-webkit-scrollbar {
     display: flex;
     width: 5px;
     background: #080808;
 }
 
-.ctn-status-page::-webkit-scrollbar-thumb{
+.ctn-status-page::-webkit-scrollbar-thumb {
     background: #0f0f0f;
     border-radius: 50px;
 }
 
-.status-page{
+.status-page {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
 }
 
-.status-page header{
+.status-page header {
     display: flex;
     justify-content: center;
     height: fit-content;
@@ -33,26 +33,26 @@
     gap: 700px;
 }
 
-.status-page header img{
+.status-page header img {
     display: flex;
     width: 32px;
     cursor: pointer;
 }
 
-.status-page header a{
+.status-page header a {
     display: flex;
     padding: 7px 14px;
     border-radius: 7px;
     border: 1px solid #252525;
 }
 
-.status-page header a:hover{
+.status-page header a:hover {
     color: #000;
     background: #fff;
     box-shadow: 0 0 10px 0 #ffffff4c;
 }
 
-.status-all-applications{
+.status-all-applications {
     margin-top: 10px;
     display: flex;
     align-items: center;
@@ -63,12 +63,12 @@
     background: #006efe;
 }
 
-.status-all-applications h1{
+.status-all-applications h1 {
     font-size: 1rem;
     font-weight: 500;
 }
 
-.commits-dates{
+.commits-dates {
     display: flex;
     flex-direction: column;
     margin-top: 60px;
@@ -76,59 +76,59 @@
     gap: 40px;
 }
 
-.commits-day{
+.commits-day {
     display: flex;
     flex-direction: column;
     gap: 10px;
     cursor: default;
 }
 
-.commits-day h1{
+.commits-day h1 {
     font-size: 1.3rem;
     font-weight: 500;
 }
 
-.commits-day hr{
+.commits-day hr {
     border: 1px solid #1e1e1e;
 }
 
-.latest-commits{
+.latest-commits {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.latest-commits h3{
+.latest-commits h3 {
     font-size: 1rem;
     font-weight: 400;
     color: #969696;
 }
 
-.commit{
+.commit {
     display: flex;
     align-items: center;
     justify-content: space-between;
     cursor: default;
 }
 
-.commit p{
+.commit p {
     font-size: 1rem;
     font-weight: 550;
 }
 
-.commit h2{
+.commit h2 {
     margin-top: 2px;
     font-size: 0.85rem;
     font-weight: 300;
     color: #969696;
 }
 
-.commit i{
+.commit i {
     font-size: 1rem;
     color: #58da47;
 }
 
-.link-go-to{
+.link-go-to {
     border-top: 1px solid #202020;
     display: flex;
     margin-top: 35px;
@@ -137,4 +137,34 @@
     text-decoration: none;
     font-size: 0.85rem;
     color: #006efe;
+}
+
+@media (width < 720px) {
+
+    .status-page header {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        width: 100vw;
+        padding: 15px;
+        gap: 0px;
+        z-index: 1;
+    }
+
+    .status-all-applications {
+        gap: 10px;
+        padding: 15px;
+        width: 95%;
+    }
+
+    .commits-dates {
+    margin-top: 0px;
+    width: 95%;
+}
+
+    .link-go-to {
+        margin-top: 35px;
+        width: 100%;
+        padding: 15px;
+    }
 }
