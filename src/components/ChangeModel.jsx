@@ -34,7 +34,7 @@ function ChangeModel() {
                                 <h2>A inteligência evoluiu. E agora, vai além.</h2>
                             </article>
                         </section>
-                        <a onClick={() => window.open('https://graham-ai-page.vercel.app/#plans', '_blank', 'noopener,noreferrer')}><i className='fa-regular fa-chess-queen'></i> Atualizar</a>
+                        <a onClick={() => window.location.href='/docs/plans'}><i className='fa-regular fa-chess-queen'></i> Atualizar</a>
                     </button>
 
                     <button className='active' onClick={closeMenu}>

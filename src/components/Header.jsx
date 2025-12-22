@@ -10,7 +10,7 @@ function Header() {
         <header className={`${isNotification ? 'header-notification' : ''}`}>
             <h1>Graham AI</h1>
             <img onClick={() => window.location.href = '/chat'} src={logo} alt="logo" />
-            <Link to='https://graham-ai-page.vercel.app/'>
+            <Link to='/docs/plans'>
                 <i className="fa-solid fa-book-open"></i>
             </Link>
         </header>

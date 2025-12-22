@@ -27,7 +27,7 @@ const Credits = ({ opened }) => {
                 <article className={`credits ${open ? 'open' : 'close'} ${opened ? 'opened' : ''}`} onMouseEnter={() => setOpen(true)}>
                     <section className='credits-header'>
                         <h1>BASIC</h1>
-                        <Link>Atualizar</Link>
+                        <Link to='/docs/plans'>Atualizar</Link>
                     </section>
 
                     <hr />

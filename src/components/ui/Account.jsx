@@ -107,7 +107,7 @@ const Account = () => {
             <section className="ctn-settings-button">
                 <div className="settings-button">
                     <h2>Obter o Graham PRO</h2>
-                    <button>Atualizar</button>
+                    <button onClick={() => window.location.href='/docs/plans'}>Atualizar</button>
                 </div>
             </section>
 
