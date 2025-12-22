@@ -49,8 +49,8 @@ const Docs = () => {
                             <li><NavLink to='introduction/welcome' className={({ isActive }) => isActive ? 'active' : ''}>Introdução</NavLink></li>
                             <li><NavLink to='features' className={({ isActive }) => isActive ? 'active' : ''}>Recursos</NavLink></li>
                             <li><NavLink to='plans' className={({ isActive }) => isActive ? 'active' : ''}>Planos e Preços</NavLink></li>
-                            <li><NavLink to='api' className={({ isActive }) => isActive ? 'active' : ''}>API</NavLink></li>
-                            <li><NavLink to='enterprise' className={({ isActive }) => isActive ? 'active' : ''}>Para empresas</NavLink></li>
+                            <li><a className='block'>API</a></li>
+                            <li><a className='block'>Para empresas</a></li>
                         </ul>
                     </nav>
                 </header>

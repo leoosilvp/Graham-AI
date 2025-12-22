@@ -123,6 +123,10 @@
     text-decoration-color: #fff;
 }
 
+.docs-page header nav ul li a.block{
+    cursor: not-allowed;
+}
+
 
 /* conteudo do Docs  */
 
