@@ -141,6 +141,10 @@
 
 @media (width < 720px) {
 
+    .ctn-status-page {
+        overflow-x: hidden;
+    }
+
     .status-page header {
         position: relative;
         display: flex;
@@ -158,9 +162,9 @@
     }
 
     .commits-dates {
-    margin-top: 0px;
-    width: 95%;
-}
+        margin-top: 40px;
+        width: 95%;
+    }
 
     .link-go-to {
         margin-top: 35px;
