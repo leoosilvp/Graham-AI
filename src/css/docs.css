@@ -488,6 +488,13 @@
         overflow: auto;
     }
 
+    .docs-page header nav ul::-webkit-scrollbar {
+        display: flex;
+        width: 0px;
+        height: 0;
+        background: transparent;
+    }
+
     .docs-page header nav ul li a {
         display: flex;
         align-items: center;
@@ -501,7 +508,7 @@
     /* conteudo do Docs  */
 
     .docs-content {
-        padding: 176px 15px 100px 15px;
+        padding: 176px 15px 50px 15px;
     }
 
     .docs-aside-left {
@@ -509,12 +516,19 @@
         width: 100vw;
         margin-top: -82.4px;
         left: 0px;
-        padding: 15px 0;
+        padding: 7px 0;
         background: #000000c4;
         backdrop-filter: blur(7px);
         border-bottom: 1px solid #181818;
         overflow: auto;
         z-index: 1;
+    }
+
+    .docs-aside-left::-webkit-scrollbar {
+        display: flex;
+        width: 0px;
+        height: 0;
+        background: transparent;
     }
 
     .docs-aside-left nav ul a:hover {
@@ -533,12 +547,12 @@
 
     .docs-aside-left nav ul {
         flex-direction: initial;
-        padding: 0 15px;
+        padding: 0 10px;
     }
 
     .docs-aside-left nav ul a {
         width: max-content;
-        padding: 7px 13px;
+        padding: 10px 13px;
         border-radius: 7px;
     }
 
@@ -559,6 +573,7 @@
     }
 
     .docs-footer {
+        display: flex;
         justify-content: space-between;
         padding: 15px;
         gap: 0px;
