@@ -381,6 +381,13 @@ aside::-webkit-scrollbar-thumb {
 }
 
 @media (width < 720px) {
+    .hero-aside {
+        display: flex;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+    }
+
     aside {
         width: 305px;
         height: 100vh;
@@ -389,7 +396,7 @@ aside::-webkit-scrollbar-thumb {
         background: #101010;
     }
 
-    .ctn-profile{
+    .ctn-profile {
         width: 250px;
     }
 
@@ -431,11 +438,11 @@ aside::-webkit-scrollbar-thumb {
         background: transparent !important;
     }
 
-    .options-card button{
+    .options-card button {
         background: transparent !important;
     }
 
-    .options-card:hover{
+    .options-card:hover {
         background: transparent !important;
     }
 
@@ -443,7 +450,7 @@ aside::-webkit-scrollbar-thumb {
         background: transparent !important;
     }
 
-    .options-card:active{
+    .options-card:active {
         background: #181818 !important;
     }
 }
