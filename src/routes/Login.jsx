@@ -24,7 +24,9 @@ const Login = () => {
         setError('')
 
         try {
-            const response = await fetch(`https://api.github.com/users/${username.trim()}`)
+            const response = await fetch(
+                `https://api.github.com/users/${username.trim()}`
+            )
             if (!response.ok) throw new Error('Usuário não encontrado')
 
             const data = await response.json()
@@ -68,7 +70,13 @@ const Login = () => {
                     type="text"
                     placeholder='Digite seu username do GitHub'
                     value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    onChange={(e) =>
+                        setUsername(
+                            e.target.value
+                                .toLowerCase()
+                                .replace(/@/g, '')
+                        )
+                    }
                     onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
                     disabled={loading}
                 />
