@@ -383,6 +383,7 @@ aside::-webkit-scrollbar-thumb {
 @media (width < 720px) {
     aside {
         width: 305px;
+        height: 100vh;
         position: relative;
         z-index: 1;
         background: #101010;

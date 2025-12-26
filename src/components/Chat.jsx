@@ -27,6 +27,7 @@ function Chat() {
   const imageInputRef = useRef(null);
   const codeInputRef = useRef(null);
   const abortControllerRef = useRef(null);
+  const isMobile = window.innerWidth <= 768;
 
   useEffect(() => {
     const storedUser = localStorage.getItem("grahamUser");
@@ -408,7 +409,7 @@ function Chat() {
             value={input}
             autoCorrect="on"
             autoComplete="on"
-            autoFocus
+            autoFocus={!isMobile}
             placeholder={loading ? "Aguardando resposta..." : "Como posso te ajudar?.."}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSend()}
