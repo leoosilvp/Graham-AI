@@ -27,7 +27,7 @@ function ConfProfile() {
       <article className='conf-profile'>
         <button
           className='active'
-          onClick={() => handleNavigate('https://graham-ai-page.vercel.app/#plans')}
+          onClick={() => window.location.href='/docs/plans'}
         >
           <i className='fa-regular fa-chess-queen'></i> Atualizar
         </button>
