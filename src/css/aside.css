@@ -391,6 +391,7 @@ aside::-webkit-scrollbar-thumb {
     aside {
         width: 305px;
         height: 100vh;
+        overflow-x: hidden;
         position: relative;
         z-index: 1;
         background: #101010;

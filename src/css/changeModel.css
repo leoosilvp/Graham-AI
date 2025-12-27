@@ -1,4 +1,4 @@
-.active-model{
+.active-model {
     display: flex;
     align-items: center;
     background: transparent;
@@ -9,12 +9,12 @@
     gap: 2px;
 }
 
-.active-model i{
+.active-model i {
     font-size: 0.75rem;
     color: #f5f5f5c4;
 }
 
-.options-model{
+.options-model {
     position: absolute;
     left: 125px;
     top: 15px;
@@ -29,7 +29,7 @@
     z-index: 3;
 }
 
-.options-model button{
+.options-model button {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -42,11 +42,11 @@
     cursor: pointer;
 }
 
-.options-model button:hover{
+.options-model button:hover {
     background: #383838;
 }
 
-.options-model button a{
+.options-model button a {
     text-decoration: none;
     font-size: 0.75rem;
     font-weight: 500;
@@ -60,24 +60,24 @@
     transition: all 0.2s ease;
 }
 
-.options-model button a:hover{
+.options-model button a:hover {
     border-color: #505050;
     background: #2d2d2d;
 }
 
-.ctn-desc-model{
+.ctn-desc-model {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.desc-model h1{
+.desc-model h1 {
     display: flex;
     font-size: 0.9rem;
     font-weight: 500;
 }
 
-.desc-model h2{
+.desc-model h2 {
     text-align: start;
     display: flex;
     margin-top: 2px;
@@ -87,7 +87,27 @@
 }
 
 @media (width < 720px) {
-    .change-model{
-        display: none;
+    .options-model {
+        left: 10px;
+        top: 55px;
+        width: 285px;
+        z-index: 10;
+        background: #101010 !important;
+        gap: 7px;
     }
+
+    .options-model button {
+        background: #121212 !important;
+        gap: 10px;
+        cursor: pointer;
+    }
+
+    .options-model button.active {
+        background: #181818 !important;
+    }
+
+    .options-model button a {
+        background: #181818;
+    }
+
 }
