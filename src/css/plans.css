@@ -188,4 +188,10 @@
     .ctn-plans {
         gap: 15px;
     }
+
+    .plan {
+        width: 100%;
+        height: fit-content;
+        padding: 25px 25px 50px 25px;
+    }
 }
