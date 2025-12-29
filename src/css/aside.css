@@ -410,6 +410,10 @@ aside::-webkit-scrollbar-thumb {
         color: #969696;
     }
 
+    .aside-logo:hover {
+        background: transparent !important;
+    }
+
     .hero-aside .btn-aside:hover {
         background: transparent;
         box-shadow: none;

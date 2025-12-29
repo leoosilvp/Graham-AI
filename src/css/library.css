@@ -245,6 +245,7 @@
 @media (width < 720px) {
 
     .library button {
+        z-index: 0 !important;
         display: flex;
         background: transparent !important;
     }

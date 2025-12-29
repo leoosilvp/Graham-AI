@@ -91,17 +91,18 @@
 
     .conf-profile {
         left: 10px;
-        bottom: 90px;
+        bottom: 85px;
         border-radius: 10px;
         width: 285px;
         background: #101010;
+        gap: 5px;
     }
 
     .conf-profile button {
         align-items: center;
         border-radius: 5px;
         width: 100%;
-        background: transparent !important;
+        background: #121212 !important;
     }
 
     .conf-profile button:hover {
@@ -110,6 +111,11 @@
 
     .conf-profile button:active {
         background: #151515 !important;
+    }
+
+    .conf-profile .active {
+        color: #969696;
+        background: #141414 !important;
     }
 
     .options-card button {
