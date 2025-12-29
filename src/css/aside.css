@@ -440,6 +440,7 @@ aside::-webkit-scrollbar-thumb {
     }
 
     .options-card button {
+        z-index: 0 !important;
         background: transparent !important;
     }
 

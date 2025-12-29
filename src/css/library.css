@@ -1,4 +1,6 @@
 .library {
+    display: flex;
+    width: 100%;
     margin-top: 3px;
 }
 
@@ -104,6 +106,7 @@
     width: 100%;
     height: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .grid-imgs-modal-library {
@@ -241,7 +244,40 @@
 
 @media (width < 720px) {
 
-    .ctn-library {
+    .library button {
+        display: flex;
+        background: transparent !important;
+    }
+
+    .library button span {
         display: none;
+    }
+
+    .library button:active {
+        background: #171717 !important;
+    }
+
+    .ctn-library {
+        display: flex;
+    }
+
+    .ctn-modal-library {
+        width: 100%;
+    }
+
+    .modal-library {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        border: none;
+        background: #101010;
+    }
+
+    .header-modal-library button {
+        background: transparent !important;
+    }
+
+    .header-modal-library button:hover {
+        background: transparent !important;
     }
 }
