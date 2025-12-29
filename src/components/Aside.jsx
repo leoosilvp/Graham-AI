@@ -25,7 +25,7 @@ function Aside() {
         if (!element) return;
 
         const width = element.offsetWidth;
-        element.style.marginLeft = moved ? "0" : `-${width + 2}px`;
+        element.style.marginLeft = moved ? "0" : `-${width + 3}px`;
     }, [moved]);
 
     const handleMove = () => {

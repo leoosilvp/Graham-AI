@@ -316,7 +316,7 @@ aside::-webkit-scrollbar-thumb {
     width: 235px;
     height: fit-content;
     max-height: 100px;
-    padding: 13px;
+    padding: 10px;
     border: 1px solid var(--color-line);
     border-radius: 12px;
     background: #101010;
@@ -398,6 +398,7 @@ aside::-webkit-scrollbar-thumb {
     }
 
     .ctn-profile {
+        padding: 13px !important;
         width: 250px;
     }
 
