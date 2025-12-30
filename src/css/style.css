@@ -55,9 +55,9 @@ body {
 
 @media (width < 720px) {
     .hero-chat {
-        background-image: url('../assets/fundo.gif');
+        background-image: url('https://anonymousai-hub.github.io/DB/img/background2.gif');
         background-position: center;
-        background-size: cover;
+        background-size: 145%;
     }
 
     .hero-chat.started {
