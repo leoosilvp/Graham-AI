@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
     box-sizing: border-box;
     gap: 0;
@@ -10,7 +10,7 @@
     --secundary-color: #f5f5f5;
     --color-line: #282828;
     --transition: all 0.4s ease;
-    --border: 7px; 
+    --border: 7px;
 }
 
 body {
@@ -44,10 +44,24 @@ body {
 }
 
 @keyframes rotation {
-    0%{
+    0% {
         transform: rotate(0deg);
     }
-    100%{
+
+    100% {
         transform: rotate(360deg);
     }
+}
+
+@media (width < 720px) {
+    .hero-chat {
+        background-image: url('../assets/fundo.gif');
+        background-position: center;
+        background-size: cover;
+    }
+
+    .hero-chat.started {
+        background: linear-gradient(-45deg, #101010, #181818, #101010);
+    }
+
 }

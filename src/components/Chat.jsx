@@ -277,7 +277,7 @@ function Chat() {
   }, [showConf]);
 
   return (
-    <div className="hero-chat">
+    <div className={`hero-chat ${started ? 'started' : ''}`}>
 
       {!started ? (
         <>
