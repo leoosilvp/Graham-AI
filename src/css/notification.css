@@ -217,6 +217,14 @@
 
 @media (width < 720px) {
 
+    .notification-loading {
+        position: absolute;
+    }
+
+    .notification-error {
+        position: absolute;
+    }
+
     .ctn-notification-page {
         position: absolute;
     }
