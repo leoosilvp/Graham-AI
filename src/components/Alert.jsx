@@ -10,7 +10,6 @@ function Alert({ visible, message }) {
                 <i className='fa-solid fa-triangle-exclamation'></i>
                 <h1>{message}</h1>
             </article>
-            <div className='time-alert'/>
         </section>
     )
 }
