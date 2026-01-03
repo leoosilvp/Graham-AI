@@ -27,8 +27,8 @@ const Introduction = () => {
 
                 <div className="social-links">
                     <a href=""><i className="fa-brands fa-instagram" /></a>
-                    <a href=""><i className="fa-brands fa-github" /></a>
-                    <a href=""><i className="fa-brands fa-linkedin" /></a>
+                    <a href="https://github.com/leoosilvp/Graham-AI"><i className="fa-brands fa-github" /></a>
+                    <a href="https://www.linkedin.com/company/grahamai/?viewAsMember=true"><i className="fa-brands fa-linkedin" /></a>
                     <a href=""><i className="fa-brands fa-youtube" /></a>
                 </div>
             </section>
