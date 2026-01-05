@@ -6,8 +6,7 @@
     margin: 0 auto;
     width: fit-content;
     background: #090909;
-    border: 1px solid #e4c7091e;
-    box-shadow: 0 0 10px 0 #e4c70907;
+    box-shadow: 0 0 10px 0 #0000001e;
     border-radius: 10px;
     z-index: 100;
     animation: out 3s ease-out both;

@@ -1,46 +1,57 @@
-import { useEffect, useState } from 'react'
-import '../css/upd.css'
+import { useEffect, useState } from "react";
+import useNotification from "../hooks/useNotification";
+import "../css/upd.css";
 
 const Upd = () => {
-
-    const [show, setShow] = useState(false)
+    const [show, setShow] = useState(false);
+    const { notifications, loading, error } = useNotification();
 
     useEffect(() => {
-        const first = localStorage.getItem("firstLogin")
+        const first = localStorage.getItem("firstLogin");
 
         if (!first) {
-            localStorage.setItem("firstLogin", "true")
-            setShow(true)
+            localStorage.setItem("firstLogin", "true");
+            setShow(true);
         } else {
-            if (first === "true") setShow(true)
+            if (first === "true") setShow(true);
         }
-    }, [])
+    }, []);
 
     const handleClose = () => {
-        localStorage.setItem("firstLogin", false)
-        setShow(false)
-        window.location.reload()
-    }
+        localStorage.setItem("firstLogin", false);
+        setShow(false);
+        window.location.reload();
+    };
 
     const redirectUpd = () => {
-        localStorage.setItem("firstLogin", false)
-        setShow(false)
-        window.open('https://graham-ai-page.vercel.app/', '_blank')
-    }
+        localStorage.setItem("firstLogin", false);
+        setShow(false);
+        window.location.href='./docs';
+    };
 
-    if (!show) return null
+    if (!show || loading || error || notifications.length === 0) return null;
+
+    const lastNotification = [...notifications].sort(
+        (a, b) => b.id - a.id
+    )[0];
 
     return (
         <section className="ctn-upd">
             <article className="upd">
                 <div className="upd-content">
-                    <video src='https://anonymousai-hub.github.io/DB/video/upd.mp4' controls />
-                    <section className='text-upd'>
-                        <h1>Apresentando o Graham 1.3</h1>
-                        <p>mais rápido, mais fluido e capaz de manter contexto real das conversas. Agora interpreta documentos e imagens com profundidade, extrai insights úteis e aprende continuamente com cada interação. Uma atualização de paradigma para criar experiências mais inteligentes, personalizadas e humanas.</p>
+                    {lastNotification.videoUrl ? (
+                        <video src={lastNotification.videoUrl} controls />
+                    ) : lastNotification.imgUrl ? (
+                        <img src={lastNotification.imgUrl} alt={lastNotification.title} />
+                    ) : null}
+
+                    <section className="text-upd">
+                        <h1>{lastNotification.title}</h1>
+                        <p>{lastNotification.description}</p>
+
                         <div className="date-upd">
                             <h2>Atualização</h2>
-                            <h3>10 Novembro 2025 </h3>
+                            <h3>{lastNotification.data}</h3>
                         </div>
                     </section>
                 </div>
@@ -50,7 +61,7 @@ const Upd = () => {
                 </div>
             </article>
         </section>
-    )
-}
+    );
+};
 
-export default Upd
+export default Upd;

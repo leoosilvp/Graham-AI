@@ -175,7 +175,7 @@
     display: flex;
     border-radius: 7px;
     border: 1px solid #2b2b2b;
-    cursor: pointer;
+    cursor: default;
 }
 
 .notification video {

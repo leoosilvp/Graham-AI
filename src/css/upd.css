@@ -44,6 +44,14 @@
     overflow-x: hidden;
 }
 
+.upd-content img {
+    display: flex;
+    width: 600px;
+    height: fit-content;
+    cursor: default;
+}
+
+
 .upd-content video {
     display: flex;
     width: 600px;

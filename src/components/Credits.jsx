@@ -20,7 +20,7 @@ const Credits = ({ opened }) => {
         >
             <article className={`credits-btn ${opened ? 'opened' : ''}`} onMouseEnter={() => setOpen(true)}>
                 <i className="fa-regular fa-copyright" />
-                500
+                ----
             </article>
 
             <section className={`credits-ctn ${open ? 'open' : 'close'} ${opened ? 'opened' : ''}`} onMouseEnter={() => setOpen(true)}>
