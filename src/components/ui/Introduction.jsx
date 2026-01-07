@@ -16,7 +16,7 @@ const Introduction = () => {
                 <h1>Seja Bem-vindo/a</h1>
                 <h2>Saiba mais sobre Graham AI e como começar.</h2>
 
-                <video src='https://anonymousai-hub.github.io/DB/video/upd-1.5.mp4' controls />
+                <video src='https://anonymousai-hub.github.io/DB/video/upd-1.5.mp4' controls preload="metadata" />
 
                 <p>O Graham AI é um assistente de IA avançado, projetado para ser claro, preciso e empático em todas as interações. Seu objetivo é não apenas responder perguntas, mas facilitar o aprendizado, resolver problemas complexos e entregar resultados confiáveis de maneira didática e acessível.</p>
                 

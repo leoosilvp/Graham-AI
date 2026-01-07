@@ -55,7 +55,7 @@ const Notification = () => {
               </section>
 
               <section className='notification'>
-                {item.videoUrl && <video src={item.videoUrl} controls />}
+                {item.videoUrl && <video src={item.videoUrl} controls preload="metadata" />}
 
                 {item.imgUrl && (
                   <img src={item.imgUrl} alt={item.title} />

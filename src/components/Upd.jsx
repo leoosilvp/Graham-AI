@@ -40,7 +40,7 @@ const Upd = () => {
             <article className="upd">
                 <div className="upd-content">
                     {lastNotification.videoUrl ? (
-                        <video src={lastNotification.videoUrl} controls />
+                        <video src={lastNotification.videoUrl} controls preload="metadata" />
                     ) : lastNotification.imgUrl ? (
                         <img src={lastNotification.imgUrl} alt={lastNotification.title} />
                     ) : null}
