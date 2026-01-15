@@ -41,9 +41,10 @@ export default async function handler(req, res) {
     };
 
     const payload = {
-      model: "deepseek/deepseek-chat-free",
-      stream: true,
+      model: "deepseek/deepseek-chat",
       messages: [systemPrompt, ...fileMessages, ...messages],
+      stream: true,
+      max_price: 0,
     };
 
     const inputTokens =
@@ -56,8 +57,10 @@ export default async function handler(req, res) {
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          "Content-Type": "application/json",
+          "X-Title": "Graham AI",
+          "X-OpenRouter-Price-Limit": "0"
         },
         body: JSON.stringify(payload),
       }
