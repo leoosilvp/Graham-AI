@@ -36,15 +36,13 @@ export default async function handler(req, res) {
 
     const systemPrompt = {
       role: "system",
-      content:
-        "Você é GrahamAI, um assistente inteligente, detalhista e confiável. Responda com clareza, precisão e empatia, mantendo um tom profissional e simpático.",
+      content: "Você é GrahamAI, um assistente inteligente, detalhista e confiável. Responda com clareza, precisão e empatia, mantendo um tom profissional e simpático.",
     };
 
     const payload = {
       model: "deepseek/deepseek-chat",
       messages: [systemPrompt, ...fileMessages, ...messages],
       stream: true,
-      max_price: 0,
     };
 
     const inputTokens =
