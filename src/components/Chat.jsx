@@ -9,6 +9,7 @@ import '../css/markdown.css';
 import Alert from "./Alert.jsx";
 import { Link } from "react-router-dom";
 import Credits from "./Credits.jsx";
+import { useUser } from "../hooks/useUser.js";
 
 function Chat() {
   const [input, setInput] = useState("");
@@ -16,7 +17,6 @@ function Chat() {
   const [started, setStarted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [chatId, setChatId] = useState(null);
-  const [username, setUsername] = useState("User");
   const [attachedFiles, setAttachedFiles] = useState([]);
   const chatBoxRef = useRef(null);
   const confRef = useRef(null);
@@ -29,13 +29,7 @@ function Chat() {
   const abortControllerRef = useRef(null);
   const isMobile = window.innerWidth <= 768;
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem("grahamUser");
-    if (storedUser) {
-      const data = JSON.parse(storedUser);
-      setUsername(data.name || data.login || "User");
-    }
-  }, []);
+  const { user } = useUser();
 
   useEffect(() => {
     if (chatBoxRef.current)
@@ -292,7 +286,7 @@ function Chat() {
           </section>
 
           <section className="presentation">
-            <h1>Olá {username}! O que posso fazer por ti?</h1>
+            <h1>Olá {user?.Profiler?.username}! O que posso fazer por ti?</h1>
             <h2>Navegue pela IA mais eficiente do mercado!</h2>
           </section>
         </>

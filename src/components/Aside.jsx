@@ -55,7 +55,7 @@ function Aside() {
         element.style.marginLeft = `-${width + 2}px`;
     };
 
-    const { user, setUser } = useUser();
+    const { user } = useUser();
     const [showConf, setShowConf] = useState(false);
 
     const toggleConf = useCallback(() => {
@@ -74,13 +74,6 @@ function Aside() {
             }
         },
         moved
-    );
-
-    const handleUpdateAvatar = useCallback(
-        (avatarUrl) => {
-            setUser((prev) => ({ ...prev, avatar: avatarUrl }));
-        },
-        [setUser]
     );
 
     return (
@@ -104,10 +97,10 @@ function Aside() {
 
                 <section className="ctn-profile">
                     <NavLink to={'/chat/settings/account'} className="profile">
-                        <img src={user.avatar} alt={`${user.name || "User"} avatar`} />
-                        <div className="info-profile">
-                            <h1>{user.name || "User"}</h1>
-                            <p>BASIC</p>
+                        <img src={user?.profile?.photo || "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg" } alt={`${user?.p?.username || "User"} avatar`} />
+                        <div className="info-p">
+                            <h1>{user?.profile?.username || "User"}</h1>
+                            <p>{user?.profile?.plan}</p>
                         </div>
                     </NavLink>
                     <i onClick={toggleConf} className="fa-solid fa-ellipsis"></i>
@@ -117,7 +110,6 @@ function Aside() {
             {showConf && (
                 <div ref={confRef}>
                     <ConfProfile
-                        onUpdateAvatar={handleUpdateAvatar}
                         onClose={() => setShowConf(false)}
                     />
                 </div>

@@ -43,7 +43,7 @@ function App() {
         <Route path="/status" element={<Status />} />
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />}>
-          <Route path='/' element={<Navigate to='chat' />} />
+          <Route index element={<Navigate to='chat' />} />
           <Route path='chat' element={<Chat />} />
           <Route path='notification' element={<Notification />} />
           <Route path="/chat/settings" element={<Settings />}>
