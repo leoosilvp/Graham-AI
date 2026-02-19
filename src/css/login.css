@@ -1,126 +1,12 @@
-.ctn-login {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 100;
-    background: #0000001d;
-    backdrop-filter: blur(3px);
-}
-
-.login {
-    align-items: center;
-    background: #121212;
-    width: 650px;
-    height: fit-content;
-    padding: 20px;
-    border: 1px solid var(--color-line);
-    border-radius: 10px;
-}
-
-.login h1 {
-    display: flex;
-    align-items: center;
-    font-size: 2rem;
-}
-
-.login h1 span {
-    display: flex;
-    margin-left: 20px;
-    margin-right: 15px;
-}
-
-.login img {
-    display: flex;
-    width: 40px;
-    margin-right: 10px;
-}
-
-.login h2 {
-    margin-top: 20px;
-    display: flex;
-    font-size: 1rem;
-}
-
-.login h3 {
-    margin-top: 3px;
-    display: flex;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #8f8f8f;
-}
-
-.ctn-input-login {
-    margin-top: 25px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.ctn-input-login label {
-    display: flex;
-    width: 95%;
-}
-
-.ctn-input-login input {
-    display: flex;
-    width: 95%;
-    height: 43px;
-    padding: 10px 20px;
-    outline: none;
-    border: 1px solid var(--color-line);
-    border-radius: 50px;
-    color: #fff;
-    background: #49494922;
-}
-
-.ctn-input-login button {
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 250px;
-    height: 35px;
-    border: 1px solid var(--color-line);
-    border-radius: 7px;
-    background: #49494911;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #b1b1b1;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.ctn-input-login button:hover {
-    color: #eaeaea;
-    background: #3f3f3f3f;
-    box-shadow: 0px 0px 10px 0px #00000031;
-}
-
-.ctn-input-login p {
-    display: flex;
-    font-size: 0.7rem;
-    font-weight: 500;
-    color: #8a8a8a76;
-}
-
-
-
-/* page login */
-
 .login-page {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
-    background-image: url('https://anonymousai-hub.github.io/DB/img/background.gif');
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-image: linear-gradient(0deg, #000000a4, #0000002f), url('https://static.vecteezy.com/system/resources/previews/043/509/997/non_2x/vr-hud-futuristic-interface-grid-line-and-dot-head-up-display-similar-pattern-digital-ui-screen-mesh-gui-digital-hi-tech-visor-backdrop-template-fui-sci-fi-dashboard-eps-display-black-and-white-vector.jpg');
+    background-size: 800px;
+    background-position: center;
 }
 
 .login-page-header {
@@ -129,7 +15,6 @@
     left: 0;
     padding: 20px 45px;
     width: fit-content;
-    opacity: 0.8;
 }
 
 .login-page-header img {
@@ -162,20 +47,26 @@
     color: #969696;
 }
 
+.login-mode {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .login-content button {
     margin-top: 7px;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 340px;
-    padding: 11px;
+    padding: 12px;
     border: none;
-    border-radius: 10px;
+    border-radius: 7px;
     background: #2d2d2d;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+    font-weight: 600;
     color: #fff;
     cursor: pointer;
-    gap: 5px;
     box-shadow: inset 0px 0px 7px 1px #383838;
     transition: all 0.2s ease;
 }
@@ -183,7 +74,7 @@
 .login-content button:hover {
     color: #000;
     background: #fff;
-    box-shadow: 0px 0px 10px 2px #ffffff7d;
+    box-shadow: 0px 0px 15px #ffffff75;
 }
 
 .login-content button i {
@@ -201,29 +92,55 @@
     margin: 30px 0;
     display: flex;
     width: 150px;
-    border: 1px solid #383838;
+    border: 1px solid #252525;
 }
 
-.login-content input {
-    margin-bottom: 10px;
+.login-input {
+    margin-top: 12px;
     display: flex;
+    align-items: center;
     width: 340px;
-    padding: 12px;
-    border-radius: 10px;
-    outline: none;
-    border: none;
-    background: #2d2d2d;
-    color: #fff;
-    box-shadow: inset 0px 0px 7px 1px #383838;
+    gap: 10px;
+    padding: 7px 10px;
+    border: 1px solid #252525;
+    border-radius: 7px;
+    background: #141414;
+    box-shadow: 0 0 15px #00000096;
+    transition: all 0.2s ease;
 }
 
-.login-content input:-webkit-autofill,
-input:autofill {
-    box-shadow: 0px 0px 0px 100px #ffffff inset;
+.login-input:hover {
+    border-color: #353535;
+}
+
+.login-input input {
+    display: flex;
+    width: 100%;
+    padding: 5px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--light-color);
+}
+
+.login-register-btn {
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: #969696;
+    transition: all 0.2s ease;
+}
+
+.login-register-btn span {
+    text-decoration: underline;
+}
+
+.login-register-btn:hover {
+    color: #c3c3c3;
 }
 
 .login-content .active {
-    margin-top: 15px;
+    margin-top: 25px;
     background: #ffffff;
     box-shadow: none;
     color: #000;

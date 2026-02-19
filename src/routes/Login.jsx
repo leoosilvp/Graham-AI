@@ -1,51 +1,27 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import '../css/login.css'
+import { Link } from 'react-router-dom'
 import logo from '../assets/img/logo.svg'
 import icon from '../assets/img/icon-light.svg'
+import { Eye, Mail, User } from '@geist-ui/icons'
+import '../css/login.css'
 
 const Login = () => {
-    const navigate = useNavigate()
-    const [username, setUsername] = useState('')
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState('')
+
+    const error = null
+
+    const [mode, setMode] = useState("login")
+    const [showPass, setShowPass] = useState(false)
+
+
+    const params = new URLSearchParams(window.location.search);
+    const view = params.get("view");
 
     useEffect(() => {
-        const stored = localStorage.getItem('grahamUser')
-        if (stored) {
-            navigate('/')
+        if (view === "register") {
+            setMode(view === "register" ? "register" : "login");
         }
-    }, [navigate])
+    }, [view]);
 
-    const handleLogin = async () => {
-        if (!username.trim()) return
-
-        setLoading(true)
-        setError('')
-
-        try {
-            const response = await fetch(
-                `https://api.github.com/users/${username.trim()}`
-            )
-            if (!response.ok) throw new Error('Usuário não encontrado')
-
-            const data = await response.json()
-
-            const userData = {
-                login: data.login,
-                avatar: data.avatar_url,
-                name: data.name || ''
-            }
-
-            localStorage.setItem('grahamUser', JSON.stringify(userData))
-
-            navigate('/')
-        } catch (err) {
-            setError(err.message)
-        } finally {
-            setLoading(false)
-        }
-    }
 
     return (
         <main className="login-page">
@@ -55,45 +31,63 @@ const Login = () => {
 
             <section className='login-content'>
                 <img src={icon} alt="icon Graham AI" />
-                <h1>Entrar ou cadastrar-se</h1>
-                <h2>Comece a criar com Graham AI</h2>
+                <h1>Log in or register</h1>
+                <h2>Start creating with Graham AI.</h2>
 
-                <button><i className='fa-brands fa-google' /> Continue com Google</button>
-                <button><i className='fa-brands fa-github' /> Continue com GitHub</button>
-                <button><i className='fa-brands fa-apple' /> Continue com Apple</button>
+
+                {mode === "login" ?
+                    <section className='login-mode'>
+                        <div className='login-input'>
+                            <User size={18} />
+                            <input type="text" placeholder='Username' />
+                        </div>
+                        <div className='login-input'>
+                            <Eye cursor={"pointer"} size={18} onClick={() => setShowPass(prev => !prev)} />
+                            <input type={showPass ? 'text' : 'password'} placeholder='Password' />
+                        </div>
+                    </section>
+
+                    :
+
+                    <section className='login-mode' >
+                        <div className='login-input'>
+                            <User size={18} />
+                            <input type="text" placeholder='Username' />
+                        </div>
+                        <div className='login-input'>
+                            <Mail size={18} />
+                            <input type="email" placeholder='E-mail' />
+                        </div>
+                        <div className='login-input'>
+                            <Eye cursor={"pointer"} size={18} onClick={() => setShowPass(prev => !prev)} />
+                            <input type={showPass ? 'text' : 'password'} placeholder='Password' />
+                        </div>
+                    </section>
+                }
 
                 <div className='line-login-page'>
-                    <hr /> ou <hr />
+                    <hr /> or <hr />
                 </div>
 
-                <input
-                    type="text"
-                    placeholder='Digite seu username do GitHub'
-                    value={username}
-                    onChange={(e) =>
-                        setUsername(
-                            e.target.value
-                                .toLowerCase()
-                                .replace(/@/g, '')
-                        )
-                    }
-                    onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
-                    disabled={loading}
-                />
+                {mode === 'login' ?
+                    <Link onClick={() => setMode('register')} className='login-register-btn'>Don't have an account yet? <span>Register</span></Link>
+                    :
+                    <Link onClick={() => setMode('login')} className='login-register-btn'>Do you already have an account? <span>Login</span></Link>
+                }
 
-                <button className='active' onClick={handleLogin} disabled={loading}>
-                    {loading ? 'Carregando...' : 'Continuar'}
+                <button className='active'>
+                    Continuar
                 </button>
 
                 {error && (
-                    <p style={{ color: '#d63c3c', marginTop: '370px', position: 'absolute', fontSize:'0.85rem' , fontWeight: '200', }}>{error}</p>
+                    <p style={{ color: '#d63c3c', marginTop: '370px', position: 'absolute', fontSize: '0.85rem', fontWeight: '200', }}>{error}</p>
                 )}
             </section>
 
             <section className='login-page-footer'>
                 <p>
-                    Ao continuar, você concorda com nossos <a href="">Termos de Serviço</a> 
-                    e nossa <a href="">Política de Privacidade</a>.
+                    By continuing, you agree to our <a href="">Terms of Services</a>
+                    and our <a href="">Privacy Policy</a>.
                 </p>
             </section>
         </main>
