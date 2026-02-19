@@ -90,7 +90,7 @@ const Login = () => {
                 return
             }
 
-            
+
             await refreshUser()
             navigate('/chat')
 
@@ -142,14 +142,6 @@ const Login = () => {
                                 required
                             />
                         </div>
-
-                        <button
-                            type="submit"
-                            className='active'
-                            disabled={loading}
-                        >
-                            {loading ? 'Carregando...' : 'Continuar'}
-                        </button>
                     </form>
                     :
                     <form className='login-mode' onSubmit={handleSubmit}>
@@ -193,14 +185,6 @@ const Login = () => {
                                 required
                             />
                         </div>
-
-                        <button
-                            type="submit"
-                            className='active'
-                            disabled={loading}
-                        >
-                            {loading ? 'Carregando...' : 'Continuar'}
-                        </button>
                     </form>
                 }
 
@@ -217,6 +201,15 @@ const Login = () => {
                         Do you already have an account? <span>Login</span>
                     </Link>
                 }
+
+                <button
+                    type="submit"
+                    onClick={handleSubmit}
+                    className='active'
+                    disabled={loading}
+                >
+                    {loading ? 'Carregando...' : 'Continuar'}
+                </button>
 
                 {error && (
                     <p style={{

@@ -286,7 +286,7 @@ function Chat() {
           </section>
 
           <section className="presentation">
-            <h1>Olá {user?.Profiler?.username}! O que posso fazer por ti?</h1>
+            <h1>Olá {user?.profile?.username}! O que posso fazer por ti?</h1>
             <h2>Navegue pela IA mais eficiente do mercado!</h2>
           </section>
         </>

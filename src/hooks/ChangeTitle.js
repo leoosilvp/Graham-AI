@@ -8,21 +8,21 @@ const ChangeTitle = () => {
     const path = location.pathname
 
     if (path === '/') {
-      document.title = 'GrahamAi'
+      document.title = 'Graham AI'
       return
     }
 
     if (path === '/login') {
-      document.title = 'GrahamAi ▪️ login'
+      document.title = 'Graham AI - login'
       return
     }
 
     if (path.startsWith('/settings')) {
-      document.title = 'GrahamAi ▪️ settings'
+      document.title = 'Graham AI - settings'
       return
     }
 
-    document.title = 'GrahamAi'
+    document.title = 'Graham AI'
   }, [location.pathname])
 
   return null
