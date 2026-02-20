@@ -5,7 +5,7 @@ export default function ProtectedRoute() {
   const { loading, isAuthenticated } = useAuth()
 
   if (loading) {
-    return
+    return null
   }
 
   if (!isAuthenticated) {

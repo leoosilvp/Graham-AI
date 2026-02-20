@@ -3,9 +3,12 @@ import '../css/conf-profile.css';
 import ConfirmDelete from './ConfirmDelete';
 import { logout } from '../services/auth'
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../hooks/useUser';
 
 function ConfProfile() {
   const [openLogoutModal, setOpenLogoutModal] = useState(false);
+
+  const { clearUserCache } = useUser()
 
   const navigate = useNavigate();
 
@@ -22,6 +25,7 @@ function ConfProfile() {
 
     try {
       await logout()
+      clearUserCache()  
       navigate('/login', { replace: true })
     } catch (err) {
       console.error('Logout failed', err)

@@ -43,8 +43,8 @@ function App() {
       <Routes>
         <Route path="/status" element={<Status />} />
         <Route path="/login" element={<Login />} />
-        <Route element={<ProtectedRoute />}>
-          <Route path="/" element={<Home />}>
+        <Route path="/" element={<Home />}>
+          <Route element={<ProtectedRoute />}>
             <Route index element={<Navigate to='chat' />} />
             <Route path='chat' element={<Chat />} />
             <Route path='notification' element={<Notification />} />

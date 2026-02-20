@@ -11,7 +11,7 @@ const Login = () => {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
-    const { user, refreshUser } = useUser()
+    const { user } = useUser()
 
     const [form, setForm] = useState({
         username: '',
@@ -90,8 +90,6 @@ const Login = () => {
                 return
             }
 
-
-            await refreshUser()
             navigate('/chat')
 
         } catch (err) {
