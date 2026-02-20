@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import '../css/conf-profile.css';
 import ConfirmDelete from './ConfirmDelete';
+import { logout } from '../services/auth'
+import { useNavigate } from 'react-router-dom';
 
 function ConfProfile() {
   const [openLogoutModal, setOpenLogoutModal] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleLogoutClick = () => {
     setOpenLogoutModal(true);
@@ -13,10 +17,16 @@ function ConfProfile() {
     setOpenLogoutModal(false);
   };
 
-  const handleConfirmLogout = () => {
-    localStorage.clear();
-    window.location.reload();
-  };
+  const handleConfirmLogout = async (e) => {
+    e.preventDefault()
+
+    try {
+      await logout()
+      navigate('/login', { replace: true })
+    } catch (err) {
+      console.error('Logout failed', err)
+    }
+  }
 
   const handleNavigate = (url) => {
     window.location.href = url;

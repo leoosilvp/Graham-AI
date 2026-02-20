@@ -31,6 +31,7 @@ import SecurityDocs from './components/ui/SecurityDocs'
 import Chat from './components/Chat'
 import Notification from './components/Notification'
 import Usage from './components/ui/Usage'
+import ProtectedRoute from './routes/ProtectedRoute'
 
 function App() {
 
@@ -42,20 +43,22 @@ function App() {
       <Routes>
         <Route path="/status" element={<Status />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Home />}>
-          <Route index element={<Navigate to='chat' />} />
-          <Route path='chat' element={<Chat />} />
-          <Route path='notification' element={<Notification />} />
-          <Route path="/chat/settings" element={<Settings />}>
-            <Route index element={<Navigate to='general' />} />
-            <Route path="general" element={<General />} />
-            <Route path="notifications" element={<Notifications />} />
-            <Route path="customization" element={<Customization />} />
-            <Route path="security" element={<Security />} />
-            <Route path="usage" element={<Usage />} />
-            <Route path="account" element={<Account />} />
-            <Route path="support" element={<Support />} />
-            <Route path="terms and privacy" element={<TermsPrivacy />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/" element={<Home />}>
+            <Route index element={<Navigate to='chat' />} />
+            <Route path='chat' element={<Chat />} />
+            <Route path='notification' element={<Notification />} />
+            <Route path="/chat/settings" element={<Settings />}>
+              <Route index element={<Navigate to='general' />} />
+              <Route path="general" element={<General />} />
+              <Route path="notifications" element={<Notifications />} />
+              <Route path="customization" element={<Customization />} />
+              <Route path="security" element={<Security />} />
+              <Route path="usage" element={<Usage />} />
+              <Route path="account" element={<Account />} />
+              <Route path="support" element={<Support />} />
+              <Route path="terms and privacy" element={<TermsPrivacy />} />
+            </Route>
           </Route>
         </Route>
         <Route path="/docs" element={<Docs />}>
@@ -82,7 +85,7 @@ function App() {
           </Route>
         </Route>
       </Routes>
-    </BrowserRouter>
+    </BrowserRouter >
 
   )
 }
