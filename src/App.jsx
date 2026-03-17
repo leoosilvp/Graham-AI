@@ -32,6 +32,7 @@ import Chat from './components/Chat'
 import Notification from './components/Notification'
 import Usage from './components/ui/Usage'
 import ProtectedRoute from './routes/ProtectedRoute'
+import Error from './routes/Error'
 
 function App() {
 
@@ -41,6 +42,7 @@ function App() {
     <BrowserRouter>
       <ChangeTitle />
       <Routes>
+        <Route path="*" element={<Error />} />
         <Route path="/status" element={<Status />} />
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />}>

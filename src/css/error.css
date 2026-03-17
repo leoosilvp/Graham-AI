@@ -1,0 +1,95 @@
+/* error */
+.error-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    background: #000;
+    height: 100vh;
+}
+
+.error-page header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100vw;
+    box-shadow: none;
+}
+
+.error-page header img {
+    display: flex;
+    width: 100px;
+}
+
+.error-page header a {
+    font-size: 0.85rem;
+    color: #969696;
+}
+
+.error-page-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-page-content h1 {
+    font-size: 1.6rem;
+}
+
+.error-page-content img {
+    margin: 30px 0;
+    display: flex;
+    width: 200px;
+}
+
+.error-page-content p {
+    margin-top: 5px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #969696;
+}
+
+.error-page-btns {
+    margin-top: 20px;
+    display: flex;
+    gap: 30px;
+}
+
+.error-page-btns a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 12px;
+    border: 1px solid #969696;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #969696;
+    transition: var(--transition);
+}
+
+.error-page-btns a:hover {
+    border-color: #f5f5f5;
+    background: #f5f5f5;
+    color: #000;
+    box-shadow: 0 0 15px 0 #ffffff25;
+}
+
+.error-page-btns a:first-child {
+    border-color: #f5f5f5;
+    background: #f5f5f5;
+    color: #000;
+    box-shadow: 0 0 15px 0 #ffffff25;
+}
+
+.error-page-btns a:first-child:hover {
+    border-color: #969696;
+    background: #969696;
+}
