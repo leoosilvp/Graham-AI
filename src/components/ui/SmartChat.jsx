@@ -11,10 +11,10 @@ const Chat = () => {
             
             <h3>Exemplo de 'Entrada' e 'Saida' do Graham</h3>
             <h2>Entrada</h2>
-            <img src='https://anonymousai-hub.github.io/DB/img/ex-question-graham.png' />
+            <img src='https://methodpac.github.io/DB/img/ex-question-graham.png' />
             <hr />
             <h2>Saída</h2>
-            <img src='https://anonymousai-hub.github.io/DB/img/ex-result-graham.png' />
+            <img src='https://methodpac.github.io/DB/img/ex-result-graham.png' />
             <hr />
             
             <h3>O Ciclo de Resolução Autônoma (CRA)</h3>
