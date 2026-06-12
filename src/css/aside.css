@@ -374,11 +374,13 @@
     border: 1px solid transparent;
     border-radius: 7px;
     font-size: 0.9rem;
+    font-weight: 500;
     cursor: pointer;
 }
 
 .modal-profile button:hover {
     background: var(--hover-2);
+    color: var(--light-color);
 }
 
 .aside-main.collapsed .modal-profile {
