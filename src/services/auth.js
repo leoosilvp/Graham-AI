@@ -1,22 +1,41 @@
-export async function login(username, password) {
-  const res = await fetch('https://api-graham-ai.vercel.app/api/auth/login', {
+const BASE_URL = 'https://api-astra-ai.vercel.app/api/auth'
+
+export async function login(email, password) {
+  const res = await fetch(`${BASE_URL}/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
-    body: JSON.stringify({ username, password })
+    body: JSON.stringify({ email, password })
   })
 
+  const data = await res.json()
+
   if (!res.ok) {
-    const data = await res.json()
-    throw new Error(data.error || 'Login failed')
+    throw new Error(data.error || 'Login failed.')
   }
 
   return true
 }
 
+export async function register(name, email, password) {
+  const res = await fetch(`${BASE_URL}/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify({ name, email, password })
+  })
+
+  const data = await res.json()
+
+  if (!res.ok) {
+    throw new Error(data.error || 'Registration failed.')
+  }
+
+  return true
+}
 
 export async function getMe() {
-  const res = await fetch('https://api-graham-ai.vercel.app/api/auth/me', {
+  const res = await fetch(`${BASE_URL}/me`, {
     credentials: 'include'
   })
 
@@ -25,7 +44,7 @@ export async function getMe() {
 }
 
 export async function logout() {
-  await fetch('https://api-graham-ai.vercel.app/api/auth/logout', {
+  await fetch(`${BASE_URL}/logout`, {
     method: 'POST',
     credentials: 'include'
   })
