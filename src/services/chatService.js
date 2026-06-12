@@ -1,4 +1,4 @@
-const API_BASE = 'https://api-astra-ai.vercel.app/api/chat/chat'
+const API_BASE = 'https://api-graham-ai.vercel.app/api/chat/chat'
 
 function buildHeaders(isJSON = true) {
   return isJSON
