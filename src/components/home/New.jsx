@@ -16,16 +16,16 @@ const New = () => {
 
     const welcomes = [
         `${FirstName()} está de volta.`,
-        `Reentrada confirmada, ${FirstName()}.`,
-        `Pi Pi Pi Pi Buummmmmmm.`,
-        `${FirstName()}, órbita retomada.`,
-        `Retorno suave, ${FirstName()}.`,
+        `Boa madrugada, ${FirstName()}`,
+        `Encontre padrões.`,
+        `${FirstName()}, pronto para começar.`,
         `Bem-vindo de volta, ${FirstName()}.`,
-        `${FirstName()}, trajetória restaurada.`,
+        `${FirstName()}, bom te ver novamente.`,
         `Pronto de novo, ${FirstName()}?`,
+        `Siga a lógica.`,
+        `Onde paramos, ${FirstName()}?`,
         `Bem-vindo, ${FirstName()}.`,
         `Quando quiser, ${FirstName()}.`,
-        `Chega! me demito.`,
         `Tudo certo, ${FirstName()}?`,
     ]
 
