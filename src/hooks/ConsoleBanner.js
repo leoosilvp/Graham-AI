@@ -48,7 +48,7 @@ export function ConsoleBanner() {
             'color:#767676',
             'color:#b3b3b3',
 
-            'color:#5aff5a',
+            'color:#5dff5d',
             'color:#767676',
             'color:#b3b3b3',
             'color:#ffffff',
