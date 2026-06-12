@@ -1,95 +1,47 @@
-/* error */
-.error-page {
+.error-main {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     width: 100vw;
-    background: #000;
     height: 100vh;
 }
 
-.error-page header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 15px 25px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100vw;
-    box-shadow: none;
-}
-
-.error-page header img {
+.error-main img {
     display: flex;
     width: 100px;
 }
 
-.error-page header a {
-    font-size: 0.85rem;
-    color: #969696;
+.error-main h1 {
+    font-family: "Libre Baskerville", serif;
+    margin-top: 50px;
+    font-size: 2.2rem;
+    font-weight: 400;
+    letter-spacing: -1px;
+    color: var(--gray-color-1);
 }
 
-.error-page-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.error-page-content h1 {
-    font-size: 1.6rem;
-}
-
-.error-page-content img {
-    margin: 30px 0;
-    display: flex;
-    width: 200px;
-}
-
-.error-page-content p {
+.error-main p {
     margin-top: 5px;
-    text-align: center;
-    font-size: 0.9rem;
-    color: #969696;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--gray-color-2);
 }
 
-.error-page-btns {
-    margin-top: 20px;
-    display: flex;
-    gap: 30px;
-}
-
-.error-page-btns a {
-    text-decoration: none;
+.error-main a {
+    margin-top: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4px 12px;
-    border: 1px solid #969696;
-    border-radius: 5px;
-    font-size: 1rem;
+    padding: 8px 15px;
+    font-size: 0.85rem;
     font-weight: 500;
-    color: #969696;
+    background: var(--light-color);
+    color: var(--black);
+    border-radius: 8px;
     transition: var(--transition);
 }
 
-.error-page-btns a:hover {
-    border-color: #f5f5f5;
-    background: #f5f5f5;
-    color: #000;
-    box-shadow: 0 0 15px 0 #ffffff25;
-}
-
-.error-page-btns a:first-child {
-    border-color: #f5f5f5;
-    background: #f5f5f5;
-    color: #000;
-    box-shadow: 0 0 15px 0 #ffffff25;
-}
-
-.error-page-btns a:first-child:hover {
-    border-color: #969696;
-    background: #969696;
+.error-main a:hover {
+    transform: scale(1.02);
 }

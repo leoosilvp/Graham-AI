@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import lightIcon from "../assets/img/icon-light.svg";
-import darkIcon from "../assets/img/icon-dark.svg";
+import lightIcon from "../assets/svg/icon-light.svg";
+import darkIcon from "../assets/svg/icon-dark.svg";
 
 export default function useFaviconTheme() {
   useEffect(() => {

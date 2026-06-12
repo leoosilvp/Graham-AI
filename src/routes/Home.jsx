@@ -1,20 +1,15 @@
 import { Outlet } from 'react-router-dom'
-import Header from '../components/Header'
 import Aside from '../components/Aside'
-import Footer from '../components/Footer'
-import Upd from '../components/Upd'
+import '../css/home.css'
 
 const Home = () => {
 
     return (
-        <main>
-            <Header />
-            <div className="content">
-                <Aside />
+        <main className="home-main">
+            <Aside />
+            <section className='home-content'>
                 <Outlet />
-            </div>
-            <Footer />
-            <Upd />
+            </section>
         </main>
     )
 }

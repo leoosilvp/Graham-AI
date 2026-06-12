@@ -2,27 +2,28 @@ import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
 const ChangeTitle = () => {
+
   const location = useLocation()
 
   useEffect(() => {
+
     const path = location.pathname
 
-    if (path === '/') {
-      document.title = 'Graham AI'
+    if (path === '/new') {
+      document.title = `New chat - Astra`
       return
     }
 
-    if (path === '/login') {
-      document.title = 'Graham AI - login'
+    else if (path === '/recents') {
+      document.title = `Recents - Astra`
       return
     }
 
-    if (path.startsWith('/settings')) {
-      document.title = 'Graham AI - settings'
+    else if (path === '/settings') {
+      document.title = `Settings - Astra`
       return
     }
 
-    document.title = 'Graham AI'
   }, [location.pathname])
 
   return null

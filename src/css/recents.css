@@ -1,0 +1,159 @@
+.recents-main {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    padding: 65px 75px;
+    gap: 25px;
+}
+
+.recents-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.recents-header h1 {
+    font-family: "Libre Baskerville", serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+
+.recents-header div {
+    display: flex;
+    gap: 15px;
+}
+
+.recents-header div button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 14px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--gray-color-1);
+    background: #1e1e1e;
+    border: none;
+    border-radius: 6px;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.recents-header div button:hover {
+    background: #151515;
+}
+
+.recents-header div button.active {
+    background: var(--light-color);
+    color: var(--black);
+}
+
+.recents-header div button.active:hover {
+    background: #c3c3c3;
+}
+
+.recents-search {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background: var(--hover-2);
+    padding: 10px;
+    outline: 1px solid transparent;
+    border: 1px solid #000;
+    border-radius: 10px;
+    gap: 15px;
+    transition: var(--transition);
+    color: var(--gray-color-2);
+}
+
+.recents-search:hover {
+    border-color: #252525;
+}
+
+.recents-search:focus-within {
+    outline-color: #fff;
+    outline-offset: 1px;
+}
+
+.recents-search input {
+    font-family: "Poppins", sans-serif;
+    width: 100%;
+    display: flex;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--light-color);
+}
+
+.recents-card-chat {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    border-bottom: 1px solid #131313;
+}
+
+.recents-card-chat:hover {
+    background: #131313;
+    border-radius: 10px;
+    border-color: transparent;
+}
+
+.recents-card-chat div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.recents-card-chat div h1 {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--light-color);
+}
+
+.recents-card-chat div input {
+    font-family: "Poppins", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--light-color);
+    background: transparent;
+    outline: none;
+    border: none;
+}
+
+.recents-card-chat div p {
+    margin-left: 10px;
+    font-size: 0.7rem;
+    font-weight: 300;
+    color: var(--gray-color-4);
+}
+
+.recents-card-chat:hover span {
+    opacity: 1;
+}
+
+.recents-card-chat span {
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: var(--transition);
+}
+
+.recents-card-chat span button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+    color: var(--gray-color-3);
+    cursor: pointer;
+}
+
+.recents-card-chat span button:hover {
+    background: #1e1e1e;
+}

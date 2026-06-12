@@ -23,7 +23,7 @@ export function useAuth() {
 
       try {
         const res = await fetch(
-          'https://api-graham-ai.vercel.app/api/auth/me',
+          'https://api-astra-ai.vercel.app/api/auth/me',
           { credentials: 'include' }
         )
 

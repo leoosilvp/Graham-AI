@@ -1,45 +1,41 @@
 import '../css/login.css'
-import { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { Eye, Mail, User } from '@geist-ui/icons'
-import { useUser } from '../hooks/useUser.js'
-import logo from '../assets/img/logo.svg'
-import icon from '../assets/img/icon-light.svg'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useUser } from '../hooks/useUser'
+import { login, register } from '../services/auth'
+import logo from '../assets/svg/logo.svg'
+import icon from '../assets/svg/icon-light.svg'
+import { Lock, Mail, Unlock, User } from '@geist-ui/icons'
+import imgLoading from '../assets/img/loading.gif'
 
 const Login = () => {
-
     const navigate = useNavigate()
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(null)
+    const [searchParams] = useSearchParams()
+
+    const view = searchParams.get('view')
+    const isRegister = view === 'register'
+
     const { user } = useUser()
 
+    const [showPassword, setShowPassword] = useState(false)
+
     const [form, setForm] = useState({
-        username: '',
+        name: '',
         email: '',
         password: ''
     })
 
-    const [mode, setMode] = useState("login")
-    const [showPass, setShowPass] = useState(false)
-
-    const params = new URLSearchParams(window.location.search)
-    const view = params.get("view")
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
 
     useEffect(() => {
-        if (view === "register") {
-            setMode("register")
-        }
-    }, [view])
-
-    useEffect(() => {
-        if (user) {
-            navigate('/chat')
-        }
+        if (user) navigate('/new', { replace: true })
     }, [user, navigate])
 
     const handleChange = (e) => {
         const { name, value } = e.target
-        setForm(prev => ({
+
+        setForm((prev) => ({
             ...prev,
             [name]: value
         }))
@@ -48,186 +44,118 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        if (loading) return
-
-        setError(null)
+        setError('')
         setLoading(true)
 
         try {
-            const endpoint =
-                mode === 'login'
-                    ? 'https://api-graham-ai.vercel.app/api/auth/login'
-                    : 'https://api-graham-ai.vercel.app/api/auth/register'
-
-            const payload =
-                mode === 'login'
-                    ? {
-                        username: form.username,
-                        password: form.password
-                    }
-                    : {
-                        username: form.username,
-                        email: form.email,
-                        password: form.password
-                    }
-
-            const res = await fetch(endpoint, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include',
-                body: JSON.stringify(payload)
-            })
-
-            const data = await res.json()
-
-            if (!res.ok) {
-                throw new Error(data.error || 'Something went wrong')
-            }
-
-            if (mode === 'register') {
-                setMode('login')
-                setForm({ username: '', email: '', password: '' })
+            if (isRegister) {
+                await register(form.name, form.email, form.password)
+                window.location.href = '/new'
                 return
             }
 
-            navigate('/chat')
-
+            await login(form.email, form.password)
+            window.location.href = '/new'
         } catch (err) {
             setError(err.message)
+            clearTimeout(window.__errorTimer)
+            window.__errorTimer = setTimeout(() => {
+                setError('')
+            }, 4000)
         } finally {
             setLoading(false)
+            localStorage.setItem('aside_open', 'true')
         }
     }
 
     return (
-        <main className="login-page">
-            <section className='login-page-header'>
-                <img src={logo} alt="logo Graham AI" />
-            </section>
+        <main className='login-main'>
+            <header className='login-header'>
+                <img src={logo} alt="Graham" draggable={false} />
+            </header>
 
-            <section className='login-content'>
-                <img src={icon} alt="icon Graham AI" />
-                <h1>Log in or register</h1>
-                <h2>Start creating with Graham AI.</h2>
+            <section className='login-wrapper'>
+                <img src={icon} alt="Graham Icon" draggable={false} />
+                <h1>{isRegister ? 'Crie sua conta' : 'Faça login na sua conta'}</h1>
+                <h2>{isRegister ? 'Comece a criar com a Graham.' : 'Continue criando com o Graham.'}</h2>
 
-                {mode === "login" ?
-                    <form className='login-mode' onSubmit={handleSubmit}>
-                        <div className='login-input'>
-                            <User size={18} />
+                <form name='form-login' onSubmit={handleSubmit} noValidate>
+
+                    {isRegister && (
+                        <article className='login-input'>
+                            <User size={16} />
+
                             <input
-                                name="username"
                                 type="text"
-                                placeholder='Username'
-                                value={form.username}
+                                name="name"
+                                placeholder='nome'
+                                value={form.name}
                                 onChange={handleChange}
-                                maxLength={17}
+                                autoComplete='name'
                                 required
+                                disabled={loading}
                             />
-                        </div>
+                        </article>
+                    )}
 
-                        <div className='login-input'>
-                            <Eye
-                                cursor="pointer"
-                                size={18}
-                                onClick={() => setShowPass(prev => !prev)}
-                            />
-                            <input
-                                name="password"
-                                type={showPass ? 'text' : 'password'}
-                                placeholder='Password'
-                                value={form.password}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                    </form>
-                    :
-                    <form className='login-mode' onSubmit={handleSubmit}>
-                        <div className='login-input'>
-                            <User size={18} />
-                            <input
-                                name="username"
-                                type="text"
-                                placeholder='Username'
-                                value={form.username}
-                                onChange={handleChange}
-                                maxLength={17}
-                                required
-                            />
-                        </div>
+                    <article className='login-input'>
+                        <Mail size={16} />
 
-                        <div className='login-input'>
-                            <Mail size={18} />
-                            <input
-                                name="email"
-                                type="email"
-                                placeholder='E-mail'
-                                value={form.email}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder='e-mail'
+                            value={form.email}
+                            onChange={handleChange}
+                            autoComplete='email'
+                            required
+                            disabled={loading}
+                        />
+                    </article>
 
-                        <div className='login-input'>
-                            <Eye
-                                cursor="pointer"
-                                size={18}
-                                onClick={() => setShowPass(prev => !prev)}
-                            />
-                            <input
-                                name="password"
-                                type={showPass ? 'text' : 'password'}
-                                placeholder='Password'
-                                value={form.password}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                    </form>
-                }
+                    <article className='login-input'>
+                        <button
+                            type='button'
+                            onClick={() => setShowPassword((prev) => !prev)}
+                            aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
+                        >
+                            {showPassword ? <Unlock size={16} /> : <Lock size={16} />}
+                        </button>
 
-                <div className='line-login-page'>
-                    <hr /> or <hr />
-                </div>
+                        <input
+                            type={showPassword ? 'text' : 'password'}
+                            name="password"
+                            placeholder='senha'
+                            value={form.password}
+                            onChange={handleChange}
+                            required
+                            disabled={loading}
+                        />
+                    </article>
 
-                {mode === 'login' ?
-                    <Link onClick={() => setMode('register')} className='login-register-btn'>
-                        Don't have an account yet? <span>Register</span>
-                    </Link>
-                    :
-                    <Link onClick={() => setMode('login')} className='login-register-btn'>
-                        Do you already have an account? <span>Login</span>
-                    </Link>
-                }
+                    {error && <p className='login-error'>{error}</p>}
 
-                <button
-                    type="submit"
-                    onClick={handleSubmit}
-                    className='active'
-                    disabled={loading}
-                >
-                    {loading ? 'Carregando...' : 'Continuar'}
-                </button>
+                    <button type='submit' className={`btn-confirm ${loading && 'btn-confirm-loading'}`} disabled={loading}>
+                        {loading ? <img src={imgLoading} /> : isRegister ? 'Criar conta' : 'Continuar'}
+                    </button>
+                </form>
 
-                {error && (
-                    <p style={{
-                        color: '#d63c3c',
-                        marginTop: '20px',
-                        fontSize: '0.85rem',
-                        fontWeight: '200',
-                        textAlign: 'center'
-                    }}>
-                        {error}
-                    </p>
-                )}
-            </section>
+                <div className='login-divider'><hr />ou<hr /></div>
 
-            <section className='login-page-footer'>
                 <p>
-                    By continuing, you agree to our <a href="">Terms of Services</a>
-                    and our <a href="">Privacy Policy</a>.
+                    {isRegister ? (
+                        <>Já possui uma conta? <Link to='?view=login'>Entrar</Link></>
+                    ) : (
+                        <>Não tem uma conta ainda? <Link to='?view=register'>Registrar</Link></>
+                    )}
                 </p>
             </section>
+
+            <footer className='login-footer'>
+                <Link to='/terms'>Termos de Serviço</Link>
+                <Link to='/privacy'>Política de Privacidade</Link>
+                &copy; 2026 Pleroma
+            </footer>
         </main>
     )
 }
