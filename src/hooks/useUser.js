@@ -14,7 +14,7 @@ function notifyListeners(user) {
 
 async function requestUser() {
   const response = await fetch(
-    'https://api-astra-ai.vercel.app/api/auth/me',
+    'https://api-graham-ai.vercel.app/api/auth/me',
     {
       method: 'GET',
       credentials: 'include',
