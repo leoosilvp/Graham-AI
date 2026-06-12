@@ -1,0 +1,575 @@
+/* ============================================
+   MARKDOWN CONTENT — Base
+   ============================================ */
+.markdown-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    line-height: 1.7;
+    font-size: 0.9rem;
+    color: #d4d4d8;
+    font-feature-settings: "kern" 1, "liga" 1;
+}
+
+.markdown-content p {
+    margin: 0;
+}
+
+.markdown-content>*+* {
+    margin-top: 1em;
+}
+
+.markdown-content strong {
+    font-weight: 600;
+    color: #fafafa;
+}
+
+.markdown-content em {
+    font-style: italic;
+    color: #e4e4e7;
+}
+
+.markdown-content del {
+    color: #71717a;
+    text-decoration-color: #52525b;
+}
+
+/* ============================================
+   HEADINGS
+   ============================================ */
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 {
+    font-weight: 600;
+    color: #fafafa;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    margin: 0;
+}
+
+.markdown-content h1 {
+    font-size: 1.5em;
+    padding-bottom: 0.4em;
+}
+
+.markdown-content h2 {
+    font-size: 1.25em;
+    padding-bottom: 0.35em;
+}
+
+.markdown-content h3 {
+    font-size: 1.1em;
+}
+
+.markdown-content h4 {
+    font-size: 1em;
+    color: #e4e4e7;
+}
+
+.markdown-content h5,
+.markdown-content h6 {
+    font-size: 0.9em;
+    color: #a1a1aa;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.markdown-content>h1,
+.markdown-content>h2,
+.markdown-content>h3,
+.markdown-content>h4 {
+    margin-top: 1.8em !important;
+}
+
+.markdown-content h1+*,
+.markdown-content h2+*,
+.markdown-content h3+*,
+.markdown-content h4+*,
+.markdown-content h5+*,
+.markdown-content h6+* {
+    margin-top: 0.6em !important;
+}
+
+.markdown-content> :first-child {
+    margin-top: 0 !important;
+}
+
+/* ============================================
+   LISTS
+   ============================================ */
+.markdown-content ul,
+.markdown-content ol {
+    margin: 0;
+    padding-left: 1.6em;
+}
+
+.markdown-content ul {
+    list-style: none;
+}
+
+.markdown-content ul>li {
+    position: relative;
+}
+
+.markdown-content ul>li::before {
+    content: "";
+    position: absolute;
+    left: -1.1em;
+    top: 0.72em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #71717a;
+}
+
+.markdown-content ol {
+    list-style: none;
+    counter-reset: md-ol;
+}
+
+.markdown-content ol>li {
+    counter-increment: md-ol;
+    position: relative;
+}
+
+.markdown-content ol>li::before {
+    content: counter(md-ol) ".";
+    position: absolute;
+    left: -1.6em;
+    width: 1.3em;
+    text-align: right;
+    color: #71717a;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+}
+
+.markdown-content li {
+    margin: 0;
+    padding-left: 0.1em;
+}
+
+.markdown-content li+li {
+    margin-top: 0.35em;
+}
+
+.markdown-content li>* {
+    margin: 0 !important;
+}
+
+.markdown-content li>*+* {
+    margin-top: 0.35em !important;
+}
+
+.markdown-content li>ul,
+.markdown-content li>ol {
+    padding-left: 1.6em;
+}
+
+/* Task lists */
+.markdown-content li.task-list-item {
+    list-style: none;
+    padding-left: 0;
+}
+
+.markdown-content li.task-list-item::before {
+    content: none;
+}
+
+.markdown-content .task-list-item input[type="checkbox"] {
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    margin: 0 0.6em 0 -1.6em !important;
+    vertical-align: -2px;
+    border: 1.5px solid #3f3f46;
+    border-radius: 4px;
+    background: #18181b;
+    position: relative;
+    cursor: default;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.markdown-content .task-list-item input[type="checkbox"]:checked {
+    background: #d97706;
+    border-color: #d97706;
+}
+
+.markdown-content .task-list-item input[type="checkbox"]:checked::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 4px;
+    height: 8px;
+    border: solid #0a0a0a;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.markdown-content .task-list-item:has(input:checked) {
+    color: #71717a;
+    text-decoration: line-through;
+    text-decoration-color: #3f3f46;
+}
+
+/* ============================================
+   BLOCKQUOTE
+   ============================================ */
+.markdown-content blockquote {
+    border-left: 3px solid #589ac9;
+    padding: 0.2em 0 0.2em 1em;
+    margin: 5px 0 10px;
+    color: #cacaca;
+    font-style: italic;
+    background: linear-gradient(to right, #5b5b5b36, transparent 60%);
+}
+
+.markdown-content blockquote>* {
+    margin: 0 !important;
+}
+
+.markdown-content blockquote>*+* {
+    margin-top: 0.4em !important;
+}
+
+/* ============================================
+   HORIZONTAL RULE
+   ============================================ */
+.markdown-content hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #27272a 15%, #27272a 85%, transparent);
+    margin: 0;
+}
+
+.markdown-content>hr {
+    margin: 1.8em 0 !important;
+}
+
+/* ============================================
+   INLINE CODE
+   ============================================ */
+.markdown-content .inline-code {
+    font-family: var(--font-mono, "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace);
+    font-size: 0.85em;
+    font-weight: 500;
+    color: #ff9191;
+    background: #d8d8d815;
+    border: 1px solid #ffffff0f;
+    padding: 0.2em 0.5em;
+    border-radius: 5px;
+    white-space: break-spaces;
+}
+
+/* ============================================
+   LINKS
+   ============================================ */
+.markdown-content a {
+    font-size: 0.9rem;
+    color: #8ccbff;
+    text-decoration: underline;
+    text-decoration-color: #6a8ba7;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.15s, color 0.15s;
+}
+
+.markdown-content a:hover {
+    color: #5c89ad;
+    text-decoration-color: currentColor;
+}
+
+/* ============================================
+   CODE BLOCKS — VS Code Dark+ inspired
+   ============================================ */
+.code-block {
+    width: 100%;
+    max-width: 720px;
+    margin: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #2d2d30;
+    background: #141414;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+}
+
+.code-block__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5em 0.9em;
+    background: #1e1e1e;
+    border-bottom: 1px solid #2d2d30;
+    font-family: var(--font-mono, "JetBrains Mono", "Fira Code", ui-monospace, monospace);
+    font-size: 0.75em;
+    color: #858585;
+    text-transform: lowercase;
+    letter-spacing: 0.03em;
+}
+
+.code-block__lang {
+    font-weight: 500;
+    color: #c5c5c5;
+}
+
+.code-block__copy {
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    background: transparent;
+    border: 1px solid transparent;
+    color: #858585;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 0.25em 0.55em;
+    border-radius: 6px;
+    transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+
+.code-block__copy:hover {
+    color: #fafafa;
+    background: rgba(255, 255, 255, 0.06);
+    border-color: #3f3f46;
+}
+
+.code-block__copy:active {
+    transform: scale(0.97);
+}
+
+.code-block pre {
+    margin: 0;
+    padding: 0.85em 1.1em;
+    overflow-x: auto;
+    font-family: var(--font-mono, "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace);
+    font-size: 0.85em;
+    line-height: 1.6;
+    background: transparent;
+    color: #e4e4e4;
+}
+
+.code-block pre::-webkit-scrollbar {
+    height: 6px;
+}
+
+.code-block pre::-webkit-scrollbar-thumb {
+    background: #3e3e42;
+    border-radius: 3px;
+}
+
+.code-block pre::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* ============================================
+   SYNTAX HIGHLIGHTING — VS Code Dark+ palette
+   (slightly desaturated/brightened for market-standard balance)
+   ============================================ */
+.hljs-comment,
+.hljs-quote {
+    color: #7aa37a;
+    font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-section,
+.hljs-link {
+    color: #6ab0e8;
+}
+
+.hljs-string,
+.hljs-addition {
+    color: #d8a786;
+}
+
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-template-tag,
+.hljs-template-variable {
+    color: #5fcbb7;
+}
+
+.hljs-number {
+    color: #bfd8ad;
+}
+
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-type {
+    color: #5fcbb7;
+}
+
+.hljs-function .hljs-title,
+.hljs-title.function_ {
+    color: #e6d49c;
+}
+
+.hljs-attr,
+.hljs-attribute,
+.hljs-params {
+    color: #a8d6f7;
+}
+
+.hljs-variable,
+.hljs-name {
+    color: #a8d6f7;
+}
+
+.hljs-tag {
+    color: #6ab0e8;
+}
+
+.hljs-deletion {
+    color: #f47c7c;
+}
+
+.hljs-meta,
+.hljs-doctag {
+    color: #cd9ad6;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+    color: #ddc28a;
+}
+
+.hljs-emphasis {
+    font-style: italic;
+}
+
+.hljs-strong {
+    font-weight: 700;
+}
+
+/* ============================================
+   TABLES
+   ============================================ */
+.md-table-wrapper {
+    overflow-x: auto;
+    margin: 0;
+    border: 1px solid #27272a;
+    border-radius: 8px;
+}
+
+.md-table-wrapper::-webkit-scrollbar {
+    height: 6px;
+}
+
+.md-table-wrapper::-webkit-scrollbar-thumb {
+    background: #27272a;
+    border-radius: 3px;
+}
+
+.markdown-content table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 0.875em;
+}
+
+.markdown-content thead {
+    background: #1e1e1e;
+}
+
+.markdown-content th {
+    font-weight: 600;
+    color: #fafafa;
+    text-align: left;
+    padding: 0.5em 0.9em;
+    border-bottom: 1px solid #27272a;
+    white-space: nowrap;
+}
+
+.markdown-content td {
+    padding: 0.55em 0.9em;
+    border-bottom: 1px solid #18181b;
+    color: #d4d4d8;
+}
+
+.markdown-content tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.markdown-content tbody tr:hover {
+    background: #1c1c1c52;
+}
+
+.markdown-content th[align="center"],
+.markdown-content td[align="center"] {
+    text-align: center;
+}
+
+.markdown-content th[align="right"],
+.markdown-content td[align="right"] {
+    text-align: right;
+}
+
+/* ============================================
+   KATEX (LaTeX) — larger, lighter tone to stand out
+   ============================================ */
+.markdown-content .katex {
+    font-size: 1.2em;
+    color: #f4f4f5;
+}
+
+.markdown-content .katex-display {
+    padding: 0.5em 0;
+    margin: 0;
+    font-size: 1.3em;
+}
+
+.markdown-content .katex-display::-webkit-scrollbar {
+    height: 6px;
+}
+
+.markdown-content .katex-display::-webkit-scrollbar-thumb {
+    background: #27272a;
+    border-radius: 3px;
+}
+
+.markdown-content .katex-display>.katex {
+    display: inline-block;
+    text-align: initial;
+    font-size: 1.3em;
+    color: #fafafa;
+}
+
+.markdown-content .katex:not(.katex-display .katex) {
+    padding: 0 0.08em;
+    color: #f5f5f5;
+}
+
+/* ============================================
+   IMAGES
+   ============================================ */
+.markdown-content img {
+    max-width: 100%;
+    border-radius: 8px;
+    border: 1px solid #27272a;
+    margin: 0;
+}
+
+/* ============================================
+   FOOTNOTES
+   ============================================ */
+.markdown-content .footnotes {
+    padding-top: 0.8em;
+    border-top: 1px solid #27272a;
+    font-size: 0.8em;
+    color: #71717a;
+    margin: 0;
+}
+
+.markdown-content .footnotes ol {
+    padding-left: 1.3em;
+}
+
+.markdown-content .footnote-ref {
+    color: #fbbf24;
+    text-decoration: none;
+    font-weight: 600;
+}

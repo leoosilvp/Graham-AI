@@ -167,7 +167,7 @@
     width: 720px;
     padding: 20px 0px 150px;
     flex-direction: column;
-    gap: 30px;
+    gap: 35px;
 }
 
 .chat-input {
@@ -202,12 +202,8 @@
 
 .chat-bubble--ai {
     font-family: "Libre Baskerville", serif;
-    color: #eaeaea;
     font-size: 0.95rem;
     font-weight: 300;
-    line-height: 1.5;
-    white-space: pre-wrap;
-    word-break: break-word;
 }
 
 .stream-cursor {
