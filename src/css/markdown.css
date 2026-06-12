@@ -286,8 +286,7 @@
    CODE BLOCKS — VS Code Dark+ inspired
    ============================================ */
 .code-block {
-    width: 100%;
-    max-width: 720px;
+    width: 720px;
     margin: 0;
     border-radius: 10px;
     overflow: hidden;

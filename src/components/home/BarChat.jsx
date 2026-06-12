@@ -157,6 +157,11 @@ const BarChat = ({ onSend, onStop, isLoading, active }) => {
           )}
         </div>
       </section>
+      {
+        active && (
+          <p className='bar-chat-alert'>O Graham é uma IA e pode cometer erros. Considere verificar informações importantes.</p>
+        )
+      }
     </main>
   )
 }

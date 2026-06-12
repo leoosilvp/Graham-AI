@@ -132,6 +132,16 @@
     color: var(--gray-color-2);
 }
 
+.bar-chat-alert {
+    width: 720px;
+    text-align: center;
+    position: absolute;
+    bottom: -22px;
+    font-size: 0.7rem;
+    font-weight: 300;
+    color: #444444;
+}
+
 
 /* active chat */
 .chat-main {
