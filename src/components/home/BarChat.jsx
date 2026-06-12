@@ -106,7 +106,7 @@ const BarChat = ({ onSend, onStop, isLoading, active }) => {
       <textarea
         ref={textareaRef}
         className={`bar-chat-textarea ${active ? 'active' : ''}`}
-        placeholder={isLoading ? "Pensando..." : "Como posso ajudar você hoje?"}
+        placeholder={isLoading ? "Pensando..." : active ? "Escreva uma mensagem..." : "Como posso ajudar você hoje?"}
         rows={1}
         value={value}
         disabled={isLoading}
@@ -135,7 +135,7 @@ const BarChat = ({ onSend, onStop, isLoading, active }) => {
         />
 
         <div className="bar-chat-right">
-          <p className="bar-chat-model">ØSX Astra 1.3</p>
+          <p className="bar-chat-model">Graham 1.8</p>
 
           {isLoading ? (
             <button

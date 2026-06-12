@@ -1,6 +1,6 @@
 import '../css/aside.css'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import logo from '../assets/svg/logo.svg'
+import logo from '../assets/svg/logo-text.svg'
 import { Check, ChevronUpDown, Code, Edit, Folder, Frown, Search, Sidebar, Trash2, X } from '@geist-ui/icons'
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { ChatService } from '../services/chatService'

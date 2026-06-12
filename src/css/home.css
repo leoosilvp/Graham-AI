@@ -24,13 +24,13 @@
     width: 100%;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
     margin-bottom: 40px;
 }
 
 .new-welcome img {
     display: flex;
-    width: 35px;
+    width: 40px;
 }
 
 .new-welcome h1 {
@@ -70,15 +70,15 @@
 }
 
 .bar-chat-textarea {
+    font-family: "Poppins", sans-serif;
     display: flex;
-    min-height: 40px;
+    min-height: 45px;
     max-height: 200px;
     border: none;
     outline: none;
     background: transparent;
-    font-size: 1rem;
-    letter-spacing: -0.5px;
-    font-weight: 200;
+    font-size: 0.95rem;
+    font-weight: 400;
     color: var(--light-color);
     resize: none;
 }
@@ -153,7 +153,12 @@
 
 .chat-main::-webkit-scrollbar-thumb {
     border-radius: 20px;
-    background: #101010;
+    background: #1b1b1b;
+    cursor: pointer;
+}
+
+.chat-main::-webkit-scrollbar-thumb:hover {
+    background: #2b2b2b;
 }
 
 .chat-content {

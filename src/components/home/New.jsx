@@ -1,5 +1,5 @@
 import { useUser } from "../../hooks/useUser"
-import icon from '../../assets/svg/logo.svg'
+import icon from '../../assets/svg/icon-light.svg'
 import BarChat from "./BarChat"
 import { useCallback, useEffect } from "react"
 import { useChat } from "../../hooks/useChat"

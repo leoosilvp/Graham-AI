@@ -103,8 +103,8 @@ const Chat = () => {
         if (!id) return
 
         document.title = chatTitle
-            ? `${chatTitle} - Astra`
-            : 'Astra'
+            ? `${chatTitle} - Graham`
+            : 'Graham'
     }, [chatTitle, id])
 
     return (

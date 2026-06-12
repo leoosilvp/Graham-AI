@@ -10,17 +10,17 @@ const ChangeTitle = () => {
     const path = location.pathname
 
     if (path === '/new') {
-      document.title = `New chat - Astra`
+      document.title = `New chat - Graham`
       return
     }
 
     else if (path === '/recents') {
-      document.title = `Recents - Astra`
+      document.title = `Recents - Graham`
       return
     }
 
     else if (path === '/settings') {
-      document.title = `Settings - Astra`
+      document.title = `Settings - Graham`
       return
     }
 
