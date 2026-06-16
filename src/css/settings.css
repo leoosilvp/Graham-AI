@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100vh;
+    height: 90%;
     padding: 65px 75px;
     gap: 25px;
 }
@@ -104,9 +104,13 @@
 }
 
 .settings-general-main h1 {
-    margin: 3px 0 30px;
+    margin: 40px 0 25px;
     font-size: 0.85rem;
-    font-weight: 500;
+    font-weight: 600;
+}
+
+.settings-general-main h1.first {
+    margin-top: 5px;
 }
 
 .settings-general-main h2 {
@@ -115,8 +119,57 @@
     color: var(--gray-color-1);
 }
 
+.settings-general-main h3 {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--gray-color-2);
+}
+
+.settings-general-main p {
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: var(--gray-color-3);
+}
+
+
 .settings-general-main hr {
-    margin: 10px 0;
+    margin: 15px 0;
     border: none;
     border-bottom: 1px solid var(--hover-2);
+}
+
+.settings-general-main section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.settings-btns-select {
+    display: flex;
+    background: var(--hover-2);
+    border-radius: 6px;
+}
+
+.settings-btns-select button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 30px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--gray-color-3);
+    cursor: pointer;
+}
+
+.settings-btns-select button:hover {
+    color: var(--gray-color-1);
+}
+
+.settings-btns-select button.active {
+    background: #232323;
+    border-color: #2b2b2b;
+    color: var(--gray-color-1);
 }
