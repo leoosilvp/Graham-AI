@@ -1,13 +1,11 @@
 import { useEffect, useRef } from 'react'
-import { Camera, Check, Folder, Globe, Paperclip } from '@geist-ui/icons'
+import { Camera, Folder, Globe, Paperclip, Wifi, WifiOff } from '@geist-ui/icons'
 import { useNavigate } from 'react-router-dom'
+import { useConnectionStatus } from '../../hooks/useConnectionStatus'
 
-const ModalUpload = ({
-    open,
-    onClose,
-    onFilesSelected,
-    onScreenshotCaptured
-}) => {
+const ModalUpload = ({ open, onClose, onFilesSelected, onScreenshotCaptured }) => {
+
+    const connectionStatus = useConnectionStatus()
 
     const navigate = useNavigate()
     const modalRef = useRef(null)
@@ -88,9 +86,9 @@ const ModalUpload = ({
             <button onClick={handlePickFiles}><p><Paperclip size={16} />Adicionar arquivos ou fotos</p><span>Ctrl + Q</span></button>
             <button onClick={handleScreenshot}><p><Camera size={16} />Fazer captura de tela</p></button>
             <hr />
-            <button onClick={() => {navigate('/library'), onClose?.() }}><p><Folder size={16} />Meus arquivos</p></button>
+            <button onClick={() => { navigate('/library'), onClose?.() }}><p><Folder size={16} />Meus arquivos</p></button>
             <hr />
-            <button onClick={() => {navigate('/settings'), onClose?.() }}><p><Globe size={16} />Buscar na web</p><span><Check size={16} color="#4987d9" /></span></button>
+            <button onClick={() => { navigate('/settings'), onClose?.() }}><p><Globe size={16} />Buscar na web</p><span>{connectionStatus === 'offline' ? <WifiOff size={16} color="#ed5c5c" /> : (connectionStatus === 'ruim' ? <Wifi size={16} color="#ed5c5c" /> : connectionStatus === 'boa' ? <Wifi size={16} color="#f8e463" /> : <Wifi size={16} color="#8cf477" />)}</span></button>
 
             <input
                 ref={fileInputRef}
