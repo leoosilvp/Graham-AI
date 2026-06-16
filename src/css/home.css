@@ -108,9 +108,9 @@
     align-items: center;
     justify-content: center;
     border: none;
-    padding: 7px;
+    padding: 8px;
     background: transparent;
-    border-radius: 50%;
+    border-radius: 8px;
     cursor: pointer;
     transition: var(--transition);
     color: var(--gray-color-1);
@@ -140,6 +140,55 @@
     font-size: 0.7rem;
     font-weight: 300;
     color: #444444;
+}
+
+
+/* modal profile */
+.modal-upload {
+    position: absolute;
+    width: 295px;
+    bottom: 245px;
+    padding: 5px;
+    border-radius: 13px;
+    border: 1px solid #1f1f1f;
+    background: #161616;
+    box-shadow: 0 0 10px #00000057;
+}
+
+.modal-upload hr {
+    width: 95%;
+    margin: 5px auto;
+    border: none;
+    border-bottom: 1px solid #252525;
+}
+
+.modal-upload button {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--gray-color-1);
+    cursor: pointer;
+}
+
+.modal-upload button:hover {
+    background: #1b1b1b;
+}
+
+.modal-upload button p {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    gap: 10px;
+}
+
+.modal-upload button span {
+    color: #454545;
+    font-size: 0.8rem;
 }
 
 
