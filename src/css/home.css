@@ -132,6 +132,10 @@
     color: var(--gray-color-2);
 }
 
+.bar-chat-icon-btn.active {
+    background: #191919;
+}
+
 .bar-chat-alert {
     width: 720px;
     text-align: center;

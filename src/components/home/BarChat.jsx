@@ -7,12 +7,12 @@ const MAX_FILES = 5
 const getFileType = (file) => {
   const ext = file.name.split('.').pop()?.toUpperCase()
 
-  if (file.type.startsWith('image/')) return 'Imagem'
+  if (file.type.startsWith('image/')) return 'IMG'
   if (file.type === 'application/pdf') return 'PDF'
   if (file.type.includes('json')) return 'JSON'
   if (file.type.includes('csv')) return 'CSV'
-  if (file.type.includes('javascript')) return 'JavaScript'
-  if (file.type.includes('typescript')) return 'TypeScript'
+  if (file.type.includes('javascript')) return 'JS'
+  if (file.type.includes('typescript')) return 'TS'
   if (file.type.includes('zip')) return 'ZIP'
 
   return ext || 'Arquivo'
@@ -136,7 +136,7 @@ const BarChat = ({
         <section className="bar-chat-chips">
           {files.map((item, index) => (
             <article key={`${item.file.name}-${index}`} className="bar-chat-chip">
-              <button className="bar-chat-chip-remove" title={`Remover ${item.file.name}`} onClick={() => removeFile(index)}>
+              <button className="bar-chat-chip-remove" title={`Excluir`} onClick={() => removeFile(index)}>
                 <X size={14} />
               </button>
 
@@ -177,7 +177,7 @@ const BarChat = ({
 
       <section className="bar-chat-btns">
         <button
-          className="bar-chat-icon-btn"
+          className={`bar-chat-icon-btn ${modalOpen && 'active'}`}
           aria-label="Anexar arquivo"
           disabled={isLoading || files.length >= MAX_FILES}
           onClick={() => setModalOpen(prev => !prev)}
