@@ -14,8 +14,13 @@ const ChangeTitle = () => {
       return
     }
 
-    else if (path === '/recents') {
-      document.title = `Recents - Graham`
+    else if (path === '/search') {
+      document.title = `Search - Graham`
+      return
+    }
+
+    else if (path === '/library') {
+      document.title = `Library - Graham`
       return
     }
 
