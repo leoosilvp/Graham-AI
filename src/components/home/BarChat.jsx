@@ -4,6 +4,28 @@ import ModalUpload from './ModalUpload'
 
 const MAX_FILES = 5
 
+const getFileType = (file) => {
+  const ext = file.name.split('.').pop()?.toUpperCase()
+
+  if (file.type.startsWith('image/')) return 'Imagem'
+  if (file.type === 'application/pdf') return 'PDF'
+  if (file.type.includes('json')) return 'JSON'
+  if (file.type.includes('csv')) return 'CSV'
+  if (file.type.includes('javascript')) return 'JavaScript'
+  if (file.type.includes('typescript')) return 'TypeScript'
+  if (file.type.includes('zip')) return 'ZIP'
+
+  return ext || 'Arquivo'
+}
+
+const createFileData = (file) => ({
+  file,
+  type: getFileType(file),
+  preview: file.type.startsWith('image/')
+    ? URL.createObjectURL(file)
+    : null
+})
+
 const BarChat = ({
   onSend,
   onStop,
@@ -33,11 +55,22 @@ const BarChat = ({
     }
   }, [isLoading])
 
+  useEffect(() => {
+    return () => {
+      files.forEach(item => {
+        if (item.preview) {
+          URL.revokeObjectURL(item.preview)
+        }
+      })
+    }
+  }, [files])
+
   const handleModalFiles = useCallback((pickedFiles) => {
     setFileError('')
 
     setFiles(prev => {
-      const merged = [...prev, ...pickedFiles]
+      const formatted = pickedFiles.map(createFileData)
+      const merged = [...prev, ...formatted]
 
       if (merged.length > MAX_FILES) {
         setFileError(`Máximo de ${MAX_FILES} arquivos por mensagem.`)
@@ -53,16 +86,27 @@ const BarChat = ({
   }, [handleModalFiles])
 
   const removeFile = (index) => {
-    setFiles(prev => prev.filter((_, i) => i !== index))
+    setFiles(prev => {
+      const target = prev[index]
+
+      if (target?.preview) {
+        URL.revokeObjectURL(target.preview)
+      }
+
+      return prev.filter((_, i) => i !== index)
+    })
+
     setFileError('')
   }
 
   const handleSend = () => {
     const message = value.trim()
 
-    if (!message || isLoading) return
+    if ((!message && files.length === 0) || isLoading) {
+      return
+    }
 
-    onSend?.({ message, files })
+    onSend?.({ message, files: files.map(item => item.file) })
 
     setValue('')
     setFiles([])
@@ -77,7 +121,7 @@ const BarChat = ({
     }
   }
 
-  const canSend = value.trim().length > 0 && !isLoading
+  const canSend = (value.trim().length > 0 || files.length > 0) && !isLoading
 
   return (
     <main className={`bar-chat-main ${active ? 'active' : ''}`}>
@@ -89,21 +133,31 @@ const BarChat = ({
       />
 
       {files.length > 0 && (
-        <div className="bar-chat-chips">
-          {files.map((file, index) => (
-            <span key={`${file.name}-${index}`} className="bar-chat-chip">
-              <span className="bar-chat-chip-name">{file.name}</span>
-
-              <button
-                className="bar-chat-chip-remove"
-                aria-label={`Remover ${file.name}`}
-                onClick={() => removeFile(index)}
-              >
-                <X size={12} />
+        <section className="bar-chat-chips">
+          {files.map((item, index) => (
+            <article key={`${item.file.name}-${index}`} className="bar-chat-chip">
+              <button className="bar-chat-chip-remove" title={`Remover ${item.file.name}`} onClick={() => removeFile(index)}>
+                <X size={14} />
               </button>
-            </span>
+
+              {item.preview ? (
+                <div className="bar-chat-chip-image">
+                  <img src={item.preview} alt={item.file.name} />
+                </div>
+              ) : (
+                <section className='bar-chat-chip-content'>
+                  <div className="bar-chat-chip-name">
+                    {item.file.name}
+                  </div>
+
+                  <div className="bar-chat-chip-type">
+                    {item.type}
+                  </div>
+                </section>
+              )}
+            </article>
           ))}
-        </div>
+        </section>
       )}
 
       {fileError && (

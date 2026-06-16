@@ -241,7 +241,7 @@ const Aside = () => {
                     <h2>Recentes</h2>
                     <section className='aside-grid-chats' ref={scrollRef}>
 
-                        {loading && <p className="chat-aside-loading"><div className='loader' /></p>}
+                        {loading && <div className="chat-aside-loading"><div className='loader' /></div>}
 
                         {!loading && chats.length === 0 && (<p className="chat-nochats"><Frown size={17} /> Nenhum chat ainda!</p>)}
 

@@ -1,9 +1,6 @@
 import { useEffect } from 'react'
-import { useUser } from './useUser'
 
 export function ConsoleBanner() {
-
-    const { user } = useUser()
 
     useEffect(() => {
 
