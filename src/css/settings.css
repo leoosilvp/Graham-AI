@@ -83,7 +83,7 @@
 
 /* GENERAL */
 .settings-general-main {
-    padding: 0 35px;
+    padding: 0 35px 30px;
     width: 100%;
     overflow-x: hidden;
 }
@@ -104,6 +104,9 @@
 }
 
 .settings-general-main h1 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     margin: 40px 0 25px;
     font-size: 0.85rem;
     font-weight: 600;
@@ -145,6 +148,97 @@
     gap: 20px;
 }
 
+.settings-general-main section.margin-top {
+    margin-top: 25px;
+}
+
+.settings-general-main section .input {
+    display: flex;
+    width: 250px;
+    height: 30px;
+    padding: 0 10px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--gray-color-1);
+    background: #181818;
+    border: none;
+    border-radius: 5px;
+}
+
+.settings-general-main section .input.date {
+    width: 170px;
+}
+
+
+.settings-general-main section .btn button {
+    display: flex;
+    padding: 7px 15px;
+    background: transparent;
+    border: 1px solid #1e1e1e;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    color: var(--gray-color-1);
+    cursor: pointer;
+}
+
+.settings-general-main section .btn button.del {
+    border-color: #ff4b4b;
+    color: #ff4b4b;
+}
+
+.settings-general-main section .img {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+    min-height: 120px;
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+    border-radius: 100%;
+}
+
+.settings-general-main section .img img {
+    display: flex;
+    height: 100%;
+    width: fit-content;
+}
+
+.settings-general-main section .img:hover button {
+    opacity: 1;
+}
+
+.settings-general-main section .img button {
+    position: absolute;
+    display: flex;
+    opacity: 0;
+    align-items: center;
+    justify-content: center;
+    width: 125px;
+    height: 125px;
+    border: none;
+    border-radius: 100%;
+    background: #00000033;
+    backdrop-filter: blur(1px);
+    color: var(--gray-color-1);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+
+.settings-general-main section select {
+    background: #000;
+    color: var(--gray-color-1);
+    width: 170px;
+    height: 30px;
+    padding: 0 5px;
+    border: 1px solid #1e1e1e;
+    border-radius: 5px;
+}
+
+
+
 .settings-btns-select {
     display: flex;
     background: var(--hover-2);
@@ -173,3 +267,5 @@
     border-color: #2b2b2b;
     color: var(--gray-color-1);
 }
+
+
