@@ -67,7 +67,7 @@ const New = () => {
     return (
         <main className="new-main">
             <section className="new-welcome">
-                <img src={icon} />
+                <img src={icon} draggable={false} />
                 <h1 style={{ '--chars': welcome.length }} className="typing">{welcome}</h1>
             </section>
             <section className="new-input">

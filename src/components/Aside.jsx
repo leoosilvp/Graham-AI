@@ -224,18 +224,18 @@ const Aside = () => {
         <aside className={`aside-main ${!isOpen && 'collapsed'}`}>
             <header className="aside-header">
                 <Link to='/new'>
-                    <img src={logo} alt="logo ASTRA" />
+                    <img src={logo} alt="logo ASTRA" draggable={false} />
                 </Link>
                 <button onClick={handleToggleAside}><Sidebar size={16} /></button>
             </header>
             <section className='aside-content'>
                 <div className='aside-first-btn'>
                     <button className='aside-btn' onClick={handleNewChat}><Edit className='icon' size={19} /><p>Novo bate-papo</p><span>Shift + a</span></button>
-                    <button className='aside-btn' onClick={() => navigate('recents')} ><Search className='icon' size={19} /><p>Procurar</p><span>Ctrl + p</span></button>
+                    <button className='aside-btn' onClick={() => navigate('/search')} ><Search className='icon' size={19} /><p>Procurar</p><span>Ctrl + p</span></button>
                 </div>
 
                 <div className={`aside-content-scrool ${isScrolled ? 'aside-content-scrolled' : ''}`}>
-                    <button className='aside-btn' onClick={() => navigate('library')} ><Folder className='icon' size={19} /><p>Arquivos</p></button>
+                    <button className='aside-btn' onClick={() => navigate('/library')} ><Folder className='icon' size={19} /><p>Arquivos</p></button>
                     <button className='aside-btn bloq'><Code className='icon' size={19} /><p>Código</p><h3>Indisponível</h3></button>
 
                     <h2>Recentes</h2>

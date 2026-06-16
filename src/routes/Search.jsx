@@ -114,7 +114,7 @@ const Recents = () => {
     return (
         <main className="recents-main">
             <header className="recents-header">
-                <h1>Conversas</h1>
+                <h1>Procurar</h1>
                 <div>
                     <button className="active" onClick={() => navigate("/new")}>
                         Novo bate-papo

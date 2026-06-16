@@ -6,7 +6,7 @@ import Home from "./routes/Home"
 import ProtectedRoute from "./routes/ProtectedRoute"
 import New from "./components/home/New"
 import Chat from "./components/home/Chat"
-import Recents from "./routes/Recents"
+import Search from "./routes/Search"
 import Error from "./routes/Error"
 import ChangeTitle from "./hooks/ChangeTitle"
 import Library from "./routes/Library"
@@ -28,7 +28,7 @@ const App = () => {
             <Route index element={<Navigate to='new' />} />
             <Route path="new" element={<New />} />
             <Route path="/chat/:id" element={<Chat />} />
-            <Route path="recents" element={<Recents />} />
+            <Route path="search" element={<Search />} />
             <Route path="library" element={<Library />} />
           </Route>
         </Route>
