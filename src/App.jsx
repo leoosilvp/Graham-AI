@@ -10,6 +10,8 @@ import Search from "./routes/Search"
 import Error from "./routes/Error"
 import ChangeTitle from "./hooks/ChangeTitle"
 import Library from "./routes/Library"
+import Settings from "./routes/Settings"
+import General from "./components/settings/General"
 
 const App = () => {
 
@@ -30,6 +32,10 @@ const App = () => {
             <Route path="/chat/:id" element={<Chat />} />
             <Route path="search" element={<Search />} />
             <Route path="library" element={<Library />} />
+            <Route path="settings" element={<Settings />} >
+              <Route index element={<Navigate to='general' />} />
+              <Route path="general" element={<General />} />
+            </Route>
           </Route>
         </Route>
       </Routes>
