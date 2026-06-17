@@ -455,24 +455,22 @@
     .bar-chat-main {
         width: 93vw;
         overflow: hidden;
+        padding: 5px 5px 15px;
     }
 
     .bar-chat-main.active {
         width: 95vw;
-        padding: 15px;
-        padding-top: 0;
-        padding-left: 0;
+        padding: 5px 5px 15px;
     }
 
-    .bar-chat-main.active .bar-chat-textarea-main {
+    .bar-chat-textarea-main {
         display: flex;
         width: 100%;
-        margin-top: 15px;
-        margin-left: 15px;
+        margin: 10px 10px 0;
     }
 
-    .bar-chat-main.active .bar-chat-btns {
-        margin-left: 15px;
+    .bar-chat-btns {
+        margin-left: 10px;
     }
 
     .bar-chat-alert {
@@ -483,16 +481,15 @@
     }
 
     .bar-chat-chips {
-        padding-top: 15px;
-        padding-left: 15px;
+        padding: 10px 10px 0;
         position: relative;
         overflow-x: auto;
         gap: 13px;
     }
 
     .bar-chat-chip {
-        min-width: 120px;
-        min-height: 125px;
+        min-width: 115px;
+        min-height: 120px;
     }
 
     .bar-chat-chip button {
