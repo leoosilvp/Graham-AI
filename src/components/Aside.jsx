@@ -15,11 +15,44 @@ const Aside = () => {
         return localStorage.getItem('aside_open') !== 'false'
     })
 
+    const isMobile = window.matchMedia('(max-width: 768px)').matches
+
     const [isProfileOpen, setIsProfileOpen] = useState(false)
     const profileRef = useRef(null)
 
     const scrollRef = useRef(null)
     const [isScrolled, setIsScrolled] = useState(false)
+
+    const asideRef = useRef(null)
+
+    const closeAsideOnMobile = () => {
+        if (isMobile) {
+            localStorage.setItem('aside_open', 'false')
+            setIsOpen(false)
+        }
+    }
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+
+            if (
+                isMobile &&
+                asideRef.current &&
+                !asideRef.current.contains(event.target)
+            ) {
+                localStorage.setItem('aside_open', 'false')
+                setIsOpen(false)
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside)
+        document.addEventListener('touchstart', handleClickOutside)
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+            document.removeEventListener('touchstart', handleClickOutside)
+        }
+    }, [isMobile])
 
     useEffect(() => {
         const element = scrollRef.current
@@ -221,7 +254,7 @@ const Aside = () => {
     }, [isProfileOpen])
 
     return (
-        <aside className={`aside-main ${!isOpen && 'collapsed'}`}>
+        <aside className={`aside-main ${!isOpen && 'collapsed'}`} ref={asideRef}>
             <header className="aside-header">
                 <Link to='/new'>
                     <img src={logo} alt="logo ASTRA" draggable={false} />
@@ -230,12 +263,12 @@ const Aside = () => {
             </header>
             <section className='aside-content'>
                 <div className='aside-first-btn'>
-                    <button className='aside-btn' onClick={handleNewChat}><Edit className='icon' size={19} /><p>Novo bate-papo</p><span>Shift + a</span></button>
-                    <button className='aside-btn' onClick={() => navigate('/search')} ><Search className='icon' size={19} /><p>Procurar</p><span>Ctrl + p</span></button>
+                    <button className='aside-btn' onClick={() => { handleNewChat(), closeAsideOnMobile() }}><Edit className='icon' size={19} /><p>Novo bate-papo</p><span>Shift + a</span></button>
+                    <button className='aside-btn' onClick={() => { navigate('/search'), closeAsideOnMobile() }} ><Search className='icon' size={19} /><p>Procurar</p><span>Ctrl + p</span></button>
                 </div>
 
                 <div className={`aside-content-scrool ${isScrolled ? 'aside-content-scrolled' : ''}`}>
-                    <button className='aside-btn' onClick={() => navigate('/library')} ><Folder className='icon' size={19} /><p>Arquivos</p></button>
+                    <button className='aside-btn' onClick={() => { navigate('/library'), closeAsideOnMobile() }} ><Folder className='icon' size={19} /><p>Arquivos</p></button>
                     <button className='aside-btn bloq'><Code className='icon' size={19} /><p>Código</p><h3>Indisponível</h3></button>
 
                     <h2>Recentes</h2>
