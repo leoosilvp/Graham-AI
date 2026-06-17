@@ -131,3 +131,13 @@
     font-size: 0.85rem;
     font-weight: 300;
 }
+
+@media (width < 780px) {
+    .library-main {
+        padding: 65px 20px;
+    }
+
+    .library-grid-col-name {
+        width: 40%;
+    }
+}

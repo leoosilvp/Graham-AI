@@ -1,10 +1,10 @@
-import '../css/recents.css'
+import '../css/search.css'
 import { useEffect, useMemo, useState } from "react"
-import { Edit, Search, Trash2, X, Check, Frown } from "@geist-ui/icons"
+import { Edit, Search as Sc, Trash2, X, Check, Frown } from "@geist-ui/icons"
 import { Link, useNavigate } from "react-router-dom"
 import { ChatService } from "../services/chatService"
 
-const Recents = () => {
+const Search = () => {
 
     const navigate = useNavigate()
 
@@ -30,7 +30,7 @@ const Recents = () => {
                 setChats(list)
 
             } catch (err) {
-                console.error("[Recents] erro ao listar:", err)
+                console.error("[search] erro ao listar:", err)
             } finally {
                 if (mounted) setLoading(false)
             }
@@ -83,7 +83,7 @@ const Recents = () => {
             await ChatService.updateTitle(id, newTitle)
             setChats(prev => prev.map(chat => chat.id === id ? { ...chat, title: newTitle } : chat))
         } catch (err) {
-            console.error("[Recents] erro ao renomear:", err)
+            console.error("[search] erro ao renomear:", err)
         }
     }
 
@@ -100,7 +100,7 @@ const Recents = () => {
             setChats(prev => prev.filter(chat => chat.id !== id))
             navigate("/new", { replace: true })
         } catch (err) {
-            console.error("[Recents] erro ao deletar:", err)
+            console.error("[search] erro ao deletar:", err)
         } finally {
             setDeletingChatId(null)
         }
@@ -112,8 +112,8 @@ const Recents = () => {
     }, [chats, query])
 
     return (
-        <main className="recents-main">
-            <header className="recents-header">
+        <main className="search-main">
+            <header className="search-header">
                 <h1>Procurar</h1>
                 <div>
                     <button className="active" onClick={() => navigate("/new")}>
@@ -122,11 +122,11 @@ const Recents = () => {
                 </div>
             </header>
 
-            <article className="recents-search"><Search size={18} />
+            <article className="search-search"><Sc size={18} />
                 <input value={query} onChange={(e) => setQuery(e.target.value)} type="text" placeholder="Pesquisar conversa..." />
             </article>
 
-            <section className="recents-grid-chats">
+            <section className="search-grid-chats">
 
                 {loading && <div className="chat-aside-loading"><div className="loader" /></div>}
 
@@ -137,7 +137,7 @@ const Recents = () => {
                     const isDeleting = chat.id === deletingChatId
 
                     return (
-                        <Link key={chat.id} to={`/chat/${chat.id}`} className="recents-card-chat" onClick={(e) => { if (isEditing || isDeleting) e.preventDefault() }}>
+                        <Link key={chat.id} to={`/chat/${chat.id}`} className="search-card-chat" onClick={(e) => { if (isEditing || isDeleting) e.preventDefault() }}>
 
                             <div>
                                 {isEditing ? (
@@ -177,4 +177,4 @@ const Recents = () => {
     )
 }
 
-export default Recents
+export default Search

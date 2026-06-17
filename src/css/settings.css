@@ -331,3 +331,12 @@
 }
 
 
+@media (width < 780px) {
+    .settings-main {
+        padding: 65px 20px 20px;
+    }
+
+    .settings-aside {
+        height: 80dvh;
+    }
+}
