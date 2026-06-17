@@ -464,14 +464,14 @@
         padding-left: 0;
     }
 
-    .bar-chat-textarea-main {
+    .bar-chat-main.active .bar-chat-textarea-main {
         display: flex;
         width: 100%;
         margin-top: 15px;
         margin-left: 15px;
     }
 
-    .bar-chat-btns {
+    .bar-chat-main.active .bar-chat-btns {
         margin-left: 15px;
     }
 
