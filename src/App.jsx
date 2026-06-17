@@ -14,6 +14,7 @@ import Settings from "./routes/Settings"
 import General from "./components/settings/General"
 import Account from "./components/settings/Account"
 import Privacy from "./components/settings/Privacy"
+import Personalize from "./components/settings/Personalize"
 
 const App = () => {
 
@@ -39,6 +40,7 @@ const App = () => {
               <Route path="general" element={<General />} />
               <Route path="account" element={<Account />} />
               <Route path="privacy" element={<Privacy />} />
+              <Route path="personalize" element={<Personalize />} />
             </Route>
           </Route>
         </Route>

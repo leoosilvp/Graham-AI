@@ -171,6 +171,10 @@
     margin-top: 25px;
 }
 
+.settings-general-main section.margin-top-2 {
+    margin-top: 15px;
+}
+
 .settings-general-main section .input {
     display: flex;
     width: 250px;
