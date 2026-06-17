@@ -164,16 +164,18 @@ const BarChat = ({
         <p className="bar-chat-error">{fileError}</p>
       )}
 
-      <textarea
-        ref={textareaRef}
-        rows={1}
-        value={value}
-        disabled={isLoading}
-        onKeyDown={handleKeyDown}
-        onChange={(e) => setValue(e.target.value)}
-        className={`bar-chat-textarea ${active ? 'active' : ''}`}
-        placeholder={isLoading ? 'Pensando...' : active ? 'Escreva uma mensagem...' : 'Como posso ajudar você hoje?'}
-      />
+      <div className='bar-chat-textarea-main'>
+        <textarea
+          ref={textareaRef}
+          rows={1}
+          value={value}
+          disabled={isLoading}
+          onKeyDown={handleKeyDown}
+          onChange={(e) => setValue(e.target.value)}
+          className={`bar-chat-textarea ${active ? 'active' : ''}`}
+          placeholder={isLoading ? 'Pensando...' : active ? 'Escreva uma mensagem...' : 'Como posso ajudar você hoje?'}
+        />
+      </div>
 
       <section className="bar-chat-btns">
         <button
