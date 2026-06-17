@@ -13,6 +13,7 @@ import Library from "./routes/Library"
 import Settings from "./routes/Settings"
 import General from "./components/settings/General"
 import Account from "./components/settings/Account"
+import Privacy from "./components/settings/Privacy"
 
 const App = () => {
 
@@ -37,6 +38,7 @@ const App = () => {
               <Route index element={<Navigate to='general' />} />
               <Route path="general" element={<General />} />
               <Route path="account" element={<Account />} />
+              <Route path="privacy" element={<Privacy />} />
             </Route>
           </Route>
         </Route>
