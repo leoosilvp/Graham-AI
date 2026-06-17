@@ -190,7 +190,7 @@
 @media (width < 780px) {
 
     .login-main {
-        padding: 20px;
+        padding: 15px;
         justify-content: flex-start;
         height: 100dvh;
         background-size: 250%;
@@ -198,7 +198,7 @@
     }
 
     .login-header {
-        padding: 18px 20px;
+        padding: 20px;
         justify-content: center;
     }
 
@@ -207,12 +207,12 @@
     }
 
     .login-wrapper {
-        width: 90%;
+        width: 95%;
         padding-top: 80px;
     }
 
     .login-wrapper img {
-        width: 70px;
+        width: 85px;
     }
 
     .login-wrapper h1 {
@@ -233,6 +233,10 @@
 
     .login-input {
         width: 100%;
+        border: 1px solid #161616;
+        border-radius: 5px;
+        background: #0000006e;
+        backdrop-filter: blur(1px);
     }
 
     .btn-confirm {
@@ -253,12 +257,8 @@
     }
 
     .login-footer {
-        text-align: center;
         padding: 0 15px;
-    }
-
-    .login-footer p {
-        font-size: 0.6rem;
+        font-size: 0.55rem;
         white-space: nowrap;
         text-align: center;
     }
