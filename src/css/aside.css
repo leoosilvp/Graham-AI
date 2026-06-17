@@ -3,7 +3,7 @@
     flex-direction: column;
     min-width: 290px;
     width: 290px;
-    height: 100vh;
+    height: 100dvh;
     border-right: 1px solid #1e1e1e;
     background: var(--background);
     overflow: hidden;
@@ -394,4 +394,6 @@
     .aside-main {
         box-shadow: 0 0 20px 1px #000000a9;
     }
+
+    
 }
