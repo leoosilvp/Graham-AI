@@ -128,9 +128,9 @@ const Recents = () => {
 
             <section className="recents-grid-chats">
 
-                {loading && <p className="chat-aside-loading"><div className="loader" /></p>}
+                {loading && <div className="chat-aside-loading"><div className="loader" /></div>}
 
-                {!loading && filteredChats.length === 0 && <p className="chat-nochats"><Frown size={16} /> Nenhuma conversa encontrada</p>}
+                {!loading && filteredChats.length === 0 && <div className="chat-nochats"><Frown size={16} /> Nenhuma conversa encontrada</div>}
 
                 {filteredChats.map(chat => {
                     const isEditing = chat.id === editingChatId
