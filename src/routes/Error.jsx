@@ -9,7 +9,7 @@ const Error = () => {
             <h1>Página não encontrada</h1>
             <p>Toda equação tem um destino, mas este não foi encontrado.</p>
             <Link to='/new'>Voltar para a página inicial</Link>
-        </main>
+        </main> 
     )
 }
 

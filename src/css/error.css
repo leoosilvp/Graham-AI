@@ -45,3 +45,18 @@
 .error-main a:hover {
     transform: scale(1.02);
 }
+
+@media (width < 780px) {
+    .error-main {
+        overflow: hidden;
+    }
+
+    .error-main h1 {
+        font-size: 1.7rem;
+    }
+
+    .error-main p {
+        text-align: center;
+        font-size: 0.9rem;
+    }
+}
