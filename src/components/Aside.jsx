@@ -307,11 +307,7 @@ const Aside = () => {
                         </section>
                     </section>
                 </footer>
-                {isProfileOpen && (
-                    <ModalProfile
-                        onClose={() => setIsProfileOpen(false)}
-                    />
-                )}
+                <ModalProfile open={isProfileOpen} onClose={() => setIsProfileOpen(false)} />
             </div>
         </aside>
     )
