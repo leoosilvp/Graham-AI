@@ -1,6 +1,6 @@
 import '../css/settings.css'
 import { NavLink, Outlet } from 'react-router-dom'
-import { ArrowLeft, LifeBuoy, Shield, Sliders, Settings as St, User, } from '@geist-ui/icons'
+import { ArrowLeft, HelpCircle, Shield, Sliders, Settings as St, User, } from '@geist-ui/icons'
 
 const Settings = () => {
     return (
@@ -16,7 +16,7 @@ const Settings = () => {
                     <NavLink to='account'><User size={17} />Conta</NavLink>
                     <NavLink to='privacy'><Shield size={17} />Privacidade</NavLink>
                     <NavLink to='personalize'><Sliders size={17} />Personalizar</NavLink>
-                    <NavLink to='help'><LifeBuoy size={17} />Ajuda</NavLink>
+                    <NavLink to='help'><HelpCircle size={17} />Ajuda</NavLink>
                 </aside>
                 <section className='settings-content'>
                     <Outlet />

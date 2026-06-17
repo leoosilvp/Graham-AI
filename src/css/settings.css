@@ -195,18 +195,30 @@
 
 .settings-general-main section .btn button {
     display: flex;
+    align-items: center;
     padding: 7px 15px;
     background: transparent;
     border: 1px solid #1e1e1e;
     border-radius: 5px;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: var(--gray-color-1);
     cursor: pointer;
+    gap: 7px;
+    transition: var(--transition);
+}
+
+.settings-general-main section .btn button:hover {
+    background: var(--light-color);
+    color: var(--black);
 }
 
 .settings-general-main section .btn button.del {
     border-color: #ff4b4b;
     color: #ff4b4b;
+}
+
+.settings-general-main section .btn button.del:hover {
+    background: #150000;
 }
 
 .settings-general-main section .img {
