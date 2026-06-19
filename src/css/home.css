@@ -57,7 +57,6 @@
     border: 1px solid #151515;
     border-radius: 22px;
     background: #0f0f0f;
-    transition: var(--transition);
     box-shadow: 0px 6px 10px 2px #060606;
 }
 
