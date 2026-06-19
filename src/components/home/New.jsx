@@ -1,14 +1,16 @@
 import { useUser } from "../../hooks/useUser"
 import icon from '../../assets/svg/icon-light.svg'
 import BarChat from "./BarChat"
-import { useCallback, useEffect } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useChat } from "../../hooks/useChat"
 import { useNavigate } from "react-router-dom"
+import ToolBar from "./ToolBar"
 
 const New = () => {
-
     const navigate = useNavigate()
     const { user } = useUser()
+
+    const [previewValue, setPreviewValue] = useState('')
 
     const FirstName = () => {
         return user?.profile?.name?.trim().split(/\s+/).filter(Boolean)[0] || ''
@@ -31,12 +33,7 @@ const New = () => {
 
     const welcome = welcomes[Math.floor(new Date().getHours() / 2) % welcomes.length]
 
-    const {
-        isLoading,
-        sendMessage,
-        stop,
-        reset
-    } = useChat()
+    const { isLoading, sendMessage, stop, reset } = useChat()
 
     useEffect(() => {
         reset()
@@ -68,13 +65,24 @@ const New = () => {
         <main className="new-main">
             <section className="new-welcome">
                 <img src={icon} draggable={false} />
-                <h1 style={{ '--chars': welcome.length }} className="typing">{welcome}</h1>
+                <h1 style={{ '--chars': welcome.length }} className="typing">
+                    {welcome}
+                </h1>
             </section>
+
             <section className="new-input">
                 <BarChat
                     onSend={handleSend}
                     onStop={handleStop}
                     isLoading={isLoading}
+                    previewValue={previewValue}
+                />
+            </section>
+
+            <section className="new-toolbar">
+                <ToolBar
+                    onPreview={setPreviewValue}
+                    onSend={handleSend}
                 />
             </section>
         </main>

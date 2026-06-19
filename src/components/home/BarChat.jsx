@@ -30,7 +30,8 @@ const BarChat = ({
   onSend,
   onStop,
   isLoading,
-  active
+  active,
+  previewValue = '',
 }) => {
 
   const textareaRef = useRef(null)
@@ -40,14 +41,15 @@ const BarChat = ({
   const [fileError, setFileError] = useState('')
   const [modalOpen, setModalOpen] = useState(false)
 
+  const displayValue = previewValue || value
+  const isPreviewActive = previewValue.length > 0
+
   useEffect(() => {
     const el = textareaRef.current
-
     if (!el) return
-
     el.style.height = '0px'
     el.style.height = `${Math.min(el.scrollHeight, 200)}px`
-  }, [value])
+  }, [displayValue])
 
   useEffect(() => {
     if (!isLoading) {
@@ -57,26 +59,21 @@ const BarChat = ({
 
   useEffect(() => {
     return () => {
-      files.forEach(item => {
-        if (item.preview) {
-          URL.revokeObjectURL(item.preview)
-        }
+      files.forEach((item) => {
+        if (item.preview) URL.revokeObjectURL(item.preview)
       })
     }
   }, [files])
 
   const handleModalFiles = useCallback((pickedFiles) => {
     setFileError('')
-
-    setFiles(prev => {
+    setFiles((prev) => {
       const formatted = pickedFiles.map(createFileData)
       const merged = [...prev, ...formatted]
-
       if (merged.length > MAX_FILES) {
         setFileError(`Máximo de ${MAX_FILES} arquivos por mensagem.`)
         return prev
       }
-
       return merged
     })
   }, [])
@@ -86,33 +83,24 @@ const BarChat = ({
   }, [handleModalFiles])
 
   const removeFile = (index) => {
-    setFiles(prev => {
+    setFiles((prev) => {
       const target = prev[index]
-
-      if (target?.preview) {
-        URL.revokeObjectURL(target.preview)
-      }
-
+      if (target?.preview) URL.revokeObjectURL(target.preview)
       return prev.filter((_, i) => i !== index)
     })
-
     setFileError('')
   }
 
-  const handleSend = () => {
+  const handleSend = useCallback(() => {
     const message = value.trim()
+    if ((!message && files.length === 0) || isLoading) return
 
-    if ((!message && files.length === 0) || isLoading) {
-      return
-    }
-
-    onSend?.({ message, files: files.map(item => item.file) })
-
+    onSend?.({ message, files: files.map((item) => item.file) })
     setValue('')
     setFiles([])
     setFileError('')
     setModalOpen(false)
-  }
+  }, [value, files, isLoading, onSend])
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -168,21 +156,25 @@ const BarChat = ({
         <textarea
           ref={textareaRef}
           rows={1}
-          value={value}
+          value={displayValue}
           disabled={isLoading}
           onKeyDown={handleKeyDown}
-          onChange={(e) => setValue(e.target.value)}
-          className={`bar-chat-textarea ${active ? 'active' : ''}`}
+          onChange={(e) => {
+            if (!isPreviewActive) {
+              setValue(e.target.value)
+            }
+          }}
+          className={`bar-chat-textarea ${active ? 'active' : ''} ${isPreviewActive ? 'preview' : ''}`}
           placeholder={isLoading ? 'Pensando...' : active ? 'Escreva uma mensagem...' : 'Como posso ajudar você hoje?'}
         />
       </div>
 
       <section className="bar-chat-btns">
         <button
-          className={`bar-chat-icon-btn ${modalOpen && 'active'}`}
+          className={`bar-chat-icon-btn ${modalOpen ? 'active' : ''}`}
           aria-label="Anexar arquivo"
           disabled={isLoading || files.length >= MAX_FILES}
-          onClick={() => setModalOpen(prev => !prev)}
+          onClick={() => setModalOpen((prev) => !prev)}
         >
           <Plus size={19} />
         </button>

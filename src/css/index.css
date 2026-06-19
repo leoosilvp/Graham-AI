@@ -27,6 +27,7 @@ body {
   font-family: "Poppins", sans-serif;
   background: var(--background);
   color: var(--light-color);
+  overflow: hidden;
 }
 
 .typing {
