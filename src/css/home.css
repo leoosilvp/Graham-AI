@@ -335,7 +335,7 @@
     height: 170px;
     padding: 10px;
     background: #101010;
-    border: 1px solid #212121;
+    border: 1px solid #1a1a1a;
     border-radius: 15px 5px 5px 15px;
     overflow-y: auto;
     animation: tool-modal-in 0.15s ease;
@@ -352,18 +352,20 @@
 }
 
 @keyframes tool-modal-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .tool-bar-prompt header {
     display: flex;
     justify-content: space-between;
     align-items: top;
+    padding-left: 5px;
 }
 
 .tool-bar-prompt header div {
@@ -387,7 +389,7 @@
 }
 
 .tool-bar-prompt header button:hover {
-    background: #232323;
+    background: #1a1a1a;
 }
 
 
@@ -405,7 +407,7 @@
     color: var(--gray-color-1);
     background: transparent;
     border: none;
-    border-bottom: 1px solid #202020;
+    border-bottom: 1px solid #1a1a1a;
     cursor: pointer;
     transition: var(--transition);
 }
