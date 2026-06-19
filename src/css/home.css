@@ -605,7 +605,8 @@
     }
 
     .modal-upload {
-        bottom: 475px;
+        bottom: auto;
+        margin-top: -125px;
         margin-left: 10px;
     }
 
