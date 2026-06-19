@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback, useState, memo } from 'react'
+import { useEffect, useRef, useCallback, useState, useMemo, memo } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -154,15 +154,25 @@ MessageAssistant.displayName = 'MessageAssistant'
 const Chat = () => {
     const { id } = useParams()
     const navigate = useNavigate()
-    const { messages, isLoading, error, sendMessage, stop, reset, loadChat } = useChat()
+    const { messages, isLoading, error, sendMessage, stop, reset, loadChat, isActiveChat } = useChat()
     const [chatTitle, setChatTitle] = useState('')
     const bottomRef = useRef(null)
     const fetchAbortRef = useRef(null)
     const loadedIdRef = useRef(null)
 
+    const displayTitle = useMemo(() => {
+        if (chatTitle) return chatTitle
+        if (isActiveChat(id) && messages[0]?.role === 'user') {
+            return messages[0].content.slice(0, 40)
+        }
+        return 'Novo Chat'
+    }, [chatTitle, id, messages, isActiveChat])
+
     useEffect(() => {
         if (!id || loadedIdRef.current === id) return
         loadedIdRef.current = id
+
+        if (isActiveChat(id)) return
 
         fetchAbortRef.current?.abort()
         const controller = new AbortController()
@@ -198,8 +208,8 @@ const Chat = () => {
 
     useEffect(() => {
         if (!id) return
-        document.title = chatTitle ? `${chatTitle} - Graham` : 'Graham'
-    }, [chatTitle, id])
+        document.title = displayTitle ? `${displayTitle} - Graham` : 'Graham'
+    }, [displayTitle, id])
 
     const isStreaming = isLoading && messages.at(-1)?.role === 'assistant'
     const isPending = isLoading && messages.at(-1)?.role === 'user'

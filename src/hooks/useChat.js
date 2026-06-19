@@ -1,80 +1,71 @@
-import { useState, useRef, useCallback } from 'react'
+import { useCallback, useSyncExternalStore } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { sendMessageStream } from '../services/chatService'
 
-let chatCache = null
-
-const CACHE_TIME = 2 * 60 * 1000 // 2 min
-
-function getCache() {
-  if (!chatCache) return null
-
-  if (Date.now() - chatCache.timestamp > CACHE_TIME) {
-    chatCache = null
-    return null
-  }
-
-  return chatCache
+const store = {
+  state: {
+    messages: [],
+    chatId: null,
+    isLoading: false,
+    error: null,
+  },
+  listeners: new Set(),
 }
 
+function setStore(partial) {
+  store.state = {
+    ...store.state,
+    ...(typeof partial === 'function' ? partial(store.state) : partial),
+  }
+  store.listeners.forEach((listener) => listener())
+}
+
+function subscribe(listener) {
+  store.listeners.add(listener)
+  return () => store.listeners.delete(listener)
+}
+
+function getSnapshot() {
+  return store.state
+}
+
+let abortController = null
+
 export function useChat() {
-  const [messages, setMessages] = useState(() => getCache()?.messages || [])
-  const [chatId, setChatId] = useState(() => getCache()?.chatId || null)
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState(null)
-
-  const abortRef = useRef(null)
-  const messagesRef = useRef(getCache()?.messages || [])
-  const chatIdRef = useRef(getCache()?.chatId || null)
-
-  const updateCache = useCallback((messages, chatId) => {
-    chatCache = {
-      messages,
-      chatId,
-      timestamp: Date.now(),
-    }
-  }, [])
-
-  const _setMessages = useCallback((updater) => {
-    setMessages(prev => {
-      const next = typeof updater === 'function' ? updater(prev) : updater
-
-      messagesRef.current = next
-      updateCache(next, chatIdRef.current)
-
-      return next
-    })
-  }, [updateCache])
-
-  const _setChatId = useCallback((id) => {
-    chatIdRef.current = id
-    setChatId(id)
-
-    updateCache(messagesRef.current, id)
-  }, [updateCache])
+  const navigate = useNavigate()
+  const { messages, chatId, isLoading, error } = useSyncExternalStore(subscribe, getSnapshot)
 
   const sendMessage = useCallback(async ({ message, files = [] }) => {
     if (!message.trim()) return
 
-    setIsLoading(true)
-    setError(null)
+    setStore({ isLoading: true, error: null })
 
     const controller = new AbortController()
-    abortRef.current = controller
+    abortController = controller
 
-    const historySnapshot = messagesRef.current
+    const historySnapshot = store.state.messages
+    const isNewChat = !store.state.chatId
+    const tempId = isNewChat ? `temp-${crypto.randomUUID()}` : null
 
-    _setMessages(prev => [
-      ...prev,
-      { role: 'user', content: message },
-      { role: 'assistant', content: '' },
-    ])
+    setStore((s) => ({
+      messages: [
+        ...s.messages,
+        { role: 'user', content: message },
+        { role: 'assistant', content: '' },
+      ],
+    }))
+
+    if (isNewChat) {
+      setStore({ chatId: tempId })
+      navigate(`/chat/${tempId}`, { replace: true })
+    }
 
     let assistantText = ''
 
     try {
       await sendMessageStream({
         message,
-        chatId: chatIdRef.current,
+        chatId: isNewChat ? null : store.state.chatId,
         history: historySnapshot,
         files,
         signal: controller.signal,
@@ -83,92 +74,58 @@ export function useChat() {
           if (event.type === 'token') {
             assistantText += event.token
 
-            _setMessages(prev => {
-              const updated = [...prev]
-
-              updated[updated.length - 1] = {
-                role: 'assistant',
-                content: assistantText,
-              }
-
-              return updated
+            setStore((s) => {
+              const updated = [...s.messages]
+              updated[updated.length - 1] = { role: 'assistant', content: assistantText }
+              return { messages: updated }
             })
           }
 
           if (event.type === 'done' && event.chatId) {
-            _setChatId(event.chatId)
+            const previousId = store.state.chatId
+            setStore({ chatId: event.chatId })
 
-            window.dispatchEvent(
-              new CustomEvent('chat:created', {
-                detail: event.chatId,
-              })
-            )
+            if (previousId !== event.chatId) {
+              navigate(`/chat/${event.chatId}`, { replace: true })
+            }
+
+            window.dispatchEvent(new CustomEvent('chat:created', { detail: event.chatId }))
           }
         },
       })
     } catch (err) {
       if (err.name !== 'AbortError') {
-        setError(err.message ?? 'Erro ao enviar mensagem.')
-
-        _setMessages(prev => {
-          const updated = [...prev]
-
-          if (
-            updated.at(-1)?.role === 'assistant' &&
-            updated.at(-1)?.content === ''
-          ) {
+        setStore((s) => {
+          const updated = [...s.messages]
+          if (updated.at(-1)?.role === 'assistant' && updated.at(-1)?.content === '') {
             updated.pop()
           }
-
-          return updated
+          return { messages: updated, error: err.message ?? 'Erro ao enviar mensagem.' }
         })
       }
     } finally {
-      setIsLoading(false)
-      abortRef.current = null
+      setStore({ isLoading: false })
+      abortController = null
     }
-  }, [_setMessages, _setChatId])
+  }, [navigate])
 
   const stop = useCallback(() => {
-    abortRef.current?.abort()
-    abortRef.current = null
-    setIsLoading(false)
+    abortController?.abort()
+    abortController = null
+    setStore({ isLoading: false })
   }, [])
 
   const reset = useCallback(() => {
-    abortRef.current?.abort()
-    abortRef.current = null
-
-    chatCache = null
-
-    messagesRef.current = []
-    chatIdRef.current = null
-
-    setMessages([])
-    setChatId(null)
-    setError(null)
-    setIsLoading(false)
+    abortController?.abort()
+    abortController = null
+    setStore({ messages: [], chatId: null, error: null, isLoading: false })
   }, [])
 
   const loadChat = useCallback((history, id) => {
-    messagesRef.current = history
-    chatIdRef.current = id
+    setStore({ messages: history, chatId: id, error: null })
+  }, [])
 
-    setMessages(history)
-    setChatId(id)
-    setError(null)
+  const isActiveChat = useCallback((id) => store.state.chatId === id, [])
 
-    updateCache(history, id)
-  }, [updateCache])
-
-  return {
-    messages,
-    chatId,
-    isLoading,
-    error,
-    sendMessage,
-    stop,
-    reset,
-    loadChat,
-  }
+  return { messages, chatId, isLoading, error, sendMessage, stop, reset, loadChat, isActiveChat }
 }

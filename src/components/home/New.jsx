@@ -3,11 +3,10 @@ import icon from '../../assets/svg/icon-light.svg'
 import BarChat from "./BarChat"
 import { useCallback, useEffect, useState } from "react"
 import { useChat } from "../../hooks/useChat"
-import { useNavigate } from "react-router-dom"
 import ToolBar from "./ToolBar"
 
 const New = () => {
-    const navigate = useNavigate()
+    
     const { user } = useUser()
 
     const [previewValue, setPreviewValue] = useState('')
@@ -39,18 +38,6 @@ const New = () => {
         reset()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
-    useEffect(() => {
-        const handler = (e) => {
-            const newId = e.detail
-            if (newId) {
-                navigate(`/chat/${newId}`, { replace: true })
-            }
-        }
-
-        window.addEventListener('chat:created', handler)
-        return () => window.removeEventListener('chat:created', handler)
-    }, [navigate])
 
 
     const handleSend = useCallback((payload) => {
