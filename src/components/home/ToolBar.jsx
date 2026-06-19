@@ -13,20 +13,20 @@ const TOOLS = [
         icon: Code,
         prompts: [
             {
-                short: 'Revisar meu código',
-                full: 'Olá Graham, você poderia revisar meu código? Antes de começar, me pergunte a linguagem, o que ele deve fazer e o que especificamente não está funcionando ou poderia ser melhorado.',
+                short: 'Code review crítico',
+                full: 'Olá Graham, atue como um revisor de código sênior e cético. Antes de qualquer sugestão, me pergunte a linguagem, o objetivo do código e o contexto em que ele roda em produção. Depois, aponte primeiro os riscos reais — bugs, edge cases, segurança e performance — e só então sugira melhorias de estilo. Para cada ponto, explique o porquê, não só o quê.',
             },
             {
-                short: 'Criar um componente do zero',
-                full: 'Olá Graham, você poderia me ajudar a criar um componente? Me pergunte qual é o framework, o que esse componente precisa fazer, quais props deve aceitar e se há algum padrão visual ou de arquitetura para seguir.',
+                short: 'Prototipar uma feature do zero',
+                full: 'Olá Graham, quero construir uma feature do zero com você. Me pergunte o framework, o problema que ela resolve, quem são os usuários, quais props ou estados ela precisa gerenciar e se já existe algum padrão de arquitetura no projeto que devo seguir. Proponha uma estrutura antes de escrever qualquer linha de código.',
             },
             {
-                short: 'Depurar um erro',
-                full: 'Olá Graham, você poderia me ajudar a depurar um erro? Me pergunte qual é a mensagem exata, em qual linguagem ou framework estou trabalhando, o que o código deveria fazer e o que já tentei até agora.',
+                short: 'Depurar com método',
+                full: 'Olá Graham, me ajude a depurar um erro de forma sistemática. Me pergunte a mensagem exata, a stack trace, o que o código deveria fazer, o que já tentei e em que ponto ele realmente falha. Gere hipóteses ordenadas por probabilidade antes de propor qualquer correção — quero entender a causa raiz, não só o patch.',
             },
             {
-                short: 'Planejar a arquitetura de um projeto',
-                full: 'Olá Graham, você poderia me ajudar a planejar a arquitetura de um projeto? Me pergunte o tipo de aplicação, as tecnologias que cogito usar, o escopo esperado e quais são as principais preocupações — escalabilidade, simplicidade ou tempo de entrega.',
+                short: 'Decidir a arquitetura certa',
+                full: 'Olá Graham, quero pensar a arquitetura de um projeto com você antes de escrever código. Me pergunte o tipo de aplicação, a escala esperada, o time disponível e o que mais importa agora — velocidade de entrega, simplicidade de manutenção ou escalabilidade futura. Apresente 2-3 abordagens reais com os trade-offs de cada uma, não uma resposta única.',
             },
         ],
     },
@@ -36,20 +36,20 @@ const TOOLS = [
         icon: Coffee,
         prompts: [
             {
-                short: 'Me explique um conceito',
-                full: 'Olá Graham, você poderia me explicar um conceito a fundo? Me pergunte qual é o tema, o que já sei sobre ele e se prefiro uma abordagem conceitual, com analogias ou com exemplos práticos de código.',
+                short: 'Aprender um conceito difícil',
+                full: 'Olá Graham, quero entender um conceito a fundo, não de forma superficial. Me pergunte qual é o tema, o que eu já sei sobre ele e onde estou travando. Comece pela intuição antes da formalização, use analogias quando ajudar, e termine me testando com uma pergunta para ver se eu realmente entendi.',
             },
             {
-                short: 'Me aplique um quiz',
-                full: 'Olá Graham, você poderia me aplicar um quiz? Me pergunte sobre qual assunto, qual é o meu nível atual e se prefiro perguntas abertas, múltipla escolha ou situações práticas.',
+                short: 'Quiz para testar meu nível',
+                full: 'Olá Graham, me aplique um quiz de verdade — sem me dar respostas fáceis. Me pergunte o assunto, meu nível atual e o formato que prefiro. Aumente a dificuldade conforme eu acertar, e quando eu errar, não corrija na hora: me dê uma dica primeiro.',
             },
             {
-                short: 'Monte um plano de estudos',
-                full: 'Olá Graham, você poderia montar um plano de estudos para mim? Me pergunte o que quero aprender, meu nível atual, quanto tempo tenho disponível por dia e qual é o meu prazo ou objetivo final.',
+                short: 'Plano de estudos sob pressão',
+                full: 'Olá Graham, monte comigo um plano de estudos realista. Me pergunte o que quero aprender, meu nível atual, quanto tempo tenho por dia e qual é o prazo final. Distribua o conteúdo por prioridade — o que é essencial primeiro — e me avise se o prazo que eu dei é, na prática, inviável.',
             },
             {
-                short: 'Simule uma entrevista técnica',
-                full: 'Olá Graham, você poderia simular uma entrevista técnica comigo? Me pergunte para qual tipo de vaga estou me candidatando, qual linguagem ou stack prefiro e se quero focar em algoritmos, system design ou perguntas conceituais.',
+                short: 'Simular entrevista técnica de verdade',
+                full: 'Olá Graham, simule uma entrevista técnica comigo como se fosse real — sem suavizar. Me pergunte a vaga, a stack e se quero focar em algoritmos, system design ou comportamental. Durante a entrevista, me interrompa se eu enrolar, peça para eu pensar em voz alta, e no final me dê um feedback honesto como se fosse o entrevistador.',
             },
         ],
     },
@@ -59,20 +59,20 @@ const TOOLS = [
         icon: Edit3,
         prompts: [
             {
-                short: 'Escrever do zero',
-                full: 'Olá Graham, você poderia me ajudar a escrever um texto? Me pergunte qual é o formato — artigo, e-mail, relatório, post —, para quem é, qual o objetivo e o tom desejado. Depois me ajude a estruturar e escrever.',
+                short: 'Escrever do zero, sem clichê',
+                full: 'Olá Graham, quero escrever um texto que não pareça genérico. Me pergunte o formato, para quem é, o objetivo e o tom. Antes de escrever o texto final, me proponha 2-3 ângulos diferentes para a abertura — quero escolher o melhor, não receber só uma opção.',
             },
             {
-                short: 'Revisar e melhorar meu texto',
-                full: 'Olá Graham, você poderia revisar e melhorar um texto meu? Me pergunte em quais aspectos devo focar — clareza, coesão, gramática, tom ou impacto — e depois te colo o texto para trabalharmos juntos.',
+                short: 'Revisão que vai além da gramática',
+                full: 'Olá Graham, revise um texto meu olhando além da gramática. Me pergunte o que devo priorizar — clareza, ritmo, argumento ou impacto — e o público-alvo. Quando eu colar o texto, aponte onde o argumento fica fraco ou repetitivo antes de qualquer correção de estilo.',
             },
             {
-                short: 'Escrever um e-mail difícil',
-                full: 'Olá Graham, você poderia me ajudar a escrever um e-mail difícil? Me pergunte para quem é, qual é a situação, o que precisa ser comunicado e qual tom usar. Quero encontrar as palavras certas.',
+                short: 'Escrever o e-mail difícil que estou evitando',
+                full: 'Olá Graham, me ajude a escrever um e-mail que estou evitando mandar. Me pergunte para quem é, a situação, o que precisa ser dito e o que eu tenho medo de que aconteça. Me mostre duas versões — uma mais direta e uma mais diplomática — para eu decidir o tom certo.',
             },
             {
-                short: 'Criar documentação técnica',
-                full: 'Olá Graham, você poderia me ajudar a criar uma documentação técnica? Me pergunte o que precisa ser documentado, quem vai ler — desenvolvedor, usuário final, time de produto — e qual o nível de detalhe esperado.',
+                short: 'Documentação que alguém vai realmente ler',
+                full: 'Olá Graham, me ajude a criar documentação técnica que as pessoas vão realmente usar. Me pergunte o que precisa ser documentado, quem vai ler — dev, usuário final ou produto — e o nível de detalhe esperado. Estruture pensando em quem só vai escanear o texto procurando uma resposta rápida.',
             },
         ],
     },
@@ -82,20 +82,20 @@ const TOOLS = [
         icon: PieChart,
         prompts: [
             {
-                short: 'Criar um gráfico com código',
-                full: 'Olá Graham, você poderia me ajudar a criar um gráfico? Me pergunte qual biblioteca estou usando, que tipo de dado quero visualizar, qual tipo de gráfico prefiro e se tenho alguma referência de design para seguir.',
+                short: 'Construir o gráfico certo, com código',
+                full: 'Olá Graham, me ajude a construir um gráfico. Me pergunte qual biblioteca estou usando, como os dados estão estruturados e o que quero comunicar. Antes de escrever o código, me diga se o tipo de gráfico que eu tinha em mente é mesmo o melhor para esse dado — e por quê.',
             },
             {
-                short: 'Montar um dashboard',
-                full: 'Olá Graham, você poderia me ajudar a montar um dashboard? Me pergunte quais métricas precisam aparecer, para qual público é, qual tecnologia estou usando e se tenho alguma referência visual.',
+                short: 'Montar um dashboard que conta uma história',
+                full: 'Olá Graham, me ajude a montar um dashboard. Me pergunte quais métricas precisam aparecer, para qual público é e qual tecnologia estou usando. Sugira uma hierarquia visual — o que deve chamar atenção primeiro — em vez de listar todos os gráficos no mesmo nível de importância.',
             },
             {
-                short: 'Transformar dados em visualização',
-                full: 'Olá Graham, você poderia me ajudar a transformar dados em uma visualização clara? Me pergunte como os dados estão estruturados, o que quero destacar ou comunicar e para qual plataforma é a visualização.',
+                short: 'Dados brutos em insight visual',
+                full: 'Olá Graham, tenho dados brutos e quero transformá-los em uma visualização que realmente comunique algo. Me pergunte como os dados estão estruturados, o que eu quero destacar e onde essa visualização vai ser usada. Antes de qualquer gráfico, me diga qual é a única coisa que ela precisa deixar óbvia.',
             },
             {
-                short: 'Escolher o tipo certo de gráfico',
-                full: 'Olá Graham, você poderia me ajudar a escolher o tipo certo de gráfico? Não sei qual usar para os meus dados. Me pergunte o que quero comunicar e me explique as opções — barras, linhas, pizza, dispersão, heatmap — com os motivos de cada escolha.',
+                short: 'Qual gráfico usar (e por quê)',
+                full: 'Olá Graham, não sei qual tipo de gráfico usar para os meus dados. Me pergunte o que exatamente eu quero comunicar — comparação, distribuição, tendência ou relação. Apresente as 2-3 opções mais adequadas, explique o motivo de cada uma e diga qual erro mais comum as pessoas cometem nesse tipo de escolha.',
             },
         ],
     },
@@ -105,20 +105,20 @@ const TOOLS = [
         icon: Function,
         prompts: [
             {
-                short: 'Resolver um problema passo a passo',
-                full: 'Olá Graham, você poderia me ajudar a resolver um problema passo a passo? Me pergunte qual é o enunciado e se prefiro apenas a resposta, a resolução completa ou uma explicação detalhada de cada etapa do raciocínio.',
+                short: 'Resolver com raciocínio explícito',
+                full: 'Olá Graham, me ajude a resolver um problema passo a passo. Me pergunte o enunciado e se eu quero só a resposta, a resolução completa ou uma explicação detalhada de cada etapa do raciocínio. Se eu errar uma suposição no meio do caminho, me avise antes de continuar — não carregue o erro até o final.',
             },
             {
-                short: 'Entender um conceito matemático',
-                full: 'Olá Graham, você poderia me explicar um conceito matemático? Me pergunte qual é o tema, qual é o meu nível de familiaridade com ele e se prefiro uma abordagem formal, visual ou com aplicações práticas.',
+                short: 'Entender de verdade, não só memorizar',
+                full: 'Olá Graham, quero entender um conceito matemático de verdade, não só memorizar a fórmula. Me pergunte o tema, minha familiaridade com ele e se prefiro uma abordagem formal, visual ou aplicada. Me mostre um caso em que a intuição comum sobre esse conceito falha.',
             },
             {
-                short: 'Verificar minha resolução',
-                full: 'Olá Graham, você poderia verificar a minha resolução de um exercício? Me pergunte qual é o enunciado e como cheguei na resposta — quero que revise cada etapa, aponte o que está certo ou errado e explique o motivo.',
+                short: 'Auditar minha resolução',
+                full: 'Olá Graham, quero que você audite a minha resolução de um exercício, não apenas confirme se está certa. Me pergunte o enunciado e como eu cheguei na resposta. Revise cada etapa do meu raciocínio, aponte onde a lógica é frágil mesmo que o resultado final esteja certo, e explique o porquê.',
             },
             {
-                short: 'Analisar complexidade de algoritmo',
-                full: 'Olá Graham, você poderia analisar a complexidade de um algoritmo meu? Me pergunte se prefiro passar o código ou descrever o algoritmo, e se quero focar em tempo, espaço ou nos dois — com explicação do raciocínio por trás.',
+                short: 'Complexidade real do meu algoritmo',
+                full: 'Olá Graham, analise a complexidade de um algoritmo meu. Me pergunte se prefiro colar o código ou descrever o algoritmo, e se quero focar em tempo, espaço ou ambos. Além do Big O, me diga em que situações reais essa complexidade teórica pode não refletir a performance prática.',
             },
         ],
     },
