@@ -256,7 +256,7 @@ const Chat = () => {
             const now = Date.now()
 
             if (now - lastVibrationRef.current > 50) {
-                navigator.vibrate?.(15)
+                navigator.vibrate?.(12)
                 lastVibrationRef.current = now
             }
 

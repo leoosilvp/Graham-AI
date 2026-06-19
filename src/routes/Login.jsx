@@ -57,12 +57,14 @@ const Login = () => {
             await login(form.email, form.password)
             window.location.href = '/new'
         } catch (err) {
+            navigator.vibrate?.([20, 50, 20])
             setError(err.message)
             clearTimeout(window.__errorTimer)
             window.__errorTimer = setTimeout(() => {
                 setError('')
             }, 4000)
         } finally {
+            navigator.vibrate?.(15)
             setLoading(false)
             localStorage.setItem('aside_open', 'true')
         }
