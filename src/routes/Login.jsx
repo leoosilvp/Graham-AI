@@ -51,20 +51,20 @@ const Login = () => {
             if (isRegister) {
                 await register(form.name, form.email, form.password)
                 window.location.href = '/new'
+                navigator.vibrate?.(15)
                 return
             }
 
             await login(form.email, form.password)
             window.location.href = '/new'
         } catch (err) {
-            navigator.vibrate?.([20, 50, 20])
+            navigator.vibrate?.([30, 50, 30,])
             setError(err.message)
             clearTimeout(window.__errorTimer)
             window.__errorTimer = setTimeout(() => {
                 setError('')
             }, 4000)
         } finally {
-            navigator.vibrate?.(15)
             setLoading(false)
             localStorage.setItem('aside_open', 'true')
         }
