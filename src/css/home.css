@@ -655,4 +655,10 @@
     .tool-bar-main div button:hover {
         background: #141414;
     }
+
+    .tool-bar-prompt {
+        width: 90vw;
+        height: fit-content;
+        border-radius: 15px;
+    }
 }
