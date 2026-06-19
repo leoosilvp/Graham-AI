@@ -1,4 +1,4 @@
-const BASE_URL = 'https://api-graham-ai.vercel.app/api/auth'
+const BASE_URL = 'https://api.graham.vu/api/auth'
 
 export async function login(email, password) {
   const res = await fetch(`${BASE_URL}/login`, {
