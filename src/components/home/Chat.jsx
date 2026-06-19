@@ -159,6 +159,9 @@ const Chat = () => {
     const bottomRef = useRef(null)
     const fetchAbortRef = useRef(null)
     const loadedIdRef = useRef(null)
+    const lastWordCountRef = useRef(0)
+    const lastVibrationRef = useRef(0)
+    const previousAssistantContentRef = useRef('')
 
     const displayTitle = useMemo(() => {
         if (chatTitle) return chatTitle
@@ -211,10 +214,55 @@ const Chat = () => {
         document.title = displayTitle ? `${displayTitle} - Graham` : 'Graham'
     }, [displayTitle, id])
 
+    useEffect(() => {
+        if (!isLoading) {
+            lastWordCountRef.current = 0
+            previousAssistantContentRef.current = ''
+        }
+    }, [isLoading])
+
     const isStreaming = isLoading && messages.at(-1)?.role === 'assistant'
     const isPending = isLoading && messages.at(-1)?.role === 'user'
-    const handleSend = useCallback((payload) => sendMessage(payload), [sendMessage])
+    const handleSend = useCallback((payload) => {
+        navigator.vibrate?.(15)
+
+        lastWordCountRef.current = 0
+        previousAssistantContentRef.current = ''
+
+        sendMessage(payload)
+    }, [sendMessage])
     const handleStop = useCallback(() => stop(), [stop])
+
+    useEffect(() => {
+        if (!isStreaming) {
+            lastWordCountRef.current = 0
+            previousAssistantContentRef.current = ''
+            return
+        }
+
+        const content = messages.at(-1)?.content || ''
+
+        if (content === previousAssistantContentRef.current) return
+
+        previousAssistantContentRef.current = content
+
+        const wordCount = content
+            .trim()
+            .split(/\s+/)
+            .filter(Boolean)
+            .length
+
+        if (wordCount > lastWordCountRef.current) {
+            const now = Date.now()
+
+            if (now - lastVibrationRef.current > 50) {
+                navigator.vibrate?.(2)
+                lastVibrationRef.current = now
+            }
+
+            lastWordCountRef.current = wordCount
+        }
+    }, [messages, isStreaming])
 
     return (
         <main className="chat-main">
