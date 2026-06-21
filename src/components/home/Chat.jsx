@@ -134,6 +134,7 @@ const ThinkingIndicator = () => (
 
 const MessageUser = memo(({ content }) => {
     const [isLarge, setIsLarge] = useState(false)
+    const [isExpanded, setIsExpanded] = useState(false)
     const [copied, setCopied] = useState(false)
     const bubbleRef = useRef(null)
 
@@ -142,7 +143,7 @@ const MessageUser = memo(({ content }) => {
         if (!el) return
 
         const updateSize = () => {
-            setIsLarge(el.scrollHeight >= 300)
+            setIsLarge(el.scrollHeight >= 450)
         }
 
         updateSize()
@@ -156,6 +157,7 @@ const MessageUser = memo(({ content }) => {
     const handleCopy = useCallback(async () => {
         try {
             await navigator.clipboard.writeText(content)
+
             navigator.vibrate?.(15)
 
             setCopied(true)
@@ -165,11 +167,22 @@ const MessageUser = memo(({ content }) => {
         }
     }, [content])
 
+    const handleToggleExpand = useCallback(() => {
+        setIsExpanded(prev => !prev)
+    }, [])
+
     return (
         <div className="chat-user">
             <section className='chat-user-grid'>
-                <div ref={bubbleRef} className={`chat-bubble chat-bubble--user ${isLarge ? 'chat-bubble-user--large' : ''}`}>
+                <div ref={bubbleRef} className={`chat-bubble chat-bubble--user ${isLarge ? 'chat-bubble-user--large' : ''} ${isExpanded ? 'extend' : ''}`}>
                     {content}
+                    {isLarge && (
+                        <div className="chat-user--see-more">
+                            <button type="button" onClick={handleToggleExpand}>
+                                {isExpanded ? 'Mostrar menos' : 'Mostrar mais'}
+                            </button>
+                        </div>
+                    )}
                 </div>
 
                 <div className="chat-user-actions">
