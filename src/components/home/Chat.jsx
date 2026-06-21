@@ -132,11 +132,55 @@ const ThinkingIndicator = () => (
     </div>
 )
 
-const MessageUser = memo(({ content }) => (
-    <div className="chat-user">
-        <p className="chat-bubble chat-bubble--user">{content}</p>
-    </div>
-))
+const MessageUser = memo(({ content }) => {
+    const [isLarge, setIsLarge] = useState(false)
+    const [copied, setCopied] = useState(false)
+    const bubbleRef = useRef(null)
+
+    useEffect(() => {
+        const el = bubbleRef.current
+        if (!el) return
+
+        const updateSize = () => {
+            setIsLarge(el.scrollHeight >= 300)
+        }
+
+        updateSize()
+
+        const observer = new ResizeObserver(updateSize)
+        observer.observe(el)
+
+        return () => observer.disconnect()
+    }, [content])
+
+    const handleCopy = useCallback(async () => {
+        try {
+            await navigator.clipboard.writeText(content)
+            navigator.vibrate?.(15)
+
+            setCopied(true)
+            setTimeout(() => setCopied(false), 1500)
+        } catch {
+            //
+        }
+    }, [content])
+
+    return (
+        <div className="chat-user">
+            <section className='chat-user-grid'>
+                <div ref={bubbleRef} className={`chat-bubble chat-bubble--user ${isLarge ? 'chat-bubble-user--large' : ''}`}>
+                    {content}
+                </div>
+
+                <div className="chat-user-actions">
+                    <button type="button" className="chat-user-copy" onClick={handleCopy}>
+                        {copied ? <Check size={17} /> : <Copy size={17} />}
+                    </button>
+                </div>
+            </section>
+        </div>
+    )
+})
 MessageUser.displayName = 'MessageUser'
 
 const MessageAssistant = memo(({ content, isStreaming }) => (
