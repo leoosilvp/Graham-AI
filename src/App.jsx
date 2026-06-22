@@ -16,6 +16,7 @@ import Account from "./components/settings/Account"
 import Privacy from "./components/settings/Privacy"
 import Personalize from "./components/settings/Personalize"
 import Help from "./components/settings/Help"
+import Upgrade from "./routes/Upgrade"
 
 const App = () => {
 
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="*" element={<Error />} />
         <Route path="/home" element={<Navigate to='/' />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/upgrade" element={<Upgrade />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<Home />} >
             <Route index element={<Navigate to='new' />} />
