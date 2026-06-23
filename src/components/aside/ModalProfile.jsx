@@ -1,4 +1,4 @@
-import { HelpCircle, LogOut, Settings, Shield } from "@geist-ui/icons"
+import { ArrowUpRight, HelpCircle, LogOut, Settings, Shield } from "@geist-ui/icons"
 import { useUser } from "../../hooks/useUser"
 import { useNavigate } from "react-router-dom"
 import { logout } from "../../services/auth"
@@ -29,6 +29,7 @@ const ModalProfile = ({ open, onClose }) => {
             <button onClick={() => { navigate('/settings'), onClose?.() }}><Settings size={18} color={'var(--light-color)'} />Configurações</button>
             <button onClick={() => { navigate('/settings/privacy'), onClose?.() }}><Shield color={'var(--light-color)'} size={18} />Privacidade</button>
             <hr />
+            <button onClick={() => { navigate('/upgrade'), onClose?.() }}><ArrowUpRight color={'var(--light-color)'} size={18} />Fazer Upgrade</button>
             <button onClick={() => { navigate('/settings/help'), onClose?.() }}><HelpCircle color={'var(--light-color)'} size={18} />Ajuda</button>
             <hr />
             <button onClick={handleLogout}><LogOut color={'var(--light-color)'} size={18} />Sair</button>
