@@ -27,7 +27,21 @@ body {
   font-family: "Poppins", sans-serif;
   background: var(--background);
   color: var(--light-color);
-  overflow: hidden;
+  overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+  width: 5px;
+}
+
+body::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background: #101010;
+  cursor: pointer;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: #1e1e1e;
 }
 
 .typing {

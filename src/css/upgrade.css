@@ -2,14 +2,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 30px;
+    overflow-y: auto;
 }
 
 .upgrade-header {
+    position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    background: linear-gradient(0deg, #00000000, #000);
+    backdrop-filter: blur(25px);
     padding: 20px 30px;
+    z-index: 10;
 }
 
 .upgrade-header img {
@@ -37,17 +45,22 @@
 
 
 .upgrade-presentation {
-    height: 75dvh;
+    width: 100%;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-image: linear-gradient(0deg, #0000007a), url('../assets/img/bg-upgrade.gif');
+    background-size: cover;
+    background-position: center;
     gap: 30px;
+    animation: bg-in 2s ease-in;
 }
 
 .upgrade-presentation img {
     display: flex;
-    width: 150px;
+    width: 170px;
     opacity: 0.8;
 }
 
@@ -57,7 +70,136 @@
     font-weight: 400;
 }
 
-.upgrade-presentation p {
-    font-size: 0.9rem;
+.upgrade-grid {
+    display: flex;
+    gap: 20px;
+}
+
+.upgrade-card {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 100dvh;
+    background: #0b0b0b;
+    border: 1px solid #202020;
+    border-radius: 10px;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.upgrade-card:has(.upgrade-card-content-top button:hover) {
+    border-color: #353535;
+}
+
+.upgrade-card-content-top {
+    padding: 20px;
+
+}
+
+.upgrade-card-content-top img {
+    display: flex;
+    width: 60px;
+    filter: invert(1);
+    opacity: 0.7;
+}
+
+.upgrade-card-content-top h2 {
+    margin-top: 10px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--gray-color-1);
+}
+
+.upgrade-card-content-top p {
+    font-size: 0.85rem;
+    color: var(--gray-color-2);
+}
+
+.upgrade-card-content-top div {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.upgrade-card-content-top h1 {
+    font-size: 2.2rem;
+    font-weight: 500;
+}
+
+.upgrade-card-content-top div p {
+    font-size: 0.8rem;
+    line-height: 1.2;
+}
+
+.upgrade-card-content-top button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 40px;
+    border: 1px solid #353535;
+    border-radius: 7px;
+    background: transparent;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--gray-color-1);
+    transition: var(--transition);
+    cursor: pointer;
+    gap: 5px;
+}
+
+.upgrade-card-content-top button:hover {
+    background: var(--light-color);
+    color: var(--black);
+    gap: 7px;
+}
+
+.upgrade-card hr {
+    margin: 15px 0;
+    border: none;
+    border-bottom: 1px solid #202020;
+    transition: var(--transition);
+}
+
+.upgrade-card:has(.upgrade-card-content-top button:hover) hr {
+    border-color: #353535;
+}
+
+
+.upgrade-card-content-bottom {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 20px;
+    gap: 10px;
+}
+
+.upgrade-card-content-bottom h2 {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--gray-color-2);
+}
+
+.upgrade-card-content-bottom div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: var(--gray-color-2);
+}
+
+.upgrade-footer {
+    margin-top: 20px;
+    cursor: default;
+}
+
+.upgrade-footer p {
+    font-size: 0.85rem;
     font-weight: 300;
+    color: var(--gray-color-2);
+}
+
+.upgrade-footer p span {
+    text-decoration: underline;
+    text-underline-offset: 2px;
 }
