@@ -45,7 +45,7 @@ const Upgrade = () => {
                     <section className='upgrade-card-content-top'>
                         <img draggable={false} src="https://cdn-icons-png.flaticon.com/512/15663/15663807.png" />
                         <h2>Pro</h2>
-                        <p>Conheça o Graham</p>
+                        <p>Explore, crie e aprimore</p>
                         <div>
                             <h1>80 R$</h1>
                             <p>BRL / mês<br />cobrado anualmente</p>
@@ -68,7 +68,7 @@ const Upgrade = () => {
                     <section className='upgrade-card-content-top'>
                         <img draggable={false} src="https://cdn-icons-png.flaticon.com/512/17653/17653338.png" />
                         <h2>Expert</h2>
-                        <p>Conheça o Graham</p>
+                        <p>Prioridade máxima, recursos exclusivos</p>
                         <div>
                             <h1>520 R$</h1>
                             <p>BRL / mês<br />cobrado anualmente</p>
