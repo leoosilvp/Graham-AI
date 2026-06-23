@@ -264,12 +264,12 @@ const Aside = () => {
             <section className='aside-content'>
                 <div className='aside-first-btn'>
                     <button className='aside-btn' onClick={() => { handleNewChat(), closeAsideOnMobile() }}><Edit className='icon' size={19} /><p>Novo bate-papo</p><span>Shift + a</span></button>
-                    <button className='aside-btn' onClick={() => { navigate('/search'), closeAsideOnMobile() }} ><Search className='icon' size={19} /><p>Procurar</p><span>Ctrl + p</span></button>
+                    <button className='aside-btn' onClick={() => { navigate('/search'), closeAsideOnMobile() }}><Search className='icon' size={19} /><p>Procurar</p><span>Ctrl + p</span></button>
                 </div>
 
                 <div className={`aside-content-scrool ${isScrolled ? 'aside-content-scrolled' : ''}`}>
-                    <button className='aside-btn' onClick={() => { navigate('/library'), closeAsideOnMobile() }} ><Folder className='icon' size={19} /><p>Arquivos</p></button>
-                    <button className='aside-btn bloq'><Code className='icon' size={19} /><p>Código</p><h3>Indisponível</h3></button>
+                    <button className='aside-btn' onClick={() => { navigate('/library'), closeAsideOnMobile() }}><Folder className='icon' size={19} /><p>Arquivos</p></button>
+                    <button className='aside-btn bloq' onClick={() => { navigate('/upgrade'), closeAsideOnMobile() }}><Code className='icon' size={19} /><p>Código</p><h3>Fazer Upgrade</h3></button>
 
                     <h2>Recentes</h2>
                     <section className='aside-grid-chats' ref={scrollRef}>
