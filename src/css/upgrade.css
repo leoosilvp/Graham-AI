@@ -207,6 +207,17 @@
 }
 
 @media (width < 780px) {
+
+    .upgrade-header {
+        padding: 20px;
+    }
+
+    .upgrade-header a:last-child {
+        padding: 6px 15px;
+        font-size: 0.75rem;
+        font-weight: 400;
+    }
+
     .upgrade-grid {
         flex-direction: column;
     }
@@ -217,5 +228,9 @@
 
     .upgrade-footer {
         width: 90vw;
+    }
+
+    .upgrade-footer p {
+        font-size: 0.7rem;
     }
 }
