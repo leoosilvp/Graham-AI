@@ -1,0 +1,63 @@
+.upgrade-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upgrade-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px 30px;
+}
+
+.upgrade-header img {
+    display: flex;
+    width: 130px;
+}
+
+.upgrade-header a:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 20px;
+    border: none;
+    border-radius: 100px;
+    background: var(--light-color);
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--black);
+    transition: var(--transition);
+}
+
+.upgrade-header a:last-child:hover {
+    background: var(--gray-color-1);
+}
+
+
+.upgrade-presentation {
+    height: 75dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.upgrade-presentation img {
+    display: flex;
+    width: 150px;
+    opacity: 0.8;
+}
+
+.upgrade-presentation h1 {
+    font-family: "Libre Baskerville", serif;
+    font-size: 3.5rem;
+    font-weight: 400;
+}
+
+.upgrade-presentation p {
+    font-size: 0.9rem;
+    font-weight: 300;
+}
