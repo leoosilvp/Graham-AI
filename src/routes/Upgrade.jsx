@@ -20,6 +20,10 @@ const Upgrade = () => {
                 <h1>Planos Individuais</h1>
                 <img src={logoPleromaGraham} />
             </section>
+            <section className='upgrade-title-grid'>
+                <h1>Mais recursos para cada etapa da sua jornada</h1>
+                <p>Compare os planos e encontre o equilíbrio ideal entre recursos e desempenho.</p>
+            </section>
             <section className='upgrade-grid'>
                 <article className='upgrade-card'>
                     <section className='upgrade-card-content-top'>

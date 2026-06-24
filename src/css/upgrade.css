@@ -71,7 +71,26 @@
     font-weight: 400;
 }
 
+.upgrade-title-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px 0 10px;
+}
+
+.upgrade-title-grid h1 {
+    font-family: "Libre Baskerville", serif;
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.upgrade-title-grid p {
+    font-size: 1rem;
+    color: var(--gray-color-2);
+}
+
 .upgrade-grid {
+    margin-top: 50px;
     display: flex;
     gap: 20px;
 }
@@ -81,7 +100,7 @@
     flex-direction: column;
     width: 350px;
     height: 560px;
-    background: #0b0b0b;
+    background: #121212;
     border: 1px solid #202020;
     border-radius: 10px;
     transition: var(--transition);
