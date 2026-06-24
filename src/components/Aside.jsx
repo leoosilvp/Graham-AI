@@ -60,7 +60,7 @@ const Aside = () => {
         if (!element) return
 
         const handleScroll = () => {
-            setIsScrolled(element.scrollTop > 1)
+            setIsScrolled(element.scrollTop > 10)
         }
 
         element.addEventListener('scroll', handleScroll)
@@ -267,12 +267,12 @@ const Aside = () => {
                     <button className='aside-btn' onClick={() => { navigate('/search'), closeAsideOnMobile() }}><Search className='icon' size={19} /><p>Procurar</p><span>Ctrl + p</span></button>
                 </div>
 
-                <div className={`aside-content-scrool ${isScrolled ? 'aside-content-scrolled' : ''}`}>
+                <div ref={scrollRef} className={`aside-content-scrool ${isScrolled ? 'aside-content-scrolled' : ''}`}>
                     <button className='aside-btn' onClick={() => { navigate('/library'), closeAsideOnMobile() }}><Folder className='icon' size={19} /><p>Arquivos</p></button>
                     <button className='aside-btn bloq' onClick={() => { navigate('/upgrade'), closeAsideOnMobile() }}><Code className='icon' size={19} /><p>Código</p><h3>Fazer Upgrade</h3></button>
 
                     <h2>Recentes</h2>
-                    <section className='aside-grid-chats' ref={scrollRef}>
+                    <section className='aside-grid-chats'>
 
                         {loading && <div className="chat-aside-loading"><div className='loader' /></div>}
 
