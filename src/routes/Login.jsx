@@ -81,7 +81,12 @@ const Login = () => {
                 <h1>{isRegister ? 'Crie sua conta' : 'Faça login na sua conta'}</h1>
                 <h2>{isRegister ? 'Comece a criar com a Graham.' : 'Continue criando com o Graham.'}</h2>
 
+
                 <form name='form-login' onSubmit={handleSubmit} noValidate>
+
+                    <Link to='https://api.graham.vu/api/auth/google' className='login-google'><img src="https://static.vecteezy.com/system/resources/thumbnails/022/484/503/small_2x/google-lens-icon-logo-symbol-free-png.png" />{isRegister ? 'Registrar com Google' : 'Entrar com Google'}<span /></Link>
+
+                    <div className='login-divider'><hr />ou<hr /></div>
 
                     {isRegister && (
                         <article className='login-input'>
@@ -142,9 +147,7 @@ const Login = () => {
                     </button>
                 </form>
 
-                <div className='login-divider'><hr />ou<hr /></div>
-
-                <p>
+                <p className='login-register'>
                     {isRegister ? (
                         <>Já possui uma conta? <Link to='?view=login'>Entrar</Link></>
                     ) : (
