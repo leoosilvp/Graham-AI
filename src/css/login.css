@@ -218,9 +218,10 @@
 @media (width < 780px) {
 
     .login-main {
-        padding: 15px;
+        padding: 0 15px;
         justify-content: flex-start;
         height: 100dvh;
+        max-height: 100dvh;
         background-size: 250%;
         background-position: top left;
     }
@@ -231,7 +232,7 @@
     }
 
     .login-header img {
-        width: 70px;
+        width: 80px;
     }
 
     .login-wrapper {
@@ -258,7 +259,7 @@
     .login-google {
         width: 100%;
         border: 1px solid #1a1a1a;
-        background: #0f0f0f;
+        background: #101010;
     }
 
     .login-input {
