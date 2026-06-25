@@ -77,7 +77,7 @@ const Login = () => {
             </header>
 
             <section className='login-wrapper'>
-                <img src={icon} alt="Graham Icon" draggable={false} />
+                <img src={icon} alt="Graham AI Icon" draggable={false} />
                 <h1>{isRegister ? 'Crie sua conta' : 'Faça login na sua conta'}</h1>
                 <h2>{isRegister ? 'Comece a criar com a Graham.' : 'Continue criando com o Graham.'}</h2>
 
@@ -157,8 +157,8 @@ const Login = () => {
             </section>
 
             <footer className='login-footer'>
-                <Link to='/terms'>Termos de Serviço</Link>
-                <Link to='/privacy'>Política de Privacidade</Link>
+                <Link to=''>Termos de Serviço</Link>
+                <Link to=''>Política de Privacidade</Link>
                 &copy; 2026 Pleroma
             </footer>
         </main>
