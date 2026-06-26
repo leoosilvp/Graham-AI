@@ -289,7 +289,8 @@
     width: 720px;
     margin: 0;
     border-radius: 10px;
-    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: auto;
     border: 1px solid #2d2d30;
     background: #141414;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.02);
@@ -449,6 +450,7 @@
    TABLES
    ============================================ */
 .md-table-wrapper {
+    width: 720px;
     overflow-x: auto;
     margin: 0;
     border: 1px solid #27272a;
