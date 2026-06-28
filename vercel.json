@@ -1,12 +1,15 @@
 {
-  "rewrites": [
+  "routes": [
     {
-      "source": "/welcome",
-      "destination": "https://welcome.graham.vu"
+      "handle": "filesystem"
     },
     {
-      "source": "/(.*)",
-      "destination": "/"
+      "src": "/welcome",
+      "dest": "https://welcome.graham.vu"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
