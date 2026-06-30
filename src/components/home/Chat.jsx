@@ -213,6 +213,7 @@ const Chat = () => {
     const navigate = useNavigate()
     const { messages, isLoading, error, sendMessage, stop, reset, loadChat, isActiveChat } = useChat()
     const [chatTitle, setChatTitle] = useState('')
+    const chatContentRef = useRef(null)
     const bottomRef = useRef(null)
     const fetchAbortRef = useRef(null)
     const loadedIdRef = useRef(null)
@@ -227,6 +228,28 @@ const Chat = () => {
         }
         return 'Novo Chat'
     }, [chatTitle, id, messages, isActiveChat])
+
+    const scrollToEndWhenSettled = useCallback(() => {
+        const container = chatContentRef.current
+        const bottomEl = bottomRef.current
+        if (!container || !bottomEl) return
+
+        let settleTimeout = null
+
+        const scrollToEnd = () => {
+            bottomEl.scrollIntoView({ behavior: 'instant', block: 'end' })
+        }
+
+        const observer = new ResizeObserver(() => {
+            scrollToEnd()
+            clearTimeout(settleTimeout)
+            settleTimeout = setTimeout(() => observer.disconnect(), 200)
+        })
+
+        observer.observe(container)
+        scrollToEnd()
+        settleTimeout = setTimeout(() => observer.disconnect(), 200)
+    }, [])
 
     useEffect(() => {
         if (!id || loadedIdRef.current === id) return
@@ -244,7 +267,13 @@ const Chat = () => {
                 const data = await ChatService.get(id)
                 if (controller.signal.aborted) return
                 setChatTitle(data?.title || data?.chat?.[0]?.title || 'Novo Chat')
-                if (data?.chat?.length) loadChat(data.chat, id)
+                if (data?.chat?.length) {
+                    loadChat(data.chat, id)
+                    // Conversa existente sendo aberta: rola para o fim.
+                    // Próximo frame, para garantir que o DOM já refletiu
+                    // o `loadChat` antes de medirmos/rolarmos o container.
+                    requestAnimationFrame(scrollToEndWhenSettled)
+                }
             } catch {
                 if (!controller.signal.aborted) navigate('/new', { replace: true })
             }
@@ -257,14 +286,6 @@ const Chat = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id])
-
-    useEffect(() => {
-        if (isLoading) return
-        const el = bottomRef.current
-        if (!el) return
-        const timeout = setTimeout(() => el.scrollIntoView({ behavior: 'instant', block: 'end' }), 50)
-        return () => clearTimeout(timeout)
-    }, [isLoading])
 
     useEffect(() => {
         if (!id) return
@@ -323,7 +344,7 @@ const Chat = () => {
 
     return (
         <main className="chat-main">
-            <section className="chat-content" role="log" aria-live="polite" aria-label="Conversa">
+            <section className="chat-content" role="log" aria-live="polite" aria-label="Conversa" ref={chatContentRef}>
                 {messages.map((msg, i) => {
                     const isLast = i === messages.length - 1
                     if (msg.role === 'user') return <MessageUser key={i} content={msg.content} />

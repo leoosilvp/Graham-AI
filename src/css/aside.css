@@ -29,7 +29,7 @@
     display: none;
 }
 
-
+ 
 .aside-header {
     display: flex;
     align-items: center;
@@ -175,13 +175,18 @@
     margin-top: 10px;
     display: flex;
     flex-direction: column;
+    gap: 1px;
 }
 
 .aside-card-chat {
     padding: 5px 7px;
-    border-radius: 4px;
+    border-radius: 6px;
     display: flex;
     align-items: center;
+}
+
+.aside-card-chat.active {
+    background: var(--hover-2);
 }
 
 .aside-card-chat:hover {

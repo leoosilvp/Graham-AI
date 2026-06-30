@@ -290,6 +290,7 @@ const Aside = () => {
                                     className={`aside-card-chat ${isActive ? 'active' : ''}`}
                                     onClick={(e) => {
                                         if (isEditing || isDeleting) e.preventDefault()
+                                        closeAsideOnMobile()
                                     }}
                                 >
                                     {isEditing ? (
