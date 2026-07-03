@@ -1,11 +1,12 @@
 import '../css/aside.css'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import logo from '../assets/svg/logo-text.svg'
-import { Check, ChevronUpDown, Code, Edit, Folder, Frown, Search, Sidebar, Trash2, X } from '@geist-ui/icons'
+import { Check, ChevronUpDown, Code, Download, Edit, Folder, Frown, Search, Sidebar, Trash2, X } from '@geist-ui/icons'
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { ChatService } from '../services/chatService'
 import { useUser } from '../hooks/useUser'
 import ModalProfile from './aside/ModalProfile'
+import ModalDownload from './aside/ModalDownload'
 
 const Aside = () => {
 
@@ -337,11 +338,13 @@ const Aside = () => {
                             <p>{user?.plan}</p>
                         </div>
                         <section className='aside-btn-profile'>
+                            <button><Download size={15} /></button>
                             <ChevronUpDown size={14} />
                         </section>
                     </section>
                 </footer>
                 <ModalProfile open={isProfileOpen} onClose={() => setIsProfileOpen(false)} />
+                <ModalDownload open={false} onClose={() => setIsProfileOpen(false)} />
             </div>
         </aside>
     )
