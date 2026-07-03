@@ -17,6 +17,13 @@ const Aside = () => {
         return localStorage.getItem('aside_open') !== 'false'
     })
 
+    const [isPWA] = useState(() =>
+        window.matchMedia('(display-mode: standalone)').matches ||
+        window.matchMedia('(display-mode: fullscreen)').matches ||
+        window.matchMedia('(display-mode: minimal-ui)').matches ||
+        window.navigator.standalone === true
+    );
+
     const isMobile = window.matchMedia('(max-width: 768px)').matches
 
     const { isOpen: isProfileOpen, ref: profileRef, close: closeProfile, open: openProfile } = useModalToggle()
@@ -331,7 +338,7 @@ const Aside = () => {
                                 <p>{user?.plan}</p>
                             </div>
                             <section className='aside-btn-profile'>
-                                <button onClick={handleOpenDownload}><Download size={15} /></button>
+                                <button className={`${isPWA ? 'pwa' : ''}`} onClick={handleOpenDownload}><Download size={15} /></button>
                                 <ChevronUpDown size={14} />
                             </section>
                         </section>

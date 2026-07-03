@@ -328,6 +328,10 @@
     margin-left: auto;
 }
 
+.aside-btn-profile .pwa {
+    display: none;
+}
+
 .aside-btn-profile button {
     display: flex;
     align-items: center;
