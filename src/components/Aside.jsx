@@ -8,6 +8,7 @@ import { useModalToggle } from '../hooks/useModalToggle'
 import logo from '../assets/svg/logo-text.svg'
 import ModalProfile from './aside/ModalProfile'
 import ModalDownload from './aside/ModalDownload'
+import ModalDownloadMobile from './aside/ModalDownloadMobile'
 
 const Aside = () => {
 
@@ -28,6 +29,7 @@ const Aside = () => {
 
     const { isOpen: isProfileOpen, ref: profileRef, close: closeProfile, open: openProfile } = useModalToggle()
     const { isOpen: isDownloadOpen, ref: downloadRef, close: closeDownload, open: openDownload } = useModalToggle()
+    const { isOpen: isDownloadMobileOpen, close: closeDownloadMobile, open: openDownloadMobile } = useModalToggle()
 
     const handleToggleProfile = () => {
         closeDownload()
@@ -38,6 +40,11 @@ const Aside = () => {
         event.stopPropagation()
         closeProfile()
         openDownload()
+    }
+
+    const handleOpenDownloadMobile = () => {
+        closeDownload()
+        openDownloadMobile()
     }
 
     const scrollRef = useRef(null)
@@ -344,9 +351,10 @@ const Aside = () => {
                         </section>
                     </footer>
                     <ModalProfile open={isProfileOpen} onClose={closeProfile} />
-                    <ModalDownload open={isDownloadOpen} onClose={closeDownload} />
+                    <ModalDownload open={isDownloadOpen} onClose={closeDownload} onOpenMobile={handleOpenDownloadMobile} />
                 </div>
             </div>
+            <ModalDownloadMobile open={isDownloadMobileOpen} onClose={closeDownloadMobile} />
         </aside>
     )
 }

@@ -2,7 +2,7 @@ import { Monitor, Smartphone } from '@geist-ui/icons'
 import { useEffect, useRef } from 'react'
 import img from '../../assets/img/imgApp.png'
 
-const ModalDownload = ({ open, onClose }) => {
+const ModalDownload = ({ open, onClose, onOpenMobile }) => {
     const deferredPrompt = useRef(null)
 
     useEffect(() => {
@@ -49,7 +49,7 @@ const ModalDownload = ({ open, onClose }) => {
                 <h1>Usando Graham em qualquer lugar</h1>
                 <p>Também pode descarregar e usar o Graham no telemóvel e no desktop para uma experiência diferente.</p>
                 <div>
-                    <button onClick={() => onClose?.()}>
+                    <button onClick={() => { onClose?.(), onOpenMobile?.() }}>
                         <Smartphone size={16} />
                         Aplicação Móvel
                     </button>
