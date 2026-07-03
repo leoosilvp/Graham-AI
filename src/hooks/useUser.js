@@ -1,15 +1,104 @@
 import { useEffect, useState, useCallback } from 'react'
 
+const STORAGE_KEY = 'graham:user-cache'
+const STORAGE_VERSION = 1
+const STORAGE_MAX_AGE = 1000 * 60 * 60 * 24 * 7 // 7 dias
+const CACHE_TTL = 1000 * 60 * 5 // 5 min
+
+function toPreview(user) {
+  if (!user) return null
+
+  return {
+    name: user.profile?.name ?? null,
+    photo: user.profile?.photo ?? null,
+    plan: user.plan ?? null,
+  }
+}
+
+function isValidPreview(preview) {
+  return (
+    preview !== null &&
+    typeof preview === 'object' &&
+    'name' in preview &&
+    'photo' in preview &&
+    'plan' in preview
+  )
+}
+
+function readPreview() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+
+    if (!raw) return null
+
+    const parsed = JSON.parse(raw)
+
+    if (parsed.v !== STORAGE_VERSION) {
+      localStorage.removeItem(STORAGE_KEY)
+      return null
+    }
+
+    if (Date.now() - parsed.savedAt > STORAGE_MAX_AGE) {
+      localStorage.removeItem(STORAGE_KEY)
+      return null
+    }
+
+    if (!isValidPreview(parsed.data)) {
+      localStorage.removeItem(STORAGE_KEY)
+      return null
+    }
+
+    return parsed.data
+  } catch {
+    localStorage.removeItem(STORAGE_KEY)
+    return null
+  }
+}
+
+function writePreview(user) {
+  try {
+    const preview = toPreview(user)
+
+    if (!preview) {
+      localStorage.removeItem(STORAGE_KEY)
+      return
+    }
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({ v: STORAGE_VERSION, savedAt: Date.now(), data: preview })
+    )
+  } catch {
+    // storage indisponível (modo privado, quota, etc...), segue só com cache em memória
+  }
+}
+
+function fromPreview(preview) {
+  if (!preview) return null
+
+  return {
+    id: null,
+    email: null,
+    profile: { name: preview.name, photo: preview.photo },
+    plan: preview.plan,
+    status: null,
+    settings: null,
+  }
+}
+
 let cachedUser = null
 let lastFetch = 0
 let pendingPromise = null
 
-const CACHE_TTL = 1000 * 60 * 5 // 5 min
-
 const listeners = new Set()
+const previewListeners = new Set()
 
 function notifyListeners(user) {
   listeners.forEach((listener) => listener(user))
+}
+
+function notifyPreviewListeners(preview) {
+  previewListeners.forEach((listener) => listener(preview))
 }
 
 async function requestUser() {
@@ -44,8 +133,9 @@ async function requestUser() {
 }
 
 export function useUser() {
-  const [user, setUserState] = useState(() => cachedUser)
-  const [loading, setLoading] = useState(() => !cachedUser)
+  const [user, setUserState] = useState(() => cachedUser ?? fromPreview(readPreview()))
+  const [preview, setPreview] = useState(() => readPreview())
+  const [loading, setLoading] = useState(() => !cachedUser && !readPreview())
   const [error, setError] = useState(null)
 
   useEffect(() => {
@@ -53,10 +143,16 @@ export function useUser() {
       setUserState(newUser)
     }
 
+    const previewListener = (newPreview) => {
+      setPreview(newPreview)
+    }
+
     listeners.add(listener)
+    previewListeners.add(previewListener)
 
     return () => {
       listeners.delete(listener)
+      previewListeners.delete(previewListener)
     }
   }, [])
 
@@ -64,6 +160,8 @@ export function useUser() {
     cachedUser = newUser
     lastFetch = Date.now()
 
+    writePreview(newUser)
+    notifyPreviewListeners(toPreview(newUser))
     notifyListeners(newUser)
   }, [])
 
@@ -83,6 +181,8 @@ export function useUser() {
         cachedUser = normalizedUser
         lastFetch = Date.now()
 
+        writePreview(normalizedUser)
+        notifyPreviewListeners(toPreview(normalizedUser))
         notifyListeners(normalizedUser)
 
         return normalizedUser
@@ -91,6 +191,8 @@ export function useUser() {
         cachedUser = null
         lastFetch = 0
 
+        writePreview(null)
+        notifyPreviewListeners(null)
         notifyListeners(null)
 
         throw err
@@ -113,6 +215,8 @@ export function useUser() {
     cachedUser = null
     lastFetch = 0
 
+    writePreview(null)
+    notifyPreviewListeners(null)
     notifyListeners(null)
   }, [])
 
@@ -121,7 +225,10 @@ export function useUser() {
 
     async function loadUser() {
       try {
-        setLoading(true)
+        if (!cachedUser && !readPreview()) {
+          setLoading(true)
+        }
+
         setError(null)
 
         const data = await fetchUser()
@@ -150,6 +257,7 @@ export function useUser() {
 
   return {
     user,
+    preview,
     loading,
     error,
     setUser,
