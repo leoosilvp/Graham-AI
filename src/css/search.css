@@ -86,6 +86,29 @@
     color: var(--light-color);
 }
 
+.search-grid-chats {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+.search-grid-chats::-webkit-scrollbar {
+    display: flex;
+    width: 5px;
+}
+
+.search-grid-chats::-webkit-scrollbar-thumb {
+    background: var(--hover-2);
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.search-grid-chats::-webkit-scrollbar-thumb:hover {
+    background: #252525;
+}
+
 .search-card-chat {
     display: flex;
     align-items: center;
