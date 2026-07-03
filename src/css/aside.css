@@ -328,10 +328,6 @@
     margin-left: auto;
 }
 
-.aside-btn-profile .pwa {
-    display: none;
-}
-
 .aside-btn-profile button {
     display: flex;
     align-items: center;
@@ -469,7 +465,7 @@
 }
 
 .modal-download-content p {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 300;
     color: #9e9e9e;
 }

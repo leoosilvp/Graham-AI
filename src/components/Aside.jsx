@@ -345,7 +345,7 @@ const Aside = () => {
                                 <p>{user?.plan}</p>
                             </div>
                             <section className='aside-btn-profile'>
-                                <button className={`${isPWA ? 'pwa' : ''}`} onClick={handleOpenDownload}><Download size={15} /></button>
+                                {isPWA ? '' : <button onClick={handleOpenDownload}><Download size={15} /></button>}
                                 <ChevronUpDown size={14} />
                             </section>
                         </section>

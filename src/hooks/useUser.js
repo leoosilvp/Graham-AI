@@ -1,104 +1,34 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useCallback, useEffect, useState, useSyncExternalStore } from 'react'
 
-const STORAGE_KEY = 'graham:user-cache'
-const STORAGE_VERSION = 1
-const STORAGE_MAX_AGE = 1000 * 60 * 60 * 24 * 7 // 7 dias
 const CACHE_TTL = 1000 * 60 * 5 // 5 min
-
-function toPreview(user) {
-  if (!user) return null
-
-  return {
-    name: user.profile?.name ?? null,
-    photo: user.profile?.photo ?? null,
-    plan: user.plan ?? null,
-  }
-}
-
-function isValidPreview(preview) {
-  return (
-    preview !== null &&
-    typeof preview === 'object' &&
-    'name' in preview &&
-    'photo' in preview &&
-    'plan' in preview
-  )
-}
-
-function readPreview() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-
-    if (!raw) return null
-
-    const parsed = JSON.parse(raw)
-
-    if (parsed.v !== STORAGE_VERSION) {
-      localStorage.removeItem(STORAGE_KEY)
-      return null
-    }
-
-    if (Date.now() - parsed.savedAt > STORAGE_MAX_AGE) {
-      localStorage.removeItem(STORAGE_KEY)
-      return null
-    }
-
-    if (!isValidPreview(parsed.data)) {
-      localStorage.removeItem(STORAGE_KEY)
-      return null
-    }
-
-    return parsed.data
-  } catch {
-    localStorage.removeItem(STORAGE_KEY)
-    return null
-  }
-}
-
-function writePreview(user) {
-  try {
-    const preview = toPreview(user)
-
-    if (!preview) {
-      localStorage.removeItem(STORAGE_KEY)
-      return
-    }
-
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify({ v: STORAGE_VERSION, savedAt: Date.now(), data: preview })
-    )
-  } catch {
-    // storage indisponível (modo privado, quota, etc...), segue só com cache em memória
-  }
-}
-
-function fromPreview(preview) {
-  if (!preview) return null
-
-  return {
-    id: null,
-    email: null,
-    profile: { name: preview.name, photo: preview.photo },
-    plan: preview.plan,
-    status: null,
-    settings: null,
-  }
-}
 
 let cachedUser = null
 let lastFetch = 0
 let pendingPromise = null
 
 const listeners = new Set()
-const previewListeners = new Set()
 
-function notifyListeners(user) {
-  listeners.forEach((listener) => listener(user))
+function getSnapshot() {
+  return cachedUser
 }
 
-function notifyPreviewListeners(preview) {
-  previewListeners.forEach((listener) => listener(preview))
+function subscribe(listener) {
+  listeners.add(listener)
+
+  return () => {
+    listeners.delete(listener)
+  }
+}
+
+function notifyListeners() {
+  listeners.forEach((listener) => listener())
+}
+
+function setCachedUser(newUser) {
+  cachedUser = newUser
+  lastFetch = Date.now()
+
+  notifyListeners()
 }
 
 async function requestUser() {
@@ -132,76 +62,63 @@ async function requestUser() {
   }
 }
 
+function fetchUser() {
+  const now = Date.now()
+
+  if (cachedUser && now - lastFetch < CACHE_TTL) {
+    return Promise.resolve(cachedUser)
+  }
+
+  if (pendingPromise) {
+    return pendingPromise
+  }
+
+  pendingPromise = requestUser()
+    .then((normalizedUser) => {
+      setCachedUser(normalizedUser)
+
+      return normalizedUser
+    })
+    .catch((err) => {
+      lastFetch = 0
+
+      setCachedUser(null)
+
+      throw err
+    })
+    .finally(() => {
+      pendingPromise = null
+    })
+
+  return pendingPromise
+}
+
 export function useUser() {
-  const [user, setUserState] = useState(() => cachedUser ?? fromPreview(readPreview()))
-  const [preview, setPreview] = useState(() => readPreview())
-  const [loading, setLoading] = useState(() => !cachedUser && !readPreview())
+  const user = useSyncExternalStore(subscribe, getSnapshot)
+  const [loading, setLoading] = useState(() => !cachedUser)
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    const listener = (newUser) => {
-      setUserState(newUser)
-    }
+    let mounted = true
 
-    const previewListener = (newPreview) => {
-      setPreview(newPreview)
-    }
-
-    listeners.add(listener)
-    previewListeners.add(previewListener)
+    fetchUser()
+      .then(() => {
+        if (mounted) setError(null)
+      })
+      .catch((err) => {
+        if (mounted) setError(err.message)
+      })
+      .finally(() => {
+        if (mounted) setLoading(false)
+      })
 
     return () => {
-      listeners.delete(listener)
-      previewListeners.delete(previewListener)
+      mounted = false
     }
   }, [])
 
   const setUser = useCallback((newUser) => {
-    cachedUser = newUser
-    lastFetch = Date.now()
-
-    writePreview(newUser)
-    notifyPreviewListeners(toPreview(newUser))
-    notifyListeners(newUser)
-  }, [])
-
-  const fetchUser = useCallback(async () => {
-    const now = Date.now()
-
-    if (cachedUser && now - lastFetch < CACHE_TTL) {
-      return cachedUser
-    }
-
-    if (pendingPromise) {
-      return pendingPromise
-    }
-
-    pendingPromise = requestUser()
-      .then((normalizedUser) => {
-        cachedUser = normalizedUser
-        lastFetch = Date.now()
-
-        writePreview(normalizedUser)
-        notifyPreviewListeners(toPreview(normalizedUser))
-        notifyListeners(normalizedUser)
-
-        return normalizedUser
-      })
-      .catch((err) => {
-        cachedUser = null
-        lastFetch = 0
-
-        writePreview(null)
-        notifyPreviewListeners(null)
-        notifyListeners(null)
-
-        throw err
-      })
-      .finally(() => {
-        pendingPromise = null
-      })
-
-    return pendingPromise
+    setCachedUser(newUser)
   }, [])
 
   const refreshUser = useCallback(async () => {
@@ -209,55 +126,16 @@ export function useUser() {
     lastFetch = 0
 
     return fetchUser()
-  }, [fetchUser])
-
-  const clearUserCache = useCallback(() => {
-    cachedUser = null
-    lastFetch = 0
-
-    writePreview(null)
-    notifyPreviewListeners(null)
-    notifyListeners(null)
   }, [])
 
-  useEffect(() => {
-    let mounted = true
+  const clearUserCache = useCallback(() => {
+    lastFetch = 0
 
-    async function loadUser() {
-      try {
-        if (!cachedUser && !readPreview()) {
-          setLoading(true)
-        }
-
-        setError(null)
-
-        const data = await fetchUser()
-
-        if (!mounted) return
-
-        setUserState(data)
-      } catch (err) {
-        if (!mounted) return
-
-        setError(err.message)
-        setUserState(null)
-      } finally {
-        if (mounted) {
-          setLoading(false)
-        }
-      }
-    }
-
-    loadUser()
-
-    return () => {
-      mounted = false
-    }
-  }, [fetchUser])
+    setCachedUser(null)
+  }, [])
 
   return {
     user,
-    preview,
     loading,
     error,
     setUser,
