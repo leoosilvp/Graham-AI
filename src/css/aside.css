@@ -163,6 +163,10 @@
     border-radius: 20px;
 }
 
+.aside-content-scrool::-webkit-scrollbar-thumb:hover {
+    background: #252525;
+}
+
 .aside-content-scrool h2 {
     margin-left: 6px;
     margin-top: 30px;
