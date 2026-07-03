@@ -16,6 +16,10 @@ export default defineConfig({
         description: "AI Assistant",
         start_url: "/",
         display: "standalone",
+        display_override: [
+          "window-controls-overlay",
+          "standalone"
+        ],
         orientation: "portrait",
         background_color: "#000000",
         theme_color: "#000000",
