@@ -1,10 +1,11 @@
 import '../css/aside.css'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import logo from '../assets/svg/logo-text.svg'
 import { Check, ChevronUpDown, Code, Download, Edit, Folder, Frown, Search, Sidebar, Trash2, X } from '@geist-ui/icons'
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { ChatService } from '../services/chatService'
 import { useUser } from '../hooks/useUser'
+import { useModalToggle } from '../hooks/useModalToggle'
+import logo from '../assets/svg/logo-text.svg'
 import ModalProfile from './aside/ModalProfile'
 import ModalDownload from './aside/ModalDownload'
 
@@ -18,8 +19,19 @@ const Aside = () => {
 
     const isMobile = window.matchMedia('(max-width: 768px)').matches
 
-    const [isProfileOpen, setIsProfileOpen] = useState(false)
-    const profileRef = useRef(null)
+    const { isOpen: isProfileOpen, ref: profileRef, close: closeProfile, open: openProfile } = useModalToggle()
+    const { isOpen: isDownloadOpen, ref: downloadRef, close: closeDownload, open: openDownload } = useModalToggle()
+
+    const handleToggleProfile = () => {
+        closeDownload()
+        isProfileOpen ? closeProfile() : openProfile()
+    }
+
+    const handleOpenDownload = (event) => {
+        event.stopPropagation()
+        closeProfile()
+        openDownload()
+    }
 
     const scrollRef = useRef(null)
     const [isScrolled, setIsScrolled] = useState(false)
@@ -234,26 +246,6 @@ const Aside = () => {
         }
     }
 
-
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (
-                profileRef.current &&
-                !profileRef.current.contains(event.target)
-            ) {
-                setIsProfileOpen(false)
-            }
-        }
-
-        if (isProfileOpen) {
-            document.addEventListener('mousedown', handleClickOutside)
-        }
-
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside)
-        }
-    }, [isProfileOpen])
-
     return (
         <aside className={`aside-main ${!isOpen && 'collapsed'}`} ref={asideRef}>
             <header className="aside-header">
@@ -328,23 +320,25 @@ const Aside = () => {
             </section>
 
             <div ref={profileRef}>
-                <footer className={`aside-profile ${isProfileOpen && 'aside-profile-open'}`} onClick={() => setIsProfileOpen(prev => !prev)} >
-                    <div className='aside-img-profile'>
-                        <img src={user?.profile?.photo || 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'} />
-                    </div>
-                    <section className='aside-profile-content'>
-                        <div>
-                            <h1>{getFirstName()} {getLastName()}</h1>
-                            <p>{user?.plan}</p>
+                <div ref={downloadRef}>
+                    <footer className={`aside-profile ${isProfileOpen && 'aside-profile-open'}`} onClick={handleToggleProfile} >
+                        <div className='aside-img-profile'>
+                            <img src={user?.profile?.photo || 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'} />
                         </div>
-                        <section className='aside-btn-profile'>
-                            <button><Download size={15} /></button>
-                            <ChevronUpDown size={14} />
+                        <section className='aside-profile-content'>
+                            <div>
+                                <h1>{getFirstName()} {getLastName()}</h1>
+                                <p>{user?.plan}</p>
+                            </div>
+                            <section className='aside-btn-profile'>
+                                <button onClick={handleOpenDownload}><Download size={15} /></button>
+                                <ChevronUpDown size={14} />
+                            </section>
                         </section>
-                    </section>
-                </footer>
-                <ModalProfile open={isProfileOpen} onClose={() => setIsProfileOpen(false)} />
-                <ModalDownload open={false} onClose={() => setIsProfileOpen(false)} />
+                    </footer>
+                    <ModalProfile open={isProfileOpen} onClose={closeProfile} />
+                    <ModalDownload open={isDownloadOpen} onClose={closeDownload} />
+                </div>
             </div>
         </aside>
     )
