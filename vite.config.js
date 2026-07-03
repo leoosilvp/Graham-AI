@@ -11,8 +11,8 @@ export default defineConfig({
 
       manifest: {
         id: "/",
-        name: "Graham",
-        short_name: "Graham",
+        name: "Graham AI",
+        short_name: "Graham AI",
         description: "AI Assistant",
         start_url: "/",
         display: "standalone",
