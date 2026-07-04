@@ -30,6 +30,7 @@
 
 .tlui-menu-zone {
     border-left: none !important;
+    border-top: none !important;
 }
 
 @media (width < 780px) {
