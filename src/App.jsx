@@ -17,6 +17,7 @@ import Privacy from "./components/settings/Privacy"
 import Personalize from "./components/settings/Personalize"
 import Help from "./components/settings/Help"
 import Upgrade from "./routes/Upgrade"
+import Blackboard from "./routes/Blackboard"
 
 const App = () => {
 
@@ -38,6 +39,7 @@ const App = () => {
             <Route path="/chat/:id" element={<Chat />} />
             <Route path="search" element={<Search />} />
             <Route path="library" element={<Library />} />
+            <Route path="blackboard" element={<Blackboard />} />
             <Route path="settings" element={<Settings />} >
               <Route index element={<Navigate to='general' />} />
               <Route path="general" element={<General />} />

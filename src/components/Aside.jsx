@@ -1,6 +1,6 @@
 import '../css/aside.css'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { Check, ChevronUpDown, Code, Download, Edit, Folder, Frown, Search, Sidebar, Trash2, X } from '@geist-ui/icons'
+import { Check, ChevronUpDown, Code, Download, Edit, Folder, Frown, Type, Search, Sidebar, Trash2, X } from '@geist-ui/icons'
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { ChatService } from '../services/chatService'
 import { useUser } from '../hooks/useUser'
@@ -276,6 +276,7 @@ const Aside = () => {
 
                 <div ref={scrollRef} className={`aside-content-scrool ${isScrolled ? 'aside-content-scrolled' : ''}`}>
                     <button className='aside-btn' onClick={() => { navigate('/library'), closeAsideOnMobile() }}><Folder className='icon' size={19} /><p>Biblioteca</p></button>
+                    <button className='aside-btn' onClick={() => { navigate('/blackboard'), closeAsideOnMobile() }}><Type className='icon' size={19} /><p>Quadro</p></button>
                     <button className='aside-btn bloq' onClick={() => { navigate('/upgrade'), closeAsideOnMobile() }}><Code className='icon' size={19} /><p>Código</p><h3>Fazer Upgrade</h3></button>
 
                     <h2>Recentes</h2>

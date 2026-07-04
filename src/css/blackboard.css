@@ -1,0 +1,71 @@
+.blackboard-main {
+    position: relative;
+    width: 100%;
+    height: 100vh !important;
+    z-index: 0;
+    isolation: isolate !important;
+}
+
+.tl-theme__dark {
+    --tl-color-background: #000000 !important;
+    --tl-color-low: #000000 !important;
+    --tl-color-low-border: #1e1e1e !important;
+    --tl-color-panel: #0b0b0b !important;
+    --tl-color-panel-contrast: #1e1e1e !important;
+    --tl-color-muted-1: #161616 !important;
+    --tl-color-muted-2: #161616 !important;
+    --tl-color-grid: #1e1e1e !important;
+    --tl-color-divider: #1a1a1a !important;
+    --tl-color-text: #e8e8e8 !important;
+    --tl-color-text-0: #e8e8e8 !important;
+    --tl-color-text-1: #cfcfcf !important;
+}
+
+.tlui-main-toolbar__tools,
+.tlui-menu-zone,
+.tlui-style-panel__wrapper {
+    box-shadow: none !important;
+    border: 1px solid #1e1e1e !important;
+}
+
+.tlui-menu-zone {
+    border-left: none !important;
+}
+
+@media (width < 780px) {
+    .tlui-layout__mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100vw;
+        height: 100dvh;
+        padding: 15px 15px 5px;
+    }
+
+    .tlui-layout__bottom {
+        width: 100vw;
+        margin-top: auto;
+    }
+
+    .tlui-navigation-panel {
+        display: flex !important;
+        position: absolute !important;
+        top: 15px !important;
+        right: 15px !important;
+    }
+
+    .tlui-main-toolbar__extras__controls {
+        border: 1px solid #1e1e1e !important;
+    }
+
+    .tlui-layout__top__left {
+        display: none;
+    }
+
+    .tlui-main-toolbar__extras__controls {
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        border-radius: 10px;
+    }
+}

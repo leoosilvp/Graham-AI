@@ -24,6 +24,11 @@ const ChangeTitle = () => {
       return
     }
 
+    else if (path === '/blackboard') {
+      document.title = `Blackboard - Graham`
+      return
+    }
+
     else if (path === '/settings') {
       document.title = `Settings - Graham`
       return
