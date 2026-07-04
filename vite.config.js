@@ -36,6 +36,10 @@ export default defineConfig({
             type: "image/png"
           }
         ]
+      },
+
+      workbox: {
+        maximumFileSizeToCacheInBytes: 10 * 1024 * 1024
       }
 
     })
