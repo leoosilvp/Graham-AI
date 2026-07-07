@@ -15,7 +15,7 @@ const Blackboard = () => {
                 persistenceKey="example"
                 forceDarkMode={true}
                 onMount={handleMount}
-                licenseKey='tldraw-2026-07-18/ WyJsZ3hRdmpGTCIsWyIqIl0sMTYsIj IwMjYtMDctMTgiXQ. bs1Gcz9s7gskAP4XLUJhVRqA0JZXix KzE2awC01v+qwsnz8D+ RBjSQyKpJEJyCtq+ 0WhmIlIVgXNeBaARBt3Nw'
+                licenseKey='tldraw-leonardo-silva-2027-07-09/WyJzSG1WSGhLUiIsWyIqLmdyYWhhbS52dSJdLDksIjIwMjctMDctMDkiXQ.Nszl1HM+oPXF8Fv9w65f4Fc8GYlRsAeq29AYFg1OjSB1C/mCo1H4oU8fRqlq7GRHOHMGK23qHpJbAdbsSQ9J4g'
             />
         </main>
     )
