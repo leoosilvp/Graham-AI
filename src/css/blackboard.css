@@ -21,6 +21,10 @@
     --tl-color-text-1: #cfcfcf !important;
 }
 
+.tl-watermark_SEE-LICENSE {
+    display: none !important;
+}
+
 .tlui-main-toolbar__tools,
 .tlui-menu-zone,
 .tlui-style-panel__wrapper {
