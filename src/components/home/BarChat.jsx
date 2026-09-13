@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState, useCallback } from 'react'
-import { Send, Square, Plus, X } from '@geist-ui/icons'
+import { Square, Plus, X, ArrowUp, Send } from '@geist-ui/icons'
 import ModalUpload from './ModalUpload'
 
 const MAX_FILES = 5
@@ -188,16 +188,19 @@ const BarChat = ({
               aria-label="Parar geração"
               onClick={onStop}
             >
-              <Square size={18} />
+              <Square size={19} />
             </button>
           ) : (
             <button
-              className="bar-chat-send-btn"
-              aria-label="Enviar mensagem"
+              className={`bar-chat-send-btn ${displayValue ? 'active' : ''}`}
               disabled={!canSend}
               onClick={handleSend}
             >
-              <Send size={18} />
+              {displayValue ?
+                <ArrowUp size={18} className='icon' />
+                :
+                <Send size={18} className='icon' />
+              }
             </button>
           )}
         </div>

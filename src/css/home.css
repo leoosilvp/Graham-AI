@@ -53,22 +53,23 @@
 .bar-chat-main {
     display: flex;
     flex-direction: column;
-    width: 680px;
-    padding: 20px;
-    gap: 10px;
-    border: 1px solid #151515;
-    border-radius: 22px;
+    width: 650px;
+    padding: 8px;
+    gap: 7px;
+    border: 1.5px solid #191919;
+    border-radius: 15px;
     background: #0f0f0f;
     box-shadow: 0px 6px 10px 2px #060606;
+    transition: var(--transition);
 }
 
 .bar-chat-main:hover {
-    border-color: #202020;
+    border-color: #222222;
 }
 
 .bar-chat-main.active {
     width: 760px;
-    padding: 15px;
+    padding: 10px;
 }
 
 .bar-chat-main.active .bar-chat-textarea {
@@ -87,6 +88,7 @@
     max-height: 200px;
     border: none;
     outline: none;
+    padding: 2px 7px;
     background: transparent;
     font-size: 0.95rem;
     font-weight: 400;
@@ -119,12 +121,16 @@
     align-items: center;
     justify-content: center;
     border: none;
-    padding: 8px;
+    padding: 5px;
     background: transparent;
-    border-radius: 8px;
+    border-radius: 7px;
     cursor: pointer;
     transition: var(--transition);
     color: var(--gray-color-1);
+}
+
+.bar-chat-send-btn.active {
+    background: #d49c30;
 }
 
 .bar-chat-btns button:hover {
@@ -134,12 +140,12 @@
 .bar-chat-btns div {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
 }
 
 .bar-chat-btns div p {
     cursor: default;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--gray-color-2);
 }
 
