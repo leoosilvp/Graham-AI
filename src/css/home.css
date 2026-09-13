@@ -69,7 +69,6 @@
 
 .bar-chat-main.active {
     width: 760px;
-    padding: 10px;
 }
 
 .bar-chat-main.active .bar-chat-textarea {
@@ -84,7 +83,7 @@
     font-family: "Poppins", sans-serif;
     display: flex;
     width: 100%;
-    min-height: 45px;
+    min-height: 50px;
     max-height: 200px;
     border: none;
     outline: none;
@@ -121,7 +120,7 @@
     align-items: center;
     justify-content: center;
     border: none;
-    padding: 5px;
+    padding: 6px;
     background: transparent;
     border-radius: 7px;
     cursor: pointer;
@@ -130,7 +129,7 @@
 }
 
 .bar-chat-send-btn.active {
-    background: #d49c30;
+    background: #da9c20;
 }
 
 .bar-chat-btns button:hover {
@@ -168,12 +167,12 @@
 .modal-upload {
     position: absolute;
     width: 295px;
-    bottom: 270px;
+    bottom: 273px;
     padding: 5px;
-    border-radius: 13px;
-    border: 1px solid #1f1f1f;
+    border-radius: 10px;
+    border: 1.5px solid #1e1e1e;
     background: #161616;
-    box-shadow: 0 0 10px #00000057;
+    box-shadow: 0 0 10px #00000098;
     z-index: 10;
 }
 
@@ -310,17 +309,17 @@
 
 .tool-bar-main div {
     display: flex;
-    gap: 10px;
+    gap: 13px;
 }
 
 .tool-bar-main div button {
     display: flex;
     align-items: center;
-    padding: 7px 10px;
-    background: #141414;
+    padding: 7px 12px;
+    background: #121212;
     color: #c3c3c3;
     border: none;
-    border-radius: 8px;
+    border-radius: 6px;
     gap: 6px;
     cursor: pointer;
     transition: var(--transition);

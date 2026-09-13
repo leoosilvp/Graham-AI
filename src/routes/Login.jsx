@@ -5,7 +5,7 @@ import { useUser } from '../hooks/useUser'
 import { login, register } from '../services/auth'
 import logo from '../assets/svg/logo.svg'
 import icon from '../assets/svg/icon-light.svg'
-import { Lock, Mail, Unlock, User } from '@geist-ui/icons'
+import { Email, Locked, Unlocked, User } from '@carbon/icons-react'
 import imgLoading from '../assets/img/loading.gif'
 
 const Login = () => {
@@ -106,7 +106,7 @@ const Login = () => {
                     )}
 
                     <article className='login-input'>
-                        <Mail size={16} />
+                        <Email size={16} />
 
                         <input
                             type="email"
@@ -126,7 +126,7 @@ const Login = () => {
                             onClick={() => setShowPassword((prev) => !prev)}
                             aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
                         >
-                            {showPassword ? <Unlock size={16} /> : <Lock size={16} />}
+                            {showPassword ? <Unlocked size={16} /> : <Locked size={16} />}
                         </button>
 
                         <input
