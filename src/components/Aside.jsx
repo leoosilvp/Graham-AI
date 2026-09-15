@@ -1,6 +1,6 @@
 import '../css/aside.css'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { Check, ChevronUpDown, Code, Download, Edit, Folder, Frown, Search, Sidebar, Trash2, X, Minimize } from '@geist-ui/icons'
+import { Folders, NewTab, OpenPanelLeft, Search, Code, Template, TrashCan, Edit, Close, Checkmark, Download, ChevronSort, FaceDissatisfied } from '@carbon/icons-react'
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { ChatService } from '../services/chatService'
 import { useUser } from '../hooks/useUser'
@@ -266,25 +266,25 @@ const Aside = () => {
                 <Link to='/new'>
                     <img src={logo} alt="logo ASTRA" draggable={false} />
                 </Link>
-                <button onClick={handleToggleAside}><Sidebar size={16} /></button>
+                <button onClick={handleToggleAside}><OpenPanelLeft size={16} /></button>
             </header>
             <section className='aside-content'>
                 <div className='aside-first-btn'>
-                    <button className='aside-btn' onClick={() => { handleNewChat(), closeAsideOnMobile() }}><Edit className='icon' size={19} /><p>Novo bate-papo</p><span>Shift + a</span></button>
+                    <button className='aside-btn' onClick={() => { handleNewChat(), closeAsideOnMobile() }}><NewTab className='icon' size={19} /><p>Novo bate-papo</p><span>Shift + a</span></button>
                     <button className='aside-btn' onClick={() => { navigate('/search'), closeAsideOnMobile() }}><Search className='icon' size={19} /><p>Procurar</p><span>Ctrl + p</span></button>
                 </div>
 
                 <div ref={scrollRef} className={`aside-content-scrool ${isScrolled ? 'aside-content-scrolled' : ''}`}>
-                    <button className='aside-btn' onClick={() => { navigate('/library'), closeAsideOnMobile() }}><Folder className='icon' size={19} /><p>Biblioteca</p></button>
+                    <button className='aside-btn' onClick={() => { navigate('/library'), closeAsideOnMobile() }}><Folders className='icon' size={19} /><p>Biblioteca</p></button>
                     <button className='aside-btn bloq' onClick={() => { navigate('/upgrade'), closeAsideOnMobile() }}><Code className='icon' size={19} /><p>Código</p><h3>Fazer Upgrade</h3></button>
-                    <button className='aside-btn' onClick={() => { navigate('/blackboard'), closeAsideOnMobile() }}><Minimize className='icon' size={19} /><p>Quadro</p></button>
+                    <button className='aside-btn' onClick={() => { navigate('/blackboard'), closeAsideOnMobile() }}><Template className='icon' size={19} /><p>Quadro</p></button>
 
                     <h2>Recentes</h2>
                     <section className='aside-grid-chats'>
 
                         {loading && <div className="chat-aside-loading"><div className='loader' /></div>}
 
-                        {!loading && chats.length === 0 && (<p className="chat-nochats"><Frown size={17} /> Nenhum chat ainda!</p>)}
+                        {!loading && chats.length === 0 && (<p className="chat-nochats"><FaceDissatisfied size={17} /> Nenhum chat ainda!</p>)}
 
                         {chats.map(chat => {
                             const isActive = chat.id === activeIdFromRoute
@@ -312,17 +312,17 @@ const Aside = () => {
                                     <div onClick={(e) => e.preventDefault()}>
                                         {isEditing ? (
                                             <>
-                                                <button onClick={cancelEditing}><X size={14} /></button>
-                                                <button onClick={() => confirmEditing(chat.id)}><Check size={14} /></button>
+                                                <button onClick={cancelEditing}><Close size={15} /></button>
+                                                <button onClick={() => confirmEditing(chat.id)}><Checkmark size={14} /></button>
                                             </>
                                         ) : isDeleting ? (
                                             <>
-                                                <button onClick={cancelDeleting}><X size={14} /></button>
-                                                <button onClick={() => confirmDelete(chat.id)}><Check size={14} /></button>
+                                                <button onClick={cancelDeleting}><Close size={15} /></button>
+                                                <button onClick={() => confirmDelete(chat.id)}><Checkmark size={14} /></button>
                                             </>
                                         ) : (
                                             <>
-                                                <button onClick={() => startDeleting(chat.id)}><Trash2 size={14} /></button>
+                                                <button onClick={() => startDeleting(chat.id)}><TrashCan size={14} /></button>
                                                 <button onClick={() => startEditing(chat)}><Edit size={14} /></button>
                                             </>
                                         )}
@@ -346,8 +346,8 @@ const Aside = () => {
                                 <p>{user?.plan}</p>
                             </div>
                             <section className='aside-btn-profile'>
-                                {isPWA ? '' : <button onClick={handleOpenDownload}><Download size={15} /></button>}
-                                <ChevronUpDown size={14} />
+                                {isPWA ? '' : <button onClick={handleOpenDownload}><Download size={14} /></button>}
+                                <ChevronSort size={14} />
                             </section>
                         </section>
                     </footer>

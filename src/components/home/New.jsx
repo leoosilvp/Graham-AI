@@ -6,7 +6,7 @@ import { useChat } from "../../hooks/useChat"
 import ToolBar from "./ToolBar"
 
 const New = () => {
-    
+
     const { user } = useUser()
 
     const [previewValue, setPreviewValue] = useState('')
@@ -19,9 +19,9 @@ const New = () => {
         `${FirstName()} está de volta!!`,
         `Boa madrugada, ${FirstName()}`,
         `Encontre padrões..`,
-        `${FirstName()}, pronto para começar.`,
-        `Bem-vindo de volta, ${FirstName()}!`,
-        `${FirstName()}, bom te ver novamente.`,
+        `${FirstName()}, pronto?`,
+        `Bom dia, ${FirstName()}!`,
+        `bom te ver, ${FirstName()}.`,
         `Pronto de novo, ${FirstName()}?`,
         `Siga a lógica.`,
         `Onde paramos, ${FirstName()}?`,
@@ -51,7 +51,7 @@ const New = () => {
     return (
         <main className="new-main">
             <section className="new-welcome">
-                <img src={icon} draggable={false} />
+                <img src={icon} draggable={false} title="Oi, sou o Graham!" />
                 <h1 style={{ '--chars': welcome.length }} className="typing">
                     {welcome}
                 </h1>

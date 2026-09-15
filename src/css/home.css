@@ -29,11 +29,13 @@
     align-items: center;
     gap: 15px;
     margin-bottom: 35px;
+    cursor: default;
 }
 
 .new-welcome img {
     display: flex;
     width: 40px;
+    cursor: pointer;
 }
 
 .new-welcome h1 {
@@ -129,7 +131,7 @@
 }
 
 .bar-chat-send-btn.active {
-    background: #da9c20;
+    background: #d89818;
 }
 
 .bar-chat-btns button:hover {

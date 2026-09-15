@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState, useCallback } from 'react'
 import { Square, Plus, X, ArrowUp, Send } from '@geist-ui/icons'
+import { Return } from '@carbon/icons-react'
 import ModalUpload from './ModalUpload'
 
 const MAX_FILES = 5
@@ -196,10 +197,13 @@ const BarChat = ({
               disabled={!canSend}
               onClick={handleSend}
             >
-              {displayValue ?
-                <ArrowUp size={18} className='icon' />
+              {active ?
+                <Return size={18} />
                 :
-                <Send size={18} className='icon' />
+                displayValue ?
+                  <ArrowUp size={18} className='icon' />
+                  :
+                  <Send size={18} className='icon' />
               }
             </button>
           )}
