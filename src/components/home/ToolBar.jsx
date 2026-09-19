@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { ChevronRight, Code, Coffee, Edit3, Function, PieChart, X } from '@geist-ui/icons'
+import { Close, Code, ChevronRight, Cafe, FunctionMath, ChartMedian, Pen } from '@carbon/icons-react'
 
 const MAX_PREVIEW_CHARS = 143
 
@@ -33,7 +33,7 @@ const TOOLS = [
     {
         id: 'study',
         label: 'Estudar',
-        icon: Coffee,
+        icon: Cafe,
         prompts: [
             {
                 short: 'Aprender um conceito difícil',
@@ -56,7 +56,7 @@ const TOOLS = [
     {
         id: 'write',
         label: 'Escrever',
-        icon: Edit3,
+        icon: Pen,
         prompts: [
             {
                 short: 'Escrever do zero, sem clichê',
@@ -79,7 +79,7 @@ const TOOLS = [
     {
         id: 'charts',
         label: 'Gráficos',
-        icon: PieChart,
+        icon: ChartMedian,
         prompts: [
             {
                 short: 'Construir o gráfico certo, com código',
@@ -102,7 +102,7 @@ const TOOLS = [
     {
         id: 'math',
         label: 'Cálculos',
-        icon: Function,
+        icon: FunctionMath,
         prompts: [
             {
                 short: 'Resolver com raciocínio explícito',
@@ -195,7 +195,7 @@ const ToolBar = ({ onPreview, onSend }) => {
                             onClick={closeModal}
                             aria-label="Fechar"
                         >
-                            <X size={18} />
+                            <Close size={18} />
                         </button>
                     </header>
 
@@ -213,7 +213,7 @@ const ToolBar = ({ onPreview, onSend }) => {
                                 }}
                             >
                                 {prompt.short}
-                                <ChevronRight className='icon' color='#5d5d5d' size={18} />
+                                <ChevronRight className='icon' color='#5d5d5d' size={16} />
                             </button>
                         ))}
                     </section>

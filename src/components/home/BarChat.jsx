@@ -1,6 +1,5 @@
 import { useRef, useEffect, useState, useCallback } from 'react'
-import { Square, Plus, X, ArrowUp, Send } from '@geist-ui/icons'
-import { Return } from '@carbon/icons-react'
+import { Return, VoiceMode, ArrowUp, Close, Add, SquareOutline } from '@carbon/icons-react'
 import ModalUpload from './ModalUpload'
 
 const MAX_FILES = 5
@@ -126,7 +125,7 @@ const BarChat = ({
           {files.map((item, index) => (
             <article key={`${item.file.name}-${index}`} className="bar-chat-chip">
               <button className="bar-chat-chip-remove" title={`Excluir`} onClick={() => removeFile(index)}>
-                <X size={14} />
+                <Close size={14} />
               </button>
 
               {item.preview ? (
@@ -177,7 +176,7 @@ const BarChat = ({
           disabled={isLoading || files.length >= MAX_FILES}
           onClick={() => setModalOpen((prev) => !prev)}
         >
-          <Plus size={19} />
+          <Add size={23} />
         </button>
 
         <div className="bar-chat-right">
@@ -189,7 +188,7 @@ const BarChat = ({
               aria-label="Parar geração"
               onClick={onStop}
             >
-              <Square size={19} />
+              <SquareOutline size={20} />
             </button>
           ) : (
             <button
@@ -198,12 +197,12 @@ const BarChat = ({
               onClick={handleSend}
             >
               {active ?
-                <Return size={18} />
+                <Return size={20} />
                 :
                 displayValue ?
                   <ArrowUp size={18} className='icon' />
                   :
-                  <Send size={18} className='icon' />
+                  <VoiceMode size={20} className='icon' />
               }
             </button>
           )}

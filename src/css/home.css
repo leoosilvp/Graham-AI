@@ -57,7 +57,7 @@
     flex-direction: column;
     width: 650px;
     padding: 8px;
-    gap: 7px;
+    gap: 3px;
     border: 1.5px solid #191919;
     border-radius: 15px;
     background: #0f0f0f;
@@ -122,7 +122,8 @@
     align-items: center;
     justify-content: center;
     border: none;
-    padding: 6px;
+    width: 30px;
+    height: 30px;
     background: transparent;
     border-radius: 7px;
     cursor: pointer;
@@ -169,11 +170,11 @@
 .modal-upload {
     position: absolute;
     width: 295px;
-    bottom: 273px;
+    margin-top: -133px;
     padding: 5px;
     border-radius: 10px;
     border: 1.5px solid #1e1e1e;
-    background: #161616;
+    background: #121212;
     box-shadow: 0 0 10px #00000098;
     z-index: 10;
 }
@@ -190,7 +191,7 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 10px;
+    padding: 8px 10px;
     border: none;
     border-radius: 8px;
     background: transparent;
@@ -203,9 +204,11 @@
 }
 
 .modal-upload button p {
+    font-family: "Poppins", sans-serif;
     display: flex;
     align-items: center;
-    font-size: 0.9rem;
+    font-size: 0.82rem;
+    font-weight: 300;
     gap: 10px;
 }
 

@@ -26,13 +26,13 @@ const ModalProfile = ({ open, onClose }) => {
     return (
         <article className="modal-profile">
             <p>{user?.email}</p>
-            <button onClick={() => { navigate('/settings'), onClose?.() }}><Settings size={18} color={'var(--light-color)'} />Configurações</button>
-            <button onClick={() => { navigate('/settings/privacy'), onClose?.() }}><Rule color={'var(--light-color)'} size={18} />Privacidade</button>
+            <button onClick={() => { navigate('/settings'), onClose?.() }}><Settings size={16} color={'var(--light-color)'} />Configurações</button>
+            <button onClick={() => { navigate('/settings/privacy'), onClose?.() }}><Rule color={'var(--light-color)'} size={16} />Privacidade</button>
             <hr />
-            <button onClick={() => { navigate('/upgrade'), onClose?.() }}><ArrowUpRight color={'var(--light-color)'} size={18} />Fazer Upgrade</button>
-            <button onClick={() => { navigate('/settings/help'), onClose?.() }}><Help color={'var(--light-color)'} size={18} />Ajuda</button>
+            <button onClick={() => { navigate('/upgrade'), onClose?.() }}><ArrowUpRight color={'var(--light-color)'} size={16} />Fazer Upgrade</button>
+            <button onClick={() => { navigate('/settings/help'), onClose?.() }}><Help color={'var(--light-color)'} size={16} />Ajuda</button>
             <hr />
-            <button onClick={handleLogout}><Logout color={'var(--light-color)'} size={18} />Sair</button>
+            <button onClick={handleLogout}><Logout color={'var(--light-color)'} size={16} />Sair</button>
         </article>
     )
 }
